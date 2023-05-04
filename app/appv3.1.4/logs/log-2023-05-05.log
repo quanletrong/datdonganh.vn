@@ -1,0 +1,45 @@
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant EMAIL_SENDER - assumed 'EMAIL_SENDER' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\config\config_custom.php 65
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant EMAIL_SENDER - assumed 'EMAIL_SENDER' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\config\config_custom.php 65
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\controllers\login\Login.php 178
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\controllers\login\Login.php 178
+ERROR - 2023-05-05 00:00:40 --> Severity: Warning --> Use of undefined constant SSO_LOGIN_URL - assumed 'SSO_LOGIN_URL' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\controllers\login\Login.php 180
+ERROR - 2023-05-05 00:00:40 --> 404 Page Not Found: SSO_LOGIN_URL/SSO_LOGIN_URL
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant EMAIL_SENDER - assumed 'EMAIL_SENDER' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\config\config_custom.php 65
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant EMAIL_SENDER - assumed 'EMAIL_SENDER' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\config\config_custom.php 65
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:48:25 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:48:25 --> Severity: error --> Exception: Unable to locate the model you have specified: Account_model E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 344
+ERROR - 2023-05-05 00:51:46 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:51:46 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:51:46 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:51:46 --> Severity: error --> Exception: Unable to locate the model you have specified: Account_model E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 344
+ERROR - 2023-05-05 00:55:54 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:55:54 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:55:54 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1281
+ERROR - 2023-05-05 00:55:54 --> Severity: error --> Exception: Unable to locate the model you have specified: Account_model E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 344
+ERROR - 2023-05-05 00:58:32 --> Severity: Warning --> Use of undefined constant SSO_SERVICES - assumed 'SSO_SERVICES' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1282
+ERROR - 2023-05-05 00:58:32 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1282
+ERROR - 2023-05-05 00:58:32 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 1282
+ERROR - 2023-05-05 00:58:32 --> Severity: error --> Exception: Unable to locate the model you have specified: Account_model E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 344
+ERROR - 2023-05-05 00:59:17 --> Severity: error --> Exception: Unable to locate the model you have specified: Account_model E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Loader.php 344
+ERROR - 2023-05-05 01:01:07 --> Severity: Warning --> Use of undefined constant SSO_DOMAIN - assumed 'SSO_DOMAIN' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\controllers\login\Login.php 175
+ERROR - 2023-05-05 01:01:07 --> Severity: Warning --> Use of undefined constant SSO_KEY - assumed 'SSO_KEY' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\controllers\login\Login.php 175
+ERROR - 2023-05-05 01:01:07 --> Severity: Warning --> Use of undefined constant SSO_LOGIN_URL - assumed 'SSO_LOGIN_URL' (this will throw an Error in a future version of PHP) E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\controllers\login\Login.php 177
+ERROR - 2023-05-05 01:01:07 --> 404 Page Not Found: SSO_LOGIN_URL/SSO_LOGIN_URL
+ERROR - 2023-05-05 01:51:57 --> 404 Page Not Found: login/Login/login
+ERROR - 2023-05-05 01:53:04 --> 404 Page Not Found: login/Login/login
+ERROR - 2023-05-05 01:55:24 --> 404 Page Not Found: login/Login/login
+ERROR - 2023-05-05 01:55:51 --> 404 Page Not Found: Auth/auth
+ERROR - 2023-05-05 01:56:03 --> 404 Page Not Found: Auth/auth
+ERROR - 2023-05-05 02:10:24 --> Severity: Warning --> Cannot modify header information - headers already sent E:\xampp\htdocs\datdonganh.vn\ci_core\v3.1.4\core\Common.php 570
+ERROR - 2023-05-05 02:15:41 --> Severity: Notice --> Undefined variable: lang_code E:\xampp\htdocs\datdonganh.vn\app\appv3.1.4\views\v2023\header_view.php 18
