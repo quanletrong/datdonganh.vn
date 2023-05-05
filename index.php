@@ -1,5 +1,5 @@
 <?php
-define('CUSTOM_CHECK_GLB', 'glb');
+define('CUSTOM_CHECK_GLB', 'glb'); 
 /*
  * --------------------------------------------------------------------
  * LOAD THE GLOBAL CONFIG FILE
