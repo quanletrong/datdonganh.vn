@@ -13,7 +13,7 @@ class JWT
 			'ctt'=>date('Y-m-d H:i:s')
 		);
 		$type = 'JWT';
-		return self::Encode($payLoadData, $algo, $key, $type, $JSON_UNESCAPED_UNICODE_MODE);
+		return self::Encode($payLoadData, $algo, $key='', $type, $JSON_UNESCAPED_UNICODE_MODE);
 	}
 	
 	public static function Encode($payloadData, $algo = 'HS256', $key, $type = 'JWT', $JSON_UNESCAPED_UNICODE_MODE = FALSE)

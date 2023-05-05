@@ -3,18 +3,18 @@ if (!defined('CUSTOM_CHECK_GLB')){header("Location: upgrade");die();}
 else
 {
 	// define http protocol
-	define('HTTP_PROTOCOL', 'http');
+	define('HTTP_PROTOCOL', 'https');
 
 	//safelist db
-    define('DB_MASTER_HOST', '127.0.0.1');
-    define('DB_MASTER_USER', 'root');
-    define('DB_MASTER_PASS', '');
-    define('DB_MASTER_DBNAME', 'datdonganh');
+    define('DB_MASTER_HOST', '82.180.152.103');
+    define('DB_MASTER_USER', 'u966959669_root');
+    define('DB_MASTER_PASS', 'Lequan@FJ2002_v1');
+    define('DB_MASTER_DBNAME', 'u966959669_datdonganh');
 
-    define('DB_SLAVE_HOST', '127.0.0.1');
-    define('DB_SLAVE_USER', 'root');
-    define('DB_SLAVE_PASS', '');
-    define('DB_SLAVE_DBNAME', 'datdonganh');
+    define('DB_SLAVE_HOST', '82.180.152.103');
+    define('DB_SLAVE_USER', 'u966959669_root');
+    define('DB_SLAVE_PASS', 'Lequan@FJ2002_v1');
+    define('DB_SLAVE_DBNAME', 'u966959669_datdonganh');
 
 	// email
 	define('EMAIL_SMTP_HOST', '');
