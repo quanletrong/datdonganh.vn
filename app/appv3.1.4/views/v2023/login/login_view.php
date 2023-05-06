@@ -31,8 +31,14 @@
     <div class="container h-50 d-flex justify-content-center">
         <div class="card shadow my-auto" style="width: 100%; max-width: 500px;">
             <div class="card-body">
-                <form action="<?php echo site_url('login/auth?url='.$currUrl) ?>" method="post">
+                <form action="<?php echo site_url('login/auth?url=' . $currUrl) ?>" method="post">
                     <h4 class="text-center text-danger">Đăng nhập hệ thống</h4>
+                    <?php if ($login_fail != '') { ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $login_fail ?>
+                        </div>
+                    <?php } ?>
+                    
                     <input type="text" class="form-control mb-3" name="username" placeholder="Nhập tên đăng nhập">
                     <input type="password" class="form-control mb-3" name="password" placeholder="Nhập mật khẩu">
                     <input type="submit" class="btn btn-danger" value="Đăng nhập">

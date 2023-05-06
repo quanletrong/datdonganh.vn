@@ -34,24 +34,20 @@ class Login extends MY_Controller{
 
         $currUrl = $currUrl != '' ? $currUrl : site_url('home', $this->_langcode);
 
-        if($userame =='admin' && md5($password) == md5('admin1234')) 
+        $userInfo = $this->Login_model->get_user_info_by_username($userame);
+
+        if(!empty($userInfo) && $userInfo['password'] == md5($password)) 
         {
 
-            $userInfo['role']          = 1;
-            $userInfo['user_id']       = 1;
-            $userInfo['username']      = 'Administrator';
-            $userInfo['phone']         = '0987654321';
-            $userInfo['email_address'] = 'admin@datdonganh.vn';
-            
             // unset all session before init
             session_unset();
             session_regenerate_id(true);
 
             $this->session->set_userdata('uname', $userInfo['username']);
-            $this->session->set_userdata('uid', $userInfo['user_id']);
+            $this->session->set_userdata('uid', $userInfo['id_user']);
             $this->session->set_userdata('role', $userInfo['role']);
-            $this->session->set_userdata('phone', $userInfo['phone']);
-            $this->session->set_userdata('email', $userInfo['email_address']);
+            $this->session->set_userdata('phone', $userInfo['phonenumber']);
+            $this->session->set_userdata('email', $userInfo['email']);
    
             //Update login date TODO: có dùng
             // $this->Login_model->user_last_login_log($userInfo['user_id']);
@@ -64,6 +60,7 @@ class Login extends MY_Controller{
         {
             dbClose();
             //redirect to login
+            $this->session->set_userdata('login_fail', 'Sai tài khoản hoặc mật khẩu!');
             redirect(site_url('login?url=' . urlencode($currUrl), $this->_langcode));
             die();
         }
@@ -108,6 +105,8 @@ class Login extends MY_Controller{
         }
         else
         {
+            $data['login_fail'] = $this->session->has_userdata('login_fail') ? $this->session->userdata('login_fail') : '';
+            $this->session->unset_userdata('login_fail');
             $data['currUrl'] = $currUrl;
             $this->load->view($this->_template_f . 'login/login_view', $data);
         }
