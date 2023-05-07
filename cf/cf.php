@@ -55,3 +55,9 @@ define('SESSION_CONFIG_MATCH_IP', FALSE);
 define('SESSION_CONFIG_TIME_TO_UPDATE', 300);
 define('SESSION_CONFIG_REGENERATE_DESTROY', TRUE);
 define('SESSION_CONFIG_TIME_EXPIRE', 28800);
+
+
+// ROLE
+define('ADMIN', '1');
+define('SALE', '2');
+define('USER', '3');
