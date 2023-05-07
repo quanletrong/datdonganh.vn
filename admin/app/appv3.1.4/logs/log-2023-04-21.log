@@ -1,0 +1,8 @@
+ERROR - 2023-04-21 11:37:53 --> Severity: Notice --> Undefined variable: platforms C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:37:53 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:37:59 --> Severity: Notice --> Undefined variable: platforms C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:37:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:55:42 --> Severity: Notice --> Undefined variable: platforms C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:55:42 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:55:46 --> Severity: Notice --> Undefined variable: platforms C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
+ERROR - 2023-04-21 11:55:46 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\safelist\app\appv3.1.4\views\v2023\category\category_add_view.php 50
