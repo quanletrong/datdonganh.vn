@@ -3,6 +3,8 @@ if (!defined('CUSTOM_CHECK_GLB')) {
         header("Location: upgrade");
         die();
 }
+date_default_timezone_set("Asia/Ho_Chi_Minh");
+
 // define common config
 DEFINE('DOMAIN_NAME', $_SERVER['SERVER_NAME']); // define domain name
 // NOTE: remove all empty line
@@ -11,6 +13,8 @@ DEFINE('LOGOUT_MOD', 'logout'); // define logout controller name
 
 // include custom info for templete
 include_once('cfsite.php');
+
+define('PUBLIC_UPLOAD_PATH', 'uploads/images/');
 
 //define upload folder
 DEFINE('UPLOAD_FOLDER_PATH', 'uploads/');// folder nay can config write permission tren server
