@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Commune_model extends CI_Model
+class Bds_model extends CI_Model
 {	
 	public function __construct()
     {
@@ -8,14 +8,14 @@ class Commune_model extends CI_Model
         parent::__construct();
     }
 
-    function add($name, $type, $status, $image, $id_user) {
+    function add($name, $status, $id_user) {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "INSERT INTO tbl_commune_ward (name, type, status, image, id_user, create_time) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_street (name, status, id_user, create_time) VALUES (?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
         if($stmt)
         {
-            $param = [$name, $type, $status, $image, $id_user, date('Y-m-d H:i:s')];
+            $param = [$name, $status, $id_user, date('Y-m-d H:i:s')];
 
             if($stmt->execute($param))
             {
@@ -28,15 +28,14 @@ class Commune_model extends CI_Model
         return $execute;
     }
 
-    function get_info($id_commune) {
+    function get_info($id_street) {
         $data = [];
         $iconn = $this->db->conn_id;
-        $sql = "SELECT * FROM tbl_commune_ward WHERE id_commune_ward = ?";
+        $sql = "SELECT * FROM tbl_street WHERE id_street = ?";
         $stmt = $iconn->prepare($sql);
         if($stmt)
         {
-            // $stmt->bindParam(':id_commune', $id_commune, PDO::PARAM_STR);
-            if($stmt->execute([$id_commune]))
+            if($stmt->execute([$id_street]))
             {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
             } else {
@@ -50,30 +49,26 @@ class Commune_model extends CI_Model
     function get_list($status='-1') {
         $data = [];
         $iconn = $this->db->conn_id;
+        $where = '';
+        if($status != '-1'){
+            $where = "WHERE A.status =? ";
+        }
 
-        $where = 'WHERE 1=1 ';
-        $where .= $status != '-1' ? " AND A.status =? " : "";
-
-        $sql = "
+        $sql ="
         SELECT A.*, B.username 
-        FROM tbl_commune_ward as A 
+        FROM tbl_street as A 
         LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
-
-        ORDER BY id_commune_ward DESC";
+        $where
+        ORDER BY A.id_street DESC";
         $stmt = $iconn->prepare($sql);
         if($stmt)
         {
-            if($stmt->execute())
+            if($stmt->execute([$status]))
             {
                 if($stmt->rowCount() > 0)
                 {
                     while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                     {
-                        $row['image_path'] = '';
-                        $year = date('Y', strtotime($row['create_time']));
-                        $month = date('m', strtotime($row['create_time']));
-                        $row['image_path'] = ROOT_DOMAIN.PUBLIC_UPLOAD_PATH.$year.'/'.$month.'/'.$row['image'];
-
                         $data[] = $row;
                     }
                 }
@@ -85,14 +80,14 @@ class Commune_model extends CI_Model
         return $data;
     }
 
-    function edit($id_commune, $name, $type, $status, $image) {
+    function edit($id_street, $name, $status) {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "UPDATE tbl_commune_ward SET name=?, type=?, status=?, image=?, update_time=? WHERE id_commune_ward=?";
+        $sql = "UPDATE tbl_street SET name=?, status=?, update_time=? WHERE id_street=?";
         $stmt = $iconn->prepare($sql);
         if($stmt)
         {
-            $param = [$name, $type, $status, $image, date('Y-m-d H:i:s'), $id_commune];
+            $param = [$name, $status, date('Y-m-d H:i:s'), $id_street];
 
             if($stmt->execute($param))
             {
@@ -105,14 +100,14 @@ class Commune_model extends CI_Model
         return $execute;
     }
 
-    function delete($id_commune) {
+    function delete($id_street) {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "DELETE FROM tbl_commune_ward WHERE id_commune_ward=?";
+        $sql = "DELETE FROM tbl_street WHERE id_street=?";
         $stmt = $iconn->prepare($sql);
         if($stmt)
         {
-            if($stmt->execute([$id_commune]))
+            if($stmt->execute([$id_street]))
             {
                 $execute = true;
             } else {

@@ -22,7 +22,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid pb-5">
-            <form id="frm_bds" action="<?= site_url('bds/add') ?>" method="post">
+            <form id="frm_bds" action="<?= site_url('bds/add_submit') ?>" method="post">
                 <!-- Vị trí bất động sản -->
                 <div class="card card-primary">
                     <div class="card-header">
@@ -40,8 +40,9 @@
                                 <div class="form-group">
                                     <label>Đường</label>
                                     <select class="select2" style="width: 100%;" name="street">
-                                        <option value="1">ASC</option>
-                                        <option value="2">DESC</option>
+                                        <?php foreach ($list_street as $street) { ?>
+                                            <option value="<?= $street['id_street'] ?>"><?= $street['name'] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -49,8 +50,9 @@
                                 <div class="form-group">
                                     <label>Xã:</label>
                                     <select class="select2" style="width: 100%;" name="commune">
-                                        <option selected>ASC</option>
-                                        <option>DESC</option>
+                                        <?php foreach ($list_commune as $cmn) { ?>
+                                            <option value="<?= $cmn['id_commune_ward'] ?>"><?= $cmn['name'] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -88,16 +90,17 @@
                                 <div class="form-group">
                                     <label>Nằm trong dự án bất động sản</label>
                                     <select class="select2" style="width: 100%;" name="project">
-                                        <option value="1">ASC</option>
-                                        <option value="2">DESC</option>
+
+                                    </select>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Loại hình bất động sản:</label>
                                     <select class="select2" style="width: 100%;" name="type">
-                                        <option value="1">ASC</option>
-                                        <option value="2">DESC</option>
+                                        <?php foreach ($cf_bds['type'] as $id => $name) { ?>
+                                            <option value="<?= $id ?>"><?= $name ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
@@ -155,107 +158,91 @@
                                 <div class="form-group">
                                     <label>Hướng nhà:</label>
                                     <select class="select2" style="width: 100%;" name="direction">
-                                        <option value="1">TAG 1</option>
-                                        <option value="2">TAG 2</option>
+                                        <option>Chọn</option>
+                                        <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
+                                            <option value="<?= $id ?>"><?= $name ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Số toilet:</label>
                                     <select class="select2" style="width: 100%;" name="toilet">
-                                        <option value="1">TAG 1</option>
-                                        <option value="2">TAG 2</option>
+                                        <option>Chọn</option>
+                                        <?php foreach ($cf_bds['toilet'] as $id => $name) { ?>
+                                            <option value="<?= $id ?>"><?= $name ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Số tầng:</label>
                                     <select class="select2" style="width: 100%;" name="floor">
-                                        <option value="1">TAG 1</option>
-                                        <option value="2">TAG 2</option>
+                                        <option>Chọn</option>
+                                        <?php foreach ($cf_bds['floor'] as $id => $name) { ?>
+                                            <option value="<?= $id ?>"><?= $name ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Ngày hết hạn:</label>
-                                    <input class="form-control" type="text" name="" name="expired">
+                                    <input class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="expired">
+                                    <small>Người dùng vẫn có thể xem được bài đăng hết hạn</small>
                                 </div>
                                 <div class="form-group">
-                                    <label>Diện tích:</label>
+                                    <label>Diện tích (m2):</label>
                                     <input class="form-control" type="text" name="acreage">
                                 </div>
                                 <div class="form-group">
-                                    <label>Đường vào:</label>
-                                    <select class="select2" style="width: 100%;" name="road_surface">
-                                        <option value="1">TAG 1</option>
-                                        <option value="2">TAG 2</option>
-                                    </select>
+                                    <label>Đường vào (mét):</label>
+                                    <input class="form-control" type="text" name="road_surface">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Phòng ngủ:</label>
                                     <select class="select2" style="width: 100%;" name="bedroom">
-                                        <option value="1">1 phòng ngủ</option>
-                                        <option value="2">2 phòng ngủ</option>
-                                        <option value="3">3 phòng ngủ</option>
-                                        <option value="4">4 phòng ngủ</option>
-                                        <option value="5">5 phòng ngủ</option>
-                                        <option value="6">6 phòng ngủ</option>
-                                        <option value="7">7 phòng ngủ</option>
-                                        <option value="8">8 phòng ngủ</option>
-                                        <option value="9">9 phòng ngủ</option>
-                                        <option value="10">10 phòng ngủ</option>
+                                        <option>Chọn</option>
+                                        <?php foreach ($cf_bds['bedroom'] as $id => $name) { ?>
+                                            <option value="<?= $id ?>"><?= $name ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group d-flex">
                                     <label class="d-flex w-25">Loại tin</label>
                                     <div class="d-flex w-100">
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="bds_type_1" name="loai_tin" value="0" checked>
-                                            <label for="bds_type_1" class="custom-control-label">Thường</label>
-                                        </div>
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="bds_type_2" name="loai_tin" value="1">
-                                            <label for="bds_type_2" class="custom-control-label">VIP</label>
-                                        </div>
+                                        <?php foreach ($cf_bds['is_hot'] as $id => $name) { ?>
+                                            <div class="custom-control custom-radio" style="width: 30%;">
+                                                <input class="custom-control-input" type="radio" id="is_hot_<?= $id ?>" name="is_hot" value="<?= $id ?>" <?= $id == 1 ? 'checked' : '' ?>>
+                                                <label for="is_hot_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
                                 <div class="form-group d-flex">
                                     <label class="w-25">Nội thất</label>
                                     <div class="d-flex w-100">
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="noi_that_1" name="noi_that" value="1" checked>
-                                            <label for="noi_that_1" class="custom-control-label">Đầy đủ</label>
-                                        </div>
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="noi_that_2" name="noi_that" value="1">
-                                            <label for="noi_that_2" class="custom-control-label">Cơ bản</label>
-                                        </div>
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="noi_that_3" name="noi_that" value="3">
-                                            <label for="noi_that_3" class="custom-control-label">Trống</label>
-                                        </div>
+                                        <?php foreach ($cf_bds['noithat'] as $id => $name) { ?>
+                                            <div class="custom-control custom-radio" style="width: 30%;">
+                                                <input class="custom-control-input" type="radio" id="noithat_<?= $id ?>" name="noithat" value="<?= $id ?>" <?= $id == 1 ? 'checked' : '' ?>>
+                                                <label for="noithat_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
                                 <div class="form-group d-flex">
                                     <label class="w-25">Pháp lý</label>
                                     <div class="d-flex w-100">
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="phap_ly_1" name="phap_ly" value="1" checked>
-                                            <label for="phap_ly_1" class="custom-control-label">Sổ hồng</label>
-                                        </div>
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="phap_ly_2" name="phap_ly" value="1">
-                                            <label for="phap_ly_2" class="custom-control-label">Sổ đỏ</label>
-                                        </div>
-                                        <div class="custom-control custom-radio w-25">
-                                            <input class="custom-control-input" type="radio" id="phap_ly_3" name="phap_ly" value="3">
-                                            <label for="phap_ly_3" class="custom-control-label">Chưa rõ</label>
-                                        </div>
+                                        <?php foreach ($cf_bds['juridical'] as $id => $name) { ?>
+                                            <div class="custom-control custom-radio" style="width: 30%;">
+                                                <input class="custom-control-input" type="radio" id="juridical_<?= $id ?>" name="juridical" value="<?= $id ?>" <?= $id == 1 ? 'checked' : '' ?>>
+                                                <label for="juridical_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +271,7 @@
                                         <div class="input-group-prepend">
                                             <a href="<?= ROOT_DOMAIN ?>/filemanager/filemanager/dialog.php?type=1&field_id=image_<?= $i ?>" class="btn btn-primary iframe-btn">Chọn ảnh</a>
                                         </div>
-                                        <input type="text" class="form-control image_input" id="image_<?= $i ?>" name="image_<?= $i ?>" readonly>
+                                        <input type="text" class="form-control image_input" id="image_<?= $i ?>" name="image[]" readonly>
                                         <div class="input-group-prepend">
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-image-delete" data-image="#image_<?= $i ?>">Xóa</button>
                                         </div>
@@ -388,6 +375,7 @@
     $(function() {
 
         $('.select2').select2();
+        $('[data-mask]').inputmask()
 
         $('.iframe-btn').fancybox({
             'type': 'iframe',
@@ -427,8 +415,19 @@
             }
         });
 
+        jQuery.validator.addMethod('valid_expired', function(value) {
+            let expired = moment(value, 'DD/MM/YYYY');
+            if (expired.isValid() && expired > new Date()) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
         $('#frm_bds').validate({
             submitHandler: function(form) {
+
+                // ẩn nút submit
                 $(form).find('button[type="submit"]').attr('disabled', 'disabled');
                 $(form).find('.image').attr('disabled', 'disabled');
 
@@ -437,8 +436,13 @@
                     return this.value.trim() !== '';
                 }).length;
 
+                //
+
                 if (count_total_image == 0) {
-                    $('#image-error').show().focus();
+                    $('#image-error').show();
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#image-error").offset().top
+                    }, 2000);
                     $(form).find('button[type="submit"]').attr('disabled', false);
                 } else {
                     form.submit();
@@ -470,6 +474,15 @@
                     number: true,
                     min: 30 //30m2
                 },
+                road_surface: {
+                    required: false,
+                    number: true,
+                    min: 1
+                },
+                expired: {
+                    required: true,
+                    valid_expired: true,
+                },
                 video: {
                     valid_embed_youtube: true
                 }
@@ -498,6 +511,14 @@
                     required: "Diện tích không được để trống",
                     number: "Diện tích phải là số",
                     min: 'Diện tích nhỏ nhất 30m2'
+                },
+                road_surface: {
+                    number: 'Vui lòng nhập dữ liệu dạng số',
+                    min: 'Đường vào tối thiểu 1m'
+                },
+                expired: {
+                    required: 'Ngày hết hạn không được bổ trống',
+                    valid_expired: 'Ngày hết hạn phải lớn hơn ngày hiện tại',
                 },
                 video: {
                     valid_embed_youtube: "Link youtube không hợp lệ. Vi dụ: https://www.youtube.com/embed/SEt2hZzkOiY"
@@ -528,7 +549,7 @@
     }
 
     function count_total_image() {
-        return 
+        return
     }
 
     function remove_image(image_id) {
