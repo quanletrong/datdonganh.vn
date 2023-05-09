@@ -39,4 +39,23 @@ class Bds extends MY_Controller {
         
         $this->_loadFooter();
 	}
+
+    function add()
+	{
+        $data = [];
+        if($this->_session_role() != ADMIN) {
+            show_custom_error('Tài khoản không có quyền truy cập!');
+        }
+        $header = [
+            'title' => 'Danh sách bài đăng bất động sản',
+            'active_link' => 'bds',
+            'header_page_css_js' => 'bds'
+        ];
+        
+        $this->_loadHeader($header);
+        
+        $this->load->view($this->_template_f . 'bds/bds_add_view', $data);
+        
+        $this->_loadFooter();
+	}
 }
