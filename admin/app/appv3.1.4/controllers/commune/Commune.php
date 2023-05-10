@@ -48,7 +48,9 @@ class Commune extends MY_Controller
             // TẠO MỚI 
             if ($_POST['action'] == 'add') {
 
-                // TODO: VALIDATION
+                // TODO: validate dữ liệu submit
+                //END validate
+
                 $copy = copy_image_from_file_manager_to_public_upload($commune_image, date('Y'), date('m'));
                 if ($copy['status']) {
                     $exc = $this->Commune_model->add($commune_name, $commune_type, $commune_status, $copy['basename'], $this->_session_uid());
@@ -63,7 +65,9 @@ class Commune extends MY_Controller
             // CẬP NHẬT
             if ($_POST['action'] == 'edit') {
 
-                // TODO: VALIDATION
+                // TODO: validate dữ liệu submit
+                //END validate
+
                 $commune_info   = $this->Commune_model->get_info($id_commune);
                 if (empty($commune_info)) {
                     $msg = 'Lưu không thành công vui lòng thử lại!';
@@ -90,7 +94,9 @@ class Commune extends MY_Controller
             // CẬP NHẬT
             if ($_POST['action'] == 'delete') {
 
-                // TODO: VALIDATION
+                // TODO: validate dữ liệu submit
+                //END validate
+
                 $commune_info   = $this->Commune_model->get_info($id_commune);
                 if (empty($commune_info)) {
                     $msg = 'Xóa không thành công vui lòng thử lại!!';

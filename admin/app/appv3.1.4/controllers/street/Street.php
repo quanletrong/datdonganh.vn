@@ -29,11 +29,6 @@ class Street extends MY_Controller
         if ($this->_session_role() != ADMIN) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
-        $header = [
-            'title' => 'Quản lý danh sách đường',
-            'active_link' => 'street',
-            'header_page_css_js' => 'street'
-        ];
 
         // SUBMIT FORM (nếu có)
         if (isset($_POST['action'])) {
@@ -46,7 +41,9 @@ class Street extends MY_Controller
             // TẠO MỚI 
             if ($_POST['action'] == 'add') {
 
-                // TODO: VALIDATION
+                // TODO: validate dữ liệu submit
+                //END validate
+
                 $exc = $this->Street_model->add($name, $status, $this->_session_uid());
                 $msg = $exc ? 'OK' : 'Lưu không thành công vui lòng thử lại!';
                 $this->session->set_flashdata('flsh_msg', $msg);
@@ -56,7 +53,9 @@ class Street extends MY_Controller
             // CẬP NHẬT
             if ($_POST['action'] == 'edit') {
 
-                // TODO: VALIDATION
+                // TODO: validate dữ liệu submit
+                //END validate
+
                 $info   = $this->Street_model->get_info($id_street);
                 if (empty($info)) {
                     $msg = 'Lưu không thành công vui lòng thử lại!';
@@ -71,7 +70,9 @@ class Street extends MY_Controller
             // CẬP NHẬT
             if ($_POST['action'] == 'delete') {
 
-                // TODO: VALIDATION
+                // TODO: validate dữ liệu submit
+                //END validate
+
                 $info   = $this->Street_model->get_info($id_street);
                 if (empty($info)) {
                     $msg = 'Xóa không thành công vui lòng thử lại!!';
@@ -87,6 +88,12 @@ class Street extends MY_Controller
         $list_street =  $this->Street_model->get_list();
         $data['list_street'] = $list_street;
         $data['cf_street'] = $this->config->item('street');
+
+        $header = [
+            'title' => 'Quản lý danh sách đường',
+            'active_link' => 'street',
+            'header_page_css_js' => 'street'
+        ];
 
         $this->_loadHeader($header);
         $this->load->view($this->_template_f . 'street/street_view', $data);

@@ -31,14 +31,55 @@ class Bds extends MY_Controller
         if ($this->_session_role() != ADMIN) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
+
+        // TODO: validate dư liệu tìm kiếm
+        //END validate
+
+        $id_commune_ward = '';
+        $id_street       = '';
+        $id_project      = '';
+        $id_user         = '';
+        $status          = '';
+        $type            = '';
+        $title           = '';
+        $f_price         = '';
+        $t_price         = '';
+        $f_acreage       = '';
+        $t_acreage       = '';
+        $direction       = '';
+        $floor           = '';
+        $toilet          = '';
+        $bedroom         = '';
+        $noithat         = '';
+        $road_surface    = '';
+        $juridical       = '';
+        $is_vip          = '';
+        $f_expired       = '';
+        $t_expired       = '';
+        $f_create        = '';
+        $t_create        = '';
+        $orderby         = 'id_bds';
+        $sort            = 'DESC';
+        $limit           = 1000;
+        $offset          = 0;
+
+        $list_bds = $this->Bds_model->get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
+        $list_street =  $this->Street_model->get_list(1);
+        $list_commune =  $this->Commune_model->get_list(1);
+
+        $data['list_bds'] = $list_bds;
+        $data['cf_bds'] = $this->config->item('bds');
+        $data['list_street'] = $list_street;
+        $data['list_commune'] = $list_commune;
         $header = [
-            'title' => 'Danh sách bài đăng bất động sản',
+            'title' => 'Quản lý bài đăng bất động sản',
             'active_link' => 'bds',
             'header_page_css_js' => 'bds'
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'bds/bds_view', $data);
+        $this->load->view($this->_template_f . 'bds/bds_view', $data);  
+        // pages/examples/invoice.html TODO: sau chuyển giao diện
         $this->_loadFooter();
     }
 
@@ -49,45 +90,15 @@ class Bds extends MY_Controller
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
-
-        $list_street =  $this->Street_model->get_list('-1'); // đường đang hoạt động
-        $id_commune_ward = '1';
-        $id_street       = '3';
-        $id_project      = '-1';
-        $id_user         = '-1';
-        $status          = '-1';
-        $type            = '-1';
-        $title           = '';
-        $f_price         = '-1';
-        $t_price         = '-1';
-        $f_acreage       = '-1';
-        $t_acreage       = '-1';
-        $direction       = '-1';
-        $floor           = '-1';
-        $toilet          = '-1';
-        $bedroom         = '-1';
-        $noithat         = '-1';
-        $road_surface    = '-1';
-        $juridical       = '-1';
-        $is_vip          = '-1';
-        $f_expired       = '-1';
-        $t_expired       = '-1';
-        $f_create        = '-1';
-        $t_create        = '-1';
-        $orderby         = 'id_bds';
-        $sort            = 'DESC';
-        $limit           = 50;
-        $offset          = 0;
-
-        var_dump($this->Bds_model->get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset));die;
-        $list_commune =  $this->Commune_model->get_list('1'); // đường đang hoạt động
+        $list_street =  $this->Street_model->get_list(1);
+        $list_commune =  $this->Commune_model->get_list(1);
 
         $data['cf_bds'] = $this->config->item('bds');
         $data['list_street'] = $list_street;
         $data['list_commune'] = $list_commune;
 
         $header = [
-            'title' => 'Danh sách bài đăng bất động sản',
+            'title' => 'Đăng thêm bất động sản',
             'active_link' => 'bds_add',
             'header_page_css_js' => 'bds_add'
         ];
@@ -127,17 +138,23 @@ class Bds extends MY_Controller
         $image           = $this->input->post('image');              // check lưu
         $videos          = $this->input->post('video');              // check regx
 
+        // TODO: validate dữ liệu submit
+        //END validate
        
+       
+        // TODO: validate dữ liệu trước khi save
+
         // TODO: validate dữ liệu trước khi save
         $expired = str_replace('/', '-', $expired);
         $expired = date('Y-m-d', strtotime($expired));
 
         # lưu ảnh
         $image_db = [];
+        $index = 1;
         foreach ($image as $url_image) {
             $copy = copy_image_from_file_manager_to_public_upload($url_image, date('Y'), date('m'));
             if ($copy['status']) {
-                $image_db[] = $copy['basename'];
+                $image_db[$index++] = $copy['basename'];
             }
         }
 
@@ -165,5 +182,51 @@ class Bds extends MY_Controller
 
         $this->session->set_flashdata('flsh_msg', $msg);
         redirect('bds');
+    }
+
+    function edit($id_bds)
+    {
+        $data = [];
+        if ($this->_session_role() != ADMIN) {
+            show_custom_error('Tài khoản không có quyền truy cập!');
+        }
+
+        // check right
+        $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
+        $info   = $this->Bds_model->get_info($id_bds);
+        if(empty($info)) {
+            $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng");
+            redirect('bds');
+        }
+        //end check right
+
+        $list_street =  $this->Street_model->get_list(1);
+        $list_commune =  $this->Commune_model->get_list(1);
+
+        //conver json image => arr image
+        $arr_image = json_decode($info['images'], true);
+        $year = date('Y', strtotime($info['create_time']));
+        $monthe = date('m', strtotime($info['create_time']));
+        $info['images_path'] = [];
+        foreach ($arr_image as $id_img => $name_img) {
+            $path_img = ROOT_DOMAIN. '/' . PUBLIC_UPLOAD_PATH . '/' . $year . '/' . $monthe . '/' . $name_img;
+            $info['images_path'][$id_img] = $path_img;
+        }
+        //end
+        
+        $data['info'] = $info;
+        $data['cf_bds'] = $this->config->item('bds');
+        $data['list_street'] = $list_street;
+        $data['list_commune'] = $list_commune;
+
+        $header = [
+            'title' => 'Chỉnh sửa bài đăng',
+            'active_link' => 'bds_add',
+            'header_page_css_js' => 'bds_add'
+        ];
+
+        $this->_loadHeader($header);
+        $this->load->view($this->_template_f . 'bds/bds_edit_view', $data);
+        $this->_loadFooter();
     }
 }
