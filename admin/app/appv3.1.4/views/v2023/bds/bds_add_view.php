@@ -90,8 +90,7 @@
                                 <div class="form-group">
                                     <label>Nằm trong dự án bất động sản</label>
                                     <select class="select2" style="width: 100%;" name="project">
-
-                                    </select>
+                                        <option value="0">Chọn</option>
                                     </select>
                                 </div>
 
@@ -151,14 +150,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Giá</label>
-                                    <input class="form-control" type="text" name="price">
+                                    <input class="form-control" type="text" name="price" value="0">
                                     <small>1 triệu nhập vào là 1, bỏ trống là giá thương lượng</small>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Hướng nhà:</label>
                                     <select class="select2" style="width: 100%;" name="direction">
-                                        <option>Chọn</option>
+                                        <option value="0">Chọn</option>
                                         <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
                                         <?php } ?>
@@ -168,7 +167,7 @@
                                 <div class="form-group">
                                     <label>Số toilet:</label>
                                     <select class="select2" style="width: 100%;" name="toilet">
-                                        <option>Chọn</option>
+                                        <option value="0">Chọn</option>
                                         <?php foreach ($cf_bds['toilet'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
                                         <?php } ?>
@@ -178,7 +177,7 @@
                                 <div class="form-group">
                                     <label>Số tầng:</label>
                                     <select class="select2" style="width: 100%;" name="floor">
-                                        <option>Chọn</option>
+                                        <option value="0">Chọn</option>
                                         <?php foreach ($cf_bds['floor'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
                                         <?php } ?>
@@ -193,17 +192,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Diện tích (m2):</label>
-                                    <input class="form-control" type="text" name="acreage">
+                                    <input class="form-control" type="text" name="acreage" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label>Đường vào (mét):</label>
-                                    <input class="form-control" type="text" name="road_surface">
+                                    <input class="form-control" type="text" name="road_surface" value="0">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Phòng ngủ:</label>
                                     <select class="select2" style="width: 100%;" name="bedroom">
-                                        <option>Chọn</option>
+                                        <option value="0">Chọn</option>
                                         <?php foreach ($cf_bds['bedroom'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
                                         <?php } ?>
