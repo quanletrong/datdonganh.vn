@@ -76,7 +76,29 @@ class Bds extends MY_Controller {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
-        var_dump($_POST);die;
+        var_dump($_POST);
+        $street = $this->input->post('street');
+        $commune = $this->input->post('commune');
+        $maps = $this->input->post('maps', false);
+        $maps = (htmlentities(htmlspecialchars($maps))); // to save db // var_dump(html_entity_decode(htmlspecialchars_decode($maps))); // to render
+        $type = $this->input->post('type');
+        $title = $this->input->post('title');
+        $tag = $this->input->post('tag');
+        $sapo = $this->input->post('sapo');
+        $content = $this->input->post('content');
+        $price = $this->input->post('price');
+        $direction = $this->input->post('direction');
+        $toilet = $this->input->post('toilet');
+        $floor = $this->input->post('floor');
+        $expired = $this->input->post('expired');
+        $acreage = $this->input->post('acreage');
+        $road_surface = $this->input->post('road_surface');
+        $bedroom = $this->input->post('bedroom');
+        $is_hot = $this->input->post('is_hot');
+        $noithat = $this->input->post('noithat');
+        $juridical = $this->input->post('juridical');
+        $image = $this->input->post('image');
+        $video = $this->input->post('video');
         
         redirect('bds');
 	}
