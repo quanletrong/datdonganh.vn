@@ -30,6 +30,7 @@ class Home extends MY_Controller {
         $header = [
             'title' => 'Trang chủ',
             'active_link' => 'home',
+            'active_sub_link' => '',
             'header_page_css_js' => 'home'
         ];
         

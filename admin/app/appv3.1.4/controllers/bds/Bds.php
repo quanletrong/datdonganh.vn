@@ -27,6 +27,8 @@ class Bds extends MY_Controller
 
     function index()
     {
+        // $this->_function = trim(strtolower(__FUNCTION__));
+
         $data = [];
         if ($this->_session_role() != ADMIN) {
             show_custom_error('Tài khoản không có quyền truy cập!');
@@ -73,14 +75,14 @@ class Bds extends MY_Controller
         $data['list_commune'] = $list_commune;
         $header = [
             'title' => 'Quản lý bài đăng bất động sản',
-            'active_link' => 'bds',
-            'header_page_css_js' => 'bds'
         ];
 
         $this->_loadHeader($header);
         $this->load->view($this->_template_f . 'bds/bds_view', $data);
         // pages/examples/invoice.html TODO: sau chuyển giao diện
         $this->_loadFooter();
+
+        
     }
 
     function add()
@@ -99,7 +101,8 @@ class Bds extends MY_Controller
 
         $header = [
             'title' => 'Đăng thêm bất động sản',
-            'active_link' => 'bds_add',
+            'active_link' => 'index',
+            'active_sub_link' => 'add',
             'header_page_css_js' => 'bds_add'
         ];
 
@@ -245,6 +248,7 @@ class Bds extends MY_Controller
         }
         //end check right
 
+        $status          = $this->input->post('status');             // check cf + rq
         $id_street       = $this->input->post('street');             // check db + rq
         $id_commune_ward = $this->input->post('commune');            // check db + rq
         $maps            = $this->input->post('maps', false);        // check length regx
@@ -284,51 +288,35 @@ class Bds extends MY_Controller
         $index = 1;
         $yearFolder = date('Y', strtotime($info['create_time']));
         $monthFolder = date('m', strtotime($info['create_time']));
-        $list_image_db = json_decode($info['images'], true);
         foreach ($image as $url_image) {
-
-            // kiểm tra ảnh upload có phải ảnh mới không
-            $la_anh_moi = false;
-            foreach ($list_image_db as $image_item) {
-                $image_item_path = ROOT_DOMAIN . '/' . PUBLIC_UPLOAD_PATH . '/' . $yearFolder . '/' . $monthFolder . '/' . $image_item;
-                $anh_khac_ten = $image_item == basename($url_image);
-                $anh_khac_base64 = base64_encode($image_item_path) == base64_encode($url_image);
-                var_dump($anh_khac_ten);die;
-                if ($anh_khac_ten && $anh_khac_base64) {
-                    $la_anh_moi = true;
-                    break;
-                } else {
-                    $la_anh_moi = false;
+            if (@getimagesize($url_image)) {
+                // kiểm tra ảnh upload có trong '/filemanager/source'
+                $la_anh_moi = strpos($url_image, ROOT_DOMAIN . 'filemanager/source');
+                // nếu là ảnh mới thì copy ảnh
+                if ($la_anh_moi !== false) {
+                    $copy = copy_image_from_file_manager_to_public_upload($url_image, $yearFolder, $monthFolder);
+                    if ($copy['status']) {
+                        $image_db[$index++] = $copy['basename'];
+                    }
                 }
-            }
-
-            // nếu là ảnh mới thì copy ảnh
-            if ($la_anh_moi) {
-                $copy = copy_image_from_file_manager_to_public_upload($url_image, $yearFolder, $monthFolder);
-                if ($copy['status']) {
-                    $image_db[$index++] = $copy['basename'];
+                // là ảnh cũ thì giữ nguyên
+                else {
+                    $image_db[$index++] = basename($url_image);
                 }
-            }
-            // là ảnh cũ thì giữ nguyên
-            else {
-                $image_db[$index++] = basename($url_image);
             }
         }
 
-        var_dump($image_db);die;
         // LƯU DỮ LIỆU
         if (!empty($image_db)) {
 
             // dữ liệu bổ sung
             $images      = json_encode($image_db);
             $slug_title  = create_slug($title);
-            $status      = 1;
-            $id_user     = $this->_session_uid();
-            $create_time = date('Y-m-d H:i:s');
+            $update_time = date('Y-m-d H:i:s');
 
-            $newid = $this->Bds_model->add($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $create_time);
+            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $update_time);
 
-            if ($newid) {
+            if ($exc) {
                 # update tag
                 $msg = 'OK';
             } else {
@@ -339,6 +327,6 @@ class Bds extends MY_Controller
         }
 
         $this->session->set_flashdata('flsh_msg', $msg);
-        redirect('bds');
+        redirect('bds/edit/'.$id_bds);
     }
 }

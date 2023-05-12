@@ -17,10 +17,28 @@
 				Anything you want
 			</div>
 			<!-- Default to the left -->
-			<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+			<strong>Copyright &copy; <?= date('Y')=='2023' ? '2023' : '2023-'.date('Y')?> <a href="<?=site_url()?>"><?= $this->config->item('product_name')?></a>.</strong> All rights reserved.
 		</footer>
 	</div>
 	<!-- ./wrapper -->
+	<script>
+		<?php if ($this->session->flashdata('flsh_msg') != 'OK' && $this->session->flashdata('flsh_msg') != FALSE) { ?>
+			$(document).Toasts('create', {
+				class: 'bg-danger',
+				title: 'Thất bại',
+				subtitle: '',
+				body: '<?= $this->session->flashdata('flsh_msg') ?>'
+			})
+		<?php } ?>
 
+		<?php if ($this->session->flashdata('flsh_msg') == 'OK') { ?>
+			$(document).Toasts('create', {
+				class: 'bg-success',
+				title: 'Thành công',
+				subtitle: '',
+				body: 'Cập nhật thành công!'
+			})
+		<?php } ?>
+	</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 	<?php $this->load->view($template_f . 'component/header/header_meta_view'); ?>
@@ -12,10 +13,10 @@
 		$this->load->view($template_f . 'component/header/pages/header_' . $header_page_css_js . '_view');
 	}
 	?>
-	
+
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini d-none">
 	<div class="wrapper">
 
 		<!-- Navbar -->
@@ -26,10 +27,23 @@
 					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="index3.html" class="nav-link">Home</a>
+					<a href="#" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="#" class="nav-link">Contact</a>
+					<a href="bds/add" class="nav-link">Thêm bất động sản</a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="news/add" class="nav-link">Thêm tin tức</a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="auction/add" class="nav-link">Thêm lịch đấu giá</a>
+				</li>
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="document/add" class="nav-link">Thêm tài liệu luật</a>
+				</li>
+
+				<li class="nav-item d-none d-sm-inline-block">
+					<a href="setting" class="nav-link">Cài đặt website</a>
 				</li>
 			</ul>
 
@@ -160,8 +174,8 @@
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="index3.html" class="brand-link">
-				<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">AdminLTE 3</span>
+				<img src="dist/img/AdminLTELogo.png" alt="Admin Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-light">Quản Trị Website</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -172,12 +186,12 @@
 						<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">Alexander Pierce</a>
+						<a href="#" class="d-block">Admin</a>
 					</div>
 				</div>
 
 				<!-- SidebarSearch Form -->
-				<div class="form-inline">
+				<div class="form-inline d-none">
 					<div class="input-group" data-widget="sidebar-search">
 						<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
 						<div class="input-group-append">
@@ -193,41 +207,145 @@
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-						<li class="nav-item menu-open">
-							<a href="#" class="nav-link active">
+						<li class="nav-item">
+							<a href="home" class="nav-link">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									Starter Pages
-									<i class="right fas fa-angle-left"></i>
+									Trang Chủ
 								</p>
 							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="#" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Active Page</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Inactive Page</p>
-									</a>
-								</li>
-							</ul>
+
 						</li>
+						<!-- QUẢN LÝ NỘI DUNG -->
+						<li class="nav-header">QUẢN LÝ NỘI DUNG</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="bds" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
-									Simple Link
-									<span class="right badge badge-danger">New</span>
+									Quản lý bất động sản
+									<!-- <i class="right fas fa-angle-left"></i> -->
 								</p>
 							</a>
 						</li>
+
+						<li class="nav-item">
+							<a href="project" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Danh sách dự án
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="tags" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Thẻ đánh nhãn
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="street" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Quản lý đường
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="commune" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Quản lý xã
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="news" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Tin tức
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="auction" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Lịch đấu giá đất
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="document" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Tài liệu luật
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="user" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Quản lý người dùng
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="contact" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Phản hồi người dùng
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="setting" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Cài đặt website
+								</p>
+							</a>
+						</li>
+
+						<!-- CÀI ĐẶT WEBSITE -->
+						<!-- <li class="nav-header">CÀI ĐẶT WEBSITE</li> -->
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
 			<!-- /.sidebar -->
 		</aside>
+
+		<script>
+			$(document).ready(function() {
+				let menu_current = '<?= $this->uri->rsegments[1] ?>';
+				let sub1_current = '<?= $this->uri->rsegments[1] ?>/<?= $this->uri->rsegments[2] ?>';
+				$('.nav-sidebar > .nav-item').each(function() {
+					let menu = $(this).find('a').attr('href');
+					if (menu == menu_current) {
+						// $(this).addClass('menu-open'); // mo menu
+						$(this).find('a').eq(0).addClass('active'); // active menu
+
+						$(this).find('ul.nav-treeview li').each(function() {
+							let menusub = $(this).find('a').attr('href');
+							if (menusub == sub1_current) {
+								$(this).find('a').addClass('active');
+							}
+						})
+					}
+				})
+
+				$('body').removeClass('d-none')
+			});
+		</script>

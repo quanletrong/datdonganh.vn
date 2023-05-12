@@ -23,6 +23,63 @@
     <section class="content">
         <div class="container-fluid pb-5">
             <form id="frm_bds" action="<?= site_url('bds/edit_submit/' . $info['id_bds']) ?>" method="post">
+                <div class="row">
+                    <!-- Trạng thái -->
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Trạng thái</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="d-flex w-100">
+                                        <?php foreach ($cf_bds['status'] as $id => $name) { ?>
+                                            <div class="custom-control custom-radio" style="width: 30%;">
+                                                <input class="custom-control-input" type="radio" id="status_<?= $id ?>" name="status" value="<?= $id ?>" <?= $id == $info['status'] ? 'checked' : '' ?>>
+                                                <label for="status_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- Loại tin -->
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Loại tin</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="d-flex w-100">
+                                        <?php foreach ($cf_bds['is_hot'] as $id => $name) { ?>
+                                            <div class="custom-control custom-radio" style="width: 30%;">
+                                                <input class="custom-control-input" type="radio" id="is_hot_<?= $id ?>" name="is_hot" value="<?= $id ?>" <?= $id == $info['is_vip'] ? 'checked' : '' ?>>
+                                                <label for="is_hot_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Vị trí bất động sản -->
                 <div class="card card-primary">
                     <div class="card-header">
@@ -98,14 +155,14 @@
                                     <label>Loại hình bất động sản:</label>
                                     <select class="select2" style="width: 100%;" name="type">
                                         <?php foreach ($cf_bds['type'] as $id => $name) { ?>
-                                            <option value="<?= $id ?>" <?= $info['type'] == $id ? 'selected' : '' ?> ><?= $name ?></option>
+                                            <option value="<?= $id ?>" <?= $info['type'] == $id ? 'selected' : '' ?>><?= $name ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Tiêu đề bất động sản</label>
-                                    <textarea class="form-control" rows=2 placeholder="Nhập tiêu đề bất động sản" name="title"><?=$info['title']?></textarea>
+                                    <textarea class="form-control" rows=2 placeholder="Nhập tiêu đề bất động sản" name="title"><?= $info['title'] ?></textarea>
                                     <small>Tiêu đề được dùng để làm link SEO trên công cụ tìm kiếm như Google, Bing...</small>
                                 </div>
 
@@ -122,11 +179,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mô tả ngắn</label>
-                                    <textarea class="form-control" rows=3 placeholder="Nhập mô tả ngắn" name=sapo><?=$info['sapo']?></textarea>
+                                    <textarea class="form-control" rows=3 placeholder="Nhập mô tả ngắn" name=sapo><?= $info['sapo'] ?></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Mô tả</label>
-                                    <textarea class="form-control" rows=8 placeholder="Nhập mô tả" name="content"><?=$info['content'] ?></textarea>
+                                    <textarea class="form-control" rows=8 placeholder="Nhập mô tả" name="content"><?= $info['content'] ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +208,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Giá</label>
-                                    <input class="form-control" type="text" name="price" value="<?=$info['price']?>">
+                                    <input class="form-control" type="text" name="price" value="<?= $info['price'] ?>">
                                     <small>1 triệu nhập vào là 1, bỏ trống là giá thương lượng</small>
                                 </div>
 
@@ -184,20 +241,31 @@
                                         <?php } ?>
                                     </select>
                                 </div>
+                                <div class="form-group d-flex">
+                                    <label class="w-25">Pháp lý</label>
+                                    <div class="d-flex w-100">
+                                        <?php foreach ($cf_bds['juridical'] as $id => $name) { ?>
+                                            <div class="custom-control custom-radio" style="width: 30%;">
+                                                <input class="custom-control-input" type="radio" id="juridical_<?= $id ?>" name="juridical" value="<?= $id ?>" <?= $id == $info['juridical'] ? 'checked' : '' ?>>
+                                                <label for="juridical_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Ngày hết hạn:</label>
-                                    <input class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="expired" value="<?=date('d-m-yyyy', strtotime($info['expired']))?>">
+                                    <input class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="expired" value="<?= date('d-m-yyyy', strtotime($info['expired'])) ?>">
                                     <small>Người dùng vẫn có thể xem được bài đăng hết hạn</small>
                                 </div>
                                 <div class="form-group">
                                     <label>Diện tích (m2):</label>
-                                    <input class="form-control" type="text" name="acreage" value="<?=$info['acreage']?>">
+                                    <input class="form-control" type="text" name="acreage" value="<?= $info['acreage'] ?>">
                                 </div>
                                 <div class="form-group">
                                     <label>Đường vào (mét):</label>
-                                    <input class="form-control" type="text" name="road_surface" value="<?=$info['road_surface']?>">
+                                    <input class="form-control" type="text" name="road_surface" value="<?= $info['road_surface'] ?>">
                                 </div>
 
                                 <div class="form-group">
@@ -211,18 +279,6 @@
                                 </div>
 
                                 <div class="form-group d-flex">
-                                    <label class="d-flex w-25">Loại tin</label>
-                                    <div class="d-flex w-100">
-                                        <?php foreach ($cf_bds['is_hot'] as $id => $name) { ?>
-                                            <div class="custom-control custom-radio" style="width: 30%;">
-                                                <input class="custom-control-input" type="radio" id="is_hot_<?= $id ?>" name="is_hot" value="<?= $id ?>" <?= $id == $info['is_vip'] ? 'checked' : '' ?>>
-                                                <label for="is_hot_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-
-                                <div class="form-group d-flex">
                                     <label class="w-25">Nội thất</label>
                                     <div class="d-flex w-100">
                                         <?php foreach ($cf_bds['noithat'] as $id => $name) { ?>
@@ -233,18 +289,7 @@
                                         <?php } ?>
                                     </div>
                                 </div>
-
-                                <div class="form-group d-flex">
-                                    <label class="w-25">Pháp lý</label>
-                                    <div class="d-flex w-100">
-                                        <?php foreach ($cf_bds['juridical'] as $id => $name) { ?>
-                                            <div class="custom-control custom-radio" style="width: 30%;">
-                                                <input class="custom-control-input" type="radio" id="juridical_<?= $id ?>" name="juridical" value="<?= $id ?>" <?= $id == $info['juridical'] ? 'checked' : '' ?>>
-                                                <label for="juridical_<?= $id ?>" class="custom-control-label"><?= $name ?></label>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -271,7 +316,7 @@
                                         <div class="input-group-prepend">
                                             <a href="<?= ROOT_DOMAIN ?>/filemanager/filemanager/dialog.php?type=1&field_id=image_<?= $i ?>" class="btn btn-primary iframe-btn">Chọn ảnh</a>
                                         </div>
-                                        <input type="text" class="form-control image_input" id="image_<?= $i ?>" name="image[]" readonly value="<?= @$info['images_path'][$i]?>">
+                                        <input type="text" class="form-control image_input" id="image_<?= $i ?>" name="image[]" readonly value="<?= @$info['images_path'][$i] ?>">
                                         <div class="input-group-prepend">
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-image-delete" data-image="#image_<?= $i ?>">Xóa</button>
                                         </div>
@@ -289,7 +334,7 @@
                             <div class="col-md-6">
                                 <div class="d-flex w-100 flex-wrap">
                                     <?php for ($i = 1; $i <= 10; $i++) { ?>
-                                        <img id="image_<?= $i ?>_pre" class="img-responsive m-1 p-1 rounded shadow" style="width: 31%; height: fit-content; <?= isset($info['images_path'][$i]) ? '' : 'display: none;'?>cursor: pointer;" src="<?= @$info['images_path'][$i]?>" data-toggle="modal" data-target="#modal-image-delete" data-image="#image_<?= $i ?>" />
+                                        <img id="image_<?= $i ?>_pre" class="img-responsive m-1 p-1 rounded shadow" style="aspect-ratio: 4/3; object-fit: cover; width: 31%; height: fit-content; <?= isset($info['images_path'][$i]) ? '' : 'display: none;' ?>cursor: pointer;" src="<?= @$info['images_path'][$i] ?>" data-toggle="modal" data-target="#modal-image-delete" data-image="#image_<?= $i ?>" />
                                     <?php } ?>
                                 </div>
                             </div>
@@ -315,7 +360,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea id="video" class="form-control" name="video" rows="3" placeholder="Nhập link video embed youtube" aria-invalid="true"><?=$info['videos']?></textarea>
+                                    <textarea id="video" class="form-control" name="video" rows="3" placeholder="Nhập link video embed youtube" aria-invalid="true"><?= $info['videos'] ?></textarea>
                                 </div>
 
                                 <a class="btn btn-danger btn-sm" onclick="remove_video()">Xóa video</a>
@@ -328,7 +373,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="w-100">
-                                    <iframe id="videp_pre" style="width: 100%; <?=$info['videos'] == '' ? 'display: none;' : ''?>" height="315" src="<?=$info['videos']?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen allowscriptaccess="always"></iframe>
+                                    <iframe id="videp_pre" style="width: 100%; <?= $info['videos'] == '' ? 'display: none;' : '' ?>" height="315" src="<?= $info['videos'] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen allowscriptaccess="always"></iframe>
                                 </div>
                             </div>
                         </div>
