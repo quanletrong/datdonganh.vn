@@ -105,7 +105,8 @@
 
                                 <div class="form-group">
                                     <label>Tiêu đề bất động sản</label>
-                                    <textarea class="form-control" rows=3 placeholder="Nhập tiêu đề bất động sản" name="title"></textarea>
+                                    <small>Tiêu đề được dùng để làm link SEO trên công cụ tìm kiếm như Google, Bing...</small>
+                                    <textarea class="form-control" rows=2 placeholder="Nhập tiêu đề bất động sản" name="title"></textarea>
                                 </div>
 
                                 <div class="form-group">

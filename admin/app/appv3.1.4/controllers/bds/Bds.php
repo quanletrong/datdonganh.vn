@@ -78,7 +78,7 @@ class Bds extends MY_Controller
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'bds/bds_view', $data);  
+        $this->load->view($this->_template_f . 'bds/bds_view', $data);
         // pages/examples/invoice.html TODO: sau chuyển giao diện
         $this->_loadFooter();
     }
@@ -140,8 +140,8 @@ class Bds extends MY_Controller
 
         // TODO: validate dữ liệu submit
         //END validate
-       
-       
+
+
         // TODO: validate dữ liệu trước khi save
 
         // TODO: validate dữ liệu trước khi save
@@ -194,8 +194,8 @@ class Bds extends MY_Controller
         // check right
         $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
         $info   = $this->Bds_model->get_info($id_bds);
-        if(empty($info)) {
-            $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng");
+        if (empty($info)) {
+            $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
             redirect('bds');
         }
         //end check right
@@ -209,11 +209,11 @@ class Bds extends MY_Controller
         $monthe = date('m', strtotime($info['create_time']));
         $info['images_path'] = [];
         foreach ($arr_image as $id_img => $name_img) {
-            $path_img = ROOT_DOMAIN. '/' . PUBLIC_UPLOAD_PATH . '/' . $year . '/' . $monthe . '/' . $name_img;
+            $path_img = ROOT_DOMAIN . '/' . PUBLIC_UPLOAD_PATH . '/' . $year . '/' . $monthe . '/' . $name_img;
             $info['images_path'][$id_img] = $path_img;
         }
         //end
-        
+
         $data['info'] = $info;
         $data['cf_bds'] = $this->config->item('bds');
         $data['list_street'] = $list_street;
@@ -228,5 +228,117 @@ class Bds extends MY_Controller
         $this->_loadHeader($header);
         $this->load->view($this->_template_f . 'bds/bds_edit_view', $data);
         $this->_loadFooter();
+    }
+
+    function edit_submit($id_bds)
+    {
+        if ($this->_session_role() != ADMIN) {
+            show_custom_error('Tài khoản không có quyền truy cập!');
+        }
+
+        // check right
+        $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
+        $info   = $this->Bds_model->get_info($id_bds);
+        if (empty($info)) {
+            $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
+            redirect('bds');
+        }
+        //end check right
+
+        $id_street       = $this->input->post('street');             // check db + rq
+        $id_commune_ward = $this->input->post('commune');            // check db + rq
+        $maps            = $this->input->post('maps', false);        // check length regx
+        $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump(html_entity_decode(htmlspecialchars_decode($maps))); // to render
+        $id_project      = $this->input->post('project');            // check db
+        $type            = $this->input->post('type');               // check cf + rq
+        $title           = $this->input->post('title');              // check length + rq
+        $tag             = $this->input->post('tag');                // check db
+        $sapo            = $this->input->post('sapo');               // check length + rq
+        $content         = $this->input->post('content');            // check length + rq
+        $price           = $this->input->post('price');              // check number > 0
+        $direction       = $this->input->post('direction');          // check cf
+        $toilet          = $this->input->post('toilet');             // check cf
+        $floor           = $this->input->post('floor');              // check cf
+        $expired         = $this->input->post('expired');            // check kiểu ngày + lớn hơn hiện tại
+        $acreage         = $this->input->post('acreage');            // check số + lớn 30
+        $road_surface    = $this->input->post('road_surface');       // check số + lớn 1
+        $bedroom         = $this->input->post('bedroom');            // check cf
+        $is_vip          = $this->input->post('is_hot');             // check cf
+        $noithat         = $this->input->post('noithat');            // check cf
+        $juridical       = $this->input->post('juridical');          // check cf
+        $image           = $this->input->post('image');              // check lưu
+        $videos          = $this->input->post('video');              // check regx
+
+        // TODO: validate dữ liệu submit
+        //END validate
+
+
+        // TODO: validate dữ liệu trước khi save
+
+        // TODO: validate dữ liệu trước khi save
+        $expired = str_replace('/', '-', $expired);
+        $expired = date('Y-m-d', strtotime($expired));
+
+        # lưu ảnh
+        $image_db = [];
+        $index = 1;
+        $yearFolder = date('Y', strtotime($info['create_time']));
+        $monthFolder = date('m', strtotime($info['create_time']));
+        $list_image_db = json_decode($info['images'], true);
+        foreach ($image as $url_image) {
+
+            // kiểm tra ảnh upload có phải ảnh mới không
+            $la_anh_moi = false;
+            foreach ($list_image_db as $image_item) {
+                $image_item_path = ROOT_DOMAIN . '/' . PUBLIC_UPLOAD_PATH . '/' . $yearFolder . '/' . $monthFolder . '/' . $image_item;
+                $anh_khac_ten = $image_item == basename($url_image);
+                $anh_khac_base64 = base64_encode($image_item_path) == base64_encode($url_image);
+                var_dump($anh_khac_ten);die;
+                if ($anh_khac_ten && $anh_khac_base64) {
+                    $la_anh_moi = true;
+                    break;
+                } else {
+                    $la_anh_moi = false;
+                }
+            }
+
+            // nếu là ảnh mới thì copy ảnh
+            if ($la_anh_moi) {
+                $copy = copy_image_from_file_manager_to_public_upload($url_image, $yearFolder, $monthFolder);
+                if ($copy['status']) {
+                    $image_db[$index++] = $copy['basename'];
+                }
+            }
+            // là ảnh cũ thì giữ nguyên
+            else {
+                $image_db[$index++] = basename($url_image);
+            }
+        }
+
+        var_dump($image_db);die;
+        // LƯU DỮ LIỆU
+        if (!empty($image_db)) {
+
+            // dữ liệu bổ sung
+            $images      = json_encode($image_db);
+            $slug_title  = create_slug($title);
+            $status      = 1;
+            $id_user     = $this->_session_uid();
+            $create_time = date('Y-m-d H:i:s');
+
+            $newid = $this->Bds_model->add($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $create_time);
+
+            if ($newid) {
+                # update tag
+                $msg = 'OK';
+            } else {
+                $msg = 'Lưu không thành công vui lòng thử lại!';
+            }
+        } else {
+            $msg = 'Không lưu được ảnh!';
+        }
+
+        $this->session->set_flashdata('flsh_msg', $msg);
+        redirect('bds');
     }
 }

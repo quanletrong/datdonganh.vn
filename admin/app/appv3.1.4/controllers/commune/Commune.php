@@ -72,7 +72,8 @@ class Commune extends MY_Controller
                 if (empty($commune_info)) {
                     $msg = 'Lưu không thành công vui lòng thử lại!';
                 } else {
-                    if ($commune_image == $commune_info['image']) {
+                    $image_name_post = basename($commune_image);
+                    if ($image_name_post == $commune_info['image']) {
                         $exc = $this->Commune_model->edit($id_commune, $commune_name, $commune_type, $commune_status, $commune_image);
                         $msg = $exc ? 'OK' : 'Lưu không thành công vui lòng thử lại!';
                     } else {
