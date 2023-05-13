@@ -91,7 +91,6 @@ class Street extends MY_Controller
 
         $header = [
             'title' => 'Quản lý danh sách đường',
-            'active_link' => 'street',
             'header_page_css_js' => 'street'
         ];
 

@@ -104,7 +104,8 @@ class MY_Controller extends CI_Controller
         
         // for new skin
         // check load header css, js file by page hay ko
-        $header['header_page_css_js'] = isset($data['header_page_css_js']) ? trim($data['header_page_css_js']) : $this->uri->rsegments[1].'_'.$this->uri->rsegments[2];
+        // $this->uri->rsegments[1].'_'.$this->uri->rsegments[2]
+        $header['header_page_css_js'] = isset($data['header_page_css_js']) ? trim($data['header_page_css_js']) : '';
 
         //set active menu
         $header['active_link'] = isset($data['active_link']) ? $data['active_link'] : $this->uri->rsegments[1];

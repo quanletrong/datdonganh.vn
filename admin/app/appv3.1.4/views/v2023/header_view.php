@@ -217,12 +217,12 @@
 
 						</li>
 						<!-- QUẢN LÝ NỘI DUNG -->
-						<li class="nav-header">QUẢN LÝ NỘI DUNG</li>
+						<li class="nav-header">QUẢN LÝ BẤT ĐỘNG SẢN</li>
 						<li class="nav-item">
 							<a href="bds" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
-									Quản lý bất động sản
+									Bất động sản
 									<!-- <i class="right fas fa-angle-left"></i> -->
 								</p>
 							</a>
@@ -232,7 +232,7 @@
 							<a href="project" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
-									Danh sách dự án
+									Dự án
 								</p>
 							</a>
 						</li>
@@ -246,24 +246,7 @@
 							</a>
 						</li>
 
-						<li class="nav-item">
-							<a href="street" class="nav-link">
-								<i class="nav-icon fas fa-th"></i>
-								<p>
-									Quản lý đường
-								</p>
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="commune" class="nav-link">
-								<i class="nav-icon fas fa-th"></i>
-								<p>
-									Quản lý xã
-								</p>
-							</a>
-						</li>
-
+						<li class="nav-header">QUẢN LÝ BÀI VIẾT</li>
 						<li class="nav-item">
 							<a href="news" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
@@ -291,11 +274,31 @@
 							</a>
 						</li>
 
+						<li class="nav-header">QUẢN LÝ KHU VỰC</li>
+						<li class="nav-item">
+							<a href="street" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Đường
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="commune" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Xã
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-header">QUẢN LÝ NGƯỜI DÙNG</li>
 						<li class="nav-item">
 							<a href="user" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
-									Quản lý người dùng
+									Người dùng
 								</p>
 							</a>
 						</li>
@@ -309,6 +312,7 @@
 							</a>
 						</li>
 
+						<li class="nav-header">KHÁC</li>
 						<li class="nav-item">
 							<a href="setting" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>

@@ -31,7 +31,6 @@ class Commune extends MY_Controller
         }
         $header = [
             'title' => 'Quản lý danh sách xã phường thị trấn',
-            'active_link' => 'commune',
             'header_page_css_js' => 'commune'
         ];
 

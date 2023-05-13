@@ -101,8 +101,6 @@ class Bds extends MY_Controller
 
         $header = [
             'title' => 'Đăng thêm bất động sản',
-            'active_link' => 'index',
-            'active_sub_link' => 'add',
             'header_page_css_js' => 'bds_add'
         ];
 
@@ -224,7 +222,6 @@ class Bds extends MY_Controller
 
         $header = [
             'title' => 'Chỉnh sửa bài đăng',
-            'active_link' => 'bds_add',
             'header_page_css_js' => 'bds_add'
         ];
 
@@ -327,6 +324,6 @@ class Bds extends MY_Controller
         }
 
         $this->session->set_flashdata('flsh_msg', $msg);
-        redirect('bds/edit/'.$id_bds);
+        redirect('bds/edit/' . $id_bds);
     }
 }

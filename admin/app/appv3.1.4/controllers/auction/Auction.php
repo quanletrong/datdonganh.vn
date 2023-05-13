@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class News extends MY_Controller
+class Auction extends MY_Controller
 {
 
     function __construct()
@@ -34,7 +34,7 @@ class News extends MY_Controller
         //END validate
 
         $status   = '';
-        $type     = 1; //news
+        $type     = AUCTION; // auction
         $title    = '';
         $id_user  = '';
         $f_create = '';
@@ -46,12 +46,12 @@ class News extends MY_Controller
 
         $data['list'] = $list;
         $header = [
-            'title' => 'Quản lý tin tức',
+            'title' => 'Quản lý lịch đấu giá',
             'header_page_css_js' => 'news'
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'news/news_view', $data);
+        $this->load->view($this->_template_f . 'auction/auction_view', $data);
         // pages/examples/invoice.html TODO: sau chuyển giao diện
         $this->_loadFooter();
     }
@@ -61,18 +61,17 @@ class News extends MY_Controller
     function add()
     {
         $data = [];
-
         if ($this->_session_role() != ADMIN) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
         $header = [
-            'title' => 'Thêm tin tức',
+            'title' => 'Thêm lịch đấu giá',
             'header_page_css_js' => 'news_add'
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'news/news_add_view', $data);
+        $this->load->view($this->_template_f . 'auction/auction_add_view', $data);
         $this->_loadFooter();
     }
 
@@ -104,7 +103,7 @@ class News extends MY_Controller
         if ($image != '') {
 
             // dữ liệu bổ sung
-            $type        = 1;
+            $type        = AUCTION; // auction
             $slug  = create_slug($title);
             $status      = 1;
             $is_hot      = 1;                                     //1 hot 0 thường
@@ -125,7 +124,7 @@ class News extends MY_Controller
         }
 
         $this->session->set_flashdata('flsh_msg', $msg);
-        redirect('news');
+        redirect('auction');
     }
 
     function edit($id_article)
@@ -140,7 +139,7 @@ class News extends MY_Controller
         $info   = $this->Articles_model->get_info($id_article);
         if (empty($info)) {
             $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
-            redirect('news');
+            redirect('auction');
         }
         //end check right
 
@@ -154,12 +153,12 @@ class News extends MY_Controller
         $data['info'] = $info;
 
         $header = [
-            'title' => 'Chỉnh sửa bài viết',
+            'title' => 'Chỉnh sửa lịch đấu giá',
             'header_page_css_js' => 'news_add'
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'news/news_edit_view', $data);
+        $this->load->view($this->_template_f . 'auction/auction_edit_view', $data);
         $this->_loadFooter();
     }
 
@@ -173,7 +172,7 @@ class News extends MY_Controller
         $info   = $this->Articles_model->get_info($id_article);
         if (empty($info)) {
             $this->session->set_flashdata('flsh_msg', 'Xóa không thành công vui lòng thử lại!!');
-            redirect('news');
+            redirect('auction');
         }
 
         $status      = $this->input->post('status');                // check length + rq
@@ -223,7 +222,7 @@ class News extends MY_Controller
         }
 
         $this->session->set_flashdata('flsh_msg', $msg);
-        redirect('news');
+        redirect('auction');
     }
 
     function delete($id_article = 0)
@@ -241,6 +240,6 @@ class News extends MY_Controller
             $msg = $exc ? 'OK' : 'Xóa không thành công vui lòng thử lại!';
         }
         $this->session->set_flashdata('flsh_msg', $msg);
-        redirect('news');
+        redirect('auction');
     }
 }

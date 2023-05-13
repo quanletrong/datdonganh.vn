@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh sách tin tức</h1>
+                    <h1>Danh sách lịch đấu giá</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url() ?>">Home</a></li>
-                        <li class="breadcrumb-item active">Danh sách tin tức</li>
+                        <li class="breadcrumb-item active">Danh sách lịch đấu giá</li>
                     </ol>
                 </div>
             </div>
@@ -26,8 +26,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="card-title">Danh sách tin tức</h3>
-                                <a href="news/add" class="btn btn-primary">
+                                <h3 class="card-title">Danh sách lịch đấu giá</h3>
+                                <a href="auction/add" class="btn btn-primary">
                                     Thêm mới
                                 </a>
                             </div>
@@ -71,7 +71,7 @@
                                             </td>
                                             <td class="align-middle"><?= $articles['username'] ?></td>
                                             <td class="align-middle text-center">
-                                                <a href="news/edit/<?= $id_articles ?>" class="btn btn-sm btn-primary mb-1">
+                                                <a href="auction/edit/<?= $id_articles ?>" class="btn btn-sm btn-primary mb-1">
                                                     Sửa
                                                 </a>
                                                 <a href="" class="btn btn-sm btn-danger mb-1" data-toggle="modal" data-target="#modal-delete" data-title="<?= $articles['title'] ?>" data-id="<?= $id_articles ?>">Xóa</a>
@@ -148,7 +148,7 @@
             var title = button.data('title');
             var id_article = button.data('id');
             $('#name_for_warning_model').text(title);
-            $('#btn_xoa').attr('href', `<?= site_url('news/delete') ?>/${id_article}`);
+            $('#btn_xoa').attr('href', `<?= site_url('auction/delete') ?>/${id_article}`);
 
         });
     });

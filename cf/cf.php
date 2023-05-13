@@ -65,3 +65,8 @@ define('SESSION_CONFIG_TIME_EXPIRE', 28800);
 define('ADMIN', '1');
 define('SALE', '2');
 define('USER', '3');
+
+// ROLE
+define('NEWS', '1');
+define('AUCTION', '2');
+define('DOCUMENT', '3');

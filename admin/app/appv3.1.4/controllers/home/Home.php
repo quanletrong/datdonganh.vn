@@ -29,15 +29,11 @@ class Home extends MY_Controller {
         }
         $header = [
             'title' => 'Trang chủ',
-            'active_link' => 'home',
-            'active_sub_link' => '',
             'header_page_css_js' => 'home'
         ];
         
         $this->_loadHeader($header);
-        
         $this->load->view($this->_template_f . 'home/home_view', $data);
-        
         $this->_loadFooter();
 	}
 }
