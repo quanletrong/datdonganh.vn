@@ -228,24 +228,6 @@
 <script>
     $(function() {
 
-        <?php if ($this->session->flashdata('flsh_msg') != 'OK' && $this->session->flashdata('flsh_msg') != FALSE) { ?>
-            $(document).Toasts('create', {
-                class: 'bg-danger',
-                title: 'Thất bại',
-                subtitle: '',
-                body: '<?= $this->session->flashdata('flsh_msg') ?>'
-            })
-        <?php } ?>
-
-        <?php if ($this->session->flashdata('flsh_msg') == 'OK') { ?>
-            $(document).Toasts('create', {
-                class: 'bg-success',
-                title: 'Thành công',
-                subtitle: '',
-                body: 'Cập nhật thành công!'
-            })
-        <?php } ?>
-
         $("#example1").DataTable({
             "responsive": true,
             "lengthChange": false,

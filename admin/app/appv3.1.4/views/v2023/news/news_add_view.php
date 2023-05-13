@@ -240,6 +240,7 @@
         tinymce.init({
             selector: '#content',
             height: "800",
+            relative_urls: false,
             plugins: [
                 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',

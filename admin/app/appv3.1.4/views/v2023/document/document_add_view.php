@@ -13,13 +13,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Đăng bài lịch đấu giá</h1>
+                    <h1>Đăng tài liệu</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url('home') ?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url('auction') ?>">Quản lý lịch đấu giá</a></li>
-                        <li class="breadcrumb-item active">Đăng bài lịch đấu giá</li>
+                        <li class="breadcrumb-item"><a href="<?= site_url('document') ?>">Quản lý tài liệu</a></li>
+                        <li class="breadcrumb-item active">Đăng bài tài liệu</li>
                     </ol>
                 </div>
             </div>
@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid pb-5">
-            <form id="frm_auction" action="<?= site_url('auction/add_submit') ?>" method="post">
+            <form id="frm_document" action="<?= site_url('document/add_submit') ?>" method="post">
 
                 <!-- Mô tả  -->
                 <div class="card card-primary">
@@ -185,7 +185,7 @@
 
         });
 
-        $('#frm_auction').validate({
+        $('#frm_document').validate({
             ignore: [],
             rules: {
                 title: {
@@ -278,7 +278,7 @@
         $(image_id).val('');
         $(image_id + '_pre').attr('src', '').hide();
 
-        let count_total_image = $('#frm_auction').find('.image_input').filter(function() {
+        let count_total_image = $('#frm_document').find('.image_input').filter(function() {
             return this.value.trim() !== '';
         }).length;
 

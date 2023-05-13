@@ -13,13 +13,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Đăng bài lịch đấu giá</h1>
+                    <h1>Sửa tài liệu</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url('home') ?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url('auction') ?>">Quản lý lịch đấu giá</a></li>
-                        <li class="breadcrumb-item active">Đăng bài lịch đấu giá</li>
+                        <li class="breadcrumb-item"><a href="<?= site_url('document') ?>">Quản lý tài liệu</a></li>
+                        <li class="breadcrumb-item active">sửa tài liệu</li>
                     </ol>
                 </div>
             </div>
@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid pb-5">
-            <form id="frm_auction" action="<?= site_url('auction/add_submit') ?>" method="post">
+            <form id="frm_document" action="<?= site_url('document/edit_submit/' . $info['id_articles']) ?>" method="post">
 
                 <!-- Mô tả  -->
                 <div class="card card-primary">
@@ -45,20 +45,36 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
+
+                                <div class="form-group d-flex w-100" style="gap:50px">
+                                    <label>Trạng thái</label>
+                                    <div class="d-flex" style="gap:30px">
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="status_1" name="status" value="1" <?= $info['status'] ? 'checked' : '' ?>>
+                                            <label for="status_1" class="custom-control-label">Hiển thị</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="status_0" name="status" value="0" <?= !$info['status'] ? 'checked' : '' ?>>
+                                            <label for="status_0" class="custom-control-label">Ngừng hiển thị</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <div class="form-group">
                                     <label>Tiêu đề bài viết</label>
-                                    <textarea class="form-control" rows=2 placeholder="Nhập tiêu đề " name="title"></textarea>
+                                    <textarea class="form-control" rows=2 placeholder="Nhập tiêu đề " name="title"><?= $info['title'] ?></textarea>
                                     <small>Tiêu đề được dùng để làm link SEO trên công cụ tìm kiếm như Google, Bing...</small>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Mô tả ngắn</label>
-                                    <textarea class="form-control" rows=3 placeholder="Nhập mô tả ngắn" name=sapo></textarea>
+                                    <textarea class="form-control" rows=3 placeholder="Nhập mô tả ngắn" name=sapo><?= $info['sapo'] ?></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Nguồn bài viết</label>
-                                    <input class="form-control" placeholder="Nhập tiêu đề" name="origin" />
+                                    <input class="form-control" placeholder="Nhập tiêu đề" name="origin" value="<?= $info['origin'] ?>" />
                                 </div>
                                 <div class="form-group">
                                     <label>Chọn thẻ:</label>
@@ -79,13 +95,13 @@
                                     <div class="input-group-prepend">
                                         <a href="<?= ROOT_DOMAIN ?>/filemanager/filemanager/dialog.php?type=1&field_id=image" class="btn btn-primary iframe-btn">Chọn ảnh</a>
                                     </div>
-                                    <input type="text" class="form-control image_input" id="image" name="image" readonly>
+                                    <input type="text" class="form-control image_input" id="image" name="image" readonly value="<?= $info['image_path'] ?>">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-image-delete" data-image="#image">Xóa</button>
                                     </div>
                                     <!-- <span id="image-error" class="error invalid-feedback">Ảnh chính không được trống</span> -->
                                 </div>
-                                <img id="image_pre" class="img-fluid m-1 p-1 rounded shadow" style="max-height: 300px; display: none; cursor: pointer;" src="" data-toggle="modal" data-target="#modal-image-delete" data-image="#image" />
+                                <img id="image_pre" class="img-fluid m-1 p-1 rounded shadow" style="max-height: 300px;cursor: pointer;" src="<?= $info['image_path'] ?>" data-toggle="modal" data-target="#modal-image-delete" data-image="#image" />
                             </div>
                         </div>
 
@@ -108,13 +124,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea id="content" name="content">Nội dung bài viết</textarea>
+                                    <textarea id="content" name="content"><?= html_entity_decode(htmlspecialchars_decode($info['content'])) ?></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div id="content_pre" style="font-family: Lexend">
-
+                                    <?= html_entity_decode(htmlspecialchars_decode($info['content'])) ?>
                                 </div>
                             </div>
 
@@ -185,7 +201,7 @@
 
         });
 
-        $('#frm_auction').validate({
+        $('#frm_document').validate({
             ignore: [],
             rules: {
                 title: {
@@ -278,7 +294,7 @@
         $(image_id).val('');
         $(image_id + '_pre').attr('src', '').hide();
 
-        let count_total_image = $('#frm_auction').find('.image_input').filter(function() {
+        let count_total_image = $('#frm_document').find('.image_input').filter(function() {
             return this.value.trim() !== '';
         }).length;
 

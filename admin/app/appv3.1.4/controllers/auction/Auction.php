@@ -171,7 +171,7 @@ class Auction extends MY_Controller
         $id_article = isIdNumber($id_article) ? $id_article : 0;
         $info   = $this->Articles_model->get_info($id_article);
         if (empty($info)) {
-            $this->session->set_flashdata('flsh_msg', 'Xóa không thành công vui lòng thử lại!!');
+            $this->session->set_flashdata('flsh_msg', 'Sửa không thành công vui lòng thử lại!!');
             redirect('auction');
         }
 
