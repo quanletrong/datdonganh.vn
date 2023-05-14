@@ -15,9 +15,6 @@
 </head>
 <?php flush();?>
 <body>
-	<a href="logout">Thoát</a>
-	<hr>
-	<!--[if lt IE 10]>
-	<p style="font-size: 110%; text-align:center;padding: 8px; margin: 0; background-color: #fff; color:red;">Bạn đang sử dụng trình duyệt IE version thấp.<br /> Để đảm bảo hệ thống hoạt động đúng, Bạn vui lòng sử dụng IE version 10 trở lên,<br/>hoặc sử dụng các trình duyệt khác như: Chrome, Firefox, Opera,...</p>
-	<![endif]-->
+    <?php $this->load->view($template_f . 'component/header/header_menu_view'); ?>
+
 	
