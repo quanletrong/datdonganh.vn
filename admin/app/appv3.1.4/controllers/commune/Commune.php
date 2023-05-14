@@ -91,12 +91,8 @@ class Commune extends MY_Controller
                 redirect('commune');
             }
 
-            // CẬP NHẬT
+            // DELETE
             if ($_POST['action'] == 'delete') {
-
-                // TODO: validate dữ liệu submit
-                //END validate
-
                 $commune_info   = $this->Commune_model->get_info($id_commune);
                 if (empty($commune_info)) {
                     $msg = 'Xóa không thành công vui lòng thử lại!!';

@@ -38,22 +38,22 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">ID</th>
-                                        <th style="min-width: 200px;">Tiêu đề</th>
-                                        <th class="text-center">Tài nguyên</th>
-                                        <th class="text-center">Trạng thái</th>
-                                        <th class="" style="min-width: 120px;">Vị trí</th>
-                                        <th class="" style="min-width: 140px;">Đặc điểm</th>
-                                        <th style="min-width: 120px;">Người đăng</th>
-                                        <th class="text-center">Lượt xem</th>
-                                        <th class="text-center" style="width: 62px;">Action</th>
+                                        <th class="text-center" style="width: 50px;">ID</th>
+                                        <th style="min-width: 200px;">Bất động sản</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Tài nguyên</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Trạng thái</th>
+                                        <th class="" style="min-width: 150px; width: 150px;">Vị trí</th>
+                                        <th class="" style="min-width: 200px; width: 200px;">Đặc điểm</th>
+                                        <th style="min-width: 200px; width: 150px;">Người đăng</th>
+                                        <th class="text-right" style="min-width: 90px; width: 90px;">Xem</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($list_bds as $index => $bds) { ?>
                                         <tr>
                                             <td class=" text-center"><?= $index ?></td>
-                                            <td class="" style="width: 200px;">
+                                            <td class="">
                                                 <strong><?= $bds['title'] ?></strong><br><br>
 
                                                 Loại đất: <?= $cf_bds['type'][$bds['type']] ?> <br>
@@ -68,21 +68,48 @@
                                                     <?= $cf_bds['status'][$bds['status']] ?>
                                                 </span>
                                             </td>
-                                            <td class="" style="width: 100px;">
+                                            <td class="">
                                                 <strong><?= $bds['commune'] ?></strong> <br>
                                                 <?= $bds['street'] ?> <br>
                                             </td>
 
                                             <td class="">
-                                                <strong>Diện tích: <?= $bds['acreage'] ?> m²</strong> <br>
-                                                <strong>Giá:<?= $bds['price'] == 0 ? 'Thương lượng' : $bds['price'] ?></strong> <br>
-                                                Hướng nhà: <?= @$cf_bds['direction'][$bds['direction']] ?> <br>
-                                                Đường vào: <?= @$bds['road_surface'] ?> mét </br>
-                                                Sô tầng: <?= @$cf_bds['floor'][$bds['floor']] ?> <br>
-                                                Phòng ngủ: <?= @$cf_bds['bedroom'][$bds['bedroom']] ?> <br>
-                                                Toilet: <?= @$cf_bds['toilet'][$bds['toilet']] ?> <br>
-                                                Nội thất: <?= @$cf_bds['noithat'][$bds['noithat']] ?> <br>
-                                                Pháp lý: <?= @$cf_bds['juridical'][$bds['juridical']] ?>
+                                                <div class="d-flex justify-content-between">
+                                                    <strong>Diện tích:</strong>
+                                                    <strong><?= $bds['acreage'] ?> m²</strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <strong>Giá:</strong>
+                                                    <strong><?= $bds['price'] == 0 ? 'Thương lượng' : $bds['price'] ?></strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Hướng nhà:</span>
+                                                    <span><?= @$cf_bds['direction'][$bds['direction']] ?></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Đường vào:</span>
+                                                    <span><?= @$bds['road_surface'] ?> mét</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Sô tầng:</span>
+                                                    <span><?= @$cf_bds['floor'][$bds['floor']] ?></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Phòng ngủ:</span>
+                                                    <span><?= @$cf_bds['bedroom'][$bds['bedroom']] ?></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Toilet:</span>
+                                                    <span><?= @$cf_bds['toilet'][$bds['toilet']] ?></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Nội thất:</span>
+                                                    <span><?= @$cf_bds['noithat'][$bds['noithat']] ?></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Pháp lý:</span>
+                                                    <span><?= @$cf_bds['juridical'][$bds['juridical']] ?></span>
+                                                </div>
                                             </td>
 
                                             <td class="">
@@ -94,10 +121,10 @@
                                                 <?= strtotime($bds['update_time']) > 0 ? date('H:i d/m/Y', strtotime($bds['update_time'])) : '' ?>
                                             </td>
 
-                                            <td class="text-center">
+                                            <td class="text-right">
                                                 0
                                             </td>
-                                            <td class="text-center" style="width: 50px;">
+                                            <td class="text-center">
                                                 <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="w-100 btn btn-sm btn-primary mb-1">
                                                     Sửa bài
                                                 </a> <br>
@@ -109,14 +136,14 @@
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">ID</th>
-                                        <th style="min-width: 200px;">Tiêu đề</th>
+                                        <th>Bất động sản</th>
                                         <th class="text-center">Tài nguyên</th>
                                         <th class="text-center">Trạng thái</th>
-                                        <th class="" style="min-width: 120px;">Vị trí</th>
-                                        <th class="" style="min-width: 140px;">Đặc điểm</th>
-                                        <th style="min-width: 120px;">Người đăng</th>
-                                        <th class="text-center">Lượt xem</th>
-                                        <th class="text-center" style="width: 50px;">Action</th>
+                                        <th class="">Vị trí</th>
+                                        <th class="">Đặc điểm</th>
+                                        <th>Người đăng</th>
+                                        <th class="text-right">Xem</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>

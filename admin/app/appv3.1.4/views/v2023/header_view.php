@@ -238,7 +238,7 @@
 						</li>
 
 						<li class="nav-item">
-							<a href="tags" class="nav-link">
+							<a href="tag" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
 									Thẻ đánh nhãn

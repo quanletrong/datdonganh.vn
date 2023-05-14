@@ -23,6 +23,8 @@ class Bds extends MY_Controller
         $this->load->model('street/Street_model');
         $this->load->model('commune/Commune_model');
         $this->load->model('bds/Bds_model');
+        $this->load->model('tag/Tag_model');
+        $this->load->model('tag_assign/Tag_assign_model');
     }
 
     function index()
@@ -75,6 +77,7 @@ class Bds extends MY_Controller
         $data['list_commune'] = $list_commune;
         $header = [
             'title' => 'Quản lý bài đăng bất động sản',
+            'header_page_css_js' => 'bds'
         ];
 
         $this->_loadHeader($header);
@@ -92,12 +95,16 @@ class Bds extends MY_Controller
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
-        $list_street =  $this->Street_model->get_list(1);
-        $list_commune =  $this->Commune_model->get_list(1);
+        $list_street  = $this->Street_model->get_list(1);
+        $list_commune = $this->Commune_model->get_list(1);
+        $status_tag   = 1;
+        $name_tag     = '';
+        $list_tag     = $this->Tag_model->get_list($status_tag, $name_tag);
 
         $data['cf_bds'] = $this->config->item('bds');
         $data['list_street'] = $list_street;
         $data['list_commune'] = $list_commune;
+        $data['list_tag'] = $list_tag;
 
         $header = [
             'title' => 'Đăng thêm bất động sản',
@@ -173,6 +180,9 @@ class Bds extends MY_Controller
 
             if ($newid) {
                 # update tag
+                foreach ($tag as $id_tag) {
+                    $this->Tag_assign_model->add($id_tag, $newid, TAG_BDS, $id_user, $create_time);
+                }
                 $msg = 'OK';
             } else {
                 $msg = 'Lưu không thành công vui lòng thử lại!';
@@ -201,8 +211,10 @@ class Bds extends MY_Controller
         }
         //end check right
 
-        $list_street =  $this->Street_model->get_list(1);
-        $list_commune =  $this->Commune_model->get_list(1);
+        $list_street  = $this->Street_model->get_list(1);
+        $list_commune = $this->Commune_model->get_list(1);
+        $list_tag     = $this->Tag_model->get_list(TAG_STATUS_RUN);
+        $tag_assign   = $this->Tag_assign_model->get_tag_assign($id_bds, TAG_BDS);
 
         //conver json image => arr image
         $arr_image = json_decode($info['images'], true);
@@ -215,9 +227,13 @@ class Bds extends MY_Controller
         }
         //end
 
-        $data['info'] = $info;
-        $data['cf_bds'] = $this->config->item('bds');
-        $data['list_street'] = $list_street;
+       
+
+        $data['list_tag']     = $list_tag;
+        $data['info']         = $info;
+        $data['tag_assign']   = $tag_assign;
+        $data['cf_bds']       = $this->config->item('bds');
+        $data['list_street']  = $list_street;
         $data['list_commune'] = $list_commune;
 
         $header = [
@@ -315,6 +331,10 @@ class Bds extends MY_Controller
 
             if ($exc) {
                 # update tag
+                $this->Tag_assign_model->delete_tag_assign($id_bds, TAG_BDS);
+                foreach ($tag as $id_tag) {
+                    $this->Tag_assign_model->add($id_tag, $id_bds, TAG_BDS, $this->_session_uid(), date('Y-m-d H:i:s'));
+                }
                 $msg = 'OK';
             } else {
                 $msg = 'Lưu không thành công vui lòng thử lại!';

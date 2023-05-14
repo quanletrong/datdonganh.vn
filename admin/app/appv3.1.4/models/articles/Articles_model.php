@@ -10,7 +10,7 @@ class Articles_model extends CI_Model
 
     function add($status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time)
     {
-        $execute = false;
+        $new_id = 0;
         $iconn = $this->db->conn_id;
         $sql = "INSERT INTO tbl_articles (status, type, slug, title, image, sapo, content, origin, is_hot, id_user, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
@@ -18,14 +18,14 @@ class Articles_model extends CI_Model
             $param = [$status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time];
 
             if ($stmt->execute($param)) {
-                $execute = true;
+                $new_id = $iconn->lastInsertId();
             } else {
                 var_dump($stmt->errorInfo());
                 die;
             }
         }
         $stmt->closeCursor();
-        return $execute;
+        return $new_id;
     }
 
     function get_info($id_article)

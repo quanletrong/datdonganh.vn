@@ -21,6 +21,8 @@ class Auction extends MY_Controller
 
         // model
         $this->load->model('articles/Articles_model');
+        $this->load->model('tag/Tag_model');
+        $this->load->model('tag_assign/Tag_assign_model');
     }
 
     function index()
@@ -70,6 +72,11 @@ class Auction extends MY_Controller
             'header_page_css_js' => 'news_add'
         ];
 
+        $status_tag = 1;
+        $name_tag = '';
+        $list_tag =  $this->Tag_model->get_list($status_tag, $name_tag);
+        $data['list_tag'] = $list_tag;
+
         $this->_loadHeader($header);
         $this->load->view($this->_template_f . 'auction/auction_add_view', $data);
         $this->_loadFooter();
@@ -87,6 +94,7 @@ class Auction extends MY_Controller
         $content = $this->input->post('content', false);        // check length regx
         $content = (htmlentities(htmlspecialchars($content)));  // render var_dump(html_entity_decode(htmlspecialchars_decode($maps)))
         $origin  = $this->input->post('origin');
+        $tag     = $this->input->post('tag');                   // check db
 
         $id_user     = $this->_session_uid();
         $create_time = date('Y-m-d H:i:s');
@@ -116,6 +124,9 @@ class Auction extends MY_Controller
             if ($newid) {
                 # update tag
                 $msg = 'OK';
+                foreach ($tag as $id_tag) {
+                    $this->Tag_assign_model->add($id_tag, $newid, TAG_AUCTION, $id_user, $create_time);
+                }
             } else {
                 $msg = 'Lưu không thành công vui lòng thử lại!';
             }
@@ -150,8 +161,13 @@ class Auction extends MY_Controller
         $info['image_path'] = $image_path;
         //end
 
-        $data['info'] = $info;
+        $list_tag =  $this->Tag_model->get_list(TAG_STATUS_RUN);
+        $data['list_tag'] = $list_tag;
 
+        $tag_assign   = $this->Tag_assign_model->get_tag_assign($id_article, TAG_AUCTION);
+
+        $data['info'] = $info;
+        $data['tag_assign'] = $tag_assign;
         $header = [
             'title' => 'Chỉnh sửa lịch đấu giá',
             'header_page_css_js' => 'news_add'
@@ -182,6 +198,7 @@ class Auction extends MY_Controller
         $content     = $this->input->post('content', false);        // check length regx
         $content     = (htmlentities(htmlspecialchars($content)));  // render var_dump(html_entity_decode(htmlspecialchars_decode($maps)))
         $origin      = $this->input->post('origin');
+        $tag         = $this->input->post('tag');                   // check db
         $update_time = date('Y-m-d H:i:s');
 
         // TODO: validate dữ liệu submit
@@ -213,6 +230,10 @@ class Auction extends MY_Controller
 
             if ($newid) {
                 # update tag
+                $this->Tag_assign_model->delete_tag_assign($id_article, TAG_AUCTION);
+                foreach ($tag as $id_tag) {
+                    $this->Tag_assign_model->add($id_tag, $id_article, TAG_AUCTION, $this->_session_uid(), date('Y-m-d H:i:s'));
+                }
                 $msg = 'OK';
             } else {
                 $msg = 'Lưu không thành công vui lòng thử lại!';

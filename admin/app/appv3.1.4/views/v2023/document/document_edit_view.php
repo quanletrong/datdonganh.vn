@@ -78,12 +78,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Chọn thẻ:</label>
-                                    <select class="select2" name="tag[]" multiple="multiple" data-placeholder="Chọn thẻ" style="width: 100%;">
-                                        <option value="1">TAG 1</option>
-                                        <option value="2">TAG 2</option>
-                                        <option value="3">TAG 3</option>
-                                        <option value="4">TAG 4</option>
+                                    <select class="select2" id="tag" name="tag[]" multiple="multiple" data-placeholder="Chọn thẻ" style="width: 100%">
+                                        <?php foreach ($list_tag as $id_tag => $tag) { ?>
+                                            <option value="<?= $id_tag ?>" <?= isset($tag_assign[$id_tag]) ? 'selected' : '' ?>><?= $tag['name'] ?></option>
+                                        <?php } ?>
                                     </select>
+                                    <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-tag-add">Thêm tag</button>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -174,6 +174,84 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<!-- modal tag add -->
+<div class="modal fade" id="modal-tag-add" style="display: none" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Thêm tag</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" placeholder="Nhập tên tag" id="tag-add" onkeyup="checkTagAdd(this.value)">
+                <span id="tag-add-error" class="error invalid-feedback" style="display: none;">...</span>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Quay lại</button>
+                <button type="button" id="model_btn_xoa_anh" class="btn btn-primary" onclick="ajax_add_tag()">Thêm tag</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <script>
+        function checkTagAdd(tag) {
+            if (tag.length >= 5 && tag.length <= 30) {
+                $("#tag-add").removeClass('is-invalid')
+                $("#tag-add-error").hide().html('');
+                return true;
+            } else {
+                $("#tag-add").addClass('is-invalid')
+                $("#tag-add-error").show().html('Tag tối thiểu 5 ký tự tối đa 25 ký tự');
+                return false;
+            }
+        }
+
+        function ajax_add_tag() {
+            let tag = $("#tag-add").val().trim();
+            if (checkTagAdd(tag)) {
+                $.ajax({
+                    type: "POST",
+                    url: "<?= site_url('tag/add') ?>",
+                    data: {
+                        'tag': tag
+                    },
+                    success: function(new_tag) {
+                        if (new_tag == 'exits') {
+                            $("#tag-add").addClass('is-invalid')
+                            $("#tag-add-error").show().html(`Tag <strong>${tag}</strong> đã tồn tại`);
+                        } else if (new_tag > 0) {
+                            var data = {
+                                id: new_tag,
+                                text: tag
+                            };
+                            var newOption = new Option(data.text, data.id, false, true);
+                            $('#tag').append(newOption).trigger('change');
+                            $("#tag-add").val('');
+                            $("#tag-add").removeClass('is-invalid')
+                            $("#tag-add-error").hide().html('');
+
+                            // thông báo thành công
+                            $(document).Toasts('create', {
+                                class: 'bg-success',
+                                title: 'Thành công',
+                                subtitle: '',
+                                body: 'Cập nhật thành công!'
+                            })
+                        } else {
+                            $("#tag-add").addClass('is-invalid')
+                            $("#tag-add-error").show().html('Có lỗi xảy ra vui lòng thử lại!');
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+    <!-- /.modal-dialog -->
+</div>
+<!-- modal tag add -->
+
 <script>
     $(function() {
 

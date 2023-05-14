@@ -10,7 +10,7 @@ class Bds_model extends CI_Model
 
     function add($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $create_time)
     {
-        $execute = false;
+        $new_id = 0;
         $iconn = $this->db->conn_id;
         $sql = "INSERT INTO tbl_bds (id_commune_ward, id_street, id_project, id_user, status, type, title, slug_title, maps, sapo, content, images, videos, price, acreage, direction, floor, toilet, bedroom, noithat, road_surface, juridical, is_vip, expired, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
@@ -18,14 +18,14 @@ class Bds_model extends CI_Model
             $param = [$id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $create_time];
 
             if ($stmt->execute($param)) {
-                $execute = true;
+                $new_id = $iconn->lastInsertId();
             } else {
                 var_dump($stmt->errorInfo());
                 die;
             }
         }
         $stmt->closeCursor();
-        return $execute;
+        return $new_id;
     }
 
     function get_info($id_bds)

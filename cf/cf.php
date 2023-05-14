@@ -70,3 +70,13 @@ define('USER', '3');
 define('NEWS', '1');
 define('AUCTION', '2');
 define('DOCUMENT', '3');
+
+// TAG
+define('TAG_STATUS_RUN', 1);
+define('TAG_STATUS_STOP', 0);
+
+// TAG_TYPE
+define('TAG_BDS', '1');
+define('TAG_AUCTION', '2');
+define('TAG_DOCUMENT', '3');
+define('TAG_NEWS', '4');

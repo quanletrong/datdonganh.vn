@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh sách đường trên địa bàn Huyện Đông Anh</h1>
+                    <h1>Danh sách Tag</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url() ?>">Home</a></li>
-                        <li class="breadcrumb-item active">Quản lý đường</li>
+                        <li class="breadcrumb-item active">Quản tag</li>
                     </ol>
                 </div>
             </div>
@@ -26,8 +26,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="card-title">Danh sách đường</h3>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-street" data-type="add">
+                                <h3 class="card-title">Danh sách tag</h3>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tag" data-type="add">
                                     Thêm mới
                                 </button>
                             </div>
@@ -48,7 +48,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($list_street as $index => $cmn) { ?>
+                                    <?php foreach ($list_tag as $index => $cmn) { ?>
                                         <tr>
                                             <td class="align-middle text-center"><?= $index + 1 ?></td>
                                             <td class="align-middle"><?= $cmn['name'] ?></td>
@@ -69,10 +69,10 @@
                                             </td>
                                             <td class="align-middle"><?= $cmn['username'] ?></td>
                                             <td class="align-middle text-center">
-                                                <a href="#" class="btn btn-sm btn-primary mb-1" data-toggle="modal" data-target="#modal-street" data-type="edit" data-street="<?= htmlentities(json_encode($cmn)) ?>">
+                                                <a href="#" class="btn btn-sm btn-primary mb-1" data-toggle="modal" data-target="#modal-tag" data-type="edit" data-tag="<?= htmlentities(json_encode($cmn)) ?>">
                                                     Sửa
                                                 </a>
-                                                <a href="" class="btn btn-sm btn-danger mb-1" data-toggle="modal" data-target="#modal-street-delete" data-street="<?= htmlentities(json_encode($cmn)) ?>">Xóa</a>
+                                                <a href="" class="btn btn-sm btn-danger mb-1" data-toggle="modal" data-target="#modal-tag-delete" data-tag="<?= htmlentities(json_encode($cmn)) ?>">Xóa</a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -104,7 +104,7 @@
 </div>
 
 <!-- modal edit -->
-<div class="modal fade" id="modal-street" style="display: none" aria-modal="true" role="dialog">
+<div class="modal fade" id="modal-tag" style="display: none" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -114,9 +114,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="frm_street" method="post" action="<?= site_url('street') ?>">
+                <form id="frm_tag" method="post" action="<?= site_url('tag') ?>">
                     <input type="hidden" name="action" value="">
-                    <input type="hidden" name="id_street" value="">
+                    <input type="hidden" name="id_tag" value="">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-lg-6">
@@ -157,10 +157,10 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- modal edit -->
-<div class="modal fade" id="modal-street-delete" style="display: none" aria-modal="true" role="dialog">
+<div class="modal fade" id="modal-tag-delete" style="display: none" aria-modal="true" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
-            <form id="frm_street_delete" method="post" action="<?= site_url('street') ?>">
+            <form id="frm_tag_delete" method="post" action="<?= site_url('tag') ?>">
                 <div class="modal-header">
                     <h4 class="modal-title text-center">Cảnh báo xóa</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,7 +170,7 @@
                 <div class="modal-body">
 
                     <input type="hidden" name="action" value="delete">
-                    <input type="hidden" name="id_street" value="">
+                    <input type="hidden" name="id_tag" value="">
                     <div class="card-body">
                         <p>
                             Các bài đăng bất động sản liên quan đến đường <span class="badge bg-warning" id="name_for_warning_model">...</span> sẽ chuyển trạng thái sang <span class="badge bg-warning">lưu trữ</span> và không thể khôi phục được. <br>
@@ -200,7 +200,7 @@
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-        $('#frm_street').validate({
+        $('#frm_tag').validate({
             submitHandler: function(form) {
                 $(form).find('button[type="submit"]').attr('disabled', 'disabled');
                 form.submit();
@@ -233,20 +233,20 @@
         });
 
 
-        $('#modal-street').on('show.bs.modal', function(event) {
+        $('#modal-tag').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var type = button.data('type');
             var modal = $(this);
             if (type == 'edit') {
-                var street = button.data('street');
-                $('#frm_street input[name=action]').val('edit');
-                $('#frm_street input[name=id_street]').val(street.id_street);
-                modal.find('.modal-title').text(`Sửa thông tin - ${street.name}`);
-                modal.find('.modal-body #name').val(street.name);
-                modal.find(`.modal-body input:radio[name=status][value=${street.status}]`).prop('checked', true);
+                var tag = button.data('tag');
+                $('#frm_tag input[name=action]').val('edit');
+                $('#frm_tag input[name=id_tag]').val(tag.id_tag);
+                modal.find('.modal-title').text(`Sửa thông tin - ${tag.name}`);
+                modal.find('.modal-body #name').val(tag.name);
+                modal.find(`.modal-body input:radio[name=status][value=${tag.status}]`).prop('checked', true);
             } else {
-                $('#frm_street input[name=action]').val('add');
-                $('#frm_street input[name=id_street]').val('');
+                $('#frm_tag input[name=action]').val('add');
+                $('#frm_tag input[name=id_tag]').val('');
                 modal.find('.modal-title').text(`Thêm đường`);
                 modal.find('.modal-body #name').val('');
                 modal.find(`.modal-body input:radio[name=status][value=1]`).prop('checked', true);
@@ -254,13 +254,13 @@
 
         })
 
-        $('#modal-street-delete').on('show.bs.modal', function(event) {
+        $('#modal-tag-delete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var type = button.data('type');
             var modal = $(this);
-            var street = button.data('street');
-            $('#name_for_warning_model').text(street.name);
-            $('#frm_street_delete input[name=id_street]').val(street.id_street);
+            var tag = button.data('tag');
+            $('#name_for_warning_model').text(tag.name);
+            $('#frm_tag_delete input[name=id_tag]').val(tag.id_tag);
 
         });
     });
