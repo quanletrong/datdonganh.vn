@@ -287,8 +287,8 @@ class Bds extends MY_Controller
         $monthFolder = date('m', strtotime($info['create_time']));
         foreach ($image as $url_image) {
             if (@getimagesize($url_image)) {
-                // kiểm tra ảnh upload có trong '/filemanager/source'
-                $la_anh_moi = strpos($url_image, ROOT_DOMAIN . 'filemanager/source');
+                // kiểm tra ảnh upload có trong 'uploads/filemanager/source'
+                $la_anh_moi = strpos($url_image, ROOT_DOMAIN . 'uploads/filemanager/source');
                 // nếu là ảnh mới thì copy ảnh
                 if ($la_anh_moi !== false) {
                     $copy = copy_image_from_file_manager_to_public_upload($url_image, $yearFolder, $monthFolder);

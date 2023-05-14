@@ -190,8 +190,8 @@ class Document extends MY_Controller
         # lưu ảnh
         $yearFolder = date('Y', strtotime($info['create_time']));
         $monthFolder = date('m', strtotime($info['create_time']));
-        // kiểm tra ảnh upload có trong '/filemanager/source'
-        $la_anh_moi = strpos($image, ROOT_DOMAIN . 'filemanager/source');
+        // kiểm tra ảnh upload có trong 'uploads/filemanager/source'
+        $la_anh_moi = strpos($image, ROOT_DOMAIN . 'uploads/filemanager/source');
 
         // nếu là ảnh mới thì copy ảnh
         if ($la_anh_moi !== false) {
