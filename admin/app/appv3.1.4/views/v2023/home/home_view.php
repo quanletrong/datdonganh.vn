@@ -19,7 +19,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
+    <div class="content d-none">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
