@@ -39,7 +39,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">STT</th>
-                                        <th>Tên</th>
+                                        <th>Tên nhãn</th>
                                         <th class="text-center">Trạng thái</th>
                                         <th class="text-center">Ngày tạo</th>
                                         <th class="text-center">Cập nhật</th>
@@ -55,9 +55,9 @@
                                             <td class="align-middle text-center">
                                                 <?php
                                                 if ($cmn['status'] === '1') {
-                                                    echo '<span class="badge bg-primary">Hoạt động</span>';
+                                                    echo '<span class="badge bg-primary">Hiển thị</span>';
                                                 } else {
-                                                    echo '<span class="badge bg-warning">Ngừng hoạt động</span>';
+                                                    echo '<span class="badge bg-warning">Ngừng hiển thị</span>';
                                                 }
                                                 ?>
                                             </td>
@@ -80,7 +80,7 @@
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">STT</th>
-                                        <th>Tên</th>
+                                        <th>Tên nhãn</th>
                                         <th class="text-center">Trạng thái</th>
                                         <th class="text-center">Ngày tạo</th>
                                         <th class="text-center">Cập nhật</th>
@@ -131,16 +131,17 @@
                                 <div class="form-group d-flex" style="gap:20px">
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" id="status_1" name="status" value="1">
-                                        <label for="status_1" class="custom-control-label">Hoạt động</label>
+                                        <label for="status_1" class="custom-control-label">Hiển thị</label>
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input class="custom-control-input" type="radio" id="status_2" name="status" value="2">
-                                        <label for="status_2" class="custom-control-label">Ngừng hoạt động</label>
+                                        <label for="status_2" class="custom-control-label">Tạm ngừng hiển thị</label>
                                     </div>
                                 </div>
+                                <small class="text-danger">LƯU Ý: Nếu chuyển sang <strong>Tạm ngừng hiển thị</strong> thì tag sẽ bị ẩn khỏi tất cả bài viết (bài đăng bđs, tin tức, lịch đấu giá đất, tài liệu đất) cho đến khi bạn chuyển sang <strong>Hiển thị</strong>.</small>
                             </div>
                             <div class="col-12 col-lg-6">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -173,9 +174,10 @@
                     <input type="hidden" name="id_tag" value="">
                     <div class="card-body">
                         <p>
-                            Các bài đăng bất động sản liên quan đến đường <span class="badge bg-warning" id="name_for_warning_model">...</span> sẽ chuyển trạng thái sang <span class="badge bg-warning">lưu trữ</span> và không thể khôi phục được. <br>
-                            Lời khuyên hãy đổi trạng thái sang <span class="badge bg-warning">ngừng hoạt động</span>!
-                        <p><a href="#" class="btn btn-sm btn-warning shadow">Danh sách bài đăng bất động sản liên quan</a></p>
+                            Nếu <strong>XÓA</strong> tag này tất cả bài viết (bài đăng bđs, tin tức, lịch đấu giá đất, tài liệu đất) sẽ không còn tag này nữa.
+                        </p>
+                        <p>
+                            Lời khuyên hãy chuyển tag sang trạng thái <span class="badge bg-warning">tạm ngừng hiển thị</span>.
                         </p>
                     </div>
                     <!-- /.card-body -->

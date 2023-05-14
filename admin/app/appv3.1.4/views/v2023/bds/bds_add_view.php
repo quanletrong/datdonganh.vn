@@ -151,8 +151,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Giá</label>
-                                    <input class="form-control" type="text" name="price" value="0">
-                                    <small>1 triệu nhập vào là 1, bỏ trống là giá thương lượng</small>
+                                    <input class="form-control" type="text" name="price" value="0" style="font-size: 2rem;">
+                                    <small>Bỏ trống là giá thương lượng</small>
                                 </div>
 
                                 <div class="form-group">
@@ -454,7 +454,18 @@
     $(function() {
 
         $('.select2').select2();
-        $('[data-mask]').inputmask()
+
+        $('[data-mask]').inputmask();
+
+        $('input[name="price"]').inputmask(
+            'integer', {
+                radixPoint: '.',
+                digits: 2,
+                autoGroup: true,
+                groupSeparator: ",",
+                rightAlign: false,
+            }
+        );
 
         $('.iframe-btn').fancybox({
             'type': 'iframe',
@@ -503,6 +514,16 @@
             }
         });
 
+        jQuery.validator.addMethod('valid_price', function(value) {
+            const regex = /,/ig;
+            value =  parseInt(value.replaceAll(regex, ''));
+            if (value > 0 && value < 100000000) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+
         $('#frm_bds').validate({
             submitHandler: function(form) {
 
@@ -546,7 +567,7 @@
                 price: {
                     required: false,
                     number: true,
-                    min: 100 //100 triệu
+                    valid_price : true
                 },
                 acreage: {
                     required: true,
@@ -584,7 +605,7 @@
                 },
                 price: {
                     number: 'Giá phải là số',
-                    min: 'Giá nhỏ nhất là 100 triệu'
+                    valid_price: 'Giá nhỏ nhất là 100 triệu'
                 },
                 acreage: {
                     required: "Diện tích không được để trống",

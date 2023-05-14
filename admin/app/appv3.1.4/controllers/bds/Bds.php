@@ -84,8 +84,6 @@ class Bds extends MY_Controller
         $this->load->view($this->_template_f . 'bds/bds_view', $data);
         // pages/examples/invoice.html TODO: sau chuyển giao diện
         $this->_loadFooter();
-
-        
     }
 
     function add()
@@ -147,6 +145,7 @@ class Bds extends MY_Controller
         $videos          = $this->input->post('video');              // check regx
 
         // TODO: validate dữ liệu submit
+        $price = intval(str_replace(',', '', $price));
         //END validate
 
 
@@ -227,7 +226,7 @@ class Bds extends MY_Controller
         }
         //end
 
-       
+
 
         $data['list_tag']     = $list_tag;
         $data['info']         = $info;
@@ -287,6 +286,7 @@ class Bds extends MY_Controller
         $videos          = $this->input->post('video');              // check regx
 
         // TODO: validate dữ liệu submit
+        $price = intval(str_replace(',', '', $price));
         //END validate
 
 

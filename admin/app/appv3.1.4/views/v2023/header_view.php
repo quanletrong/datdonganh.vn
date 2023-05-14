@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini d-none">
+<body class="hold-transition sidebar-mini layout-fixed d-none">
 	<div class="wrapper">
 
 		<!-- Navbar -->

@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     <strong>Giá:</strong>
-                                                    <strong><?= $bds['price'] == 0 ? 'Thương lượng' : $bds['price'] ?></strong>
+                                                    <strong><?= $bds['price'] == 0 ? 'Thương lượng' : number_format($bds['price']) ?></strong>
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     <span>Hướng nhà:</span>
