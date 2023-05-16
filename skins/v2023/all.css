@@ -3,7 +3,8 @@
   src: url(fonts/Lexend_Deca/LexendDeca-VariableFont_wght.ttf);
 }
 body {
-  font-size: 0.875rem;
+  /* font-size: 0.875rem; */
+  font-size: 1rem;
   font-family: Lexend;
 }
 

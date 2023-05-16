@@ -39,7 +39,7 @@
                             </ul>
                         </div>
                     </div>
-                    <input type="hidden" id="data-pills-news" class="data-json" value='<?php echo json_encode($news); ?>' />
+                    <input type="hidden" id="data-pills-news" class="data-json" value="<?php echo htmlspecialchars(json_encode($news)); ?>" />
                 </div>
                 <div class="tab-pane" id="pills-auction" role="tabpanel" aria-labelledby="pills-auction-tab" tabindex="0"> 
                     <div class="row">
@@ -117,17 +117,23 @@ function preview_article(id = 0){
     let data = $(".tab-pane.active").find("input.data-json").val();
     let id_tabactive = $(".tab-pane.active").attr("id");
 
-    data = JSON.parse(data);
-    console.log(data);
-    id = id == 0 ? Object.keys(data)[Object.keys(data).length-1] : id;
+    try {
+        data = JSON.parse(data);
+        console.log(data);
+        id = id == 0 ? Object.keys(data)[Object.keys(data).length-1] : id;
 
-    $("#img-"+id_tabactive).attr("src", data[id].image_path);
-    $("#name-"+id_tabactive).text(data[id].title);
+        $("#img-"+id_tabactive).attr("src", data[id].image_path);
+        $("#name-"+id_tabactive).text(data[id].title);
+        
+        //get hour ngay gio hien tai - create_time tai viet
+        const postDate = new Date(data[id].create_time);
+        const timeElapsed = timeSince(postDate);
+        $("#hour-"+id_tabactive +" span").text(timeElapsed + " trước");
+    } catch (error) {
+        console.log(error)
+    }
     
-    //get hour ngay gio hien tai - create_time tai viet
-    const postDate = new Date(data[id].create_time);
-    const timeElapsed = timeSince(postDate);
-    $("#hour-"+id_tabactive +" span").text(timeElapsed + " trước");
+    
 }
 
 function timeSince(date) {

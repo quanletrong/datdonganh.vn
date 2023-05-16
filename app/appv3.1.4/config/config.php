@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url']	= HTTP_PROTOCOL . '://' . DOMAIN_NAME . '/';
 DEFINE('URI_PATH', '');
-DEFINE('ROOT_DOMAIN', HTTP_PROTOCOL . '://' . DOMAIN_NAME . '/');
+DEFINE('ROOT_DOMAIN', HTTP_PROTOCOL . '://' . DOMAIN_NAME . '/'); //https://datdonganh.quancoder.com/
 /*
 |--------------------------------------------------------------------------
 | Index File
