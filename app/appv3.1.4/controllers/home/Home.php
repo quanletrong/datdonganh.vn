@@ -8,7 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this->load->model('articles/Articles_model');
         $this->load->model('bds/Bds_model');
-        $this->load->model('Commune/Commune_model');
+        $this->load->model('commune/Commune_model');
         
         
 	}
