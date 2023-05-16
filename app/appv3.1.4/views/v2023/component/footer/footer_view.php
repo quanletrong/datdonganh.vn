@@ -13,31 +13,9 @@
         </p>
         <div class="collapse show" id="collapseExample">
             <div class="row">
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Bần Yên Nhân</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Thị trấn Đông Anh</div>
+                <?php foreach($communes as $comm){ ?>
+                <div class="col-6 col-md-4 col-lg-3"><a href=""><?php echo $comm['name']; ?></a></div>
+                <?php } ?>
             </div>
         </div>
 
@@ -49,31 +27,9 @@
         </p>
         <div class="collapse show" id="collapseExample">
             <div class="row">
-                <div class="col-6 col-md-4 col-lg-3">Đường Bắc Thăng Long Hải Bối</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường khu công nghiệp thăng long</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
-                <div class="col-6 col-md-4 col-lg-3">Đường abc xyz Đông Anh</div>
+                <?php foreach($streets as $street){ ?>
+                <div class="col-6 col-md-4 col-lg-3"><a href=""><?php echo $street['name']; ?></a></div>
+                <?php } ?>
             </div>
         </div>
         <hr class="mt-5">

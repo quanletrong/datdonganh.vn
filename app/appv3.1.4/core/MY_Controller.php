@@ -118,6 +118,15 @@ class MY_Controller extends CI_Controller
     {
         $footer = array();
         $footer['is_login'] = $this->_islogin();
+        
+        $this->load->model('street/Street_model');
+        $this->load->model('Commune/Commune_model');
+        
+        $footer['streets'] = $this->Street_model->get_list(1);
+        $footer['communes'] = $this->Commune_model->get_list(1);
+        
+        
+
         $this->load->view($this->_template_f . 'footer_view', $footer );
     }
 
