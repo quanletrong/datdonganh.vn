@@ -1,6 +1,6 @@
 <?php
 
-// die('update...');
+die('update...');
 
 define('CUSTOM_CHECK_GLB', 'glb'); 
 /*
