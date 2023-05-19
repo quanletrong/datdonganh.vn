@@ -92,7 +92,7 @@
 
 <script>
 $(function(){
-    preview_article();
+    
     $("#pills-tab .nav-item").click(function(e){
         $("#pills-tab .nav-item").removeClass("border-bottom border-3 border-danger");
 
@@ -103,13 +103,19 @@ $(function(){
         $("#pills-tabContent "+tab).addClass("active");
         
         preview_article();
-        
         $(".tab-pane.active").find("ul.list-group li").mouseover(function(){
             let id = $(this).data("id");
             preview_article(id);
         });
-        
+
     });
+    
+    preview_article();
+    $(".tab-pane.active").find("ul.list-group li").mouseover(function(){
+        let id = $(this).data("id");
+        preview_article(id);
+    });
+        
 });
 
     
@@ -119,7 +125,6 @@ function preview_article(id = 0){
 
     try {
         data = JSON.parse(data);
-        console.log(data);
         id = id == 0 ? Object.keys(data)[Object.keys(data).length-1] : id;
 
         $("#img-"+id_tabactive).attr("src", data[id].image_path);
@@ -129,6 +134,8 @@ function preview_article(id = 0){
         const postDate = new Date(data[id].create_time);
         const timeElapsed = timeSince(postDate);
         $("#hour-"+id_tabactive +" span").text(timeElapsed + " trước");
+        
+
     } catch (error) {
         console.log(error)
     }
