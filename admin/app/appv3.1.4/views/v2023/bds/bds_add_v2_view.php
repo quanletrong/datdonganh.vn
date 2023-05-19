@@ -45,7 +45,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Tiêu đề <span class="text-danger">*</span></label>
                                     </div>
-                                    <textarea class="form-control w-75" name="title" rows="2"></textarea>
+                                    <textarea class="form-control" style="width:75%" name="title" rows="2"></textarea>
                                 </div>
                             </div>
 
@@ -54,7 +54,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
                                     </div>
-                                    <textarea class="form-control w-75" name="address" rows="2"></textarea>
+                                    <textarea class="form-control" style="width:75%" name="address" rows="2"></textarea>
                                 </div>
                             </div>
 
@@ -63,7 +63,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Hình thức <span class="text-danger">*</span></label>
                                     </div>
-                                    <select class="select2 w-75" name="category">
+                                    <select class="select2" style="width: 75%;" name="category">
                                         <option value="0">Vui lòng chọn</option>
                                         <option value="1">Mua bán nhà đất</option>
                                         <option value="2">Cho thuê</option>
@@ -76,7 +76,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Loại hình <span class="text-danger">*</span></label>
                                     </div>
-                                    <select class="select2 w-75" name="type">
+                                    <select class="select2" style="width:75%" name="type">
                                         <?php foreach ($cf_bds['type'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
                                         <?php } ?>
@@ -89,7 +89,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Xã <span class="text-danger">*</span></label>
                                     </div>
-                                    <select class="select2 w-75" name="commune">
+                                    <select class="select2" style="width:75%" name="commune">
                                         <?php foreach ($list_commune as $cmn) { ?>
                                             <option value="<?= $cmn['id_commune_ward'] ?>"><?= $cmn['name'] ?></option>
                                         <?php } ?>
@@ -101,7 +101,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Đường <span class="text-danger">*</span></label>
                                     </div>
-                                    <select class="select2 w-75" name="street">
+                                    <select class="select2" style="width:75%" name="street">
                                         <?php foreach ($list_street as $street) { ?>
                                             <option value="<?= $street['id_street'] ?>"><?= $street['name'] ?></option>
                                         <?php } ?>
@@ -114,7 +114,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Dự án</label>
                                     </div>
-                                    <select class="select2 w-75" name="project">
+                                    <select class="select2" style="width:75%" name="project">
                                         <option value="0">Vui lòng chọn</option>
                                     </select>
                                 </div>
@@ -125,7 +125,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Diện tích <span class="text-danger">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="acreage">
+                                    <input type="text" class="form-control" style="width:75%" name="acreage">
                                 </div>
                             </div>
 
@@ -134,7 +134,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="price">
+                                    <input type="text" class="form-control" style="width:75%" name="price">
                                 </div>
                             </div>
 
@@ -143,7 +143,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Đơn vị</label>
                                     </div>
-                                    <select class="select2 w-75" name="price_type">
+                                    <select class="select2" style="width:75%" name="price_type">
                                         <option value="1">VNĐ</option>
                                         <option value="2">VNĐ/m2</option>
                                         <option value="3">VNĐ/tháng</option>
@@ -157,7 +157,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Bằng chữ</label>
                                     </div>
-                                    <input type="text" class="form-control text-danger w-75" name="price" readonly disabled>
+                                    <input type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Mặt tiền</label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="facades">
+                                    <input type="text" class="form-control" style="width:75%" name="facades">
                                 </div>
                             </div>
 
@@ -211,7 +211,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Đường vào</label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="road_surface">
+                                    <input type="text" class="form-control" style="width:75%" name="road_surface">
                                 </div>
                             </div>
 
@@ -220,7 +220,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Hướng nhà</label>
                                     </div>
-                                    <select class="select2 w-75" name="direction">
+                                    <select class="select2" style="width:75%" name="direction">
                                         <option value="0">Vui lòng chọn</option>
                                         <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
@@ -234,7 +234,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Diện tích SD</label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="acreage">
+                                    <input type="text" class="form-control" style="width:75%" name="acreage">
                                 </div>
                             </div>
 
@@ -243,7 +243,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Sô tầng</label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="floor">
+                                    <input type="text" class="form-control" style="width:75%" name="floor">
                                 </div>
                             </div>
 
@@ -252,7 +252,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Phòng ngủ</label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="room">
+                                    <input type="text" class="form-control" style="width:75%" name="room">
                                 </div>
                             </div>
 
@@ -261,7 +261,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Số toilet</label>
                                     </div>
-                                    <input type="text" class="form-control w-75" name="toilet">
+                                    <input type="text" class="form-control" style="width:75%" name="toilet">
                                 </div>
                             </div>
 
@@ -270,7 +270,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Pháp lý</label>
                                     </div>
-                                    <select class="select2 w-75" name="juridical">
+                                    <select class="select2" style="width:75%" name="juridical">
                                         <option value="0">Vui lòng chọn</option>
                                         <?php foreach ($cf_bds['juridical'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
@@ -298,21 +298,28 @@
                         <div class="row">
                             <!-- ảnh -->
                             <div class="col-md-7">
-                                <div class="d-flex justify-content-center">
-                                    <a href="" class="btn btn-primary iframe-btn">Chọn ảnh</a>
+                                <div class="form-group">
+                                    <label for="">Thêm ảnh</label> <br>
+                                    <button type="button" class="btn btn-sm btn-primary iframe-btn">
+                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                        Thêm ảnh cho tin đăng</button>
                                     <input type="hidden" id="image" name="image">
                                 </div>
+
 
                                 <div class="d-flex w-100 flex-wrap">
                                     <?php for ($i = 1; $i <= 10; $i++) { ?>
                                         <img id="image_<?= $i ?>_pre" class="img-responsive m-1 p-1 rounded shadow" style="width: 31%; height: fit-content; display: none; cursor: pointer;" src="" data-toggle="modal" data-target="#modal-image-delete" data-image="#image_<?= $i ?>" />
                                     <?php } ?>
                                 </div>
+                                <hr class="d-block d-md-none">
                             </div>
+
 
                             <!-- video -->
                             <div class="col-md-5">
                                 <div class="form-group">
+                                    <label for="">Thêm video</label>
                                     <textarea id="video" class="form-control" name="video" rows="3" placeholder="Nhập link video embed youtube" aria-invalid="true"></textarea>
                                 </div>
 
@@ -349,7 +356,7 @@
                             <div class="me-2 w-25" style="text-align: end;">
                                 <label class="m-0 p-0 pr-1">Tôi là <span class="text-danger">*</span></label>
                             </div>
-                            <select class="select2 w-75" name="contacttype">
+                            <select class="select2" style="width:75%" name="contacttype">
                                 <option value="1">Môi giới</option>
                                 <option value="2">Chính chủ</option>>
                             </select>
@@ -359,28 +366,28 @@
                             <div class="me-2 w-25" style="text-align: end;">
                                 <label class="m-0 p-0 pr-1">Tên liên hệ <span class="text-danger">*</span></label>
                             </div>
-                            <input type="text" class="form-control w-75" name="contactname">
+                            <input type="text" class="form-control" style="width:75%" name="contactname">
                         </div>
 
                         <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                             <div class="me-2 w-25" style="text-align: end;">
                                 <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
                             </div>
-                            <input type="text" class="form-control w-75" name="contactaddress">
+                            <input type="text" class="form-control" style="width:75%" name="contactaddress">
                         </div>
-                        
+
                         <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                             <div class="me-2 w-25" style="text-align: end;">
                                 <label class="m-0 p-0 pr-1">Điện thoại <span class="text-danger">*</span></label>
                             </div>
-                            <input type="text" class="form-control w-75" name="contactphone">
+                            <input type="text" class="form-control" style="width:75%" name="contactphone">
                         </div>
 
                         <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                             <div class="me-2 w-25" style="text-align: end;">
                                 <label class="m-0 p-0 pr-1">Email <span class="text-danger">*</span></label>
                             </div>
-                            <input type="text" class="form-control w-75" name="contactemail">
+                            <input type="text" class="form-control" style="width:75%" name="contactemail">
                         </div>
                     </div>
                 </div>
@@ -404,7 +411,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control text-danger w-75" readonly>
+                                    <input type="text" class="form-control text-danger" style="width:75%" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -412,7 +419,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Ngày hết hạn</label>
                                     </div>
-                                    <input type="text" class="form-control text-danger w-75" value="Tin không hết hạn" readonly disabled>
+                                    <input type="text" class="form-control text-danger" style="width:75%" value="Tin không hết hạn" readonly disabled>
                                 </div>
                             </div>
                         </div>
