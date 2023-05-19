@@ -2,3 +2,13 @@
     font-family: Lexend;
     src: url(fonts/Lexend_Deca/LexendDeca-VariableFont_wght.ttf);
 }
+
+/* custom */
+.card-header {
+    padding: 0.4rem 1.25rem;
+    text-align: center;
+}
+
+.card-header .card-title{
+    line-height: 1.3;
+}

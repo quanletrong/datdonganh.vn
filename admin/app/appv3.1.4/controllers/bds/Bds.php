@@ -110,7 +110,7 @@ class Bds extends MY_Controller
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'bds/bds_add_view', $data);
+        $this->load->view($this->_template_f . 'bds/bds_add_v2_view', $data);
         $this->_loadFooter();
     }
 

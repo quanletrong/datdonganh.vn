@@ -17,3 +17,6 @@
 <!-- Toastr -->
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <script src="plugins/toastr/toastr.min.js"></script>
+
+<!-- tinymce -->
+<script src="js/v2023/tinymce-5-8-2/tinymce.min.js"></script>
