@@ -22,3 +22,5 @@
 <script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- common js -->
+<script src="js/v2023/common.js"></script>

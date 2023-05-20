@@ -31,7 +31,7 @@
                 <!-- ĐĂNG MỚI TIN RAO -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">ĐĂNG MỚI TIN RAO</h3>
+                        <h3 class="card-title" style="display: contents;">ĐĂNG MỚI TIN RAO</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i class="fas fa-minus"></i>
@@ -160,6 +160,19 @@
                                     <input type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Từ khóa</label>
+                                    </div>
+                                    <select class="select2" id="tag" name="tag[]" multiple="multiple" data-placeholder="Chọn từ khóa có sẵn" style="width: 75%">
+                                        <?php foreach ($list_tag as $id_tag => $tag) { ?>
+                                            <option value="<?= $id_tag ?>"><?= $tag['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <button type="button" class="btn btn-warning btn-sm mt-2" style="margin-left: 25%;" data-toggle="modal" data-target="#modal-tag-add">Thêm từ khóa mới</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -168,7 +181,7 @@
                 <!-- THÔNG TIN MÔ TẢ -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">THÔNG TIN MÔ TẢ</h3>
+                        <h3 class="card-title" style="display: contents;">THÔNG TIN MÔ TẢ</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -187,7 +200,7 @@
                 <!-- THONG TIN KHAC -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">THÔNG TIN KHÁC</h3>
+                        <h3 class="card-title" style="display: contents;">THÔNG TIN KHÁC</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -286,7 +299,7 @@
                 <!--VIDEO HÌNH ẢNH -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">HÌNH ẢNH VIDEO</h3>
+                        <h3 class="card-title" style="display: contents;">HÌNH ẢNH VIDEO</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -300,17 +313,17 @@
                             <div class="col-md-7">
                                 <div class="form-group">
                                     <label for="">Thêm ảnh</label> <br>
-                                    <button type="button" class="btn btn-sm btn-primary iframe-btn">
-                                        <i class="fa fa-upload" aria-hidden="true"></i>
-                                        Thêm ảnh cho tin đăng</button>
-                                    <input type="hidden" id="image" name="image">
+                                    <button type="button" class="btn btn-sm btn-warning quanlt-upload" data-target="">
+                                        <i class="fas fa-upload"></i> Thêm ảnh cho tin đăng
+                                    </button>
+                                    <span id="image-error" class="invalid-feedback" style="font-size: 80%; color: red;">
+                                    Tin này cần tối thiểu 1 ảnh.
+                                </span>
                                 </div>
 
 
-                                <div class="d-flex w-100 flex-wrap">
-                                    <?php for ($i = 1; $i <= 10; $i++) { ?>
-                                        <img id="image_<?= $i ?>_pre" class="img-responsive m-1 p-1 rounded shadow" style="width: 31%; height: fit-content; display: none; cursor: pointer;" src="" data-toggle="modal" data-target="#modal-image-delete" data-image="#image_<?= $i ?>" />
-                                    <?php } ?>
+                                <div class="d-flex w-100 flex-wrap list-image" style="gap:10px">
+
                                 </div>
                                 <hr class="d-block d-md-none">
                             </div>
@@ -343,7 +356,7 @@
                 <!--THÔNG TIN LIÊN HỆ -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">THÔNG TIN LIÊN HỆ</h3>
+                        <h3 class="card-title" style="display: contents;">THÔNG TIN LIÊN HỆ</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -351,43 +364,45 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-body d-flex flex-wrap">
-                        <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                            <div class="me-2 w-25" style="text-align: end;">
-                                <label class="m-0 p-0 pr-1">Tôi là <span class="text-danger">*</span></label>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap">
+                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                <div class="me-2 w-25" style="text-align: end;">
+                                    <label class="m-0 p-0 pr-1">Tôi là <span class="text-danger">*</span></label>
+                                </div>
+                                <select class="select2" style="width:75%" name="contacttype">
+                                    <option value="1">Môi giới</option>
+                                    <option value="2">Chính chủ</option>>
+                                </select>
                             </div>
-                            <select class="select2" style="width:75%" name="contacttype">
-                                <option value="1">Môi giới</option>
-                                <option value="2">Chính chủ</option>>
-                            </select>
-                        </div>
 
-                        <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                            <div class="me-2 w-25" style="text-align: end;">
-                                <label class="m-0 p-0 pr-1">Tên liên hệ <span class="text-danger">*</span></label>
+                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                <div class="me-2 w-25" style="text-align: end;">
+                                    <label class="m-0 p-0 pr-1">Tên liên hệ <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" class="form-control" style="width:75%" name="contactname">
                             </div>
-                            <input type="text" class="form-control" style="width:75%" name="contactname">
-                        </div>
 
-                        <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                            <div class="me-2 w-25" style="text-align: end;">
-                                <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                <div class="me-2 w-25" style="text-align: end;">
+                                    <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" class="form-control" style="width:75%" name="contactaddress">
                             </div>
-                            <input type="text" class="form-control" style="width:75%" name="contactaddress">
-                        </div>
 
-                        <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                            <div class="me-2 w-25" style="text-align: end;">
-                                <label class="m-0 p-0 pr-1">Điện thoại <span class="text-danger">*</span></label>
+                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                <div class="me-2 w-25" style="text-align: end;">
+                                    <label class="m-0 p-0 pr-1">Điện thoại <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" class="form-control" style="width:75%" name="contactphone">
                             </div>
-                            <input type="text" class="form-control" style="width:75%" name="contactphone">
-                        </div>
 
-                        <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                            <div class="me-2 w-25" style="text-align: end;">
-                                <label class="m-0 p-0 pr-1">Email <span class="text-danger">*</span></label>
+                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                <div class="me-2 w-25" style="text-align: end;">
+                                    <label class="m-0 p-0 pr-1">Email <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" class="form-control" style="width:75%" name="contactemail">
                             </div>
-                            <input type="text" class="form-control" style="width:75%" name="contactemail">
                         </div>
                     </div>
                 </div>
@@ -396,7 +411,7 @@
                 <!-- LỊCH ĐĂNG TIN -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">LỊCH ĐĂNG TIN</h3>
+                        <h3 class="card-title" style="display: contents;">LỊCH ĐĂNG TIN</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -468,18 +483,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center">Thêm tag</h4>
+                <h4 class="modal-title text-center">Từ khóa mới</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <input type="text" class="form-control" placeholder="Nhập tên tag" id="tag-add" onkeyup="checkTagAdd(this.value)">
+                <input type="text" class="form-control" placeholder="Nhập tên từ khóa" id="tag-add" onkeyup="checkTagAdd(this.value)">
                 <span id="tag-add-error" class="error invalid-feedback" style="display: none;">...</span>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Quay lại</button>
-                <button type="button" id="model_btn_xoa_anh" class="btn btn-primary" onclick="ajax_add_tag()">Thêm tag</button>
+                <button type="button" id="model_btn_xoa_anh" class="btn btn-primary" onclick="ajax_add_tag()">Thêm từ khóa mới</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -539,7 +554,46 @@
     </script>
     <!-- /.modal-dialog -->
 </div>
-<!-- modal tag add -->
+<!-- /.modal tag add -->
+
+<!-- upload anh -->
+<form id="frm_files" enctype="multipart/form-data" action="upload" method="post">
+    <input type="file" id="fileButton" name="file[]" accept="image/*" multiple hidden />
+    <script>
+        $(function() {
+
+            $('.quanlt-upload').click(function() {
+                let callback = $(this).data('callback');
+                let target = $(this).data('target');
+                $('#fileButton').click();
+            })
+
+            $("#frm_files").on('change', '#fileButton', function(e) {
+                e.preventDefault();
+                var formData = new FormData($(this).parents('form')[0]);
+
+                $.ajax({
+                    url: 'upload',
+                    type: 'POST',
+                    xhr: function() {
+                        var myXhr = $.ajaxSettings.xhr();
+                        return myXhr;
+                    },
+                    success: function(response) {
+                        callback_upload_image_bds(response);
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+                return false;
+            });
+        })
+    </script>
+</form>
+<!-- /.upload anh -->
+
 <script>
     $(function() {
 
@@ -556,27 +610,6 @@
                 rightAlign: false,
             }
         );
-
-        $('.iframe-btn').fancybox({
-            'type': 'iframe',
-            'autoScale': true,
-            'iframe': {
-                'css': {
-                    'width': '1024px',
-                    'height': '800px'
-                }
-            }
-        });
-
-        $('#modal-image-delete').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var image_id = button.data('image');
-            var url_anh = $(image_id).val();
-
-            $('#modal_image_pre').attr('src', url_anh);
-            $('#model_btn_xoa_anh').attr('onclick', `remove_image("${image_id}")`)
-
-        });
 
         tinymce.init({
             selector: '#content',
@@ -649,7 +682,7 @@
                 $(form).find('.image').attr('disabled', 'disabled');
 
                 // check ảnh bất động sản
-                let count_total_image = $(form).find('.image_input').filter(function() {
+                let count_total_image = $(form).find('input[name="image[]"]').filter(function() {
                     return this.value.trim() !== '';
                 }).length;
 
@@ -758,29 +791,56 @@
 
     });
 
-    function responsive_filemanager_callback(field_id) {
-        var url = jQuery('#' + field_id).val();
-        $(`#${field_id}_pre`).attr('src', url).show();
-        $('#image-error').hide();
-        // $('#commune_image_name').text(url.match(/.*\/(.*)$/)[1])
-    }
+    // jQuery("input[name='xxx[]']").each(function() {
+    //     console.log(this.value + ":" + this.checked);
+    // });
 
-    function count_total_image() {
-        return
-    }
+    function callback_upload_image_bds(response, target='') {
+        try {
+            response = JSON.parse(response);
 
-    function remove_image(image_id) {
-        $(image_id).val('');
-        $(image_id + '_pre').attr('src', '').hide();
+            if (response.status) {
 
-        let count_total_image = $('#frm_bds').find('.image_input').filter(function() {
-            return this.value.trim() !== '';
-        }).length;
+                if (Object.keys(response.data).length) {
+                    for (const [key, value] of Object.entries(response.data)) {
+                        if (value.status) {
 
-        if (count_total_image) {
-            $('#image-error').hide();
-        } else {
-            $('#image-error').show().focus();
+                            if (target != '') {
+                                console.log(target)
+
+                            } else {
+                                let image = `
+                                    <div style="width: 31%; height: fit-content; cursor: pointer; position: relative" >
+                                        <img src="${value.link}" class="img-fluid m-1 p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;"/>
+                                        <i class="fas fa-trash" style="position:absolute; right: 5px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
+                                        <i class="fas fa-search-plus" style="position:absolute; right: 30px; top: 15px; color: red"></i>
+                                        <input type="hidden" name="image[]" value="${value.link}" />
+                                    </div>
+                                `;
+
+                                $('.list-image').append(image);
+                                $('#image-error').hide();
+                            }
+
+                        } else {
+                            let error_text = '';
+                            for (const [key, error] of Object.entries(value.error)) {
+                                error_text += '- ' + error + '<br/>';
+                            }
+                            toasts_danger(`${error_text} Ảnh: ${value.name} `, 'Thất bại')
+                        }
+                    }
+                } else {
+                    toasts_danger('Xin lỗi, không lưu được ảnh', 'Thất bại')
+                }
+
+            } else {
+                toasts_danger(response.error, 'Thất bại')
+            }
+
+        } catch (error) {
+            console.log(error)
+            toasts_danger('Xin lỗi, upload ảnh đang gặp vấn đề!', 'Thất bại')
         }
     }
 

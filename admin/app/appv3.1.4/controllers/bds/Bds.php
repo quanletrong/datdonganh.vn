@@ -116,6 +116,7 @@ class Bds extends MY_Controller
 
     function add_submit()
     {
+        var_dump($_POST);die;
         if ($this->_session_role() != ADMIN) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
