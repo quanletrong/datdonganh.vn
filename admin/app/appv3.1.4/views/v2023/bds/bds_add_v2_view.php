@@ -63,8 +63,7 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Hình thức <span class="text-danger">*</span></label>
                                     </div>
-                                    <select class="select2" style="width: 75%;" name="category">
-                                        <option value="0">Vui lòng chọn</option>
+                                    <select class="select2" style="width: 75%;" name="category" data-minimum-results-for-search="Infinity">
                                         <option value="1">Mua bán nhà đất</option>
                                         <option value="2">Cho thuê</option>
                                     </select>
@@ -77,6 +76,7 @@
                                         <label class="m-0 p-0 pr-1">Loại hình <span class="text-danger">*</span></label>
                                     </div>
                                     <select class="select2" style="width:75%" name="type">
+                                        <option value="0">Vui lòng chọn</option>
                                         <?php foreach ($cf_bds['type'] as $id => $name) { ?>
                                             <option value="<?= $id ?>"><?= $name ?></option>
                                         <?php } ?>
@@ -90,6 +90,7 @@
                                         <label class="m-0 p-0 pr-1">Xã <span class="text-danger">*</span></label>
                                     </div>
                                     <select class="select2" style="width:75%" name="commune">
+                                        <option value="0">Vui lòng chọn</option>
                                         <?php foreach ($list_commune as $cmn) { ?>
                                             <option value="<?= $cmn['id_commune_ward'] ?>"><?= $cmn['name'] ?></option>
                                         <?php } ?>
@@ -102,6 +103,7 @@
                                         <label class="m-0 p-0 pr-1">Đường <span class="text-danger">*</span></label>
                                     </div>
                                     <select class="select2" style="width:75%" name="street">
+                                        <option value="0">Vui lòng chọn</option>
                                         <?php foreach ($list_street as $street) { ?>
                                             <option value="<?= $street['id_street'] ?>"><?= $street['name'] ?></option>
                                         <?php } ?>
@@ -141,7 +143,7 @@
                             <div class="col-md-6">
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                     <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Đơn vị</label>
+                                        <label class="m-0 p-0 pr-1">Đơn vị <span class="text-danger">*</span></label>
                                     </div>
                                     <select class="select2" style="width:75%" name="price_type">
                                         <option value="1">VNĐ</option>
@@ -317,8 +319,8 @@
                                         <i class="fas fa-upload"></i> Thêm ảnh cho tin đăng
                                     </button>
                                     <span id="image-error" class="invalid-feedback" style="font-size: 80%; color: red;">
-                                    Tin này cần tối thiểu 1 ảnh.
-                                </span>
+                                        Tin này cần tối thiểu 1 ảnh.
+                                    </span>
                                 </div>
 
 
@@ -598,6 +600,13 @@
     $(function() {
 
         $('.select2').select2();
+        $('.select2').on('change', function() {
+            if (this.value > 0) {
+                $(this).siblings('.error').hide();
+            } else {
+                $(this).siblings('.error').show();
+            }
+        })
 
         $('[data-mask]').inputmask();
 
@@ -638,42 +647,6 @@
             }
         });
 
-        // them rule kiem tra khi nhap link youtube
-        jQuery.validator.addMethod('valid_embed_youtube', function(value) {
-            if (value.length > 0) {
-                var regex = /^https:\/\/www\.youtube\.com\/embed\/\S*$/;
-                if (value.trim().match(regex)) {
-                    $('#videp_pre').attr('src', value).show();
-                    return true;
-                } else {
-                    $('#videp_pre').attr('src', '').hide();
-                    return false;
-                }
-            } else {
-                $('#videp_pre').attr('src', '').hide();
-                return true;
-            }
-        });
-
-        jQuery.validator.addMethod('valid_expired', function(value) {
-            let expired = moment(value, 'DD/MM/YYYY');
-            if (expired.isValid() && expired > new Date()) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-
-        jQuery.validator.addMethod('valid_price', function(value) {
-            const regex = /,/ig;
-            value = parseInt(value.replaceAll(regex, ''));
-            if (value > 0 && value < 100000000) {
-                return false;
-            } else {
-                return true;
-            }
-        });
-
         $('#frm_bds').validate({
             submitHandler: function(form) {
 
@@ -695,15 +668,24 @@
                     }, 2000);
                     $(form).find('button[type="submit"]').attr('disabled', false);
                 } else {
-                    form.submit();
+                    // form.submit();
                 }
             },
+            ignore: [],
             rules: {
                 title: {
                     required: true,
                     minlength: 5,
                     maxlength: 256
                 },
+                address: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 256
+                },
+                commune: "select_required",
+                type: "select_required",
+                street: "select_required",
                 sapo: {
                     required: true,
                     minlength: 5,
@@ -738,38 +720,6 @@
                 }
             },
             messages: {
-                title: {
-                    required: "Tiêu đề bất động sản không được bỏ trống",
-                    minlength: "Tiêu đề tối thiểu 5 ký tự",
-                    maxlength: "Tiêu đề tối đa 256 ký tự"
-                },
-                sapo: {
-                    required: "Nội dung mô tả ngắn không được bỏ trống",
-                    minlength: "Nội dung tối thiểu 5 ký tự",
-                    maxlength: "Nội dung tối đa 256 ký tự"
-                },
-                content: {
-                    required: "Nội dung mô tả không được bỏ trống",
-                    minlength: "Nội dung tối thiểu 5 ký tự",
-                    maxlength: "Nội dung tối đa 5000 ký tự"
-                },
-                price: {
-                    number: 'Giá phải là số',
-                    valid_price: 'Giá nhỏ nhất là 100 triệu'
-                },
-                acreage: {
-                    required: "Diện tích không được để trống",
-                    number: "Diện tích phải là số",
-                    min: 'Diện tích nhỏ nhất 30m2'
-                },
-                road_surface: {
-                    number: 'Vui lòng nhập dữ liệu dạng số',
-                    min: 'Đường vào tối thiểu 1m'
-                },
-                expired: {
-                    required: 'Ngày hết hạn không được bổ trống',
-                    valid_expired: 'Ngày hết hạn phải lớn hơn ngày hiện tại',
-                },
                 video: {
                     valid_embed_youtube: "Link youtube không hợp lệ. Vi dụ: https://www.youtube.com/embed/SEt2hZzkOiY"
                 }
@@ -795,7 +745,7 @@
     //     console.log(this.value + ":" + this.checked);
     // });
 
-    function callback_upload_image_bds(response, target='') {
+    function callback_upload_image_bds(response, target = '') {
         try {
             response = JSON.parse(response);
 

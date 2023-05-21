@@ -1508,5 +1508,49 @@ $.validator.addMethod( "zipcodeUS", function( value, element ) {
 $.validator.addMethod( "ziprange", function( value, element ) {
 	return this.optional( element ) || /^90[2-5]\d\{2\}-\d{4}$/.test( value );
 }, "Your ZIP-code must be in the range 902xx-xxxx to 905xx-xxxx" );
+
+// them rule kiem tra khi nhap link youtube
+$.validator.addMethod('valid_embed_youtube', function(value, element) {
+	if (value.length > 0) {
+		var regex = /^https:\/\/www\.youtube\.com\/embed\/\S*$/;
+		if (value.trim().match(regex)) {
+			$('#videp_pre').attr('src', value).show();
+			return true;
+		} else {
+			$('#videp_pre').attr('src', '').hide();
+			return false;
+		}
+	} else {
+		$('#videp_pre').attr('src', '').hide();
+		return true;
+	}
+}, "Dữ liệu không hợp lệ");
+
+$.validator.addMethod('valid_expired', function(value) {
+	let expired = moment(value, 'DD/MM/YYYY');
+	if (expired.isValid() && expired > new Date()) {
+		return true;
+	} else {
+		return false;
+	}
+}, "Dữ liệu không hợp lệ");
+
+$.validator.addMethod('valid_price', function(value) {
+	const regex = /,/ig;
+	value = parseInt(value.replaceAll(regex, ''));
+	if (value === 0 || isNaN(value)) {
+		return false;
+	} else {
+		return true;
+	}
+}, "Hãy nhập");
+
+$.validator.addMethod('select_required', function(value) {
+	if(value === "0" || value === ""){
+		return false
+	} else {
+		return true
+	}
+}, "Hãy nhập");
 return $;
 }));
