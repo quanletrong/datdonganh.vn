@@ -129,9 +129,9 @@ class Bds extends MY_Controller
         $type            = $this->input->post('type');            // check cf + rq
         $title           = $this->input->post('title');           // check length + rq
         $address         = $this->input->post('address');         // check length 
-                                                                  // $maps            = $this->input->post('maps', false);        // check length regx
-                                                                  // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump(html_entity_decode(htmlspecialchars_decode($maps))); // to render
-                                                                  // $sapo            = $this->input->post('sapo');               // check length + rq
+        // $maps            = $this->input->post('maps', false);        // check length regx
+        // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump (html_entity_decode(htmlspecialchars_decode($maps))); // to render
+        // $sapo            = $this->input->post('sapo');               // check length + rq
         $content         = $this->input->post('content');         // check length + rq
         $image           = $this->input->post('image');           // check lưu
         $videos          = $this->input->post('video');           // check regx
@@ -143,7 +143,7 @@ class Bds extends MY_Controller
         $floor           = $this->input->post('floor');           // check cf
         $toilet          = $this->input->post('toilet');          // check cf
         $bedroom         = $this->input->post('room');            // check cf
-                                                                  // $noithat         = $this->input->post('noithat');            // check cf
+        $noithat         = $this->input->post('noithat');            // check cf
         $road_surface    = $this->input->post('road_surface');    // check số + lớn 1
         $juridical       = $this->input->post('juridical');       // check cf
         $is_vip          = $this->input->post('is_vip');          // check cf
@@ -188,8 +188,6 @@ class Bds extends MY_Controller
             $maps = '';
             $sapo = '';
             $images      = json_encode($image_db);
-            $noithat = '';
-            $is_vip = '';
             $create_time = date('Y-m-d H:i:s');
 
             $newid = $this->Bds_model->add($id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $run_date, $create_time);
@@ -258,7 +256,7 @@ class Bds extends MY_Controller
         ];
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'bds/bds_edit_view', $data);
+        $this->load->view($this->_template_f . 'bds/bds_edit_v2_view', $data);
         $this->_loadFooter();
     }
 
@@ -277,31 +275,40 @@ class Bds extends MY_Controller
         }
         //end check right
 
-        $status          = $this->input->post('status');             // check cf + rq
-        $id_street       = $this->input->post('street');             // check db + rq
-        $id_commune_ward = $this->input->post('commune');            // check db + rq
-        $maps            = $this->input->post('maps', false);        // check length regx
-        $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump(html_entity_decode(htmlspecialchars_decode($maps))); // to render
-        $id_project      = $this->input->post('project');            // check db
-        $type            = $this->input->post('type');               // check cf + rq
-        $title           = $this->input->post('title');              // check length + rq
-        $tag             = $this->input->post('tag');                // check db
-        $sapo            = $this->input->post('sapo');               // check length + rq
-        $content         = $this->input->post('content');            // check length + rq
-        $price           = $this->input->post('price');              // check number > 0
-        $direction       = $this->input->post('direction');          // check cf
-        $toilet          = $this->input->post('toilet');             // check cf
-        $floor           = $this->input->post('floor');              // check cf
-        $expired         = $this->input->post('expired');            // check kiểu ngày + lớn hơn hiện tại
-        $acreage         = $this->input->post('acreage');            // check số + lớn 30
-        $road_surface    = $this->input->post('road_surface');       // check số + lớn 1
-        $bedroom         = $this->input->post('bedroom');            // check cf
-        $is_vip          = $this->input->post('is_hot');             // check cf
+        $id_commune_ward = $this->input->post('commune');         // check db + rq
+        $id_street       = $this->input->post('street');          // check db + rq
+        $id_project      = $this->input->post('project');         // check db
+        $category        = $this->input->post('category');        // check db
+        $status          = $this->input->post('status');          // check db
+        $type            = $this->input->post('type');            // check cf + rq
+        $title           = $this->input->post('title');           // check length + rq
+        $address         = $this->input->post('address');         // check length 
+        // $maps            = $this->input->post('maps', false);        // check length regx
+        // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump (html_entity_decode(htmlspecialchars_decode($maps))); // to render
+        // $sapo            = $this->input->post('sapo');               // check length + rq
+        $content         = $this->input->post('content');         // check length + rq
+        $image           = $this->input->post('image');           // check lưu
+        $videos          = $this->input->post('video');           // check regx
+        $price           = $this->input->post('price');           // check number > 0
+        $price_type      = $this->input->post('price_type');      // check number > 0
+        $acreage         = $this->input->post('acreage');         // check số + lớn 30
+        $facades         = $this->input->post('facades');         // check số + lớn 30
+        $direction       = $this->input->post('direction');       // check cf
+        $floor           = $this->input->post('floor');           // check cf
+        $toilet          = $this->input->post('toilet');          // check cf
+        $bedroom         = $this->input->post('room');            // check cf
         $noithat         = $this->input->post('noithat');            // check cf
-        $juridical       = $this->input->post('juridical');          // check cf
-        $image           = $this->input->post('image');              // check lưu
-        $videos          = $this->input->post('video');              // check regx
-
+        $road_surface    = $this->input->post('road_surface');    // check số + lớn 1
+        $juridical       = $this->input->post('juridical');       // check cf
+        $is_vip          = $this->input->post('is_vip');          // check cf
+        $contacttype     = $this->input->post('contacttype');     // check cf
+        $contactname     = $this->input->post('contactname');     // check cf
+        $contactaddress  = $this->input->post('contactaddress');  // check cf
+        $contactphone    = $this->input->post('contactphone');    // check cf
+        $contactemail    = $this->input->post('contactemail');    // check cf
+        $run_date        = $this->input->post('run_date');        // check cf
+        $tag             = $this->input->post('tag');                // check db
+        
         // TODO: validate dữ liệu submit
         $price = intval(str_replace(',', '', $price));
         //END validate
@@ -310,8 +317,8 @@ class Bds extends MY_Controller
         // TODO: validate dữ liệu trước khi save
 
         // TODO: validate dữ liệu trước khi save
-        $expired = str_replace('/', '-', $expired);
-        $expired = date('Y-m-d', strtotime($expired));
+        $run_date = str_replace('/', '-', $run_date);
+        $run_date = date('Y-m-d', strtotime($run_date));
 
         # lưu ảnh
         $image_db = [];
@@ -320,8 +327,8 @@ class Bds extends MY_Controller
         $monthFolder = date('m', strtotime($info['create_time']));
         foreach ($image as $url_image) {
             if (@getimagesize($url_image)) {
-                // kiểm tra ảnh upload có trong 'uploads/filemanager/source'
-                $la_anh_moi = strpos($url_image, ROOT_DOMAIN . 'uploads/filemanager/source');
+                // kiểm tra ảnh upload có trong tmp
+                $la_anh_moi = strpos($url_image, ROOT_DOMAIN . TMP_UPLOAD_PATH);
                 // nếu là ảnh mới thì copy ảnh
                 if ($la_anh_moi !== false) {
                     $copy = copy_image_from_file_manager_to_public_upload($url_image, $yearFolder, $monthFolder);
@@ -340,11 +347,15 @@ class Bds extends MY_Controller
         if (!empty($image_db)) {
 
             // dữ liệu bổ sung
-            $images      = json_encode($image_db);
+            // dữ liệu bổ sung
+            $id_user     = $this->_session_uid();
             $slug_title  = create_slug($title);
+            $maps = '';
+            $sapo = '';
+            $images      = json_encode($image_db);
             $update_time = date('Y-m-d H:i:s');
 
-            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $update_time);
+            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $run_date, $update_time);
 
             if ($exc) {
                 # update tag

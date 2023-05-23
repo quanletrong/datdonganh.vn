@@ -36,7 +36,7 @@ class Upload extends MY_Controller
                     $name_file = $_FILES['file']['name'][$i];
                     $tmp_name = $_FILES['file']['tmp_name'][$i];
                     $size = $_FILES['file']['size'][$i];
-                    $target_dir = $_SERVER["DOCUMENT_ROOT"] . "/uploads/tmp/";
+                    $target_dir = $_SERVER["DOCUMENT_ROOT"] .'/'. TMP_UPLOAD_PATH;
                     $target_file = $target_dir . basename($name_file);
                     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -71,7 +71,7 @@ class Upload extends MY_Controller
 
                     if ($data[$i]['status']) {
                         if (move_uploaded_file($tmp_name, $target_file)) {
-                            $link = ROOT_DOMAIN . '/uploads/tmp/' . $name_file;
+                            $link = ROOT_DOMAIN . TMP_UPLOAD_PATH . $name_file;
                             $data[$i]['link'] = $link;
                         } else {
                             $data[$i]['status'] = 0;

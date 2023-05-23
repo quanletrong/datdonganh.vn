@@ -37,6 +37,8 @@ class Bds_model extends CI_Model
         if ($stmt) {
             if ($stmt->execute([$id_bds])) {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                $data['year'] = date('Y', strtotime($data['create_time']));
+                $data['month'] = date('m', strtotime($data['create_time']));
             } else {
                 var_dump($stmt->errorInfo());
                 die;
@@ -92,13 +94,12 @@ class Bds_model extends CI_Model
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         $list_img = json_decode($row['images'], true);
-                        $createdTime = date($row['create_time']);
-                        $createdTimeInfo = getdate(strtotime($createdTime));
-                        $yearFolder = $createdTimeInfo['year'];
-                        $monthFolder = $createdTimeInfo['mon'];
-                        $monthFolder = ($monthFolder < 10) ? "0" . $monthFolder : $monthFolder;
-                        $first_img = @array_pop(array_reverse($list_img));
-                        $row['main_img'] = fullPathImage($first_img,$yearFolder, $monthFolder);
+                        $yearFolder = date('Y', strtotime($row['create_time']));
+                        $monthFolder = date('m', strtotime($row['create_time']));
+                        $first_img = @array_pop(array_reverse($list_img)); // lấy ảnh đầu tiên
+                        $row['main_img'] = fullPathImage($first_img, $yearFolder, $monthFolder);
+                        $row['year'] = $yearFolder;
+                        $row['month'] = $monthFolder;
                         $data[$row['id_bds']] = $row;
                     }
                 }
@@ -111,14 +112,14 @@ class Bds_model extends CI_Model
         return $data;
     }
 
-    function edit($id_bds, $id_commune_ward, $id_street, $id_project, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $update_time)
+    function edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $run_date, $update_time)
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, status=?, type=?, title=?, slug_title=?, maps=?, sapo=?, content=?, images=?, videos=?, price=?, acreage=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, expired=?, update_time=? WHERE id_bds=?";
+        $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, id_user=?, category=?, status=?, type=?, title=?, slug_title=?, address=?, maps=?, sapo=?, content=?, images=?, videos=?, price=?, price_type=?, acreage=?, facades=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, contacttype=?, contactname=?, contactaddress=?, contactphone=?, contactemail=?, run_date=?, update_time=? WHERE id_bds=?";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $param = [$id_commune_ward, $id_street, $id_project, $status, $type, $title, $slug_title, $maps, $sapo, $content, $images, $videos, $price, $acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $expired, $update_time, $id_bds];
+            $param = [$id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $run_date, $update_time, $id_bds];
 
             if ($stmt->execute($param)) {
                 $execute = true;
