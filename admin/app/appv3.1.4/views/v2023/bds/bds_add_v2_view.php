@@ -247,9 +247,14 @@
                             <div class="col-md-6">
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                     <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Diện tích SD</label>
+                                        <label class="m-0 p-0 pr-1">Nội thất</label>
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="acreage">
+                                    <select class="select2" style="width:75%" name="noithat">
+                                    <option value="0">Vui lòng chọn</option>
+                                        <?php foreach ($cf_bds['noithat'] as $id => $name) { ?>
+                                            <option value="<?=$id?>"><?=$name?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
 
@@ -426,9 +431,31 @@
                             <div class="col-md-6">
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                     <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Chế độ <span class="text-danger">*</span></label>
+                                    </div>
+                                    <select class="select2" style="width:75%" name="status">
+                                        <option value="1">Công khai</option>
+                                        <option value="0">Riêng tư</option>>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Khu vực hiển thị <span class="text-danger">*</span></label>
+                                    </div>
+                                    <select class="select2" style="width:75%" name="is_vip">
+                                        <option value="1">Khu VIP</option>
+                                        <option value="0">Khu thường</option>>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                    <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control text-danger" style="width:75%" readonly>
+                                    <input type="text" class="form-control text-danger" style="width:75%" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="run_date">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -647,6 +674,15 @@
             }
         });
 
+        $.validator.addMethod('valid_run_date', function(value) {
+            let expired = moment(value, 'DD/MM/YYYY');
+            if (expired.isValid() && expired > new Date()) {
+                return true;
+            } else {
+                return false;
+            }
+        }, "Ngày bắt đầu hiển thị phải lớn hơn ngày hiện tại");
+
         $('#frm_bds').validate({
             submitHandler: function(form) {
 
@@ -668,7 +704,7 @@
                     }, 2000);
                     $(form).find('button[type="submit"]').attr('disabled', false);
                 } else {
-                    // form.submit();
+                    form.submit();
                 }
             },
             ignore: [],
@@ -686,20 +722,30 @@
                 commune: "select_required",
                 type: "select_required",
                 street: "select_required",
-                sapo: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 256
-                },
                 content: {
                     required: true,
                     minlength: 5,
                     maxlength: 5000
                 },
                 price: {
-                    required: false,
                     number: true,
                     valid_price: true
+                },
+                facades: {
+                    number: true,
+                    min: 1
+                },
+                floor: {
+                    number: true,
+                    min: 1
+                },
+                room: {
+                    number: true,
+                    min: 1
+                },
+                toilet: {
+                    number: true,
+                    min: 1
                 },
                 acreage: {
                     required: true,
@@ -707,13 +753,12 @@
                     min: 30 //30m2
                 },
                 road_surface: {
-                    required: false,
                     number: true,
                     min: 1
                 },
-                expired: {
+                run_date: {
                     required: true,
-                    valid_expired: true,
+                    valid_run_date: true,
                 },
                 video: {
                     valid_embed_youtube: true

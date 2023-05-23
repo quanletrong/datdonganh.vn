@@ -1526,15 +1526,6 @@ $.validator.addMethod('valid_embed_youtube', function(value, element) {
 	}
 }, "Dữ liệu không hợp lệ");
 
-$.validator.addMethod('valid_expired', function(value) {
-	let expired = moment(value, 'DD/MM/YYYY');
-	if (expired.isValid() && expired > new Date()) {
-		return true;
-	} else {
-		return false;
-	}
-}, "Dữ liệu không hợp lệ");
-
 $.validator.addMethod('valid_price', function(value) {
 	const regex = /,/ig;
 	value = parseInt(value.replaceAll(regex, ''));
