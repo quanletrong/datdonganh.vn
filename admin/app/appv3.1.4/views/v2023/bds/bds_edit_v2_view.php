@@ -4,6 +4,11 @@
         margin-left: 25%;
     }
 
+    .input-group .error.invalid-feedback {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
     /* // XX-Large devices (larger desktops, 1400px and up) */
     .box-item {
         width: 100%;
@@ -708,13 +713,6 @@
     $(function() {
 
         $('.select2').select2();
-        $('.select2').on('change', function() {
-            if (this.value > 0) {
-                $(this).siblings('.error').hide();
-            } else {
-                $(this).siblings('.error').show();
-            }
-        })
 
         $('[data-mask]').inputmask();
 
@@ -764,7 +762,7 @@
             }
         }, "Ngày bắt đầu hiển thị phải lớn hơn ngày hiện tại");
 
-        $('#frm_bds').validate({
+        var validobj = $('#frm_bds').validate({
             submitHandler: function(form) {
 
                 // ẩn nút submit
@@ -843,7 +841,12 @@
                 },
                 video: {
                     valid_embed_youtube: true
-                }
+                },
+                contactname: "required",
+                contactphone: "required",
+                contactaddress: "required",
+                contactemail: "required",
+
             },
             messages: {
                 video: {
@@ -863,7 +866,21 @@
             }
         });
 
+        $('.select2').on('change', function() {
+            let list_required = ['commune', 'street', 'type'];
+            let select_current_name = $(this).attr('name');
+            if (list_required.includes(select_current_name)) {
+                validobj.element(`select[name="${select_current_name}"]`);
+            }
+        })
 
+        $('input, textarea').focusout(function() {
+            let list_required = ['title', 'address', 'price', 'acreage', 'content', 'contactname', 'contactaddress', 'contactphone', 'contactemail'];
+            let select_current_name = $(this).attr('name');
+            if (list_required.includes(select_current_name)) {
+                validobj.element(`*[name="${select_current_name}"]`);
+            }
+        })
 
     });
 

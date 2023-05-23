@@ -1537,11 +1537,11 @@ $.validator.addMethod('valid_price', function(value) {
 }, "Hãy nhập");
 
 $.validator.addMethod('select_required', function(value) {
-	if(value === "0" || value === ""){
+	if (value === "0" || value === "") {
 		return false
 	} else {
 		return true
 	}
-}, "Hãy nhập");
+}, "Vui lòng chọn 1 giá trị");
 return $;
 }));
