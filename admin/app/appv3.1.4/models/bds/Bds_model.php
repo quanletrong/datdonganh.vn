@@ -80,10 +80,10 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
             $where
-            ORDER BY A.$orderby $sort 
+            ORDER BY A.$orderby $sort, A.id_bds DESC, A.status DESC 
             LIMIT $limit OFFSET $offset";
 
-            // var_dump($sql);die;
+        // var_dump($sql);die;
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
@@ -91,6 +91,14 @@ class Bds_model extends CI_Model
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $list_img = json_decode($row['images'], true);
+                        $createdTime = date($row['create_time']);
+                        $createdTimeInfo = getdate(strtotime($createdTime));
+                        $yearFolder = $createdTimeInfo['year'];
+                        $monthFolder = $createdTimeInfo['mon'];
+                        $monthFolder = ($monthFolder < 10) ? "0" . $monthFolder : $monthFolder;
+                        $first_img = @array_pop(array_reverse($list_img));
+                        $row['main_img'] = fullPathImage($first_img,$yearFolder, $monthFolder);
                         $data[$row['id_bds']] = $row;
                     }
                 }

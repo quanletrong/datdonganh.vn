@@ -1,4 +1,9 @@
 <?php ?>
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -35,115 +40,127 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <input type="text" class="form-control" placeholder="Tiêu đề">
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <select class="select2" name="category" data-minimum-results-for-search="Infinity">
+                                        <option value="">Tất cả hình thức</option>
+                                        <option value="1">Mua bán nhà đất</option>
+                                        <option value="2">Cho thuê</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2 mb-3">
+                                    <select class="select2" name="commune">
+                                        <option value="">Tất cả xã</option>
+                                        <?php foreach ($list_commune as $cmn) { ?>
+                                            <option value="<?= $cmn['id_commune_ward'] ?>"><?= $cmn['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <select class="select2" name="street">
+                                        <option value="">Tất cả đường</option>
+                                        <?php foreach ($list_street as $cmn) { ?>
+                                            <option value="<?= $cmn['id_street'] ?>"><?= $cmn['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-2">
+                                    <select class="select2" name="is_vip" data-minimum-results-for-search="Infinity">
+                                        <option value="">Tất cả loại tin</option>
+                                        <option value="1">Khu vip</option>
+                                        <option value="0">Khu thường</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <select class="select2" name="status" data-minimum-results-for-search="Infinity">
+                                        <option value="">Tất cả chế độ</option>
+                                        <option value="1">Công khai</option>
+                                        <option value="0">Riêng tư</option>
+                                    </select>
+                                </div>
+                                <!-- ngày -->
+                                <div class="col-md-4 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Ngày bắt đầu">
+                                        <input type="text" class="form-control" placeholder="Ngày kết thúc">
+                                    </div>
+                                </div>
+                                <!-- Giá -->
+                                <div class="col-md-4 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Giá bắt đầu">
+                                        <input type="text" class="form-control" placeholder="Giá kết thúc">
+                                    </div>
+                                </div>
+                                <!-- search -->
+                                <div class="col-md-2 mb-3">
+                                    <button type="button" class="btn btn-primary w-100"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <hr class="mt-0">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 50px;">ID</th>
-                                        <th style="min-width: 200px;">Bất động sản</th>
-                                        <th class="text-center" style="min-width: 90px; width: 90px;">Tài nguyên</th>
+                                        <th style="min-width: 300px;">Bất động sản</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Trạng thái</th>
-                                        <th class="" style="min-width: 150px; width: 150px;">Vị trí</th>
-                                        <th class="" style="min-width: 200px; width: 200px;">Đặc điểm</th>
-                                        <th style="min-width: 200px; width: 150px;">Người đăng</th>
-                                        <th class="text-right" style="min-width: 90px; width: 90px;">Xem</th>
-                                        <th class="text-center" style="min-width: 90px; width: 90px">Action</th>
+                                        <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
+                                        <th class="text-center" style="width: fit-content;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($list_bds as $index => $bds) { ?>
                                         <tr>
-                                            <td class=" text-center"><?= $index ?></td>
-                                            <td class="">
-                                                <strong><?= $bds['title'] ?></strong><br><br>
-
-                                                Loại đất: <?= $cf_bds['type'][$bds['type']] ?> <br>
-                                                Hết hạn: <?= date('d-m-Y', strtotime($bds['expired'])) ?> <br>
-                                                Loại tin: <?= $cf_bds['is_hot'][$bds['is_vip']] ?> <br>
+                                            <td class=" text-center  align-middle"><?= $index ?></td>
+                                            <td class=" align-middle  align-middle">
+                                                <?php if ($bds['is_vip']) { ?>
+                                                    <span class="badge bg-warning">
+                                                        TIN VIP
+                                                    </span>
+                                                <?php } ?>
+                                                <?= $bds['title'] ?>
                                             </td>
-                                            <td class=" text-center">
-                                                Ảnh/Video
+                                            <td class=" text-center  align-middle">
+                                                <img src="<?= $bds['main_img'] ?>" alt="" class="img-fluid">
                                             </td>
-                                            <td class=" text-center">
-                                                <span class="badge bg-primary">
-                                                    <?= $cf_bds['status'][$bds['status']] ?>
-                                                </span>
-                                            </td>
-                                            <td class="">
-                                                <strong><?= $bds['commune'] ?></strong> <br>
-                                                <?= $bds['street'] ?> <br>
-                                            </td>
-
-                                            <td class="">
-                                                <div class="d-flex justify-content-between">
-                                                    <strong>Diện tích:</strong>
-                                                    <strong><?= $bds['acreage'] ?> m²</strong>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <strong>Giá:</strong>
-                                                    <strong><?= $bds['price'] == 0 ? 'Thương lượng' : number_format($bds['price']) ?></strong>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Hướng nhà:</span>
-                                                    <span><?= @$cf_bds['direction'][$bds['direction']] ?></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Đường vào:</span>
-                                                    <span><?= @$bds['road_surface'] ?> mét</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Sô tầng:</span>
-                                                    <span><?= @$cf_bds['floor'][$bds['floor']] ?></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Phòng ngủ:</span>
-                                                    <span><?= @$cf_bds['bedroom'][$bds['bedroom']] ?></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Toilet:</span>
-                                                    <span><?= @$cf_bds['toilet'][$bds['toilet']] ?></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Nội thất:</span>
-                                                    <span><?= @$cf_bds['noithat'][$bds['noithat']] ?></span>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Pháp lý:</span>
-                                                    <span><?= @$cf_bds['juridical'][$bds['juridical']] ?></span>
-                                                </div>
+                                            <td class=" text-center align-middle">
+                                                <?php if ($bds['status'] == '1') { ?>
+                                                    <i class="fas fa-globe-europe text-success" title="Công khai"></i>
+                                                <?php } else { ?>
+                                                    <i class="fas fa-lock text-secondary" title="Riêng tư"></i>
+                                                <?php } ?>
                                             </td>
 
-                                            <td class="">
-                                                Đăng bởi: <br>
-                                                <strong><?= $bds['username'] ?></strong> <br>
-                                                Ngày đăng: <br>
-                                                <?= date('H:i d/m/Y', strtotime($bds['create_time'])) ?> <br>
-                                                Cập nhật cuối: <br>
-                                                <?= strtotime($bds['update_time']) > 0 ? date('H:i d/m/Y', strtotime($bds['update_time'])) : '' ?>
+                                            <td class="text-right  align-middle">
+                                                <?= number_format($bds['view']) ?>
                                             </td>
+                                            <td class="text-center  align-middle">
+                                                <div class="d-flex">
+                                                    <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2">
+                                                        <i class="fas fa-edit text-warning"></i>
+                                                    </a>
+                                                    <a href="" data-toggle="modal" data-target="#modal-bds-archive" data-bds="<?= htmlentities(json_encode($bds)) ?>">
+                                                        <i class="fas fa-trash text-danger"></i>
+                                                    </a>
+                                                </div>
 
-                                            <td class="text-right">
-                                                0
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="w-100 btn btn-sm btn-primary mb-1">
-                                                    Sửa bài
-                                                </a> <br>
-                                                <a href="" class="w-100  btn btn-sm btn-danger mb-1" data-toggle="modal" data-target="#modal-bds-archive" data-bds="<?= htmlentities(json_encode($bds)) ?>">Lưu trữ</a>
                                             </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">ID</th>
-                                        <th>Bất động sản</th>
-                                        <th class="text-center">Tài nguyên</th>
-                                        <th class="text-center">Trạng thái</th>
-                                        <th class="">Vị trí</th>
-                                        <th class="">Đặc điểm</th>
-                                        <th>Người đăng</th>
-                                        <th class="text-right">Xem</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center" style="width: 50px;">ID</th>
+                                        <th style="min-width: 100px;">Bất động sản</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Trạng thái</th>
+                                        <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
+                                        <th class="text-center" style="width: fit-content;"></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -167,7 +184,7 @@
         <div class="modal-content bg-danger">
             <form id="frm_bds_delete" method="post" action="<?= site_url('bds/delete') ?>">
                 <div class="modal-header">
-                    <h4 class="modal-title text-center">Cảnh báo lưu trữ</h4>
+                    <h4 class="modal-title text-center">Cảnh báo xóa bài</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -179,11 +196,10 @@
                     <div class="card-body">
                         <p>
                             <!-- name_for_warning_model -->
-                            Bài viết này sẽ chuyển vào khu vực <span class="badge bg-warning">lưu trữ</span> <br>
                             Người dùng không nhìn thấy bài đăng này nữa.
                             <br>
                             <br>
-                            <a href="#" class="btn btn-sm btn-warning shadow">Danh sách lưu trữ</a>
+                            <a href="#" class="btn btn-sm btn-warning shadow">Danh sách bài đã xóa</a>
 
                         </p>
                     </div>
@@ -192,7 +208,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button class="btn btn-outline-light" data-dismiss="modal">Quay lại</button>
-                    <button type="submit" class="btn btn-outline-light">Vẫn lưu trữ</button>
+                    <button type="submit" class="btn btn-outline-light">Vẫn xóa</button>
                 </div>
             </form>
         </div>
@@ -202,6 +218,15 @@
 </div>
 <script>
     $(function() {
+        $('.select2').select2();
+        $('.select2').on('change', function() {
+            // if (this.value > 0) {
+            //     $(this).siblings('.error').hide();
+            // } else {
+            //     $(this).siblings('.error').show();
+            // }
+        })
+
         $("#example1").DataTable({
             "paging": true,
             "lengthChange": true,

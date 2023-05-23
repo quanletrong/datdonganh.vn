@@ -39,6 +39,7 @@ class Bds extends MY_Controller
         // TODO: validate dư liệu tìm kiếm
         //END validate
 
+
         $id_commune_ward = '';
         $id_street       = '';
         $id_project      = '';
@@ -62,7 +63,7 @@ class Bds extends MY_Controller
         $t_expired       = '';
         $f_create        = '';
         $t_create        = '';
-        $orderby         = 'id_bds';
+        $orderby         = 'is_vip';
         $sort            = 'DESC';
         $limit           = 1000;
         $offset          = 0;
@@ -120,38 +121,38 @@ class Bds extends MY_Controller
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
-        $id_commune_ward = $this->input->post('commune');            // check db + rq
-        $id_street       = $this->input->post('street');             // check db + rq
-        $id_project      = $this->input->post('project');            // check db
-        $category      = $this->input->post('category');            // check db
-        $status      = $this->input->post('status');            // check db
-        $type            = $this->input->post('type');               // check cf + rq
-        $title           = $this->input->post('title');              // check length + rq
-        $address           = $this->input->post('address');              // check length 
-        // $maps            = $this->input->post('maps', false);        // check length regx
-        // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump(html_entity_decode(htmlspecialchars_decode($maps))); // to render
-        // $sapo            = $this->input->post('sapo');               // check length + rq
-        $content         = $this->input->post('content');            // check length + rq
-        $image           = $this->input->post('image');              // check lưu
-        $videos          = $this->input->post('video');              // check regx
-        $price           = $this->input->post('price');              // check number > 0
-        $price_type           = $this->input->post('price_type');              // check number > 0
-        $acreage         = $this->input->post('acreage');            // check số + lớn 30
-        $facades         = $this->input->post('facades');            // check số + lớn 30
-        $direction       = $this->input->post('direction');          // check cf
-        $floor           = $this->input->post('floor');              // check cf
-        $toilet          = $this->input->post('toilet');             // check cf
+        $id_commune_ward = $this->input->post('commune');         // check db + rq
+        $id_street       = $this->input->post('street');          // check db + rq
+        $id_project      = $this->input->post('project');         // check db
+        $category        = $this->input->post('category');        // check db
+        $status          = $this->input->post('status');          // check db
+        $type            = $this->input->post('type');            // check cf + rq
+        $title           = $this->input->post('title');           // check length + rq
+        $address         = $this->input->post('address');         // check length 
+                                                                  // $maps            = $this->input->post('maps', false);        // check length regx
+                                                                  // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump(html_entity_decode(htmlspecialchars_decode($maps))); // to render
+                                                                  // $sapo            = $this->input->post('sapo');               // check length + rq
+        $content         = $this->input->post('content');         // check length + rq
+        $image           = $this->input->post('image');           // check lưu
+        $videos          = $this->input->post('video');           // check regx
+        $price           = $this->input->post('price');           // check number > 0
+        $price_type      = $this->input->post('price_type');      // check number > 0
+        $acreage         = $this->input->post('acreage');         // check số + lớn 30
+        $facades         = $this->input->post('facades');         // check số + lớn 30
+        $direction       = $this->input->post('direction');       // check cf
+        $floor           = $this->input->post('floor');           // check cf
+        $toilet          = $this->input->post('toilet');          // check cf
         $bedroom         = $this->input->post('room');            // check cf
-        // $noithat         = $this->input->post('noithat');            // check cf
-        $road_surface    = $this->input->post('road_surface');       // check số + lớn 1
-        $juridical       = $this->input->post('juridical');          // check cf
-        $is_vip       = $this->input->post('is_vip');          // check cf
-        $contacttype       = $this->input->post('contacttype');          // check cf
-        $contactname       = $this->input->post('contactname');          // check cf
-        $contactaddress       = $this->input->post('contactaddress');          // check cf
-        $contactphone       = $this->input->post('contactphone');          // check cf
-        $contactemail       = $this->input->post('contactemail');          // check cf
-        $run_date       = $this->input->post('run_date');          // check cf
+                                                                  // $noithat         = $this->input->post('noithat');            // check cf
+        $road_surface    = $this->input->post('road_surface');    // check số + lớn 1
+        $juridical       = $this->input->post('juridical');       // check cf
+        $is_vip          = $this->input->post('is_vip');          // check cf
+        $contacttype     = $this->input->post('contacttype');     // check cf
+        $contactname     = $this->input->post('contactname');     // check cf
+        $contactaddress  = $this->input->post('contactaddress');  // check cf
+        $contactphone    = $this->input->post('contactphone');    // check cf
+        $contactemail    = $this->input->post('contactemail');    // check cf
+        $run_date        = $this->input->post('run_date');        // check cf
 
         $tag             = $this->input->post('tag');                // check db
         

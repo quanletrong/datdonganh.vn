@@ -35,9 +35,9 @@ $config['bds']['type']['6'] = 'Nhà trong ngõ';
 $config['bds']['type']['7'] = 'Nhà mặt đường';
 $config['bds']['type']['8'] = 'Nhà liền kề dự án';
 
-$config['bds']['status']['1'] = 'Đang chạy';
-$config['bds']['status']['2'] = 'Lưu trữ';
-$config['bds']['status']['3'] = 'Chờ duyệt';
+$config['bds']['status']['1'] = 'Công khai';
+$config['bds']['status']['2'] = 'Riêng tư';
+$config['bds']['status']['3'] = 'Xóa';
 
 $config['bds']['direction']['1'] = 'Đông';
 $config['bds']['direction']['2'] = 'Tây';

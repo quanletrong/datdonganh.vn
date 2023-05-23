@@ -923,3 +923,10 @@ function resSuccess($data, $msg='', $show_status = true)
     dbClose();
     die();
 }
+
+function fullPathImage($nameImage, $yearFolder, $monthFolder) {
+
+    $path = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $yearFolder.'/'.$monthFolder.'/'.$nameImage;
+
+    return $path;
+}
