@@ -8,15 +8,17 @@
     .box-item {
         width: 100%;
     }
-    .box-item .card{
+
+    .box-item .card {
         height: 97%;
     }
 
-    @media (min-width: 1400px) {
+    @media (min-width: 1600px) {
         .box-item {
             width: 49.5%;
         }
-        .list-image > div {
+
+        .list-image>div {
             width: 31% !important;
         }
     }
@@ -150,11 +152,17 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
                                         </div>
-                                        <input type="text" class="form-control" style="width:75%" name="price" value="<?= $info['price'] ?>">
+                                        <div class="input-group" style="width:75%">
+                                            <input type="text" class="form-control w-75" name="price" value="<?= $info['price'] ?>">
+                                            <select class="form-control w-25" name="price_unit">
+                                                <option value="1" <?= $info['price_unit'] == '1' ? 'selected' : '' ?>>Triệu</option>
+                                                <option value="2" <?= $info['price_unit'] == '2' ? 'selected' : '' ?>>Tỷ</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -177,7 +185,7 @@
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Bằng chữ</label>
                                         </div>
-                                        <input type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
+                                        <input type="text" class="form-control text-danger" style="width:75%" id="price_word" readonly disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -508,8 +516,8 @@
                 </div>
                 <!-- /. LỊCH ĐĂNG TIN-->
 
-                <div class="d-flex align-items-center justify-content-center">
-                    <button type="submit" class="btn btn-danger btn-lg" type="submit">Tôi đã kiểm tra lại nội dung và đồng ý đăng bài này!</button>
+                <div style="margin: 0 auto; margin-top: 10px;">
+                    <button type="submit" class="btn btn-danger btn-lg" type="submit">Tôi đã kiểm tra lại nội dung. Lưu lại!</button>
                 </div>
             </form>
         </div>
@@ -654,6 +662,43 @@
                 });
                 return false;
             });
+
+            $('#price_word').val((VNnum2words('<?= $info['price'] * ($info['price_unit'] == '1' ? 1000000 : 1000000000) ?>')) + ' VNĐ');
+
+            $('input[name="price"]').on('keyup', function() {
+                let unit = $('select[name="price_unit"]').find(":selected").val();
+                let price = $.trim($(this).val());
+                const regex = /,/ig;
+                price = parseInt(price.replaceAll(regex, ''));
+                if (unit == '1') {
+                    price = price * 1000000;
+                } else {
+                    price = price * 1000000000;
+                }
+                if (price === 0 || isNaN(price)) {
+                    $('#price_word').val('');
+                } else {
+                    $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+                }
+            })
+
+            $('select[name="price_unit"]').change(function() {
+                let unit = $(this).find(":selected").val();
+                let price = $.trim($('input[name="price"]').val());
+                const regex = /,/ig;
+                price = parseInt(price.replaceAll(regex, ''));
+                if (unit == '1') {
+                    price = price * 1000000;
+                } else {
+                    price = price * 1000000000;
+                }
+                if (price === 0 || isNaN(price)) {
+                    $('#price_word').val('');
+                } else {
+                    $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+                }
+            })
+
         })
     </script>
 </form>

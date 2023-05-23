@@ -1528,8 +1528,8 @@ $.validator.addMethod('valid_embed_youtube', function(value, element) {
 
 $.validator.addMethod('valid_price', function(value) {
 	const regex = /,/ig;
-	value = parseInt(value.replaceAll(regex, ''));
-	if (value === 0 || isNaN(value)) {
+	price = parseInt(value.replaceAll(regex, ''));
+	if (price === 0 || isNaN(price)) {
 		return false;
 	} else {
 		return true;
