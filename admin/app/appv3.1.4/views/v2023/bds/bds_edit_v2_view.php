@@ -3,6 +3,23 @@
     .error.invalid-feedback {
         margin-left: 25%;
     }
+
+    /* // XX-Large devices (larger desktops, 1400px and up) */
+    .box-item {
+        width: 100%;
+    }
+    .box-item .card{
+        height: 97%;
+    }
+
+    @media (min-width: 1400px) {
+        .box-item {
+            width: 49.5%;
+        }
+        .list-image > div {
+            width: 31% !important;
+        }
+    }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -27,152 +44,154 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid pb-5">
-            <form id="frm_bds" action="<?= site_url('bds/edit_submit/' . $info['id_bds']) ?>" method="post">
+            <form id="frm_bds" action="<?= site_url('bds/edit_submit/' . $info['id_bds']) ?>" method="post" class="d-flex flex-wrap justify-content-between">
                 <!-- ĐĂNG MỚI TIN RAO -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: contents;">ĐĂNG MỚI TIN RAO</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                <div class="box-item">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" style="display: contents;">ĐĂNG MỚI TIN RAO</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Tiêu đề <span class="text-danger">*</span></label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Tiêu đề <span class="text-danger">*</span></label>
+                                        </div>
+                                        <textarea class="form-control" style="width:75%" name="title" rows="3"><?= $info['title'] ?></textarea>
                                     </div>
-                                    <textarea class="form-control" style="width:75%" name="title" rows="2"><?= $info['title'] ?></textarea>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                                        </div>
+                                        <textarea class="form-control" style="width:75%" name="address" rows="3"><?= $info['address'] ?></textarea>
                                     </div>
-                                    <textarea class="form-control" style="width:75%" name="address" rows="2"><?= $info['address'] ?></textarea>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Hình thức <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Hình thức <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width: 75%;" name="category" data-minimum-results-for-search="Infinity">
+                                            <option value="1" <?= $info['category'] == '1' ? 'selected' : '' ?>>Mua bán nhà đất</option>
+                                            <option value="2" <?= $info['category'] == '2' ? 'selected' : '' ?>>Cho thuê</option>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width: 75%;" name="category" data-minimum-results-for-search="Infinity">
-                                        <option value="1" <?= $info['category'] == '1' ? 'selected' : '' ?>>Mua bán nhà đất</option>
-                                        <option value="2" <?= $info['category'] == '2' ? 'selected' : '' ?>>Cho thuê</option>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Loại hình <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Loại hình <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="type">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($cf_bds['type'] as $id => $name) { ?>
+                                                <option value="<?= $id ?>" <?= $info['type'] == $id ? 'selected' : '' ?>><?= $name ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="type">
-                                        <option value="0">Vui lòng chọn</option>
-                                        <?php foreach ($cf_bds['type'] as $id => $name) { ?>
-                                            <option value="<?= $id ?>" <?= $info['type'] == $id ? 'selected' : '' ?>><?= $name ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Xã <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Xã <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="commune">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($list_commune as $cmn) { ?>
+                                                <option value="<?= $cmn['id_commune_ward'] ?>" <?= $info['id_commune_ward'] == $cmn['id_commune_ward'] ? 'selected' : '' ?>><?= $cmn['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="commune">
-                                        <option value="0">Vui lòng chọn</option>
-                                        <?php foreach ($list_commune as $cmn) { ?>
-                                            <option value="<?= $cmn['id_commune_ward'] ?>" <?= $info['id_commune_ward'] == $cmn['id_commune_ward'] ? 'selected' : '' ?>><?= $cmn['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Đường <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Đường <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="street">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($list_street as $street) { ?>
+                                                <option value="<?= $street['id_street'] ?>" <?= $info['id_street'] == $street['id_street'] ? 'selected' : '' ?>><?= $street['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="street">
-                                        <option value="0">Vui lòng chọn</option>
-                                        <?php foreach ($list_street as $street) { ?>
-                                            <option value="<?= $street['id_street'] ?>" <?= $info['id_street'] == $street['id_street'] ? 'selected' : '' ?>><?= $street['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Dự án</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Dự án</label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="project">
+                                            <option value="0">Vui lòng chọn</option>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="project">
-                                        <option value="0">Vui lòng chọn</option>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Diện tích <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Diện tích <span class="text-danger">*</span></label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="acreage" value="<?= $info['acreage'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="acreage" value="<?= $info['acreage'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="price" value="<?= $info['price'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="price" value="<?= $info['price'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Đơn vị <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Đơn vị <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="price_type">
+                                            <option value="1" <?= $info['price_type'] == '1' ? 'selected' : '' ?>>VNĐ</option>
+                                            <option value="2" <?= $info['price_type'] == '2' ? 'selected' : '' ?>>VNĐ/m2</option>
+                                            <option value="3" <?= $info['price_type'] == '3' ? 'selected' : '' ?>>VNĐ/tháng</option>
+                                            <option value="4" <?= $info['price_type'] == '4' ? 'selected' : '' ?>>VNĐ/m2/tháng</option>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="price_type">
-                                        <option value="1" <?= $info['price_type'] == '1' ? 'selected' : '' ?>>VNĐ</option>
-                                        <option value="2" <?= $info['price_type'] == '2' ? 'selected' : '' ?>>VNĐ/m2</option>
-                                        <option value="3" <?= $info['price_type'] == '3' ? 'selected' : '' ?>>VNĐ/tháng</option>
-                                        <option value="4" <?= $info['price_type'] == '4' ? 'selected' : '' ?>>VNĐ/m2/tháng</option>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Bằng chữ</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Bằng chữ</label>
+                                        </div>
+                                        <input type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
                                     </div>
-                                    <input type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Từ khóa</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Từ khóa</label>
+                                        </div>
+                                        <select class="select2" id="tag" name="tag[]" multiple="multiple" data-placeholder="Chọn từ khóa có sẵn" style="width: 75%">
+                                            <?php foreach ($list_tag as $id_tag => $tag) { ?>
+                                                <option value="<?= $id_tag ?>" <?= isset($tag_assign[$id_tag]) ? 'selected' : '' ?>><?= $tag['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <button type="button" class="btn btn-warning btn-sm mt-2" style="margin-left: 25%;" data-toggle="modal" data-target="#modal-tag-add">Thêm từ khóa mới</button>
                                     </div>
-                                    <select class="select2" id="tag" name="tag[]" multiple="multiple" data-placeholder="Chọn từ khóa có sẵn" style="width: 75%">
-                                        <?php foreach ($list_tag as $id_tag => $tag) { ?>
-                                            <option value="<?= $id_tag ?>" <?= isset($tag_assign[$id_tag]) ? 'selected' : '' ?>><?= $tag['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <button type="button" class="btn btn-warning btn-sm mt-2" style="margin-left: 25%;" data-toggle="modal" data-target="#modal-tag-add">Thêm từ khóa mới</button>
                                 </div>
                             </div>
                         </div>
@@ -181,121 +200,125 @@
                 <!-- /.ĐĂNG MỚI TIN RAO -->
 
                 <!-- THÔNG TIN MÔ TẢ -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: contents;">THÔNG TIN MÔ TẢ</h3>
+                <div class="box-item">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" style="display: contents;">THÔNG TIN MÔ TẢ</h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <textarea id="content" name="content"><?= $info['content'] ?></textarea>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <textarea id="content" name="content"><?= $info['content'] ?></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- /. THÔNG TIN MÔ TẢ-->
 
                 <!-- THONG TIN KHAC -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: contents;">THÔNG TIN KHÁC</h3>
+                <div class="box-item">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" style="display: contents;">THÔNG TIN KHÁC</h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Mặt tiền</label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Mặt tiền</label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="facades" value="<?= $info['facades'] == '0' ? '' : $info['facades'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="facades" value="<?= $info['facades'] == '0' ? '' : $info['facades'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Đường vào</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Đường vào</label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="road_surface" value="<?= $info['road_surface'] == '0' ? '' : $info['road_surface'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="road_surface" value="<?= $info['road_surface'] == '0' ? '' : $info['road_surface'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Hướng nhà</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Hướng nhà</label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="direction">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
+                                                <option value="<?= $id ?>" <?= $info['direction'] == $id ? 'selected' : '' ?>><?= $name ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="direction">
-                                        <option value="0">Vui lòng chọn</option>
-                                        <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
-                                            <option value="<?= $id ?>" <?= $info['direction'] == $id ? 'selected' : '' ?>><?= $name ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Nội thất</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Nội thất</label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="noithat">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($cf_bds['noithat'] as $id => $name) { ?>
+                                                <option value="<?= $id ?>" <?= $id == $info['noithat'] ? 'selected' : '' ?>><?= $name ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="noithat">
-                                        <option value="0">Vui lòng chọn</option>
-                                        <?php foreach ($cf_bds['noithat'] as $id => $name) { ?>
-                                            <option value="<?= $id ?>" <?= $id == $info['noithat'] ? 'selected' : '' ?>><?= $name ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Sô tầng</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Sô tầng</label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="floor" value="<?= $info['floor'] == '0' ? '' : $info['floor'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="floor" value="<?= $info['floor'] == '0' ? '' : $info['floor'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Phòng ngủ</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Phòng ngủ</label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="room" value="<?= $info['bedroom'] == '0' ? '' : $info['bedroom'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="room" value="<?= $info['bedroom'] == '0' ? '' : $info['bedroom'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Số toilet</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Số toilet</label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="toilet" value="<?= $info['toilet'] == '0' ? '' : $info['toilet'] ?>">
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="toilet" value="<?= $info['toilet'] == '0' ? '' : $info['toilet'] ?>">
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Pháp lý</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Pháp lý</label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="juridical">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($cf_bds['juridical'] as $id => $name) { ?>
+                                                <option value="<?= $id ?>" <?= $id == $info['juridical'] ? 'selected' : '' ?>><?= $name ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="juridical">
-                                        <option value="0">Vui lòng chọn</option>
-                                        <?php foreach ($cf_bds['juridical'] as $id => $name) { ?>
-                                            <option value="<?= $id ?>" <?= $id == $info['juridical'] ? 'selected' : '' ?>><?= $name ?></option>
-                                        <?php } ?>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -304,119 +327,123 @@
                 <!-- /. THONG TIN KHAC-->
 
                 <!--VIDEO HÌNH ẢNH -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: contents;">HÌNH ẢNH VIDEO</h3>
+                <div class="box-item">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" style="display: contents;">HÌNH ẢNH VIDEO</h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <!-- ảnh -->
-                            <div class="col-md-7">
-                                <div class="form-group">
-                                    <label for="">Thêm ảnh</label> <br>
-                                    <button type="button" class="btn btn-sm btn-warning quanlt-upload" data-target="">
-                                        <i class="fas fa-upload"></i> Thêm ảnh cho tin đăng
-                                    </button>
-                                    <span id="image-error" class="invalid-feedback" style="font-size: 80%; color: red;">
-                                        Tin này cần tối thiểu 1 ảnh.
-                                    </span>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- ảnh -->
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label for="">Thêm ảnh</label> <br>
+                                        <button type="button" class="btn btn-sm btn-warning quanlt-upload" data-target="">
+                                            <i class="fas fa-upload"></i> Thêm ảnh cho tin đăng
+                                        </button>
+                                        <span id="image-error" class="invalid-feedback" style="font-size: 80%; color: red;">
+                                            Tin này cần tối thiểu 1 ảnh.
+                                        </span>
+                                    </div>
+
+
+                                    <div class="d-flex w-100 flex-wrap list-image" style="gap:10px">
+                                        <?php $images = json_decode($info['images'], true); ?>
+                                        <?php foreach ($images as $image_name) { ?>
+                                            <div style="width: 23%; height: fit-content; cursor: pointer; position: relative">
+                                                <img src="<?= fullPathImage($image_name, $info['year'], $info['month']) ?>" class="img-fluid m-1 p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;" />
+                                                <i class="fas fa-trash" style="position:absolute; right: 5px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
+                                                <i class="fas fa-search-plus" style="position:absolute; right: 30px; top: 15px; color: red"></i>
+                                                <input type="hidden" name="image[]" value="<?= fullPathImage($image_name, $info['year'], $info['month']) ?>" />
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <hr class="d-block d-md-none">
                                 </div>
 
 
-                                <div class="d-flex w-100 flex-wrap list-image" style="gap:10px">
-                                    <?php $images = json_decode($info['images'], true); ?>
-                                    <?php foreach ($images as $image_name) { ?>
-                                        <div style="width: 31%; height: fit-content; cursor: pointer; position: relative">
-                                            <img src="<?=fullPathImage($image_name, $info['year'], $info['month'])?>" class="img-fluid m-1 p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;" />
-                                            <i class="fas fa-trash" style="position:absolute; right: 5px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
-                                            <i class="fas fa-search-plus" style="position:absolute; right: 30px; top: 15px; color: red"></i>
-                                            <input type="hidden" name="image[]" value="<?=fullPathImage($image_name, $info['year'], $info['month'])?>" />
-                                        </div>
-                                    <?php } ?>
+                                <!-- video -->
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="">Thêm video</label>
+                                        <textarea id="video" class="form-control" name="video" rows="3" placeholder="Nhập link video embed youtube" aria-invalid="true"><?= $info['videos'] ?></textarea>
+                                    </div>
+
+                                    <a class="btn btn-danger btn-sm" onclick="remove_video()">Xóa video</a>
+
+                                    <p>
+                                        <small>Video không bắt buộc nhập</small><br>
+                                        <small>Nếu không xem được link vừa nhập có thể nguyên nhân do link nhập không chính xác hoặc video để chế độ riêng tư.</small>
+                                    </p>
+
+                                    <div class="w-100">
+                                        <iframe id="videp_pre" style="width: 100%; <?= $info['videos'] == '' ? 'display: none;' : '' ?>" height="200" src="<?= $info['videos'] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen allowscriptaccess="always"></iframe>
+                                    </div>
                                 </div>
-                                <hr class="d-block d-md-none">
+
                             </div>
-
-
-                            <!-- video -->
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="">Thêm video</label>
-                                    <textarea id="video" class="form-control" name="video" rows="3" placeholder="Nhập link video embed youtube" aria-invalid="true"><?= $info['videos'] ?></textarea>
-                                </div>
-
-                                <a class="btn btn-danger btn-sm" onclick="remove_video()">Xóa video</a>
-
-                                <p>
-                                    <small>Video không bắt buộc nhập</small><br>
-                                    <small>Nếu không xem được link vừa nhập có thể nguyên nhân do link nhập không chính xác hoặc video để chế độ riêng tư.</small>
-                                </p>
-
-                                <div class="w-100">
-                                    <iframe id="videp_pre" style="width: 100%; <?= $info['videos'] == '' ? 'display: none;' : '' ?>" height="200" src="<?= $info['videos'] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen allowscriptaccess="always"></iframe>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
                 <!-- /.VIDEO HÌNH ẢNH-->
 
                 <!--THÔNG TIN LIÊN HỆ -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: contents;">THÔNG TIN LIÊN HỆ</h3>
+                <div class="box-item">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" style="display: contents;">THÔNG TIN LIÊN HỆ</h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap">
-                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                                <div class="me-2 w-25" style="text-align: end;">
-                                    <label class="m-0 p-0 pr-1">Tôi là <span class="text-danger">*</span></label>
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap">
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Tôi là <span class="text-danger">*</span></label>
+                                    </div>
+                                    <select class="select2" style="width:75%" name="contacttype">
+                                        <option value="1" <?= $info['contacttype'] == '1' ? 'selected' : '' ?>>Môi giới</option>
+                                        <option value="2" <?= $info['contacttype'] == '2' ? 'selected' : '' ?>>Chính chủ</option>>
+                                    </select>
                                 </div>
-                                <select class="select2" style="width:75%" name="contacttype">
-                                    <option value="1" <?= $info['contacttype'] == '1' ? 'selected' : '' ?>>Môi giới</option>
-                                    <option value="2" <?= $info['contacttype'] == '2' ? 'selected' : '' ?>>Chính chủ</option>>
-                                </select>
-                            </div>
 
-                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                                <div class="me-2 w-25" style="text-align: end;">
-                                    <label class="m-0 p-0 pr-1">Tên liên hệ <span class="text-danger">*</span></label>
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Tên liên hệ <span class="text-danger">*</span></label>
+                                    </div>
+                                    <input type="text" class="form-control" style="width:75%" name="contactname" value="<?= $info['contactname'] ?>">
                                 </div>
-                                <input type="text" class="form-control" style="width:75%" name="contactname" value="<?= $info['contactname'] ?>">
-                            </div>
 
-                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                                <div class="me-2 w-25" style="text-align: end;">
-                                    <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                                    </div>
+                                    <input type="text" class="form-control" style="width:75%" name="contactaddress" value="<?= $info['contactaddress'] ?>">
                                 </div>
-                                <input type="text" class="form-control" style="width:75%" name="contactaddress" value="<?= $info['contactaddress'] ?>">
-                            </div>
 
-                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                                <div class="me-2 w-25" style="text-align: end;">
-                                    <label class="m-0 p-0 pr-1">Điện thoại <span class="text-danger">*</span></label>
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Điện thoại <span class="text-danger">*</span></label>
+                                    </div>
+                                    <input type="text" class="form-control" style="width:75%" name="contactphone" value="<?= $info['contactphone'] ?>">
                                 </div>
-                                <input type="text" class="form-control" style="width:75%" name="contactphone" value="<?= $info['contactphone'] ?>">
-                            </div>
 
-                            <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
-                                <div class="me-2 w-25" style="text-align: end;">
-                                    <label class="m-0 p-0 pr-1">Email <span class="text-danger">*</span></label>
+                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
+                                    <div class="me-2 w-25" style="text-align: end;">
+                                        <label class="m-0 p-0 pr-1">Email <span class="text-danger">*</span></label>
+                                    </div>
+                                    <input type="text" class="form-control" style="width:75%" name="contactemail" value="<?= $info['contactemail'] ?>">
                                 </div>
-                                <input type="text" class="form-control" style="width:75%" name="contactemail" value="<?= $info['contactemail'] ?>">
                             </div>
                         </div>
                     </div>
@@ -424,54 +451,56 @@
                 <!-- /.THÔNG TIN LIÊN HỆ -->
 
                 <!-- LỊCH ĐĂNG TIN -->
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: contents;">LỊCH ĐĂNG TIN</h3>
+                <div class="box-item">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title" style="display: contents;">LỊCH ĐĂNG TIN</h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Chế độ <span class="text-danger">*</span></label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Chế độ <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="status">
+                                            <option value="1" <?= $info['status'] == '1' ? 'selected' : '' ?>>Công khai</option>
+                                            <option value="0" <?= $info['status'] == '0' ? 'selected' : '' ?>>Riêng tư</option>>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="status">
-                                        <option value="1" <?= $info['status'] == '1' ? 'selected' : '' ?>>Công khai</option>
-                                        <option value="0" <?= $info['status'] == '0' ? 'selected' : '' ?>>Riêng tư</option>>
-                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Khu vực hiển thị <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Khu vực hiển thị <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="">
+                                            <option value="1" <?= $info['is_vip'] == '1' ? 'selected' : '' ?>>Khu VIP</option>
+                                            <option value="0" <?= $info['is_vip'] == '0' ? 'selected' : '' ?>>Khu thường</option>>
+                                        </select>
                                     </div>
-                                    <select class="select2" style="width:75%" name="">
-                                        <option value="1" <?= $info['is_vip'] == '1' ? 'selected' : '' ?>>Khu VIP</option>
-                                        <option value="0" <?= $info['is_vip'] == '0' ? 'selected' : '' ?>>Khu thường</option>>
-                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                        </div>
+                                        <input type="text" class="form-control text-danger" style="width:75%" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="run_date" value="<?= $info['run_date'] ?>">
                                     </div>
-                                    <input type="text" class="form-control text-danger" style="width:75%" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="run_date" value="<?= $info['run_date'] ?>">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Ngày hết hạn</label>
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Ngày hết hạn</label>
+                                        </div>
+                                        <input type="text" class="form-control text-danger" style="width:75%" value="Tin của admin không hết hạn" readonly disabled>
                                     </div>
-                                    <input type="text" class="form-control text-danger" style="width:75%" value="Tin không hết hạn" readonly disabled>
                                 </div>
                             </div>
                         </div>
@@ -483,7 +512,6 @@
                     <button type="submit" class="btn btn-danger btn-lg" type="submit">Tôi đã kiểm tra lại nội dung và đồng ý đăng bài này!</button>
                 </div>
             </form>
-
         </div>
         <!-- /.container-fluid -->
     </section>
