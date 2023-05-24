@@ -53,8 +53,8 @@ $route['default_controller'] = 'home/home/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['san-pham/chi-tiet.html'] = 'sanpham/sanpham/chitiet';
-$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'sanpham/sanpham/chitiet/$1/$2/$3';
+$route['([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'bds/bds/index/$1/$2/$3';
+//$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'bds/bds/index/$1/$2/$3';
 //vi du:  http://dat.dev.vn/tin-tuc/man-city-dai-chien-chelsea-2-dai-gia-lam-tien-so-ke-ai-hon-ai-p48.html
 
 $route['login'] = 'login/login/index';
