@@ -28,7 +28,7 @@ class Auction extends MY_Controller
     function index()
     {
         $data = [];
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -63,7 +63,7 @@ class Auction extends MY_Controller
     function add()
     {
         $data = [];
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -84,7 +84,7 @@ class Auction extends MY_Controller
 
     function add_submit()
     {
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -141,7 +141,7 @@ class Auction extends MY_Controller
     function edit($id_article)
     {
         $data = [];
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -180,7 +180,7 @@ class Auction extends MY_Controller
 
     function edit_submit($id_article)
     {
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -248,7 +248,7 @@ class Auction extends MY_Controller
 
     function delete($id_article = 0)
     {
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 

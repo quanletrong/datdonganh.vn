@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Danh sách Tag</h1>
+                    <h1>Danh sách từ khóa</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url() ?>">Home</a></li>
-                        <li class="breadcrumb-item active">Quản tag</li>
+                        <li class="breadcrumb-item active">Danh sách từ khóa</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="card-title">Danh sách tag</h3>
+                                <h3 class="card-title">Danh sách từ khóa</h3>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tag" data-type="add">
                                     Thêm mới
                                 </button>
@@ -39,7 +39,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">STT</th>
-                                        <th>Tên nhãn</th>
+                                        <th>Từ khóa</th>
                                         <th class="text-center">Trạng thái</th>
                                         <th class="text-center">Ngày tạo</th>
                                         <th class="text-center">Cập nhật</th>
@@ -80,7 +80,7 @@
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">STT</th>
-                                        <th>Tên nhãn</th>
+                                        <th>Từ khóa</th>
                                         <th class="text-center">Trạng thái</th>
                                         <th class="text-center">Ngày tạo</th>
                                         <th class="text-center">Cập nhật</th>
@@ -174,10 +174,10 @@
                     <input type="hidden" name="id_tag" value="">
                     <div class="card-body">
                         <p>
-                            Nếu <strong>XÓA</strong> tag này tất cả bài viết (bài đăng bđs, tin tức, lịch đấu giá đất, tài liệu đất) sẽ không còn tag này nữa.
+                            Nếu <strong>XÓA</strong> từ khóa này tất cả bài viết (bài đăng bđs, tin tức, lịch đấu giá đất, tài liệu đất) sẽ không còn từ khóa này nữa.
                         </p>
                         <p>
-                            Lời khuyên hãy chuyển tag sang trạng thái <span class="badge bg-warning">tạm ngừng hiển thị</span>.
+                            Lời khuyên hãy chuyển từ khóa sang trạng thái <span class="badge bg-warning">tạm ngừng hiển thị</span>.
                         </p>
                     </div>
                     <!-- /.card-body -->

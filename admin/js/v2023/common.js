@@ -375,3 +375,15 @@ function toasts_danger(body='Có lỗi xảy ra', title='Thất bại', delay=10
         fade: true
     })
 }
+
+function toasts_success(body='Thành công', title='Thất bại', delay=10000, autohide=true, subtitle=''){
+    $(document).Toasts('create', {
+        class: 'bg-success',
+        title: title,
+        subtitle: '',
+        body: body,
+        delay: delay,
+        autohide: true,
+        fade: true
+    })
+}

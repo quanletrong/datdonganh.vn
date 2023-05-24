@@ -63,9 +63,10 @@ define('SESSION_CONFIG_TIME_EXPIRE', 28800);
 
 
 // ROLE
-define('ADMIN', '1');
-define('SALE', '2');
-define('USER', '3');
+define('SUPERADMIN', '1');
+define('ADMIN', '2');
+define('SALE', '3');
+define('USER', '4');
 
 // ROLE
 define('NEWS', '1');

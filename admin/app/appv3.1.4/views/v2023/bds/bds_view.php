@@ -42,7 +42,7 @@
                         <div class="card-body table-responsive">
                             <div class="row">
                                 <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" placeholder="Tiêu đề">
+                                    <input type="text" class="form-control" placeholder="Tìm bài viết theo tiêu đề">
                                 </div>
                                 <div class="col-md-2 mb-2">
                                     <select class="select2" name="category" data-minimum-results-for-search="Infinity">
@@ -108,7 +108,7 @@
                                         <th class="text-center" style="width: 50px;">ID</th>
                                         <th style="min-width: 300px;">Bất động sản</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
-                                        <th class="text-center" style="min-width: 90px; width: 90px;">Trạng thái</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Chế độ</th>
                                         <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
                                         <th class="text-center" style="width: fit-content;"></th>
                                     </tr>
@@ -118,12 +118,14 @@
                                         <tr>
                                             <td class=" text-center  align-middle"><?= $index ?></td>
                                             <td class=" align-middle  align-middle">
-                                                <?php if ($bds['is_vip']) { ?>
-                                                    <span class="badge bg-warning">
-                                                        TIN VIP
-                                                    </span>
-                                                <?php } ?>
-                                                <?= $bds['title'] ?>
+                                                <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2" title="Sửa bài">
+                                                    <?php if ($bds['is_vip']) { ?>
+                                                        <span class="badge bg-warning">
+                                                            TIN VIP
+                                                        </span>
+                                                    <?php } ?>
+                                                    <?= $bds['title'] ?>
+                                                </a>
                                             </td>
                                             <td class=" text-center  align-middle">
                                                 <img src="<?= $bds['main_img'] ?>" alt="" class="img-fluid">
@@ -141,11 +143,14 @@
                                             </td>
                                             <td class="text-center  align-middle">
                                                 <div class="d-flex">
-                                                    <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2">
+                                                    <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2" title="Sửa bài">
                                                         <i class="fas fa-edit text-warning"></i>
                                                     </a>
-                                                    <a href="" data-toggle="modal" data-target="#modal-bds-archive" data-bds="<?= htmlentities(json_encode($bds)) ?>">
+                                                    <a href="" class="mr-2" data-toggle="modal" data-target="#modal-bds-archive" data-bds="<?= htmlentities(json_encode($bds)) ?>" title="Xóa bài">
                                                         <i class="fas fa-trash text-danger"></i>
+                                                    </a>
+                                                    <a href="#" title="Xem bài đăng">
+                                                        <i class="fas fa-external-link-square-alt"></i>
                                                     </a>
                                                 </div>
 
@@ -158,7 +163,7 @@
                                         <th class="text-center" style="width: 50px;">ID</th>
                                         <th style="min-width: 100px;">Bất động sản</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
-                                        <th class="text-center" style="min-width: 90px; width: 90px;">Trạng thái</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Chế độ</th>
                                         <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
                                         <th class="text-center" style="width: fit-content;"></th>
                                     </tr>

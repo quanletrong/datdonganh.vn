@@ -483,15 +483,27 @@
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Khu vực hiển thị <span class="text-danger">*</span></label>
+                                            <label class="m-0 p-0 pr-1">Hiển thị trong<span class="text-danger">*</span></label>
                                         </div>
-                                        <select class="select2" style="width:75%" name="is_vip">
+                                        <select class="select2" style="width:75%" name="is_vip" data-minimum-results-for-search="Infinity">
                                             <option value="1">Khu VIP</option>
                                             <option value="0">Khu thường</option>>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="input-group date" id="reservationdatetime" data-target-input="nearest" style="width:75%">
+                                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
+                                            <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
@@ -700,7 +712,7 @@
 <!-- /.upload anh -->
 
 <script>
-    $(function() {
+    $(document).ready(function() {
 
         $('.select2').select2();
 
@@ -870,6 +882,18 @@
                 validobj.element(`*[name="${select_current_name}"]`);
             }
         })
+
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        //Date and time picker
+        $('#reservationdatetime').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            }
+        });
 
     });
 

@@ -229,6 +229,15 @@
 						</li>
 
 						<li class="nav-item">
+							<a href="choose_vip" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Quản lý tin VIP
+								</p>
+							</a>
+						</li>
+
+						<li class="nav-item">
 							<a href="project" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
@@ -241,7 +250,7 @@
 							<a href="tag" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
-									Thẻ đánh nhãn
+									Từ khóa bđs
 								</p>
 							</a>
 						</li>

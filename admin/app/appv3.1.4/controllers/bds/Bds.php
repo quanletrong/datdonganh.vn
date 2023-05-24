@@ -32,7 +32,7 @@ class Bds extends MY_Controller
         // $this->_function = trim(strtolower(__FUNCTION__));
 
         $data = [];
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -59,6 +59,7 @@ class Bds extends MY_Controller
         $road_surface    = '';
         $juridical       = '';
         $is_vip          = '';
+        $is_home_vip     = '';
         $f_expired       = '';
         $t_expired       = '';
         $f_create        = '';
@@ -68,7 +69,7 @@ class Bds extends MY_Controller
         $limit           = 1000;
         $offset          = 0;
 
-        $list_bds = $this->Bds_model->get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
+        $list_bds = $this->Bds_model->get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
         $list_street =  $this->Street_model->get_list(1);
         $list_commune =  $this->Commune_model->get_list(1);
 
@@ -90,7 +91,7 @@ class Bds extends MY_Controller
     function add()
     {
         $data = [];
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -117,7 +118,7 @@ class Bds extends MY_Controller
 
     function add_submit()
     {
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -212,7 +213,7 @@ class Bds extends MY_Controller
     function edit($id_bds)
     {
         $data = [];
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
@@ -262,7 +263,7 @@ class Bds extends MY_Controller
 
     function edit_submit($id_bds)
     {
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 

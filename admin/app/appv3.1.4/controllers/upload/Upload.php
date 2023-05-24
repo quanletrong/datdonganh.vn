@@ -22,7 +22,7 @@ class Upload extends MY_Controller
 
     function index()
     {
-        if ($this->_session_role() != ADMIN) {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 

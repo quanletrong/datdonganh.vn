@@ -49,14 +49,13 @@ class Bds_model extends CI_Model
     }
 
     // -1 = lấy tất cả
-    function get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
+    function get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
     {
         $data = [];
         $iconn = $this->db->conn_id;
 
-        $where = "WHERE A.title LIKE '%$title%' ";
-        $param['title'] = $title;
-
+        $where = "WHERE 1=1 ";
+        if ($title != '') $where                          .= "AND A.title LIKE ? ";
         if ($id_commune_ward != '') $where                .= "AND A.id_commune_ward = $id_commune_ward ";
         if ($id_street != '') $where                      .= "AND A.id_street = $id_street ";
         if ($id_project != '') $where                     .= "AND A.id_project = $id_project ";
@@ -73,6 +72,7 @@ class Bds_model extends CI_Model
         if ($road_surface != '')  $where                  .= "AND A.road_surface = $road_surface ";
         if ($juridical != '')  $where                     .= "AND A.juridical = $juridical ";
         if ($is_vip != '')  $where                        .= "AND A.is_vip = $is_vip ";
+        if ($is_home_vip != '')  $where                   .= "AND A.is_home_vip = $is_home_vip ";
         if ($f_expired != '' && $t_expired != '')  $where .= "AND A.expired BETWEEN '$f_expired' AND '$t_expired' ";
         if ($f_create != '' && $t_create != '')  $where   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
 
@@ -88,8 +88,8 @@ class Bds_model extends CI_Model
         // var_dump($sql);die;
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            if ($stmt->execute($param)) {
+            // $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            if ($stmt->execute(["%$title%"])) {
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -132,14 +132,33 @@ class Bds_model extends CI_Model
         return $execute;
     }
 
-    function delete($id_street)
+    // function delete($id_street)
+    // {
+    //     $execute = false;
+    //     $iconn = $this->db->conn_id;
+    //     $sql = "DELETE FROM tbl_street WHERE id_street=?";
+    //     $stmt = $iconn->prepare($sql);
+    //     if ($stmt) {
+    //         if ($stmt->execute([$id_street])) {
+    //             $execute = true;
+    //         } else {
+    //             var_dump($stmt->errorInfo());
+    //             die;
+    //         }
+    //     }
+    //     $stmt->closeCursor();
+    //     return $execute;
+    // }
+
+    function update_vip_to_home($is_home_vip, $str_id_bds)
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "DELETE FROM tbl_street WHERE id_street=?";
+        $sql = "UPDATE tbl_bds SET is_home_vip=? WHERE FIND_IN_SET(id_bds, ?)";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            if ($stmt->execute([$id_street])) {
+
+            if ($stmt->execute([$is_home_vip, $str_id_bds])) {
                 $execute = true;
             } else {
                 var_dump($stmt->errorInfo());
