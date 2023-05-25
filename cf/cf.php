@@ -82,3 +82,16 @@ define('TAG_BDS', '1');
 define('TAG_AUCTION', '2');
 define('TAG_DOCUMENT', '3');
 define('TAG_NEWS', '4');
+
+// PRICE TYPE
+define('PRICE_TYPE_TOTAL', '1');
+define('PRICE_TYPE_M2', '2');
+define('PRICE_TYPE_MONTH', '3');
+define('PRICE_TYPE_M2_MONTH', '4');
+
+// PRICE UNIT
+define('PRICE_UNIT_TRIEU', '1');
+define('PRICE_UNIT_TY', '2');
+
+define('PRICE_ONE_BILLION', 1000000000);
+define('PRICE_ONE_MILLION', 1000000);

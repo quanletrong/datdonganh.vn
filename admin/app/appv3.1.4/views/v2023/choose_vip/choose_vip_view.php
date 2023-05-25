@@ -79,7 +79,7 @@
 
 <script>
     $(function() {
-        $('.duallistbox').bootstrapDualListbox()
+        $('.duallistbox').bootstrapDualListbox();
     });
 
     function update() {

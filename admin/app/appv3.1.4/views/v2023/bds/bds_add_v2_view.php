@@ -190,7 +190,7 @@
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Bằng chữ</label>
                                         </div>
-                                        <input type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
+                                        <input id="price_word" type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -491,26 +491,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
-                                        </div>
-                                        <div class="input-group date" id="reservationdatetime" data-target-input="nearest" style="width:75%">
-                                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" />
-                                            <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
-                                        </div>
-                                        <input type="text" class="form-control text-danger" style="width:75%" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="run_date">
-                                    </div>
-                                </div>
+                                
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
@@ -715,19 +696,6 @@
     $(document).ready(function() {
 
         $('.select2').select2();
-
-        $('[data-mask]').inputmask();
-
-        $('input[name="price"]').inputmask(
-            'integer', {
-                radixPoint: '.',
-                digits: 2,
-                autoGroup: true,
-                groupSeparator: ",",
-                rightAlign: false,
-            }
-        );
-
         tinymce.init({
             selector: '#content',
             height: "400",
@@ -837,10 +805,6 @@
                     number: true,
                     min: 1
                 },
-                run_date: {
-                    required: true,
-                    valid_run_date: true,
-                },
                 video: {
                     valid_embed_youtube: true
                 },
@@ -894,6 +858,40 @@
                 time: 'far fa-clock'
             }
         });
+
+        $('input[name="price"]').on('keyup', function() {
+            let unit = $('select[name="price_unit"]').find(":selected").val();
+            let price = $.trim($(this).val());
+            const regex = /,/ig;
+            price = parseInt(price.replaceAll(regex, ''));
+            if (unit == '1') {
+                price = price * 1000000;
+            } else {
+                price = price * 1000000000;
+            }
+            if (price === 0 || isNaN(price)) {
+                $('#price_word').val('');
+            } else {
+                $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+            }
+        })
+
+        $('select[name="price_unit"]').change(function() {
+            let unit = $(this).find(":selected").val();
+            let price = $.trim($('input[name="price"]').val());
+            const regex = /,/ig;
+            price = parseInt(price.replaceAll(regex, ''));
+            if (unit == '1') {
+                price = price * 1000000;
+            } else {
+                price = price * 1000000000;
+            }
+            if (price === 0 || isNaN(price)) {
+                $('#price_word').val('');
+            } else {
+                $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+            }
+        })
 
     });
 

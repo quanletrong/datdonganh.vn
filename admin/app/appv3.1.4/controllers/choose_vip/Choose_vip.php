@@ -34,6 +34,7 @@ class Choose_vip extends MY_Controller
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
 
+        $category        = '';
         $id_commune_ward = '';
         $id_street       = '';
         $id_project      = '';
@@ -43,6 +44,7 @@ class Choose_vip extends MY_Controller
         $title           = '';
         $f_price         = '';
         $t_price         = '';
+        $price_type      = '';
         $f_acreage       = '';
         $t_acreage       = '';
         $direction       = '';
@@ -63,7 +65,7 @@ class Choose_vip extends MY_Controller
         $limit           = 1000;
         $offset          = 0;
 
-        $list_bds_vip = $this->Bds_model->get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
+        $list_bds_vip = $this->Bds_model->get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
 
         $data['list_bds_vip'] = $list_bds_vip;
         $header = [

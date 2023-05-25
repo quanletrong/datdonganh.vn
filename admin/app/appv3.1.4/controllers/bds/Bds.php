@@ -29,8 +29,6 @@ class Bds extends MY_Controller
 
     function index()
     {
-        // $this->_function = trim(strtolower(__FUNCTION__));
-
         $data = [];
         if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
@@ -39,37 +37,48 @@ class Bds extends MY_Controller
         // TODO: validate dư liệu tìm kiếm
         //END validate
 
-
-        $id_commune_ward = '';
-        $id_street       = '';
-        $id_project      = '';
-        $id_user         = '';
-        $status          = '';
-        $type            = '';
-        $title           = '';
-        $f_price         = '';
-        $t_price         = '';
-        $f_acreage       = '';
-        $t_acreage       = '';
-        $direction       = '';
-        $floor           = '';
-        $toilet          = '';
-        $bedroom         = '';
-        $noithat         = '';
-        $road_surface    = '';
-        $juridical       = '';
-        $is_vip          = '';
-        $is_home_vip     = '';
-        $f_expired       = '';
-        $t_expired       = '';
-        $f_create        = '';
-        $t_create        = '';
+        $category        = trim($this->input->get('category'));
+        $id_commune_ward = trim($this->input->get('id_commune_ward'));
+        $id_street       = trim($this->input->get('id_street'));
+        $id_project      = trim($this->input->get('id_project'));
+        $id_user         = trim($this->input->get('id_user'));
+        $status          = trim($this->input->get('status'));
+        $type            = trim($this->input->get('type'));
+        $title           = trim($this->input->get('title'));
+        $f_price         = trim($this->input->get('f_price'));
+        $f_price_unit    = trim($this->input->get('f_price_unit'));
+        $t_price         = trim($this->input->get('t_price'));
+        $t_price_unit    = trim($this->input->get('t_price_unit'));
+        $price_type      = trim($this->input->get('price_type'));
+        $f_acreage       = trim($this->input->get('f_acreage'));
+        $t_acreage       = trim($this->input->get('t_acreage'));
+        $direction       = trim($this->input->get('direction'));
+        $floor           = trim($this->input->get('floor'));
+        $toilet          = trim($this->input->get('toilet'));
+        $bedroom         = trim($this->input->get('bedroom'));
+        $noithat         = trim($this->input->get('noithat'));
+        $road_surface    = trim($this->input->get('road_surface'));
+        $juridical       = trim($this->input->get('juridical'));
+        $is_vip          = trim($this->input->get('is_vip'));
+        $is_home_vip     = trim($this->input->get('is_home_vip'));
+        $f_expired       = trim($this->input->get('f_expired'));
+        $t_expired       = trim($this->input->get('t_expired'));
+        $f_create        = trim($this->input->get('f_create'));
+        $t_create        = trim($this->input->get('t_create'));
         $orderby         = 'is_vip';
         $sort            = 'DESC';
         $limit           = 1000;
         $offset          = 0;
 
-        $list_bds = $this->Bds_model->get_list($id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
+        if ($f_price != '') {
+            $f_price = $f_price_unit == PRICE_UNIT_TRIEU ? $f_price * PRICE_ONE_MILLION : $f_price * PRICE_ONE_BILLION;
+        }
+
+        if ($t_price != '') {
+            $t_price = $t_price_unit == PRICE_UNIT_TRIEU ? $t_price * PRICE_ONE_MILLION : $t_price * PRICE_ONE_BILLION;
+        }
+
+        $list_bds = $this->Bds_model->get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
         $list_street =  $this->Street_model->get_list(1);
         $list_commune =  $this->Commune_model->get_list(1);
 
@@ -137,6 +146,7 @@ class Bds extends MY_Controller
         $image           = $this->input->post('image');           // check lưu
         $videos          = $this->input->post('video');           // check regx
         $price           = $this->input->post('price');           // check number > 0
+        $price_unit      = $this->input->post('price_unit');      // check number > 0
         $price_type      = $this->input->post('price_type');      // check number > 0
         $acreage         = $this->input->post('acreage');         // check số + lớn 30
         $facades         = $this->input->post('facades');         // check số + lớn 30
@@ -153,20 +163,21 @@ class Bds extends MY_Controller
         $contactaddress  = $this->input->post('contactaddress');  // check cf
         $contactphone    = $this->input->post('contactphone');    // check cf
         $contactemail    = $this->input->post('contactemail');    // check cf
-        $run_date        = $this->input->post('run_date');        // check cf
 
         $tag             = $this->input->post('tag');                // check db
-        
+
         // TODO: validate dữ liệu submit
         $price = intval(str_replace(',', '', $price));
+        $price = $price_unit == PRICE_UNIT_TRIEU ? $price * PRICE_ONE_MILLION : $price * PRICE_ONE_BILLION;
+        if ($price_type == PRICE_TYPE_TOTAL) {
+            $price_m2 = $price / $acreage;
+            $price_total = $price;
+        } else if ($price_type == PRICE_TYPE_M2) {
+            $price_total = $price * $acreage;
+            $price_m2 = $price;
+        }
+
         //END validate
-
-
-        // TODO: validate dữ liệu trước khi save
-
-        // TODO: validate dữ liệu trước khi save
-        $run_date = str_replace('/', '-', $run_date);
-        $run_date = date('Y-m-d', strtotime($run_date));
 
         # lưu ảnh
         $image_db = [];
@@ -191,7 +202,7 @@ class Bds extends MY_Controller
             $images      = json_encode($image_db);
             $create_time = date('Y-m-d H:i:s');
 
-            $newid = $this->Bds_model->add($id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $run_date, $create_time);
+            $newid = $this->Bds_model->add($id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time);
 
             if ($newid) {
                 # update tag
@@ -219,7 +230,7 @@ class Bds extends MY_Controller
 
         // check right
         $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
-        $info   = $this->Bds_model->get_info($id_bds);
+        $info   = $this->Bds_model->get_info($id_bds, $this->_session_uid());
         if (empty($info)) {
             $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
             redirect('bds');
@@ -269,7 +280,7 @@ class Bds extends MY_Controller
 
         // check right
         $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
-        $info   = $this->Bds_model->get_info($id_bds);
+        $info   = $this->Bds_model->get_info($id_bds, $this->_session_uid());
         if (empty($info)) {
             $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
             redirect('bds');
@@ -291,6 +302,7 @@ class Bds extends MY_Controller
         $image           = $this->input->post('image');           // check lưu
         $videos          = $this->input->post('video');           // check regx
         $price           = $this->input->post('price');           // check number > 0
+        $price_unit      = $this->input->post('price_unit');      // check number > 0
         $price_type      = $this->input->post('price_type');      // check number > 0
         $acreage         = $this->input->post('acreage');         // check số + lớn 30
         $facades         = $this->input->post('facades');         // check số + lớn 30
@@ -307,19 +319,20 @@ class Bds extends MY_Controller
         $contactaddress  = $this->input->post('contactaddress');  // check cf
         $contactphone    = $this->input->post('contactphone');    // check cf
         $contactemail    = $this->input->post('contactemail');    // check cf
-        $run_date        = $this->input->post('run_date');        // check cf
         $tag             = $this->input->post('tag');                // check db
-        
+
         // TODO: validate dữ liệu submit
         $price = intval(str_replace(',', '', $price));
+        $price = $price_unit == PRICE_UNIT_TRIEU ? $price * PRICE_ONE_MILLION : $price * PRICE_ONE_BILLION;
+        if ($price_type == PRICE_TYPE_TOTAL) {
+            $price_m2 = $price / $acreage;
+            $price_total = $price;
+        } else if ($price_type == PRICE_TYPE_M2) {
+            $price_total = $price * $acreage;
+            $price_m2 = $price;
+        }
+
         //END validate
-
-
-        // TODO: validate dữ liệu trước khi save
-
-        // TODO: validate dữ liệu trước khi save
-        $run_date = str_replace('/', '-', $run_date);
-        $run_date = date('Y-m-d', strtotime($run_date));
 
         # lưu ảnh
         $image_db = [];
@@ -356,7 +369,7 @@ class Bds extends MY_Controller
             $images      = json_encode($image_db);
             $update_time = date('Y-m-d H:i:s');
 
-            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $run_date, $update_time);
+            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $update_time);
 
             if ($exc) {
                 # update tag

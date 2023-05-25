@@ -162,7 +162,7 @@
                                             <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="input-group" style="width:75%">
-                                            <input type="text" class="form-control w-75" name="price" value="<?= $info['price'] ?>">
+                                            <input type="text" class="form-control w-75" name="price" value="<?= $info['price_view'] ?>">
                                             <select class="form-control w-25" name="price_unit">
                                                 <option value="1" <?= $info['price_unit'] == '1' ? 'selected' : '' ?>>Triệu</option>
                                                 <option value="2" <?= $info['price_unit'] == '2' ? 'selected' : '' ?>>Tỷ</option>
@@ -499,14 +499,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Ngày bắt đầu <span class="text-danger">*</span></label>
-                                        </div>
-                                        <input type="text" class="form-control text-danger" style="width:75%" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="run_date" value="<?= $info['run_date'] ?>">
-                                    </div>
-                                </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
@@ -667,43 +660,6 @@
                 });
                 return false;
             });
-
-            $('#price_word').val((VNnum2words('<?= $info['price'] * ($info['price_unit'] == '1' ? 1000000 : 1000000000) ?>')) + ' VNĐ');
-
-            $('input[name="price"]').on('keyup', function() {
-                let unit = $('select[name="price_unit"]').find(":selected").val();
-                let price = $.trim($(this).val());
-                const regex = /,/ig;
-                price = parseInt(price.replaceAll(regex, ''));
-                if (unit == '1') {
-                    price = price * 1000000;
-                } else {
-                    price = price * 1000000000;
-                }
-                if (price === 0 || isNaN(price)) {
-                    $('#price_word').val('');
-                } else {
-                    $('#price_word').val((VNnum2words(price)) + ' VNĐ');
-                }
-            })
-
-            $('select[name="price_unit"]').change(function() {
-                let unit = $(this).find(":selected").val();
-                let price = $.trim($('input[name="price"]').val());
-                const regex = /,/ig;
-                price = parseInt(price.replaceAll(regex, ''));
-                if (unit == '1') {
-                    price = price * 1000000;
-                } else {
-                    price = price * 1000000000;
-                }
-                if (price === 0 || isNaN(price)) {
-                    $('#price_word').val('');
-                } else {
-                    $('#price_word').val((VNnum2words(price)) + ' VNĐ');
-                }
-            })
-
         })
     </script>
 </form>
@@ -713,18 +669,57 @@
     $(function() {
 
         $('.select2').select2();
-
-        $('[data-mask]').inputmask();
-
-        $('input[name="price"]').inputmask(
-            'integer', {
-                radixPoint: '.',
-                digits: 2,
-                autoGroup: true,
-                groupSeparator: ",",
-                rightAlign: false,
+        $('.select2').on('change', function() {
+            let list_required = ['commune', 'street', 'type'];
+            let select_current_name = $(this).attr('name');
+            if (list_required.includes(select_current_name)) {
+                validobj.element(`select[name="${select_current_name}"]`);
             }
-        );
+        })
+
+        $('input, textarea').focusout(function() {
+            let list_required = ['title', 'address', 'price', 'acreage', 'content', 'contactname', 'contactaddress', 'contactphone', 'contactemail'];
+            let select_current_name = $(this).attr('name');
+            if (list_required.includes(select_current_name)) {
+                validobj.element(`*[name="${select_current_name}"]`);
+            }
+        })
+
+        $('#price_word').val((VNnum2words('<?= $info['price_view'] * ($info['price_unit'] == '1' ? 1000000 : 1000000000) ?>')) + ' VNĐ');
+
+        $('input[name="price"]').on('keyup', function() {
+            let unit = $('select[name="price_unit"]').find(":selected").val();
+            let price = $.trim($(this).val());
+            const regex = /,/ig;
+            price = parseInt(price.replaceAll(regex, ''));
+            if (unit == '1') {
+                price = price * 1000000;
+            } else {
+                price = price * 1000000000;
+            }
+            if (price === 0 || isNaN(price)) {
+                $('#price_word').val('');
+            } else {
+                $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+            }
+        })
+
+        $('select[name="price_unit"]').change(function() {
+            let unit = $(this).find(":selected").val();
+            let price = $.trim($('input[name="price"]').val());
+            const regex = /,/ig;
+            price = parseInt(price.replaceAll(regex, ''));
+            if (unit == '1') {
+                price = price * 1000000;
+            } else {
+                price = price * 1000000000;
+            }
+            if (price === 0 || isNaN(price)) {
+                $('#price_word').val('');
+            } else {
+                $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+            }
+        })
 
         tinymce.init({
             selector: '#content',
@@ -835,10 +830,6 @@
                     number: true,
                     min: 1
                 },
-                run_date: {
-                    required: true,
-                    valid_run_date: true,
-                },
                 video: {
                     valid_embed_youtube: true
                 },
@@ -865,22 +856,6 @@
                 $(element).removeClass('is-invalid');
             }
         });
-
-        $('.select2').on('change', function() {
-            let list_required = ['commune', 'street', 'type'];
-            let select_current_name = $(this).attr('name');
-            if (list_required.includes(select_current_name)) {
-                validobj.element(`select[name="${select_current_name}"]`);
-            }
-        })
-
-        $('input, textarea').focusout(function() {
-            let list_required = ['title', 'address', 'price', 'acreage', 'content', 'contactname', 'contactaddress', 'contactphone', 'contactemail'];
-            let select_current_name = $(this).attr('name');
-            if (list_required.includes(select_current_name)) {
-                validobj.element(`*[name="${select_current_name}"]`);
-            }
-        })
 
     });
 

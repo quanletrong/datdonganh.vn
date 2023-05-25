@@ -40,68 +40,11 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
-                            <div class="row">
-                                <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" placeholder="Tìm bài viết theo tiêu đề">
-                                </div>
-                                <div class="col-md-2 mb-2">
-                                    <select class="select2" name="category" data-minimum-results-for-search="Infinity">
-                                        <option value="">Tất cả hình thức</option>
-                                        <option value="1">Mua bán nhà đất</option>
-                                        <option value="2">Cho thuê</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-2 mb-3">
-                                    <select class="select2" name="commune">
-                                        <option value="">Tất cả xã</option>
-                                        <?php foreach ($list_commune as $cmn) { ?>
-                                            <option value="<?= $cmn['id_commune_ward'] ?>"><?= $cmn['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 mb-2">
-                                    <select class="select2" name="street">
-                                        <option value="">Tất cả đường</option>
-                                        <?php foreach ($list_street as $cmn) { ?>
-                                            <option value="<?= $cmn['id_street'] ?>"><?= $cmn['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 mb-2">
-                                    <select class="select2" name="is_vip" data-minimum-results-for-search="Infinity">
-                                        <option value="">Tất cả loại tin</option>
-                                        <option value="1">Khu vip</option>
-                                        <option value="0">Khu thường</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                    <select class="select2" name="status" data-minimum-results-for-search="Infinity">
-                                        <option value="">Tất cả chế độ</option>
-                                        <option value="1">Công khai</option>
-                                        <option value="0">Riêng tư</option>
-                                    </select>
-                                </div>
-                                <!-- ngày -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Ngày bắt đầu">
-                                        <input type="text" class="form-control" placeholder="Ngày kết thúc">
-                                    </div>
-                                </div>
-                                <!-- Giá -->
-                                <div class="col-md-4 mb-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Giá bắt đầu">
-                                        <input type="text" class="form-control" placeholder="Giá kết thúc">
-                                    </div>
-                                </div>
-                                <!-- search -->
-                                <div class="col-md-2 mb-3">
-                                    <button type="button" class="btn btn-primary w-100"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                            <hr class="mt-0">
+                            <!-- tim kiem -->
+                            <?php $this->load->view('v2023/bds/bds_view_tim_kiem'); ?>
+                            <!-- /.tim kiem -->
+                            
+                            <!-- table data -->
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -169,6 +112,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            <!-- /.table data -->
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -234,8 +178,9 @@
 
         $("#example1").DataTable({
             "paging": true,
+            "pageLength": 100,
             "lengthChange": true,
-            "searching": true,
+            "searching": false,
             "ordering": false,
             "info": true,
             "autoWidth": false,
