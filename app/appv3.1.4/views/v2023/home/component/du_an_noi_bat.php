@@ -14,7 +14,7 @@
                 <?php echo $bds['title']; ?>    
                 </p>
                 <div class="d-flex gap-2">
-                    <div class="text-danger fw-bold"><?php echo getPrice($bds['price']) ?></div>
+                    <div class="text-danger fw-bold"><?php echo getPrice($bds['price_total']) ?></div>
                     <div class="mb-1">.</div>
                     <div class="text-danger  fw-bold"><?php echo $bds['acreage']; ?> m²</div>
                 </div>
