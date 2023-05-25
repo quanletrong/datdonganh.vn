@@ -13,11 +13,36 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        $sql = "SELECT * FROM tbl_bds WHERE id_bds = ?";
+        $sql = " SELECT A.*, B.name as commune_name, C.name as street_name FROM tbl_bds as A  
+            LEFT JOIN tbl_commune_ward as B 
+            ON A.id_commune_ward = B.id_commune_ward  
+            LEFT JOIN tbl_street as C 
+            ON A.id_street = C.id_street
+            WHERE A.id_bds = ?";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute([$id_bds])) {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+    
+    function get_all_tag_by($type, $id_bds)
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
+        $sql = " SELECT A.*  FROM tbl_tag as A  
+            LEFT JOIN tbl_tag_assign as B ON A.id_tag = B.id_tag 
+            WHERE A.status = 1 AND B.type_assign = ? AND B.id_assign = ?";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$type, $id_bds])) {
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {
                 var_dump($stmt->errorInfo());
                 die;
