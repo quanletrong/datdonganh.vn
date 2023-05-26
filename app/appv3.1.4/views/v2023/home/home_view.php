@@ -10,10 +10,11 @@
 
 
 
-<?php $this->load->view($template_f . 'home/component/bds_danh_cho_ban.php'); ?>
+<?php //$this->load->view($template_f . 'home/component/bds_danh_cho_ban.php'); ?>
+<?php $this->load->view($template_f . 'home/component/bds_vip_thuong_filter_left.php'); ?>
 
 
-<?php $this->load->view($template_f . 'home/component/du_an_noi_bat.php'); ?>
+<?php //$this->load->view($template_f . 'home/component/du_an_noi_bat.php'); ?>
 
 
 <?php $this->load->view($template_f . 'home/component/bds_theo_dia_diem.php'); ?>
