@@ -30,43 +30,50 @@
         <!-- box filter pc -->
         <div id="pc-filter" style="position: absolute; top:2rem;">
             <div id="tab-filter">
-                <div class="rounded-top text-light px-3 py-1" style="background-color: rgb(70, 11, 11, 0.8); width: fit-content;">
-                    Nhà đất bán
+                <div class="d-flex" style="gap:0.7rem">
+                    <div class="rounded-top text-light px-5 py-2"
+                        style="background-color: rgb(70, 11, 11, 0.8); width: fit-content; cursor: pointer;">
+                        Nhà đất bán
+                    </div>
+                    <div class="rounded-top text-light px-5 py-2"
+                        style="background-color: rgba(202, 202, 202, 0.8); color: black; width: fit-content; cursor: pointer;">
+                        Nhà cho thuê
+                    </div>
                 </div>
+
                 <div id="body-filter" class="p-3 rounded-end rounded-bottom" style="background-color: rgb(70, 11, 11, 0.8); height: auto;">
-                    <div class="input-group mb-3">
-                        <button class="btn btn-outline-light dropdown-toggle bg-light text-dark p-3" style="border-right: 1px solid #ccc; background-color: #fff !important;" type="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-home"></i> Nhà đất
+                    <div class="input-group mb-3" style="border-radius: 7px;background-color: white;align-items: center;">
+                        <button class="btn btn-outline-light dropdown-toggle bg-light text-dark p-3" style="border-right: transparent; background-color: #fff !important;" type="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-home"></i> Nhà đất
                             bán</button>
                         <ul class="dropdown-menu" style="">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                            <li><a class="dropdown-item" href="#">Đất thổ cư</a></li>
+                            <li><a class="dropdown-item" href="#">Đất nền dự án</a></li>
+                            <li><a class="dropdown-item" href="#">Lấy từ config</a></li>
                         </ul>
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                        <button class="btn btn-danger" type="button"><i class="fas fa-search"></i> Tìm kiếm</button>
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" style=" border: transparent; height: 52px; font-size: 1.3rem;">
+                        <button class="btn btn-danger" type="button" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 10px;"><i class="fas fa-search"></i> Tìm kiếm</button>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-3">
                             <div class="dropdown mb-md-2">
-                                <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle w-100 text-light border border-secondary"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Xã phương thị trấn
                                 </button>
-                                <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0" style="">
-                                    <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
+                                    <div class="px-2 py-3 bg-light rounded shadow border border-light"
+                                        style="min-width: 400px;">
                                         <label for="exampleDataList" class="form-label">Xã phường thị trấn</label>
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Tìm xã phường thị trấn.">
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                                            placeholder="Tìm xã phường thị trấn.">
                                         <datalist id="datalistOptions">
                                             <option value="San Francisco">
-                                            </option><option value="New York">
-                                            </option><option value="Seattle">
-                                            </option><option value="Los Angeles">
-                                            </option><option value="Chicago">
-                                        </option></datalist>
+                                            <option value="New York">
+                                            <option value="Seattle">
+                                            <option value="Los Angeles">
+                                            <option value="Chicago">
+                                        </datalist>
 
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <div>
@@ -80,38 +87,47 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-3">
                             <div class="dropdown mb-md-2">
-                                <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle w-100 text-light border border-secondary"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Mức giá
                                 </button>
-                                <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0" style="">
-                                    <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
+                                    <div class="px-2 py-3 bg-light rounded shadow border border-light"
+                                        style="min-width: 400px;">
                                         <div class="d-flex align-items-center justify-content-between gap-3">
                                             <input type="text" class="w-50 form-control" value="0">
                                             <div>đến</div>
                                             <input type="text" class="w-50 form-control" value="2000">
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between gap-3">
-                                            <input type="range" class="form-range" min="0" max="50000" step="500" id="customRange3" value="0">
+                                            <input type="range" class="form-range" min="0" max="50000" step="500"
+                                                id="customRange3" value="0">
                                             <div> - </div>
-                                            <input type="range" class="form-range" min="0" max="50000" step="500" id="customRange3" value="2000">
+                                            <input type="range" class="form-range" min="0" max="50000" step="500"
+                                                id="customRange3" value="2000">
                                         </div>
                                         <!--  -->
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked="">
-                                                <label class="form-check-label" for="firstRadio">Tất cả  mức giá</label>
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="firstRadio" checked>
+                                                <label class="form-check-label" for="firstRadio">Tất cả mức giá</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="secondRadio">
                                                 <label class="form-check-label" for="secondRadio">Dưới 500 triệu</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="thirdRadio">
                                                 <label class="form-check-label" for="thirdRadio">500 - 800 triệu</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="fourRadio">
-                                                <label class="form-check-label" for="fourRadio">800 triệu - 1 tỷ triệu</label>
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="fourRadio">
+                                                <label class="form-check-label" for="fourRadio">800 triệu - 1 tỷ
+                                                    triệu</label>
                                             </li>
                                         </ul>
 
@@ -127,37 +143,46 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-3">
                             <div class="dropdown mb-md-2">
-                                <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle w-100 text-light border border-secondary"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Diện tích
                                 </button>
-                                <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0" style="">
-                                    <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
+                                    <div class="px-2 py-3 bg-light rounded shadow border border-light"
+                                        style="min-width: 400px;">
                                         <div class="d-flex align-items-center justify-content-between gap-3">
                                             <input type="text" class="w-50 form-control" value="0">
                                             <div>đến</div>
                                             <input type="text" class="w-50 form-control" value="50">
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between gap-3">
-                                            <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3" value="0">
+                                            <input type="range" class="form-range" min="0" max="500" step="5"
+                                                id="customRange3" value="0">
                                             <div> - </div>
-                                            <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3" value="500">
+                                            <input type="range" class="form-range" min="0" max="500" step="5"
+                                                id="customRange3" value="500">
                                         </div>
                                         <!--  -->
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked="">
-                                                <label class="form-check-label" for="firstRadio">Tất cả  diện tích</label>
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="firstRadio" checked>
+                                                <label class="form-check-label" for="firstRadio">Tất cả diện
+                                                    tích</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="secondRadio">
                                                 <label class="form-check-label" for="secondRadio">30 - 50 m²</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="thirdRadio">
                                                 <label class="form-check-label" for="thirdRadio">50 - 80 m²</label>
                                             </li>
                                             <li class="list-group-item">
-                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">
+                                                <input class="form-check-input me-1" type="radio" name="listGroupRadio"
+                                                    value="" id="thirdRadio">
                                                 <label class="form-check-label" for="thirdRadio">80 - 100 m²</label>
                                             </li>
                                         </ul>
@@ -175,7 +200,8 @@
 
                         <div class="col-sm-12 col-md-6 col-lg-3">
                             <div class="dropdown w-100 mb-md-2 d-flex align-items-center gap-2">
-                                <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle w-100 text-light border border-secondary"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Lọc thêm
                                 </button>
                                 <div>
@@ -186,7 +212,7 @@
                                         inset: 0px auto auto -210px !important;
                                     }
                                 </style>
-                                <div id="filter_loc_them" class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0" style="">
+                                <div id="filter_loc_them" class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                     <div class="px-2 py-3 bg-light rounded shadow" style="min-width: 400px;">
                                         Hướng nhà
                                         <div>
@@ -195,10 +221,12 @@
                                             <span class="badge rounded-pill text-bg-secondary fw-light">Nam</span>
                                             <span class="badge rounded-pill text-bg-secondary fw-light">Bắc</span>
                                             <br>
-                                            <span class="badge rounded-pill text-bg-secondary fw-light">Đông - Bắc</span>
+                                            <span class="badge rounded-pill text-bg-secondary fw-light">Đông -
+                                                Bắc</span>
                                             <span class="badge rounded-pill text-bg-secondary fw-light">Tây - Bắc</span>
                                             <span class="badge rounded-pill text-bg-secondary fw-light">Tây - Nam</span>
-                                            <span class="badge rounded-pill text-bg-secondary fw-light">Đông - Nam</span>
+                                            <span class="badge rounded-pill text-bg-secondary fw-light">Đông -
+                                                Nam</span>
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center mt-3">

@@ -23,6 +23,7 @@ class Home extends MY_Controller {
             'header_page_css_js' => 'home'
         ];
         
+        $data['cf_bds'] = $this->config->item('bds');
         
         $news = $this->Articles_model->get_list(1, NEWS, "", "", "", "", 7, 0);
         $auction = $this->Articles_model->get_list(1, AUCTION, "", "", "", "", 7, 0);
@@ -32,19 +33,20 @@ class Home extends MY_Controller {
         $data['auctions'] = $auction;
         $data['documents'] = $document;
         
-        $bdss = $this->Bds_model->get_list_by_top(false, 16, 0);
-        $bds_vips = $this->Bds_model->get_list_by_top(true, 10, 0);
+        $home_vip = $this->Bds_model->get_list_vip_home(6, 0);
+
+        $limit_thuong = count($home_vip)*2;
+        $bdss = $this->Bds_model->get_list_by_top(false,$limit_thuong, 0);
         $data['bdss'] = $bdss;
-        $data['bds_vips'] = $bds_vips;
-        
+        $data['home_vip'] = $home_vip;
         
         $news2 = $this->Articles_model->get_list(1, "", "", "", "", "", 5, 0);
         $data['news2'] = $news2;
         
         $data['communes'] = $this->Commune_model->get_list(1);
-        
-        $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward(12);
-        
+        $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward();
+        $data['commune_ward_and_num_bds_chunk3'] = array_chunk($data['commune_ward_and_num_bds'], 3);
+        $data['street_and_num_bds'] = $this->Bds_model->get_num_bds_by_street();
 
         $this->_loadHeader($header);
         

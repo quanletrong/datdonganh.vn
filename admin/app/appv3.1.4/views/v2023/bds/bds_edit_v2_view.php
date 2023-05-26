@@ -493,7 +493,7 @@
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Hiển thị <span class="text-danger">*</span></label>
                                         </div>
-                                        <select class="select2" style="width:75%" name="" data-minimum-results-for-search="Infinity">
+                                        <select class="select2" style="width:75%" name="is_vip" data-minimum-results-for-search="Infinity">
                                             <option value="1" <?= $info['is_vip'] == '1' ? 'selected' : '' ?>>Tin VIP</option>
                                             <option value="0" <?= $info['is_vip'] == '0' ? 'selected' : '' ?>>Tin thường</option>>
                                         </select>

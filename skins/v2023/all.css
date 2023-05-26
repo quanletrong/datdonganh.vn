@@ -3,8 +3,8 @@
   src: url(fonts/Lexend_Deca/LexendDeca-VariableFont_wght.ttf);
 }
 body {
-  /* font-size: 0.875rem; */
-  font-size: 1rem;
+  font-size: 0.875rem;
+  /* font-size: 1rem; */
   font-family: Lexend;
 }
 
@@ -58,4 +58,12 @@ a {
 .navbar-toggler {
   border: none;
   padding: 0px;
+}
+
+.hover-link:hover {
+  font-weight: 500;
+}
+
+.hover-link-red:hover {
+  color: rgba(var(--bs-danger-rgb), 0.9)!important;
 }
