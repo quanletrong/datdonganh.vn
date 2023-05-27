@@ -14,14 +14,14 @@
 
     <div class="d-flex justify-content-between mt-3">
         <span class="">Hiện có <?= number_format(count($list_bds)) ?> bất động sản.</span>
-        <select class="form-select-sm border border-secondary" aria-label="Default select example">
-            <option selected>Thông thường</option>
-            <option value="1">Giá cáo xuống thấp</option>
-            <option value="2">Giá thấp lên cao</option>
-            <option value="3">Tin mới nhất</option>
-            <option value="4">Diện tích lớn đến bé</option>
-            <option value="5">Diện tích bé đến lớn</option>
-            <option value="6">Tin mới nhất</option>
+        <select class="form-select-sm border border-secondary" aria-label="Default select example" onchange="sort(this)">
+            <option value="0" data-orderby=order_reset>Thông thường</option>
+            <option value="1" data-orderby=price_total data-sort=DESC <?= $orderby == 'price_total' && $sort == 'DESC' ? 'selected' : '' ?>>Giá cao hiện trước</option>
+            <option value="3" data-orderby=price_total data-sort=ASC <?= $orderby == 'price_total' && $sort == 'ASC' ? 'selected' : '' ?>>Giá thấp hiện trước</option>
+            <option value="4" data-orderby=acreage data-sort=DESC <?= $orderby == 'acreage' && $sort == 'DESC' ? 'selected' : '' ?>>Diện tích lớn hiện trước</option>
+            <option value="5" data-orderby=acreage data-sort=ASC <?= $orderby == 'acreage' && $sort == 'ASC' ? 'selected' : '' ?>>Diện tích bé hiện trước</option>
+            <option value="6" data-orderby=id_bds data-sort=DESC <?= $orderby == 'id_bds' && $sort == 'DESC' ? 'selected' : '' ?>>Tin mới hiện trước</option>
+            <option value="7" data-orderby=id_bds data-sort=ASC <?= $orderby == 'id_bds' && $sort == 'ASC' ? 'selected' : '' ?>>Tin cũ hiện trước</option>
         </select>
     </div>
 </div>
@@ -81,14 +81,14 @@
                                 <div class="d-flex justify-content-between align-items-center gap-2">
                                     <?php if ($bds['direction'] > 0) { ?>
                                         <div class="text-secondary">
-                                            Hướng: <?= $cf_bds['direction'][$bds['direction']] ?>
+                                            Hướng: <a href="<?= LINK_NHA_DAT_BAN . '?direction=' . $bds['direction'] ?>"><?= $cf_bds['direction'][$bds['direction']] ?></a>
                                         </div>
                                         <div class="mb-1">.</div>
                                     <?php } ?>
 
                                     <div class="text-secondary">
                                         <i class="fa-solid fa-location-dot"></i>
-                                        <?= $bds['commune'] ?>
+                                        <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $bds['id_commune_ward'] ?>"><?= $bds['commune'] ?></a>
                                     </div>
                                 </div>
 
@@ -119,7 +119,7 @@
             <?php } ?>
 
             <!-- PAGING -->
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center d-none">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination mt-3">
                         <li class="page-item">
@@ -148,79 +148,72 @@
                 </a>
 
                 <div class="mt-3">
-                    @@for (var i = 1; i <= 20; i++) { <span class="badge rounded-pill text-bg-secondary p-2 mb-2">Thị trấn
-                        đông anh</span>
-                        }
+                    <?php foreach ($all_tag as $id => $tag) { ?>
+                        <span class="badge rounded-pill text-bg-secondary p-2 mb-2"><a href="<?= LINK_NHA_DAT_BAN . '?id_tag=' . $id ?>"><?php echo $tag['name']; ?></a></span>
+                    <?php } ?>
                 </div>
 
                 <p class="mt-5">
-                    Hàng nghìn tin đăng <strong>mua bán nhà đất tại Việt Nam</strong> được rao trên
-                    <strong>Batdongsan.com.vn</strong> với đầy đủ các tiêu chí tìm kiếm của người mua và bán. Các thông tin
+                    Hàng nghìn tin đăng <strong>mua bán nhà đất tại Đông Anh</strong> được rao trên
+                    <strong>Datdonganh.vn</strong> với đầy đủ các tiêu chí tìm kiếm của người mua và bán. Các thông tin
                     mua bán nhà đất khu vực Việt Nam được tổng hợp từ các nguồn tin rao về nhà đất bao gồm tin đăng chính
                     chủ và tin đăng qua môi giới, giúp đa dạng nguồn thông tin và sự lựa chọn đối với bất động sản đang quan
                     tâm.
                 </p>
                 <p>
-                    Bằng những tiện ích mà Batdongsan.com.vn mang đến cho người dùng, bạn có thể dễ dàng thao tác và tìm
-                    kiếm thông tin bất động sản bạn đang quan tâm chỉ trong vài click chuột. Batdongsan.com.vn sẽ là cầu nối
+                    Bằng những tiện ích mà <strong>Datdonganh.vn</strong> mang đến cho người dùng, bạn có thể dễ dàng thao tác và tìm
+                    kiếm thông tin bất động sản bạn đang quan tâm chỉ trong vài click chuột. <strong>Datdonganh.vn</strong> sẽ là cầu nối
                     giúp bạn tương tác và trao đổi với nhà cung cấp bất động sản bằng việc cung cấp thông tin chính xác,
                     nhanh chóng..., cùng với đó là đội ngũ nhân viên tư vấn chuyên nghiệp. Chắc chắn bạn sẽ thực sự hài lòng
-                    về kênh thông tin và dịch vụ của <strong>Batdongsan.com.vn</strong>!
+                    về kênh thông tin và dịch vụ của <strong>Datdonganh.vn</strong>!
                 </p>
             </div>
         </div>
         <div class="d-md-none d-lg-block col-lg-3">
             <div class="card mt-3">
-                <div class="card-body">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Lọc theo khoảng giá</p>
+                <div class="card-body" style="background-color: #f7f7f7;">
+                    <span class="fw-semibold" style="font-size: 1.125rem;">Khoảng giá</span>
                     <div class="d-flex flex-column">
-                        <a class="text-decoration-none text-dark py-1">Thỏa thuận</a>
-                        <a class="text-decoration-none text-dark py-1">Dưới 500 triệu</a>
-                        <a class="text-decoration-none text-dark py-1">500 triệu đến 800 triệu</a>
-                        <a class="text-decoration-none text-dark py-1">800 triệu đến 1 tỷ</a>
-                        @@for (var i = 1; i <= 10; i++) { <a class="text-decoration-none text-dark py-1">`+i+` đến `+(i+1)+`
-                            tỷ </a>
-                            }
-                            <a class="text-decoration-none text-dark py-1">Trên 11 tỷ</a>
+                        <?php foreach ($cf_bds['price_list'] as $it) { ?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
 
             <div class="card mt-3">
-                <div class="card-body">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Lọc theo diện tích</p>
+                <div class="card-body" style="background-color: #f7f7f7;">
+                    <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                     <div class="d-flex flex-column">
-                        <a class="text-decoration-none text-dark py-1">Dưới 30 m²</a>
-                        <a class="text-decoration-none text-dark py-1">30 - 50 m²</a>
-                        <a class="text-decoration-none text-dark py-1">50 - 80 m²</a>
-                        <a class="text-decoration-none text-dark py-1">80 - 100 m²</a>
-                        <a class="text-decoration-none text-dark py-1">100 - 150 m²</a>
-                        <a class="text-decoration-none text-dark py-1">150 - 200 m²</a>
-                        <a class="text-decoration-none text-dark py-1">200 - 300 m²</a>
-                        <a class="text-decoration-none text-dark py-1">300 - 500 m²</a>
-                        <a class="text-decoration-none text-dark py-1">Trên 500 m²</a>
+                        <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
 
             <div class="card mt-3">
-                <div class="card-body">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Lọc theo xã/phường</p>
+                <div class="card-body" style="background-color: #f7f7f7;">
+                    <span class="fw-semibold" style="font-size: 1.125rem;">Khu vực</span>
                     <div class="d-flex flex-column">
-                        @@for (var i = 1; i <= 24; i++) { <a class="text-decoration-none text-dark py-1">Thị trấn Đông Anh
-                            (1000)</a>
-                            }
+                        <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
+                            <?php if ($item['num_bds']) { ?>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '/' . @$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
 
             <div class="card mt-3">
-                <div class="card-body">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Lọc theo đường</p>
+                <div class="card-body" style="background-color: #f7f7f7;">
+                    <span class="fw-semibold" style="font-size: 1.125rem;">Đường</span>
                     <div class="d-flex flex-column">
-                        @@for (var i = 1; i <= 24; i++) { <a class="text-decoration-none text-dark py-1">Đường Bắc Thăng
-                            Long (1000)</a>
-                            }
+                        <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
+                            <?php if ($item['num_bds']) { ?>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '/' . @$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -228,3 +221,53 @@
 
     </div>
 </div>
+
+<script>
+    function sort(e) {
+
+        let orderby = $(e).find(":selected").data('orderby');
+        let sort = $(e).find(":selected").data('sort');
+        let url = new URL(window.location.href);
+        let search_params = url.searchParams;
+
+        search_params.delete('orderby');
+        search_params.delete('sort');
+
+        if (orderby != 'order_reset') {
+            search_params.set('orderby', orderby);
+            search_params.set('sort', sort);
+        }
+
+        url.search = search_params.toString();
+        let new_url = url.toString();
+        window.location.href = new_url;
+    }
+
+    function insertParamAndReload(key, value) {
+        key = encodeURIComponent(key);
+        value = encodeURIComponent(value);
+
+        // kvp looks like ['key1=value1', 'key2=value2', ...]
+        var kvp = document.location.search.substr(1).split('&');
+        let i = 0;
+
+        for (; i < kvp.length; i++) {
+            if (kvp[i].startsWith(key + '=')) {
+                let pair = kvp[i].split('=');
+                pair[1] = value;
+                kvp[i] = pair.join('=');
+                break;
+            }
+        }
+
+        if (i >= kvp.length) {
+            kvp[kvp.length] = [key, value].join('=');
+        }
+
+        // can return this or...
+        let params = kvp.join('&');
+
+        // reload page with new params
+        document.location.search = params;
+    }
+</script>

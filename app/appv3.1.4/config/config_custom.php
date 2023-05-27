@@ -110,7 +110,7 @@ $config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=4&t_pric
 $config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=5&t_price=6', 'name' => '5 → 6 tỷ'];
 $config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=6&t_price=8', 'name' => '6 → 8 tỷ'];
 $config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=8&t_price=10', 'name' => '8 → 10 tỷ'];
-$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=10&', 'name' => 'Trên 10 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=10', 'name' => 'Trên 10 tỷ'];
 
 $config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=30&t_acreage=50', 'name' => '30 → 50 m²'];
 $config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=50&t_acreage=80', 'name' => '50 → 80 m²'];
@@ -119,4 +119,4 @@ $config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=100&
 $config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=150&t_acreage=200', 'name' => '150 → 200 m²'];
 $config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=200&t_acreage=200', 'name' => '200 → 300 m²'];
 $config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=300&t_acreage=500', 'name' => '300 → 500 m²'];
-$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=500&', 'name' => 'Trên 500 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=500', 'name' => 'Trên 500 m²'];

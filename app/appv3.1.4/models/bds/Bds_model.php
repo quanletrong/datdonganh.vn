@@ -192,7 +192,7 @@ class Bds_model extends CI_Model
                         $month = date('m', strtotime($row['create_time']));
                         $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
                         
-                        $data[] = $row;
+                        $data[$row['id_commune_ward']] = $row;
                     }
                 }
             } else {
@@ -222,7 +222,7 @@ class Bds_model extends CI_Model
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $data[] = $row;
+                        $data[$row['id_street']] = $row;
                     }
                 }
             } else {

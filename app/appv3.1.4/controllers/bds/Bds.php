@@ -10,6 +10,7 @@ class Bds extends MY_Controller {
         $this->load->model('bds/Bds_model');
         $this->load->model('commune/Commune_model');
         $this->load->model('street/Street_model');
+        $this->load->model('tag/Tag_model');
         
         
 	}
@@ -111,8 +112,8 @@ class Bds extends MY_Controller {
         $t_expired       = '';
         $f_create        = '';
         $t_create        = '';
-        $orderby         = 'is_vip';
-        $sort            = 'DESC';
+        $orderby         = trim($this->input->get('orderby'));
+        $sort            = trim($this->input->get('sort'));
         $limit           = 1000;
         $offset          = 0;
 
@@ -124,7 +125,10 @@ class Bds extends MY_Controller {
         $data['f_acreage']       = $f_acreage;
         $data['t_acreage']       = $t_acreage;
         $data['direction']       = $direction;
+        $data['orderby']         = $orderby;
+        $data['sort']            = $sort;
 
+        // check du lieu
         if ($f_price != '') {
             $f_price = $f_price_unit == PRICE_UNIT_TRIEU ? $f_price * PRICE_ONE_MILLION : $f_price * PRICE_ONE_BILLION;
         }
@@ -132,6 +136,10 @@ class Bds extends MY_Controller {
         if ($t_price != '') {
             $t_price = $t_price_unit == PRICE_UNIT_TRIEU ? $t_price * PRICE_ONE_MILLION : $t_price * PRICE_ONE_BILLION;
         }
+
+        $orderby = $orderby == '' ? 'is_vip' : $orderby;
+        $sort = $sort == '' ? 'DESC' : $sort;
+        // end check du lieu
 
         $list_bds = $this->Bds_model->get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
         $list_street =  $this->Street_model->get_list(1);
@@ -141,6 +149,9 @@ class Bds extends MY_Controller {
         $data['cf_bds'] = $this->config->item('bds');
         $data['list_street'] = $list_street;
         $data['list_commune'] = $list_commune;
+        $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward();
+        $data['street_and_num_bds'] = $this->Bds_model->get_num_bds_by_street();
+        $data['all_tag'] = $this->Tag_model->get_list(TAG_BDS);
 
         $header = [
             'title' => 'Danh sách bất động sản',

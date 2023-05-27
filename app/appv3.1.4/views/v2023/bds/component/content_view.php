@@ -102,8 +102,8 @@
 
     /* Fading animation */
     #slide-image .fadeSlideImage {
-        animation-name: fadeSlideImage;
-        animation-duration: 1.5s;
+        /* animation-name: fadeSlideImage; */
+        /* animation-duration: 1.5s; */
     }
 
     @keyframes fadeSlideImage {
@@ -441,7 +441,7 @@
                 </div>
             </div>
 
-            <div class="card mt-3" style="background-color: #F2F2F2;">
+            <div class="card mt-3" style="background-color: #f7f7f7;">
                 <div class="card-body">
                     <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản cùng khu vực</p>
                     <div class="d-flex flex-column">
@@ -455,7 +455,7 @@
                 </div>
             </div>
 
-            <div class="card mt-3" style="background-color: #F2F2F2;">
+            <div class="card mt-3" style="background-color: #f7f7f7;">
                 <div class="card-body">
                     <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản nổi bật</p>
                     <div class="d-flex flex-column">

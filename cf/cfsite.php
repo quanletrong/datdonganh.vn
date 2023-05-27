@@ -12,4 +12,4 @@ define('LINK_TAI_LIEU', 'tai-lieu');
 define('LINK_LIEN_HE', 'lien-he');
 define('LINK_USER_SAVE', 'user/save');
 define('LINK_USER_LOGIN', 'login');
-define('LINK_USER_REGISTER', 'register');
+define('LINK_USER_REGISTER', 'dang-ky');

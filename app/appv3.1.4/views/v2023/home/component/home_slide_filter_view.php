@@ -89,14 +89,18 @@
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
                                             <div class="d-flex align-items-center justify-content-between gap-3">
-                                                <input type="text" class="w-50 form-control" value="0">
+                                                <div style="position: relative;">
+                                                    <input type="text" name="f_price" class="w-100 form-control" value="0">
+                                                    <span style="position: absolute; top:6px; right:6px">tỷ</span>
+                                                </div>
                                                 <div>đến</div>
-                                                <input type="text" class="w-50 form-control" value="2000">
+                                                <div style="position: relative;">
+                                                    <input type="text" name="t_price" class="w-100 form-control" value="0">
+                                                    <span style="position: absolute; top:6px; right:6px">tỷ</span>
+                                                </div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between gap-3">
                                                 <input type="range" class="form-range" min="0" max="50000" step="500" id="customRange3" value="0">
-                                                <div> - </div>
-                                                <input type="range" class="form-range" min="0" max="50000" step="500" id="customRange3" value="2000">
                                             </div>
                                             <!--  -->
                                             <ul class="list-group">
@@ -123,8 +127,6 @@
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <input type="hidden" name="f_price" />
-                                                <input type="hidden" name="t_price" />
                                                 <div>
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>
@@ -148,8 +150,6 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between gap-3">
                                                 <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3" value="0">
-                                                <div> - </div>
-                                                <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3" value="500">
                                             </div>
                                             <!--  -->
                                             <ul class="list-group">
