@@ -167,7 +167,7 @@ class Bds extends MY_Controller
         $tag             = $this->input->post('tag');                // check db
 
         // TODO: validate dữ liệu submit
-        $price = intval(str_replace(',', '', $price));
+        $price = floatval(str_replace(',', '', $price));
         $price = $price_unit == PRICE_UNIT_TRIEU ? $price * PRICE_ONE_MILLION : $price * PRICE_ONE_BILLION;
         if ($price_type == PRICE_TYPE_TOTAL) {
             $price_m2 = $price / $acreage;
@@ -322,7 +322,7 @@ class Bds extends MY_Controller
         $tag             = $this->input->post('tag');                // check db
 
         // TODO: validate dữ liệu submit
-        $price = intval(str_replace(',', '', $price));
+        $price = floatval(str_replace(',', '', $price));
         $price = $price_unit == PRICE_UNIT_TRIEU ? $price * PRICE_ONE_MILLION : $price * PRICE_ONE_BILLION;
         if ($price_type == PRICE_TYPE_TOTAL) {
             $price_m2 = $price / $acreage;

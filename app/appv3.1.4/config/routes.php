@@ -57,6 +57,8 @@ $route['([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'bds/bds/index/$1/$2/$3';
 //$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'bds/bds/index/$1/$2/$3';
 //vi du:  http://dat.dev.vn/tin-tuc/man-city-dai-chien-chelsea-2-dai-gia-lam-tien-so-ke-ai-hon-ai-p48.html
 
+$route['(nha-dat-ban|nha-dat-thue).html'] = 'bds/bds/list/$1';
+
 $route['login'] = 'login/login/index';
 $route['login/auth'] = 'login/login/auth';
 

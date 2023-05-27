@@ -224,7 +224,7 @@
                     <div class="me-3 me-md-5">
                         <div class="text-muted">Mức giá</div>
                         <div class="fw-bold fs-5">
-                            <?php echo getPrice($bdsInfo['price']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>
+                            <?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>
                         </div>
                     </div>
                     <div class="me-3 me-md-5">
@@ -286,7 +286,7 @@
                     <div class="col-12 col-lg-6">
                         <div class="border-top d-flex py-2">
                             <div class="fw-semibold w-50">Mức giá</div>
-                            <div><?php echo getPrice($bdsInfo['price']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?></div>
+                            <div><?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?></div>
                         </div>
                         <div class="border-top d-flex py-2">
                             <div class="fw-semibold w-50">Đường vào</div>
@@ -360,7 +360,7 @@
                                     <?php echo $bds['title']; ?>
                                 </p>
                                 <div class="d-flex gap-2">
-                                    <div class="text-danger fw-bold"><?php echo getPrice($bds['price']) ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?></div>
+                                    <div class="text-danger fw-bold"><?php echo getPrice($bds['price_total']) ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?></div>
                                     <div class="mb-1">.</div>
                                     <div class="text-danger  fw-bold"><?php echo $bds['acreage']; ?> m²</div>
                                 </div>
@@ -516,7 +516,7 @@
             bds[<?php echo $bdsInfo['id_bds'] ?>] = {
                 'image_path' : '<?php echo!empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
                 'title'      : '<?php echo $bdsInfo['title'] ?>',
-                'price'      : '<?php echo getPrice($bdsInfo['price']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>',
+                'price_total'      : '<?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>',
                 'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
                 'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
                 'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước' 
@@ -542,7 +542,7 @@
                 let bds = {
                     'image_path' : '<?php echo!empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
                     'title'      : '<?php echo $bdsInfo['title'] ?>',
-                    'price'      : '<?php echo getPrice($bdsInfo['price']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>',
+                    'price_total'      : '<?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>',
                     'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
                     'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
                     'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước' 

@@ -1,12 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<div class="container mt-3">
+<div class="container">
     <div class="fw-bold fs-4 d-none">
         Bất động sản dành cho bạn
     </div>
     <div class="row">
         <div class="col-12 col-lg-10">
             <div class="row">
-                <div class="col-12 col-lg-4 mt-3">
+                <div class="col-12 col-lg-4">
                     <div class="fw-bold fs-4">
                         Tin vip
                     </div>
@@ -14,7 +14,7 @@
                         <?php foreach ($home_vip as $id_bds => $bds) { ?>
                             <div class="col-md-6 col-lg-12">
                                 <a href="#">
-                                    <div class="rounded border border-1 border-danger mt-3 shadow ">
+                                    <div class="rounded border border-1 border-danger mb-3 shadow ">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
                                             <div class="position-absolute bg-danger text-white px-2 rounded-end" style="left: 0; top: 1rem">Tin
@@ -73,8 +73,8 @@
                         <?php } ?>
                     </div>
                 </div>
-
-                <div class="col-12 col-lg-8 mt-3">
+                <hr class="d-block d-lg-none">
+                <div class="col-12 col-lg-8">
                     <div class="fw-bold fs-4">
                         Tin mới nhất
                     </div>
@@ -82,7 +82,7 @@
                         <?php foreach ($bdss as $id_bds => $bds) { ?>
                             <div class="col-md-6">
                                 <a href="">
-                                    <div class="rounded border border-1 border-muted mt-3 shadow">
+                                    <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
                                         </div>
@@ -142,16 +142,16 @@
             </div>
             <div class="d-flex justify-content-center">
                 <a href="nha-dat-ban">
-                    <button class="btn btn-outline-secondary mt-3">Xem thêm</button>
+                    <button class="btn btn-outline-secondary">Xem thêm</button>
                 </a>
             </div>
 
         </div>
-        <div class="col-12 col-lg-2 mt-3 d-none d-lg-block">
+        <div class="col-12 col-lg-2 d-none d-lg-block">
             <div class="fw-bold fs-4">
-                Tìm theo
+                &nbsp;
             </div>
-            <div class="card mt-3">
+            <div class="card mt-1">
                 <div class="card-body p-2">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
                     <div class="d-flex flex-column">
@@ -170,7 +170,7 @@
             </div>
 
             <div class="card mt-3">
-                <div class="card-body">
+                <div class="card-body p-2">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                     <div class="d-flex flex-column">
                         <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">30 - 50 m²</a>
@@ -200,7 +200,7 @@
 
             <div class="card mt-3">
                 <div class="card-body p-2">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Đường</p>
+                    <span class="fw-semibold" style="font-size: 1.125rem;">Đường</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
                             <?php if ($item['num_bds']) { ?>

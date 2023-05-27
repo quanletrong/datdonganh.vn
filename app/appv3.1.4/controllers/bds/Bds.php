@@ -9,10 +9,12 @@ class Bds extends MY_Controller {
 		$this->load->model('articles/Articles_model');
         $this->load->model('bds/Bds_model');
         $this->load->model('commune/Commune_model');
+        $this->load->model('street/Street_model');
         
         
 	}
 
+    // chi tiết bất động sản
 	function index($name_bds, $id_bds)
 	{
         $id_bds = isIdNumber($id_bds) ? $id_bds : 0;
@@ -54,6 +56,83 @@ class Bds extends MY_Controller {
         $this->_loadHeader($header);
         
         $this->load->view($this->_template_f . 'bds/bds_view', $data);
+        
+        $this->_loadFooter();
+	}
+
+    // danh sách bất động sản
+    function list($category)
+	{
+        $data = [];
+
+        $category        = $category === 'nha-dat-ban' ? BDS_BAN : BDS_THUE;
+        $id_commune_ward = trim($this->input->get('id_commune_ward'));
+        $id_street       = trim($this->input->get('id_street'));
+        $id_project      = '';
+        $id_user         = '';
+        $status          = '1';
+        $type            = trim($this->input->get('type'));
+        $title           = trim($this->input->get('title'));
+        $f_price         = trim($this->input->get('f_price'));
+        $f_price_unit    = trim($this->input->get('f_price_unit'));
+        $t_price         = trim($this->input->get('t_price'));
+        $t_price_unit    = PRICE_UNIT_TY;
+        $price_type      = PRICE_TYPE_TOTAL;
+        $f_acreage       = trim($this->input->get('f_acreage'));
+        $t_acreage       = trim($this->input->get('t_acreage'));
+        $direction       = trim($this->input->get('direction'));
+        $floor           = '';
+        $toilet          = '';
+        $bedroom         = '';
+        $noithat         = '';
+        $road_surface    = '';
+        $juridical       = '';
+        $is_vip          = '';
+        $is_home_vip     = '';
+        $f_expired       = '';
+        $t_expired       = '';
+        $f_create        = '';
+        $t_create        = '';
+        $orderby         = 'is_vip';
+        $sort            = 'DESC';
+        $limit           = 1000;
+        $offset          = 0;
+
+        $data['id_commune_ward'] = $id_commune_ward;
+        $data['type']            = $type;
+        $data['title']           = $title;
+        $data['f_price']         = $f_price;
+        $data['t_price']         = $t_price;
+        $data['f_acreage']       = $f_acreage;
+        $data['t_acreage']       = $t_acreage;
+        $data['direction']       = $direction;
+
+        if ($f_price != '') {
+            $f_price = $f_price_unit == PRICE_UNIT_TRIEU ? $f_price * PRICE_ONE_MILLION : $f_price * PRICE_ONE_BILLION;
+        }
+
+        if ($t_price != '') {
+            $t_price = $t_price_unit == PRICE_UNIT_TRIEU ? $t_price * PRICE_ONE_MILLION : $t_price * PRICE_ONE_BILLION;
+        }
+
+        $list_bds = $this->Bds_model->get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
+        $list_street =  $this->Street_model->get_list(1);
+        $list_commune =  $this->Commune_model->get_list(1);
+
+        $data['list_bds'] = $list_bds;
+        $data['cf_bds'] = $this->config->item('bds');
+        $data['list_street'] = $list_street;
+        $data['list_commune'] = $list_commune;
+
+        $header = [
+            'title' => 'Danh sách bất động sản',
+            'active_link' => 'bds',
+            'header_page_css_js' => 'bds'
+        ];
+
+        $this->_loadHeader($header);
+        
+        $this->load->view($this->_template_f . 'bds/list/bds_list_view.php', $data);
         
         $this->_loadFooter();
 	}

@@ -67,3 +67,9 @@ a {
 .hover-link-red:hover {
   color: rgba(var(--bs-danger-rgb), 0.9)!important;
 }
+
+/* end */
+.cursor-poiter {
+  cursor: pointer !important;
+}
+/*  */
