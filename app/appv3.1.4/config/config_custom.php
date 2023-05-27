@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['product_name'] = 'AdX Lead Ad Exchange';
 $config['show_custom_error'] = 0;
@@ -22,7 +22,7 @@ $config['cf_upload_local'] = '';
 $config['price_min_cpc'] = 1500; // gia da gom VAT. Khi thay doi nho update gia tri trong bang ecomx_config
 $config['price_min_cpm'] = 1500; // gia da gom VAT. Khi thay doi nho update gia tri trong bang ecomx_config
 $config['price_min_lead'] = 1500;
-$config['price_bid_step'] = 100;// buoc gia cho bid nho nhat la boi so cua 100 vnd. Khi thay doi nho update gia tri trong bang ecomx_config
+$config['price_bid_step'] = 100; // buoc gia cho bid nho nhat la boi so cua 100 vnd. Khi thay doi nho update gia tri trong bang ecomx_config
 $config['interlace_image'] = 120; // max dung luong anh - dung kich thuoc
 $config['max_title'] = 35; // so ky tu toi da
 $config['max_body'] = 65; // so ky tu toi da
@@ -99,4 +99,24 @@ $config['bds']['juridical']['3'] = 'Chưa rõ';
 $config['bds']['price_type']['1'] = '';
 $config['bds']['price_type']['2'] = '/m2';
 $config['bds']['price_type']['3'] = '/tháng';
-$config['bds']['price_type']['3ư4'] = '/m2/tháng';
+$config['bds']['price_type']['4'] = '/m2/tháng';
+
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=1&t_price=1.5', 'name' => '1 → 1,5 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=1.5&t_price=2', 'name' => '1.5 → 2 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=2&t_price=2.5', 'name' => '2 → 2.5 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=2.5&t_price=3', 'name' => '2.5 → 3 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=3&t_price=4', 'name' => '3 → 4 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=4&t_price=5', 'name' => '4 → 5 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=5&t_price=6', 'name' => '5 → 6 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=6&t_price=8', 'name' => '6 → 8 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=8&t_price=10', 'name' => '8 → 10 tỷ'];
+$config['bds']['price_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_price=10&', 'name' => 'Trên 10 tỷ'];
+
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=30&t_acreage=50', 'name' => '30 → 50 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=50&t_acreage=80', 'name' => '50 → 80 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=80&t_acreage=100', 'name' => '80 → 100 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=100&t_acreage=150', 'name' => '100 → 150 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=150&t_acreage=200', 'name' => '150 → 200 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=200&t_acreage=200', 'name' => '200 → 300 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=300&t_acreage=500', 'name' => '300 → 500 m²'];
+$config['bds']['acreage_list'][] = ['link' => LINK_NHA_DAT_BAN .'?f_acreage=500&', 'name' => 'Trên 500 m²'];

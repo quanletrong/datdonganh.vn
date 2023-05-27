@@ -33,7 +33,7 @@
             <?php foreach ($list_bds as $id_bds => $bds) { ?>
                 <div class="card mt-3">
                     <div class="card-body p-0">
-                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
+                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                             <div style="width: 100%;display: flex; position: relative;">
                                 <div style="width: calc(4/6*100%)">
                                     <img src="<?= $bds['list_img'][0] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-right: 3px;border-top-left-radius: 0.375rem;">
@@ -56,14 +56,14 @@
                         </a>
 
                         <div class="mx-3 my-1">
-                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
+                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                 <span class="fw-bold text-uppercase">
                                     <?= $bds['title'] ?>
                                 </span>
                             </a>
 
                             <div class="d-flex justify-content-between align-items-center gap-2">
-                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
+                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="d-flex justify-content-between align-items-center gap-2">
                                         <div class="text-danger fw-bold">
                                             <?= $bds['price_view'] ?>

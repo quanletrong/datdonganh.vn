@@ -96,5 +96,6 @@ define('PRICE_UNIT_TY', '2');     // đơn vị tỷ
 define('PRICE_ONE_BILLION', 1000000000);
 define('PRICE_ONE_MILLION', 1000000);
 
-define('BDS_BAN', 1); 
-define('BDS_THUE', 2);
+// danh mục bđs
+define('BDS_CATEGOTY_BAN', 1);  // bán
+define('BDS_CATEGOTY_THUE', 2); // thuê

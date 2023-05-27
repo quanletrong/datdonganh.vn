@@ -15,7 +15,7 @@
                         <button class="nav-link bg-transparent fs-4 fw-bold text-dark" id="pills-news-pin-tab" type="button">Tài liệu</button>
                     </li>
                 </ul>
-                <a href="" class="text-danger text-decoration-none d-none d-md-block">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="<?=LINK_TIN_TUC?>" class="text-danger text-decoration-none d-none d-md-block">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <hr class="pt-0 mt-0">
 
@@ -35,7 +35,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($news as $id => $new) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
-                                        <a href="" class="hover-link-red"><?php echo $new['title']; ?></a>
+                                        <a href="<?=LINK_TIN_TUC.'/'.$new['slug'].'-p'.$id?>" class="hover-link-red"><?php echo $new['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -57,7 +57,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($auctions as $id => $auction) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
-                                        <a href="" class="hover-link-red"><?php echo $auction['title']; ?></a>
+                                        <a href="<?=LINK_DAU_GIA.'/'.$auction['slug'].'-p'.$id?>" class="hover-link-red"><?php echo $auction['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -79,7 +79,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($documents as $id => $document) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
-                                        <a href="" class="hover-link-red"><?php echo $document['title']; ?></a>
+                                        <a href="<?=LINK_TAI_LIEU.'/'.$document['slug'].'-p'.$id?>" class="hover-link-red"><?php echo $document['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>

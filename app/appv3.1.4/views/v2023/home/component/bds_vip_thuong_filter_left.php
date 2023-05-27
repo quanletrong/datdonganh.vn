@@ -13,7 +13,7 @@
                     <div class="row">
                         <?php foreach ($home_vip as $id_bds => $bds) { ?>
                             <div class="col-md-6 col-lg-12">
-                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
+                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="rounded border border-1 border-danger mb-3 shadow ">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
@@ -81,7 +81,7 @@
                     <div class="row">
                         <?php foreach ($bdss as $id_bds => $bds) { ?>
                             <div class="col-md-6">
-                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
+                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <a href="nha-dat-ban">
+                <a href="<?= LINK_NHA_DAT_BAN ?>">
                     <button class="btn btn-outline-secondary">Xem thêm</button>
                 </a>
             </div>
@@ -155,16 +155,9 @@
                 <div class="card-body p-2">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
                     <div class="d-flex flex-column">
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-tu-duoi-1-ty">Dưới 1 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-1--1.5-ty">1 → 1,5 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-1.5--2-ty">1,5 → 2 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-2.5--3-ty">2,5 → 3 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-3--4-ty">3 → 4 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-4--5-ty">4 → 5 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-5--6-ty">5 → 6 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-6--8-ty">6 → 8 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-8--10-ty">8 → 10 tỷ (123)</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/gia-tren-10-ty">Trên 10 tỷ (123)</a>
+                        <?php foreach ($cf_bds['price_list'] as $it) { ?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -173,14 +166,9 @@
                 <div class="card-body p-2">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                     <div class="d-flex flex-column">
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">30 - 50 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">50 - 80 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">80 - 100 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">100 - 150 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">150 - 200 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">200 - 300 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">300 - 500 m²</a>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/dien-tich-30m2-50m2">Trên 500 m²</a>
+                        <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -191,7 +179,7 @@
                     <div class="d-flex flex-column">
                         <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
                             <?php if ($item['num_bds']) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/<?= @$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN.'/'.@$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                             <?php } ?>
                         <?php } ?>
                     </div>
@@ -204,7 +192,7 @@
                     <div class="d-flex flex-column">
                         <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
                             <?php if ($item['num_bds']) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="nha-dat-ban/<?= @$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN.'/'.@$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                             <?php } ?>
                         <?php } ?>
                     </div>
