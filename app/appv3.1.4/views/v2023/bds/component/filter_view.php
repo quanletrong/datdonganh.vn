@@ -21,158 +21,150 @@
             </div>
             <div id="body-filter" class="p-3 rounded-bottom rounded-end"
                 style="width:100%; background-color: #f2f2f2; height: auto; box-shadow: 5px 5px 5px #bdbdbd;">
-                <div class="input-group mb-3">
-                    <button class="btn btn-outline-light dropdown-toggle bg-light text-dark p-3"
-                        style="border-right: 1px solid #eeeeee; background-color: #fff !important;" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-home"></i> Nhà đất
-                        bán</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                    <input type="text" class="form-control border-0" aria-label="Text input with dropdown button">
-                    <button class="btn btn-danger" type="button"><i class="fas fa-search"></i> Tìm kiếm</button>
+                <div class="input-group mb-3" style="border-radius: 7px;background-color: white;align-items: center;">
+                    <select name="type" class="form-select" aria-label="Example select with button addon" style="max-width: 200px;padding: 10px 10px;border: none;">
+                        <option value="">Tất cả loại đất</option>
+                        <?php foreach ($cf_bds['type'] as $id => $name) { ?>
+                            <option value="<?= $id ?>"><?= $name ?></option>
+                        <?php } ?>
+                    </select>
+
+                    <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style=" border: transparent; height: 52px; font-size: 1.3rem;">
+                    <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 10px;"><i class="fas fa-search"></i> Tìm kiếm</button>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-3">
-                        <div class="dropdown mb-md-2">
+                        <div id="dropdown-commune" class="dropdown mb-md-2">
                             <button class="btn dropdown-toggle w-100 border border-muted" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Xã phương thị trấn
                             </button>
                             <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                <div class="px-2 py-3 bg-light shadow rounded border border-light" style="min-width: 400px;">
-                                    <!-- <label for="exampleDataList" class="form-label">Xã phường thị trấn</label> -->
-                                    <input class="form-control" list="datalistOptions" id="exampleDataList"
-                                        placeholder="Tìm xã phường thị trấn.">
-                                    <datalist id="datalistOptions">
-                                        <option value="San Francisco">
-                                        <option value="New York">
-                                        <option value="Seattle">
-                                        <option value="Los Angeles">
-                                        <option value="Chicago">
-                                    </datalist>
+                                <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                    <label for="exampleDataList" class="form-label">Xã phường thị trấn</label>
+                                    <select name="id_commune_ward" id="id_commune_ward" class="form-select select2" style="width: 100%;" data-placeholder="Chọn khu vực">
+                                        <option value=""></option>
+                                        <?php foreach ($communes as $id => $it) { ?>
+                                            <option value="<?= $id ?>"><?= $it['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
 
                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                         <div>
                                             <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                         </div>
-                                        <button class="btn btn-danger btn-sm">Áp dụng</button>
+                                        <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3">
-                        <div class="dropdown mb-md-2">
+                        <div id="dropdown-price" class="dropdown mb-md-2">
                             <button class="btn dropdown-toggle w-100 border border-muted" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Mức giá
                             </button>
                             <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                <div class="px-2 py-3 bg-light shadow rounded border border-light" style="min-width: 400px;">
+                                <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
                                     <div class="d-flex align-items-center justify-content-between gap-3">
                                         <input type="text" class="w-50 form-control" value="0">
                                         <div>đến</div>
                                         <input type="text" class="w-50 form-control" value="2000">
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between gap-3">
-                                        <input type="range" class="form-range" min="0" max="50000" step="500"
-                                            id="customRange3" value="0">
+                                        <input type="range" class="form-range" min="0" max="50000" step="500" id="customRange3" value="0">
                                         <div> - </div>
-                                        <input type="range" class="form-range" min="0" max="50000" step="500"
-                                            id="customRange3" value="2000">
+                                        <input type="range" class="form-range" min="0" max="50000" step="500" id="customRange3" value="2000">
                                     </div>
                                     <!--  -->
                                     <ul class="list-group">
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="firstRadio" checked>
-                                            <label class="form-check-label" for="firstRadio">Tất cả mức giá</label>
+                                            <input class="form-check-input me-1" type="radio" name="price" id="all_price" data-start='' data-end='' checked>
+                                            <label class="form-check-label" for="all_price">Tất cả mức giá</label>
                                         </li>
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="secondRadio">
-                                            <label class="form-check-label" for="secondRadio">Dưới 500 triệu</label>
+                                            <input class="form-check-input me-1" type="radio" name="price" id="0_1_price" data-start='' data-end='1'>
+                                            <label class="form-check-label" for="0_1_price">Dưới 1 tỷ</label>
                                         </li>
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="thirdRadio">
-                                            <label class="form-check-label" for="thirdRadio">500 - 800 triệu</label>
+                                            <input class="form-check-input me-1" type="radio" name="price" id="1_1.5_price" data-start='1' data-end='1.5'>
+                                            <label class="form-check-label" for="1_1.5_price">1 tỷ - 1,5 tỷ</label>
                                         </li>
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="fourRadio">
-                                            <label class="form-check-label" for="fourRadio">800 triệu - 1 tỷ
-                                                triệu</label>
+                                            <input class="form-check-input me-1" type="radio" name="price" id="1.5_2_price" data-start='1.5' data-end='2'>
+                                            <label class="form-check-label" for="1.5_2_price">1,5 tỷ - 2 tỷ</label>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="radio" name="price" id="2+_price" data-start='2' data-end=''>
+                                            <label class="form-check-label" for="2+_price">trên 2 tỷ</label>
                                         </li>
                                     </ul>
 
                                     <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <input type="hidden" name="f_price" />
+                                        <input type="hidden" name="t_price" />
                                         <div>
                                             <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                         </div>
-                                        <button class="btn btn-danger btn-sm">Áp dụng</button>
+                                        <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3">
-                        <div class="dropdown mb-md-2">
+                        <div id="dropdown-acreage" class="dropdown mb-md-2">
                             <button class="btn dropdown-toggle w-100 border border-muted" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Diện tích
                             </button>
                             <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                <div class="px-2 py-3 bg-light shadow rounded border border-light" style="min-width: 400px;">
+                                <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
                                     <div class="d-flex align-items-center justify-content-between gap-3">
                                         <input type="text" class="w-50 form-control" value="0">
                                         <div>đến</div>
                                         <input type="text" class="w-50 form-control" value="50">
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between gap-3">
-                                        <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3"
-                                            value="0">
+                                        <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3" value="0">
                                         <div> - </div>
-                                        <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3"
-                                            value="500">
+                                        <input type="range" class="form-range" min="0" max="500" step="5" id="customRange3" value="500">
                                     </div>
                                     <!--  -->
                                     <ul class="list-group">
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="firstRadio" checked>
-                                            <label class="form-check-label" for="firstRadio">Tất cả diện tích</label>
+                                            <input class="form-check-input me-1" type="radio" name="acreage" id="all_acreage" data-start='' data-end='' checked>
+                                            <label class="form-check-label" for="all_acreage">Tất cả diện
+                                                tích</label>
                                         </li>
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="secondRadio">
-                                            <label class="form-check-label" for="secondRadio">30 - 50 m²</label>
+                                            <input class="form-check-input me-1" type="radio" name="acreage" id="30_50_acreage" data-start=30 data-end=50>
+                                            <label class="form-check-label" for="30_50_acreage">30 - 50 m²</label>
                                         </li>
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="thirdRadio">
-                                            <label class="form-check-label" for="thirdRadio">50 - 80 m²</label>
+                                            <input class="form-check-input me-1" type="radio" name="acreage" id="50_80_acreage" data-start=50 data-end=80>
+                                            <label class="form-check-label" for="50_80_acreage">50 - 80 m²</label>
                                         </li>
                                         <li class="list-group-item">
-                                            <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
-                                                id="thirdRadio">
-                                            <label class="form-check-label" for="thirdRadio">80 - 100 m²</label>
+                                            <input class="form-check-input me-1" type="radio" name="acreage" id="80_100_acreage" data-start=80 data-end=100>
+                                            <label class="form-check-label" for="80_100_acreage">80 - 100 m²</label>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <input class="form-check-input me-1" type="radio" name="acreage" id="100_limit_acreage" data-start=100 data-end=''>
+                                            <label class="form-check-label" for="100_limit_acreage">trên 100 m²</label>
                                         </li>
                                     </ul>
 
                                     <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <input type="hidden" name="f_acreage" />
+                                        <input type="hidden" name="t_acreage" />
                                         <div>
                                             <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                         </div>
-                                        <button class="btn btn-danger btn-sm">Áp dụng</button>
+                                        <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                     </div>
                                 </div>
                             </div>
@@ -181,38 +173,33 @@
 
                     <div class="col-sm-12 col-md-6 col-lg-3">
                         <div class="dropdown w-100 mb-md-2 d-flex align-items-center gap-2">
-                            <button class="btn dropdown-toggle w-100 border border-muted" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn dropdown-toggle w-100 border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Lọc thêm
                             </button>
                             <div>
-                                <i class="fa-solid fa-rotate"></i>
+                                <i class="fa-solid fa-rotate text-light"></i>
                             </div>
                             <style>
                                 #filter_loc_them {
-                                    inset: 0px auto auto -125px !important;
+                                    inset: 0px auto auto -210px !important;
                                 }
                             </style>
                             <div id="filter_loc_them" class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                <div class="px-2 py-3 bg-light shadow rounded" style="min-width: 400px;">
+                                <div class="px-2 py-3 bg-light rounded shadow" style="min-width: 400px;">
                                     Hướng nhà
                                     <div>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Đông</span>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Tây</span>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Nam</span>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Bắc</span>
-                                        <br>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Đông - Bắc</span>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Tây - Bắc</span>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Tây - Nam</span>
-                                        <span class="badge rounded-pill text-bg-secondary fw-light">Đông - Nam</span>
+                                        <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, '')">Tất cả</span>
+                                        <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
+                                            <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, <?= $id ?>)"><?= $name ?></span>
+                                        <?php } ?>
+                                        <input type="hidden" name="direction" value="" id="direction" />
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                         <div>
                                             <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                         </div>
-                                        <button class="btn btn-danger btn-sm">Áp dụng</button>
+                                        <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                     </div>
                                 </div>
                             </div>
@@ -223,3 +210,45 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#id_commune_ward').select2({
+            dropdownParent: $('#dropdown-commune .dropdown-menu')
+        });
+        $('#id_commune_ward').on('change', function() {
+            var data = $(this).find("option:selected").text();
+            $("#dropdown-commune .dropdown-toggle").text(data);
+        })
+
+        // xử lý k ẩn dropdown-menu commune
+
+        $(".dropdown-menu").click(function(event) {
+            event.stopPropagation();
+        });
+
+        $("#dropdown-commune .dropdown-menu").click(function(event) {
+            event.stopPropagation();
+        });
+
+        $('input:radio[name=price]').click(function() {
+            let text = $(this).siblings('label').text();
+            $("#dropdown-price .dropdown-toggle").text(text)
+            $('input[name=f_price]').val($(this).data('start'));
+            $('input[name=t_price]').val($(this).data('end'));
+        });
+
+        $('input:radio[name=acreage]').click(function() {
+            let text = $(this).siblings('label').text();
+            $("#dropdown-acreage .dropdown-toggle").text(text)
+            $('input[name=f_acreage]').val($(this).data('start'));
+            $('input[name=t_acreage]').val($(this).data('end'));
+        });
+    })
+
+    function search_direction(e, id) {
+        $(e).addClass('text-bg-danger').removeClass('text-bg-secondary');
+        $(e).siblings().removeClass('text-bg-danger').addClass('text-bg-secondary')
+        $('#direction').val(id);
+    }
+</script>

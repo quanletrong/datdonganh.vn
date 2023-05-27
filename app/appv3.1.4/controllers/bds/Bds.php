@@ -29,6 +29,12 @@ class Bds extends MY_Controller {
             redirect(site_url("/"));
             die;
         }
+        
+        if($bdsInfo['slug_title'] != $name_bds ){
+            redirect(site_url($bdsInfo['slug_title'].'-p'.$bdsInfo['id_bds'].'.html'));
+            die;
+        }
+        
         //showLOG($bdsInfo);die;
         $data = [];
         $data['bdsInfo'] = $bdsInfo;
@@ -40,11 +46,21 @@ class Bds extends MY_Controller {
         $data['price_type'] = $cf_bds['price_type'];
         
         //top 5 bds danh cho ban
-        $bdss = $this->Bds_model->get_list_by_top(false, 5, 0);
+        $bdss = $this->Bds_model->get_list_by_top(false, 0, 5, 0);
         $data['bdss'] = $bdss;
+        
+        //top 10 bds cung khu vuc
+        $bds_palace_area = $this->Bds_model->get_list_by_top(false, $bdsInfo['id_commune_ward'], 10, 0);
+        $data['bds_palace_area'] = $bds_palace_area;
+        
+        //top 10 bds noi bat
+        $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward(10);
         
         //get all tag 
         $data['tags'] = $this->Bds_model->get_all_tag_by(TAG_BDS, $bdsInfo['id_bds']);
+        
+        $data['communes'] = $this->Commune_model->get_list(1);
+        $data['cf_bds'] = $this->config->item('bds');
         $header = [
             'title' => $bdsInfo['title'],
             'active_link' => 'bds',
@@ -65,7 +81,7 @@ class Bds extends MY_Controller {
 	{
         $data = [];
 
-        $category        = $category === 'nha-dat-ban' ? BDS_BAN : BDS_THUE;
+        $category        = $category === 'nha-dat-ban' ? 1 : 2;
         $id_commune_ward = trim($this->input->get('id_commune_ward'));
         $id_street       = trim($this->input->get('id_street'));
         $id_project      = '';

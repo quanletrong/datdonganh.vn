@@ -53,20 +53,22 @@ class Bds_model extends CI_Model
     }
 
 
-    function get_list_by_top($is_vip, $limit, $offset)
+    function get_list_by_top($is_vip, $id_commune_ward, $limit, $offset)
     {
         $data = [];
         $iconn = $this->db->conn_id;
         
-        $where = "WHERE A.status = 1";
+        $where = "WHERE A.status = 1 ";
         
         if ($is_vip)  $where                        .= "AND A.is_vip > 0 ";
+        if ($id_commune_ward > 0)  $where           .= "AND A.id_commune_ward = $id_commune_ward ";
+
 
         $sql = "SELECT A.*, B.username, B.phonenumber, C.name as street, D.name as commune  FROM tbl_bds as A  
             LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
-            WHERE A.status = 1 
+            $where
             ORDER BY A.id_bds DESC 
             LIMIT $limit OFFSET $offset";
 

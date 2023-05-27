@@ -446,26 +446,11 @@
                     <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản cùng khu vực</p>
                     <div class="d-flex flex-column">
 
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
+                        <?php foreach($bds_palace_area as $palace_area){ ?>
+                        <a class="text-decoration-none text-dark py-1"><?php echo $palace_area['title']; ?></a>
+                        <?php } ?>
 
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
-                        <a class="text-decoration-none text-dark py-1">Bán đất tại Thị trấn Đông Anh</a>
-
+      
                     </div>
                 </div>
             </div>
@@ -474,26 +459,11 @@
                 <div class="card-body">
                     <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản nổi bật</p>
                     <div class="d-flex flex-column">
+                        <?php foreach($commune_ward_and_num_bds as $vip){ ?>
                         <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
-                        <a class="text-decoration-none text-dark py-1">
-                            Đường Bắc Thăng Long (1000)</a>
+                           Bán nhà tại <?php echo $vip['name']; ?>
+                        </a>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -529,11 +499,18 @@
             if(obj_bds_watched.hasOwnProperty(id_bds_watched)){
                 //neu bds dang xem ton tai trong object BDS_WATCHED
                 // thi xoa key bds trong object BDS_WATCHED đi
-                //và di chuyen key lên đầu object BDS_WATCHED
-                
-                const value = obj_bds_watched[id_bds_watched];
+                //và lay bds dang xem lên đầu object BDS_WATCHED
+        
                 delete obj_bds_watched[id_bds_watched]; 
-                obj_bds_watched = { [id_bds_watched]: value, ...obj_bds_watched };
+                let bds = {
+                    'image_path' : '<?php echo!empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
+                    'title'      : '<?php echo $bdsInfo['title'] ?>',
+                    'price_total'      : '<?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>',
+                    'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
+                    'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
+                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước' 
+                }
+                obj_bds_watched = { [id_bds_watched]: bds, ...obj_bds_watched };
             }else{
                 
                 //neu bds dang xem khong ton tai trong object BDS_WATCHED
