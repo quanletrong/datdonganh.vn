@@ -13,7 +13,7 @@
                     <div class="row">
                         <?php foreach ($home_vip as $id_bds => $bds) { ?>
                             <div class="col-md-6 col-lg-12">
-                                <a href="#">
+                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
                                     <div class="rounded border border-1 border-danger mb-3 shadow ">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
@@ -81,7 +81,7 @@
                     <div class="row">
                         <?php foreach ($bdss as $id_bds => $bds) { ?>
                             <div class="col-md-6">
-                                <a href="">
+                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>.html">
                                     <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">

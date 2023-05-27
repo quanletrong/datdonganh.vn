@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News extends MY_Controller {
+class Auction extends MY_Controller {
 	
 	function __construct()
 	{
@@ -26,14 +26,14 @@ class News extends MY_Controller {
         $data = [];
         
         $header = [
-            'title' => 'Danh sách tin tức',
-            'active_link' => 'news',
-            'header_page_css_js' => 'news'
+            'title' => 'Danh sách lịch đấu giá đất',
+            'active_link' => 'auction',
+            'header_page_css_js' => 'auction'
         ];
         
         $this->_loadHeader($header);
         
-        $this->load->view($this->_template_f . 'news/news_view', $data);
+        $this->load->view($this->_template_f . 'auction/auction_view', $data);
         
         $this->_loadFooter();
 	}
