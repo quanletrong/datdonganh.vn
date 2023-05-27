@@ -76,13 +76,15 @@ class Bds extends MY_Controller {
         $this->_loadFooter();
 	}
 
-    // danh sách bất động sản
-    function list($category)
-	{
-        $data = [];
+    // danh sách bất động sản bán
+    function list_ban()
+ 	{
+         $data = [];
+ 
 
-        $category        = $category === 'nha-dat-ban' ? 1 : 2;
+        $category        = 1;
         $id_commune_ward = trim($this->input->get('id_commune_ward'));
+
         $id_street       = trim($this->input->get('id_street'));
         $id_project      = '';
         $id_user         = '';
