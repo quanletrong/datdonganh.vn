@@ -14,7 +14,7 @@
 
     <!-- box filter pc -->
     <div id="pc-filter" style="margin-top: 10px;">
-        <form method="get" action="nha-dat-ban.html">
+        <form method="get" action="<?=LINK_NHA_DAT_BAN?>">
             <div id="tab-filter">
                 <div class="d-flex" style="gap:0.7rem">
                     <div class="rounded-top text-light px-5 py-1" style="background-color: rgb(70, 11, 11, 0.8); width: fit-content; cursor: pointer;" onclick="$('#s_category').val(1)">

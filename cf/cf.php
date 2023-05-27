@@ -84,14 +84,18 @@ define('TAG_DOCUMENT', '3');
 define('TAG_NEWS', '4');
 
 // PRICE TYPE
-define('PRICE_TYPE_TOTAL', '1');
-define('PRICE_TYPE_M2', '2');
-define('PRICE_TYPE_MONTH', '3');
-define('PRICE_TYPE_M2_MONTH', '4');
+define('PRICE_TYPE_TOTAL', '1');     // tổng tiền theo diện tích
+define('PRICE_TYPE_M2', '2');        // tiền trên 1 m2
+define('PRICE_TYPE_MONTH', '3');     // tiền trên 1 tháng
+define('PRICE_TYPE_M2_MONTH', '4');  // tiền trên 1 m2 trên tháng
 
 // PRICE UNIT
-define('PRICE_UNIT_TRIEU', '1');
-define('PRICE_UNIT_TY', '2');
+define('PRICE_UNIT_TRIEU', '1');  // đơn vị triệu
+define('PRICE_UNIT_TY', '2');     // đơn vị tỷ
 
 define('PRICE_ONE_BILLION', 1000000000);
 define('PRICE_ONE_MILLION', 1000000);
+
+// danh mục bđs
+define('BDS_CATEGOTY_BAN', 1);  // bán
+define('BDS_CATEGOTY_THUE', 2); // thuê

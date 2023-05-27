@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News extends MY_Controller {
+class Document extends MY_Controller {
 	
 	function __construct()
 	{
@@ -26,14 +26,14 @@ class News extends MY_Controller {
         $data = [];
         
         $header = [
-            'title' => 'Danh sách tin tức',
-            'active_link' => 'news',
-            'header_page_css_js' => 'news'
+            'title' => 'Danh sách tài liệu',
+            'active_link' => 'document',
+            'header_page_css_js' => 'document'
         ];
         
         $this->_loadHeader($header);
         
-        $this->load->view($this->_template_f . 'news/news_view', $data);
+        $this->load->view($this->_template_f . 'document/document_view', $data);
         
         $this->_loadFooter();
 	}

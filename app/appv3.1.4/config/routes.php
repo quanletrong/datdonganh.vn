@@ -53,20 +53,14 @@ $route['default_controller'] = 'home/home/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'bds/bds/index/$1/$2/$3';
-//$route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)-p([0-9]+).html'] = 'bds/bds/index/$1/$2/$3';
-//vi du:  http://dat.dev.vn/tin-tuc/man-city-dai-chien-chelsea-2-dai-gia-lam-tien-so-ke-ai-hon-ai-p48.html
-
-$route['(nha-dat-ban|nha-dat-thue).html'] = 'bds/bds/list/$1';
-
-$route['login'] = 'login/login/index';
-$route['login/auth'] = 'login/login/auth';
-
-//tìm kiếm bds
-// $route['dat-nen-du-an/(xa|thi-tran|duong|huong)-([a-zA-Z0-9-_]+)'] = 'bds/search?$=$2&';
-
-
-//tìm kiếm bds
-// datdonganh.vn/{dat-nen-du-an}/xa-{hai-boi}/duong-{van-noi}/gia-{1.5}-ty-{2}-ty/dien-tich-{30}m2-{50}m2/huong-{dong}
-
-// datdonganh.vn/[LOAI_ĐẤT]/[Xã]/[ĐƯỜNG]/gia-[TU_GIA]-[ĐẾN_GIÁ]/[DIEN_TICH]/[HUONG] = 'bds/search/$1/$2/$3/$4/$5/$6'
+$route[LINK_NHA_DAT_BAN]                = 'bds/bds/list_ban';           // danh sach bat dong san bán
+$route[LINK_NHA_DAT_THUE]               = 'bds/bds/list_thue';          // danh sach bat dong san thuê
+$route['(:any)-p(:num)']                = 'bds/bds/index/$1/$2';        // chi tiet bat dong san
+$route[LINK_TIN_TUC]                    = 'news/news/index/';           // danh sach tin tuc
+$route[LINK_TIN_TUC.'/(:any)-p(:num)']  = 'news/news/detail/';          // chi tiet tin tuc
+$route[LINK_DAU_GIA]                    = 'auction/auction/index/';     // danh sach lich dau gia dat
+$route[LINK_DAU_GIA.'/(:any)-p(:num)']  = 'auction/auction/detail/';    // chi tiet lich dau gia dat
+$route[LINK_TAI_LIEU]                   = 'document/document/index/';   // danh sach tai lieu
+$route[LINK_TAI_LIEU.'/(:any)-p(:num)'] = 'document/document/detail/';  // chi tiet tai lieu
+$route[LINK_USER_LOGIN]                 = 'login/login/index';
+$route[LINK_USER_LOGIN.'/auth']         = 'login/login/auth';
