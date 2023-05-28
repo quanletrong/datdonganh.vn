@@ -57,6 +57,7 @@ $route[LINK_NHA_DAT_BAN]                = 'bds/bds/list_ban';           // danh 
 $route[LINK_NHA_DAT_THUE]               = 'bds/bds/list_thue';          // danh sach bat dong san thuê
 $route['(:any)-p(:num)']                = 'bds/bds/index/$1/$2';        // chi tiet bat dong san
 $route[LINK_TIN_TUC]                    = 'news/news/index/';           // danh sach tin tuc
+$route[LINK_TIN_TUC.'/ajx']   = 'news/news/ajx_more_data';    // ajx danh sach tin tuc
 $route[LINK_TIN_TUC.'/(:any)-p(:num)']  = 'news/news/detail/';          // chi tiet tin tuc
 $route[LINK_DAU_GIA]                    = 'auction/auction/index/';     // danh sach lich dau gia dat
 $route[LINK_DAU_GIA.'/(:any)-p(:num)']  = 'auction/auction/detail/';    // chi tiet lich dau gia dat

@@ -552,7 +552,7 @@
                            ${val.title}
                         </p>
                         <div class="d-flex gap-2">
-                            <div class="text-danger fw-bold">${val.price}</div>
+                            <div class="text-danger fw-bold">${val.price_total}</div>
                             <div class="mb-1">.</div>
                             <div class="text-danger  fw-bold">${val.acreage}</div>
                         </div>

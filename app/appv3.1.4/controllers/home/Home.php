@@ -25,9 +25,9 @@ class Home extends MY_Controller {
         
         $data['cf_bds'] = $this->config->item('bds');
         
-        $news = $this->Articles_model->get_list(1, NEWS, "", "", "", "", 7, 0);
-        $auction = $this->Articles_model->get_list(1, AUCTION, "", "", "", "", 7, 0);
-        $document = $this->Articles_model->get_list(1, DOCUMENT, "", "", "", "", 7, 0);
+        $news = $this->Articles_model->get_list(NEWS, "", 7, 0);
+        $auction = $this->Articles_model->get_list(AUCTION, "", 7, 0);
+        $document = $this->Articles_model->get_list(DOCUMENT, "", 7, 0);
         
         $data['news'] = $news;
         $data['auctions'] = $auction;
@@ -40,7 +40,7 @@ class Home extends MY_Controller {
         $data['bdss'] = $bdss;
         $data['home_vip'] = $home_vip;
         
-        $news2 = $this->Articles_model->get_list(1, "", "", "", "", "", 5, 0);
+        $news2 = $this->Articles_model->get_list("", "", 5, 0);
         $data['news2'] = $news2;
         
         $data['communes'] = $this->Commune_model->get_list(1);
