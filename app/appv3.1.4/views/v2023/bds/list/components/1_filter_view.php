@@ -104,21 +104,15 @@
                                             <ul class="list-group">
 
                                                 <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="price" id="0_1_price" data-start='' data-end='1' <?= $f_price == '' && $t_price == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="0_1_price">Dưới 1 tỷ</label>
+                                                    <input class="form-check-input me-1" type="radio" name="price" id="all_price" data-start='' data-end='' checked>
+                                                    <label class="form-check-label" for="all_price">Tất cả mức giá</label>
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="price" id="1_1.5_price" data-start='1' data-end='1.5' <?= $f_price == '1' && $t_price == '1.5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="1_1.5_price">1 tỷ - 1,5 tỷ</label>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="price" id="1.5_2_price" data-start='1.5' data-end='2' <?= $f_price == '1,5' && $t_price == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="1.5_2_price">1,5 tỷ - 2 tỷ</label>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="price" id="2+_price" data-start='2' data-end='' <?= $f_price == '2' && $t_price == '' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="2+_price">trên 2 tỷ</label>
-                                                </li>
+                                                <?php foreach ($cf_bds['price_list'] as $key => $price) { ?>
+                                                    <li class="list-group-item">
+                                                        <input class="form-check-input me-1" type="radio" name="price" id="price_<?= $key ?>" data-start='<?= $price['from'] ?>' data-end='<?= $price['to'] ?>' <?= $f_price == $price['from'] && $t_price == $price['to'] ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="price_<?= $key ?>"><?= $price['name'] ?></label>
+                                                    </li>
+                                                <?php } ?>
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
@@ -164,27 +158,16 @@
                                             <!--  -->
                                             <ul class="list-group">
                                                 <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="acreage" id="all_acreage" data-start='' data-end='' <?= $f_acreage == '' && $t_acreage == '' ? 'checked' : '' ?>>
+                                                    <input class="form-check-input me-1" type="radio" name="acreage" id="all_acreage" data-start='' data-end='' checked>
                                                     <label class="form-check-label" for="all_acreage">Tất cả diện
                                                         tích</label>
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="acreage" id="30_50_acreage" data-start=30 data-end=50 <?= $f_acreage == '30' && $t_acreage == '50' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="30_50_acreage">30 - 50 m²</label>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="acreage" id="50_80_acreage" data-start=50 data-end=80 <?= $f_acreage == '50' && $t_acreage == '80' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="50_80_acreage">50 - 80 m²</label>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="acreage" id="80_100_acreage" data-start=80 data-end=100 <?= $f_acreage == '80' && $t_acreage == '100' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="80_100_acreage">80 - 100 m²</label>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <input class="form-check-input me-1" type="radio" name="acreage" id="100_limit_acreage" data-start=100 data-end='' <?= $f_acreage == '100' && $t_acreage == '' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="100_limit_acreage">trên 100 m²</label>
-                                                </li>
+                                                <?php foreach ($cf_bds['acreage_list'] as $key => $acreage) { ?>
+                                                    <li class="list-group-item">
+                                                        <input class="form-check-input me-1" type="radio" name="acreage" id="acreage_<?= $key ?>" data-start='<?= $acreage['from'] ?>' data-end='<?= $acreage['to'] ?>' <?= $f_acreage == $acreage['from'] && $t_acreage == $acreage['to'] ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="acreage_<?= $key ?>"><?= $acreage['name'] ?></label>
+                                                    </li>
+                                                <?php } ?>
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">

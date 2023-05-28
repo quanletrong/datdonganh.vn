@@ -102,8 +102,8 @@
 
     /* Fading animation */
     #slide-image .fadeSlideImage {
-        /* animation-name: fadeSlideImage; */
-        /* animation-duration: 1.5s; */
+        animation-name: fadeSlideImage;
+        animation-duration: 0.5s;
     }
 
     @keyframes fadeSlideImage {
@@ -126,9 +126,9 @@
         }
     }
 </style>
-<div class="container">
+<div class="container mt-2">
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <div id="slide-image">
                 <div class="slideshow-container">
 
@@ -207,7 +207,7 @@
             <nav aria-label="breadcrumb" class="mt-3">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" class="text-secondary">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#" class="text-secondary">Tất cả BĐS</a></li>
+                    <li class="breadcrumb-item"><a href="<?=LINK_NHA_DAT_BAN?>" class="text-secondary">Tất cả BĐS</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Chi tiết bđs</li>
                 </ol>
             </nav>
@@ -255,8 +255,9 @@
 
                 </div>
                 <div class="mt-3">
-                    <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);"><i
-                            class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?> · Sao chép</button>
+                    <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);">
+                        <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                    </button>
                     <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
                 </div>
             </div>
@@ -276,11 +277,11 @@
                         </div>
                         <div class="border-top d-flex py-2">
                             <div class="fw-semibold w-50">Hướng nhà</div>
-                            <div><?php echo isset($direction[$bdsInfo['direction']]) ? $direction[$bdsInfo['direction']] : "" ?></div>
+                            <div><?php echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : "" ?></div>
                         </div>
                         <div class="border-top border-bottom d-flex py-2">
                             <div class="fw-semibold w-50">Số tầng</div>
-                            <div><?php echo isset($floor[$bdsInfo['floor']]) ? $floor[$bdsInfo['floor']] : "" ?> tầng</div>
+                            <div><?php echo isset($cf_floor[$bdsInfo['floor']]) ? $cf_floor[$bdsInfo['floor']] : "" ?> tầng</div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-6">
@@ -294,11 +295,11 @@
                         </div>
                         <div class="border-top d-flex py-2">
                             <div class="fw-semibold w-50">Hướng ban công</div>
-                            <div><?php // echo isset($direction[$bdsInfo['direction']]) ? $direction[$bdsInfo['direction']] : ""  ?></div>
+                            <div><?php // echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : ""  ?></div>
                         </div>
                         <div class="border-top border-bottom d-flex py-2">
                             <div class="fw-semibold w-50">Pháp lý</div>
-                            <div><?php echo isset($juridical[$bdsInfo['juridical']]) ? $juridical[$bdsInfo['juridical']] : "" ?></div>
+                            <div><?php echo isset($cf_juridical[$bdsInfo['juridical']]) ? $cf_juridical[$bdsInfo['juridical']] : "" ?></div>
                         </div>
                     </div>
                 </div>
@@ -308,7 +309,7 @@
                 <!-- Xem trên bản đồ -->
                 <div class="mt-5">
                     <div class="fw-semibold fs-5 mb-3">Xem trên bản đồ</div>
-                    <iframe src="<?php echo $bdsInfo['maps']; ?>" style="width: 100%; height: 240px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29768.399307311087!2d105.82663151782567!3d21.15041182879494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135011877263c29%3A0xfed63a1860e09572!2zdHQuIMSQw7RuZyBBbmgsIMSQw7RuZyBBbmgsIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1685287293812!5m2!1svi!2s" style="width: 100%; height: 240px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <?php } ?>
 
@@ -424,15 +425,17 @@
 
 
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-body d-flex flex-column align-items-center">
                     <img src="https://file4.batdongsan.com.vn/resize/200x200/2023/03/31/20230331171327-a131.jpg" class="rounded-circle w-25" alt="">
                     <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
                     <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
-                    <div class="">Xem thêm 26 tin khác</div>
+                    <div class="">Xem thêm <?=$get_num_bds_by_contact_name?> tin khác</div>
 
-                    <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?> · Sao chép</button>
+                    <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);">
+                        <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                    </button>
 
                     <button class="btn btn-outline-secondary mt-2 w-100">Gửi email</button>
 
@@ -447,7 +450,7 @@
                     <div class="d-flex flex-column">
 
                         <?php foreach($bds_palace_area as $palace_area){ ?>
-                        <a class="text-decoration-none text-dark py-1"><?php echo $palace_area['title']; ?></a>
+                        <a class="text-decoration-none text-dark py-1 hover-link-red cursor-poiter"><?php echo $palace_area['title']; ?></a>
                         <?php } ?>
 
       

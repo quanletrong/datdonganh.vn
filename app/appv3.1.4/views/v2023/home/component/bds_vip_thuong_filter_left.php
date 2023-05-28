@@ -156,7 +156,8 @@
                     <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($cf_bds['price_list'] as $it) { ?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                            <?php $num_bds = @$get_num_bds_by_price[$it['from'].'-'.$it['to']]?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?=$num_bds?>)</a>
                         <?php } ?>
                     </div>
                 </div>
@@ -167,7 +168,8 @@
                     <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                            <?php $num_bds = @$get_num_bds_by_acreage[$it['from'].'-'.$it['to']]?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?=$num_bds?>)</a>
                         <?php } ?>
                     </div>
                 </div>

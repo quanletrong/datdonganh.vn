@@ -234,6 +234,31 @@ class Bds_model extends CI_Model
         return $data;
     }
 
+    function get_num_bds_by_contact_name($contact_name)
+    {
+        $num_bds = 0;
+        $iconn = $this->db->conn_id;
+        
+
+        $sql = "SELECT count(*) as num_bds  FROM tbl_bds as A
+            WHERE A.status = 1 AND A.contactname LIKE ? ";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$contact_name])) {
+                // echo json_encode($stmt, true);die;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $num_bds = $row['num_bds'];
+               
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $num_bds;
+    }
+
     function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
     {
         $data = [];
@@ -322,6 +347,100 @@ class Bds_model extends CI_Model
                         $data[$row['id_bds']] = $row;
                     }
                 }
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+
+    function get_num_bds_by_price()
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
+
+        $cf_bds = $this->config->item('bds');
+        $price_list = $cf_bds['price_list'];
+
+        $sql = "";
+        foreach($price_list as $price){
+            $from = @intval($price['from'] * PRICE_ONE_BILLION);
+            $to = @intval($price['to'] * PRICE_ONE_BILLION);
+            if($from > 0 && $to > 0) {
+                $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND A.price_total BETWEEN $from AND $to ; ";
+            } else if($from == 0){
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.price_total <= $to ; ";
+            } else {
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.price_total >= $from ; ";
+            }
+        }
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute()) {
+                foreach($price_list as $key => $price){
+                    $price_key = $price['from'].'-'.$price['to'];
+                    if($key == 0) {
+                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $data[$price_key] = $row['total'];
+                    } else {
+                        if ($stmt->nextRowSet())
+                        {
+                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                            $data[$price_key] = $row['total'];
+                        }
+                    }
+                }
+                
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+
+    function get_num_bds_by_acreage()
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
+
+        $cf_bds = $this->config->item('bds');
+        $acreage_list = $cf_bds['acreage_list'];
+
+        $sql = "";
+        foreach($acreage_list as $acreage){
+            $from = @intval($acreage['from']);
+            $to = @intval($acreage['to']);
+            if($from > 0 && $to > 0) {
+                $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND A.acreage BETWEEN $from AND $to ; ";
+            } else if($from == 0){
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.acreage <= $to ; ";
+            } else {
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.acreage >= $from ; ";
+            }
+        }
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute()) {
+                foreach($acreage_list as $key => $acreage){
+                    $acreage_key = $acreage['from'].'-'.$acreage['to'];
+                    if($key == 0) {
+                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $data[$acreage_key] = $row['total'];
+                    } else {
+                        if ($stmt->nextRowSet())
+                        {
+                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                            $data[$acreage_key] = $row['total'];
+                        }
+                    }
+                }
+                
             } else {
                 var_dump($stmt->errorInfo());
                 die;

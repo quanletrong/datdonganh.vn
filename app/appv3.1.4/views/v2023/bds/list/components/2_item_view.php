@@ -170,30 +170,32 @@
             </div>
         </div>
         <div class="d-md-none d-lg-block col-lg-3">
-            <div class="card mt-3">
-                <div class="card-body" style="background-color: #f7f7f7;">
+            <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card-body">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Khoảng giá</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($cf_bds['price_list'] as $it) { ?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                            <?php $num_bds = @$get_num_bds_by_price[$it['from'].'-'.$it['to']]?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?=$num_bds?>)</a>
                         <?php } ?>
                     </div>
                 </div>
             </div>
 
-            <div class="card mt-3">
-                <div class="card-body" style="background-color: #f7f7f7;">
+            <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card-body">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?></a>
+                            <?php $num_bds = @$get_num_bds_by_acreage[$it['from'].'-'.$it['to']]?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?=$num_bds?>)</a>
                         <?php } ?>
                     </div>
                 </div>
             </div>
 
-            <div class="card mt-3">
-                <div class="card-body" style="background-color: #f7f7f7;">
+            <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card-body">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Khu vực</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
@@ -205,8 +207,8 @@
                 </div>
             </div>
 
-            <div class="card mt-3">
-                <div class="card-body" style="background-color: #f7f7f7;">
+            <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card-body">
                     <span class="fw-semibold" style="font-size: 1.125rem;">Đường</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($street_and_num_bds as $id_street => $item) { ?>

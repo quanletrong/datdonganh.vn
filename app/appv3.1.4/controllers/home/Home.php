@@ -47,6 +47,8 @@ class Home extends MY_Controller {
         $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward();
         $data['commune_ward_and_num_bds_chunk3'] = array_chunk($data['commune_ward_and_num_bds'], 3);
         $data['street_and_num_bds'] = $this->Bds_model->get_num_bds_by_street();
+        $data['get_num_bds_by_price'] = $this->Bds_model->get_num_bds_by_price();
+        $data['get_num_bds_by_acreage'] = $this->Bds_model->get_num_bds_by_acreage();
 
         $this->_loadHeader($header);
         

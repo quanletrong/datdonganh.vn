@@ -21,11 +21,6 @@ class Bds extends MY_Controller {
         $id_bds = isIdNumber($id_bds) ? $id_bds : 0;
         $bdsInfo = $this->Bds_model->get_info($id_bds);
 
-//        if(empty($bdsInfo) || $bdsInfo['slug_title'] != $name_bds ){
-//            redirect(site_url("/"));
-//            die;
-//        }
-        
         if(empty($bdsInfo)){
             redirect(site_url("/"));
             die;
@@ -36,15 +31,25 @@ class Bds extends MY_Controller {
             die;
         }
         
-        //showLOG($bdsInfo);die;
         $data = [];
         $data['bdsInfo'] = $bdsInfo;
         $data['imgs'] = json_decode($bdsInfo['images'], true);
         $cf_bds = $this->config->item('bds');
-        $data['direction'] = $cf_bds['direction'];
-        $data['floor'] = $cf_bds['floor'];
-        $data['juridical'] = $cf_bds['juridical'];
-        $data['price_type'] = $cf_bds['price_type'];
+        $data['cf_direction'] = $cf_bds['direction'];
+        $data['cf_floor'] = $cf_bds['floor'];
+        $data['cf_juridical'] = $cf_bds['juridical'];
+
+         // du lieu tim kiem
+         $data['id_commune_ward'] = $bdsInfo['id_commune_ward'];
+         $data['type']            = $bdsInfo['type'];
+         $data['title']           = $bdsInfo['title'];
+         $data['f_price']         = $bdsInfo['price_total']/PRICE_ONE_BILLION;
+         $data['t_price']         = $bdsInfo['price_total']/PRICE_ONE_BILLION;
+         $data['f_acreage']       = $bdsInfo['acreage'];
+         $data['t_acreage']       = $bdsInfo['acreage'];
+         $data['direction']       = $bdsInfo['direction'];
+         $data['orderby']         = '';
+         $data['sort']            = '';
         
         //top 5 bds danh cho ban
         $bdss = $this->Bds_model->get_list_by_top(false, 0, 5, 0);
@@ -59,8 +64,11 @@ class Bds extends MY_Controller {
         
         //get all tag 
         $data['tags'] = $this->Bds_model->get_all_tag_by(TAG_BDS, $bdsInfo['id_bds']);
+
+        // get num_bds by contact name
+        $data['get_num_bds_by_contact_name'] = $this->Bds_model->get_num_bds_by_contact_name($bdsInfo['contactname']);
         
-        $data['communes'] = $this->Commune_model->get_list(1);
+        $data['list_commune'] = $this->Commune_model->get_list(1);
         $data['cf_bds'] = $this->config->item('bds');
         $header = [
             'title' => $bdsInfo['title'],
@@ -117,6 +125,7 @@ class Bds extends MY_Controller {
         $limit           = 1000;
         $offset          = 0;
 
+        // du lieu tim kiem
         $data['id_commune_ward'] = $id_commune_ward;
         $data['type']            = $type;
         $data['title']           = $title;
@@ -151,6 +160,8 @@ class Bds extends MY_Controller {
         $data['list_commune'] = $list_commune;
         $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward();
         $data['street_and_num_bds'] = $this->Bds_model->get_num_bds_by_street();
+        $data['get_num_bds_by_price'] = $this->Bds_model->get_num_bds_by_price();
+        $data['get_num_bds_by_acreage'] = $this->Bds_model->get_num_bds_by_acreage();
         $data['all_tag'] = $this->Tag_model->get_list(TAG_BDS);
 
         $header = [
