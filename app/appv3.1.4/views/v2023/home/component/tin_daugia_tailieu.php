@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="container mt-2">
     <div class="row">
-        <div class="col-lg-9 col-md-12">
+        <div class="col-lg-8 col-md-12">
             <div class="d-flex justify-content-between align-items-center">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
@@ -15,7 +15,7 @@
                         <button class="nav-link bg-transparent fs-4 fw-bold text-dark" id="pills-news-pin-tab" type="button">Tài liệu</button>
                     </li>
                 </ul>
-                <a href="<?=LINK_TIN_TUC?>" class="text-danger text-decoration-none d-none d-md-block">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="<?= LINK_TIN_TUC ?>" class="text-danger text-decoration-none d-none d-md-block">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <hr class="pt-0 mt-0">
 
@@ -35,7 +35,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($news as $id => $new) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
-                                        <a href="<?=LINK_TIN_TUC.'/'.$new['slug'].'-p'.$id?>" class="hover-link-red"><?php echo $new['title']; ?></a>
+                                        <a href="<?= LINK_TIN_TUC . '/' . $new['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $new['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -57,7 +57,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($auctions as $id => $auction) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
-                                        <a href="<?=LINK_DAU_GIA.'/'.$auction['slug'].'-p'.$id?>" class="hover-link-red"><?php echo $auction['title']; ?></a>
+                                        <a href="<?= LINK_DAU_GIA . '/' . $auction['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $auction['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -79,7 +79,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($documents as $id => $document) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
-                                        <a href="<?=LINK_TAI_LIEU.'/'.$document['slug'].'-p'.$id?>" class="hover-link-red"><?php echo $document['title']; ?></a>
+                                        <a href="<?= LINK_TAI_LIEU . '/' . $document['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $document['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -89,9 +89,27 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 d-none d-lg-block">
-            <img src="https://tpc.googlesyndication.com/simgad/14633594877313808409" width="250" height="250" class="mb-3 float-end">
-            <img src="https://tpc.googlesyndication.com/simgad/11569454017793019783" width="250" height="250" class="float-end">
+        <div class="col-lg-4 d-none d-lg-block">
+
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.341205954743!2d105.84419217605658!3d21.138815383987925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135011d7bfab463%3A0xd34060d3d5076677!2zVsSDbiBwaMOybmcgxJDhuqRUIMSQw5RORyBBTkg!5e0!3m2!1svi!2s!4v1685347201600!5m2!1svi!2s" style="width:100%; height: 250px; border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            <div id="box-social">
+                <!-- dùng js để build fanpage facebook vi cân set width -->
+                <Script>
+                    $(document).ready(function() {
+                        jQuery(window).on("load resize", function() {
+                            var width = Math.round(jQuery('#box-social').width());
+
+                            var html = `
+                        <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100092471471801" data-tabs="messages" data-width="${width}" data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false">
+                            <blockquote cite="https://www.facebook.com/profile.php?id=100092471471801" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/profile.php?id=100092471471801">Đất Đông Anh - Datdonganh.vn</a></blockquote>
+                        </div>`
+                            jQuery('#box-social').html(html);
+                        });
+                    })
+                </Script>
+            </div>
         </div>
     </div>
 </div>
