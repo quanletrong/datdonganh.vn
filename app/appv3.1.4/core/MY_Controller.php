@@ -120,7 +120,7 @@ class MY_Controller extends CI_Controller
         $footer['is_login'] = $this->_islogin();
         
         $this->load->model('street/Street_model');
-        $this->load->model('Commune/Commune_model');
+        $this->load->model('commune/Commune_model');
         
         $footer['streets'] = $this->Street_model->get_list(1);
         $footer['communes'] = $this->Commune_model->get_list(1);
