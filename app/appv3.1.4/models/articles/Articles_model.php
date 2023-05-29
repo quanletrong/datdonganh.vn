@@ -14,7 +14,9 @@ class Articles_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        $sql = "SELECT * FROM tbl_articles WHERE id_articles =?;";
+        $sql = "SELECT A.*, B.fullname FROM tbl_articles A
+        LEFT JOIN tbl_user B ON A.id_user = B.id_user
+         WHERE id_articles =?;";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute([$id_article])) {

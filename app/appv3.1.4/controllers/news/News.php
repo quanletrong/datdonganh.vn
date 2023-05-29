@@ -8,6 +8,7 @@ class News extends MY_Controller {
 		parent::__construct();
         
         $this->load->model('articles/Articles_model');
+        $this->load->model('bds/Bds_model');
 		
 //        if (!$this->_isLogin())
 //        {
@@ -66,4 +67,42 @@ class News extends MY_Controller {
             echo json_encode($news);
         } 
 	}
+
+    function detail($slug, $id) {
+
+        $id = isIdNumber($id) ? $id : 0;
+        $info = $this->Articles_model->get_info($id);
+
+        if(empty($info)){
+            redirect(site_url("/"));
+            die;
+        }
+        
+        if($info['slug'] != $slug ){
+            redirect(site_url(LINK_TIN_TUC.'/'.$info['slug'].'-p'.$info['id_articles']));
+            die;
+        }
+        
+        $article_view_top = $this->Articles_model->get_list_by_view(NEWS, 10);
+        $list_bds_by_commune = $this->Bds_model->get_list(1, $info['id_commune_ward'], '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', 'is_vip', 'DESC', 20, 0);
+
+        $data = [];
+        $data['page'] = 'Tin tức';
+        $data['info'] = $info;
+        $data['article_view_top'] = $article_view_top;
+        $data['list_bds_by_commune'] = $list_bds_by_commune;
+
+        $header = [
+            'title' => $info['title'],
+            'active_link' => 'auction',
+            'header_page_css_js' => 'news'
+        ];
+        
+        $this->_loadHeader($header);
+        
+        $this->load->view($this->_template_f . 'news/detail/news_detail_view', $data);
+        
+        $this->_loadFooter();
+
+    }
 }

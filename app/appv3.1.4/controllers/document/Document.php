@@ -63,4 +63,42 @@ class Document extends MY_Controller {
             echo json_encode($news);
         } 
 	}
+
+    function detail($slug, $id) {
+
+        $id = isIdNumber($id) ? $id : 0;
+        $info = $this->Articles_model->get_info($id);
+
+        if(empty($info)){
+            redirect(site_url("/"));
+            die;
+        }
+        
+        if($info['slug'] != $slug ){
+            redirect(site_url(LINK_TAI_LIEU.'/'.$info['slug'].'-p'.$info['id_articles']));
+            die;
+        }
+        
+        $article_view_top = $this->Articles_model->get_list_by_view(AUCTION, 10);
+        $get_num_article_by_commune_ward = $this->Articles_model->get_num_article_by_commune_ward(AUCTION);
+        
+        $data = [];
+        $data['page'] = 'Tài liệu';
+        $data['info'] = $info;
+        $data['article_view_top'] = $article_view_top;
+        $data['get_num_article_by_commune_ward'] = $get_num_article_by_commune_ward;
+
+        $header = [
+            'title' => $info['title'],
+            'active_link' => 'auction',
+            'header_page_css_js' => 'news'
+        ];
+        
+        $this->_loadHeader($header);
+        
+        $this->load->view($this->_template_f . 'document/detail/document_detail_view', $data);
+        
+        $this->_loadFooter();
+
+    }
 }

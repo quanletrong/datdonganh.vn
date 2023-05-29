@@ -8,6 +8,7 @@ class Auction extends MY_Controller {
 		parent::__construct();
         
         $this->load->model('articles/Articles_model');
+        $this->load->model('bds/Bds_model');
 		
 //        if (!$this->_isLogin())
 //        {
@@ -70,7 +71,7 @@ class Auction extends MY_Controller {
     function detail($slug, $id) {
 
         $id = isIdNumber($id) ? $id : 0;
-        $info = $this->Article_model->get_info($id);
+        $info = $this->Articles_model->get_info($id);
 
         if(empty($info)){
             redirect(site_url("/"));
@@ -78,11 +79,22 @@ class Auction extends MY_Controller {
         }
         
         if($info['slug'] != $slug ){
-            redirect(site_url($info['slug'].'-p'.$info['id_article']));
+            redirect(site_url(LINK_TIN_TUC.'/'.$info['slug'].'-p'.$info['id_articles']));
             die;
         }
         
+        $article_view_top = $this->Articles_model->get_list_by_view(AUCTION, 10);
+        $list_bds_by_commune = $this->Bds_model->get_list(1, $info['id_commune_ward'], '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', 'is_vip', 'DESC', 20, 0);
+
+        $get_num_article_by_commune_ward = $this->Articles_model->get_num_article_by_commune_ward(AUCTION);
+        
         $data = [];
+        $data['page'] = 'Lịch đấu giá';
+        $data['info'] = $info;
+        $data['article_view_top'] = $article_view_top;
+        $data['list_bds_by_commune'] = $list_bds_by_commune;
+        $data['get_num_article_by_commune_ward'] = $get_num_article_by_commune_ward;
+
         $header = [
             'title' => $info['title'],
             'active_link' => 'auction',
@@ -91,7 +103,7 @@ class Auction extends MY_Controller {
         
         $this->_loadHeader($header);
         
-        $this->load->view($this->_template_f . 'auction/auction_detail_view', $data);
+        $this->load->view($this->_template_f . 'auction/detail/auction_detail_view', $data);
         
         $this->_loadFooter();
 

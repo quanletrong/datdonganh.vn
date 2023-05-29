@@ -19,13 +19,13 @@
                     <div></div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= LINK_DAU_GIA ?>">Đấu Giá Đất</a>
+                    <a class="nav-link" href="<?= LINK_DAU_GIA ?>">Lịch Đấu Giá Đất</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= LINK_TIN_TUC ?>">Tin Tức</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= LINK_TAI_LIEU ?>">Tài Liệu Luật</a>
+                    <a class="nav-link" href="<?= LINK_TAI_LIEU ?>">Tài Liệu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= LINK_LIEN_HE ?>">Liên Hệ</a>
