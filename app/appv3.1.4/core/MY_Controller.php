@@ -55,9 +55,12 @@ class MY_Controller extends CI_Controller
         $preHeader['username']     = '';
         $preHeader['userid']       = 0;
         $preHeader['role']         = 0;
+        $preHeader['avatar']       = "";
+        $preHeader['fullname']     = "";
         $preHeader['langcode_url'] = '';
         $preHeader['module_name']  = $this->_module;
         $preHeader['product_name'] = $this->_product_name;
+        $preHeader['isLogin']      = false;
 
         // set lang code for multi language url
         $arrLang = $this->config->item('lang_uri_abbr');
@@ -82,6 +85,11 @@ class MY_Controller extends CI_Controller
             $preHeader['username'] = $this->_session_uname();
             $preHeader['userid'] = $this->_session_uid();
             $preHeader['role'] = $this->_session_role();
+            $preHeader['avatar'] = $this->_session_avatar();
+            $preHeader['fullname'] = $this->_session_fullname();
+            
+            
+           
         }
 
         // assign all common param to view
@@ -150,6 +158,18 @@ class MY_Controller extends CI_Controller
         $uname = strtolower($uname);
         $uname = preg_match('/^[a-z0-9_@\-\.]+$/',$uname) ? $uname : '';
         return $uname;
+    }
+    
+    protected function _session_avatar()
+    {
+        $avatar = $this->session->userdata('avatar');
+        return $avatar;
+    }
+    
+    protected function _session_fullname()
+    {
+        $fullname = $this->session->userdata('fullname');
+        return $fullname;
     }
  
     protected function _islogin()

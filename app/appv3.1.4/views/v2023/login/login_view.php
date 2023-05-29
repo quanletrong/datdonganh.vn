@@ -24,6 +24,54 @@
         body {
             height: 100%;
         }
+        .input-group-ct{
+            display:block;
+            background-color: #fff;
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .line-or-ct{
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 30px;
+        }
+        .line-ct {
+            width: 100%;
+            height: 1px;
+            background-color: rgb(242, 242, 242);
+        }
+        .or-ct {
+            position: absolute;
+            top: 0px;
+            left: calc(50% - 24px);
+            height: 24px;
+            width: 49px;
+            padding: 4px 8px;
+            background-color: rgb(255, 255, 255);
+        }
+        .or-ct div {
+            font-family: Roboto;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+            color: rgb(153, 153, 153);
+        }
+        .btn-or-ct{
+            display: inline-block;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            width: fit-content;
+            padding: 14px 0;
+            width: 180px;
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -39,9 +87,37 @@
                         </div>
                     <?php } ?>
                     
-                    <input type="text" class="form-control mb-3" name="username" placeholder="Nhập tên đăng nhập">
-                    <input type="password" class="form-control mb-3" name="password" placeholder="Nhập mật khẩu">
-                    <input type="submit" class="btn btn-danger" value="Đăng nhập">
+                    <div class="input-group mt-3 mb-3">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text input-group-ct"><i class="fa-solid fa-user"></i></div>
+                        </div>
+                        <input type="text" class="form-control " name="username" placeholder="Nhập tên đăng nhập">
+                    </div>
+                    
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text input-group-ct"><i class="fa-solid fa-lock"></i></div>
+                        </div>
+                        <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu">
+                    </div>
+                    <input type="submit" class="btn btn-danger w-100" value="Đăng nhập">
+                    
+                    <div class="line-or-ct mt-2">
+                        <div class="line-ct"></div>
+                        <div class="or-ct">
+                            <div type="tertiary" class="sc-crrsfI fmnTOX">Hoặc</div>  
+                        </div>  
+                    </div>
+                    
+                    <div class="d-flex justify-content-around mt-1 mb-3">
+                        <button type="button" class="btn btn-outline-primary btn-or-ct"><i class="fa-brands fa-facebook"></i> Facebook</button> 
+                        <a href="<?php echo $loginUrlgg; ?>">
+                            <button type="button" class="btn btn-outline-danger btn-or-ct"><i class="fa-brands fa-google"></i> Google</button> 
+                        </a>
+                    </div>    
+
                 </form>
             </div>
         </div>

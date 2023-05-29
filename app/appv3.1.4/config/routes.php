@@ -67,3 +67,7 @@ $route[LINK_TAI_LIEU.'/ajx']            = 'document/document/ajx_more_data';  //
 $route[LINK_TAI_LIEU.'/(:any)-p(:num)'] = 'document/document/detail/$1/$2';   // chi tiet tai lieu
 $route[LINK_USER_LOGIN]                 = 'login/login/index';
 $route[LINK_USER_LOGIN.'/auth']         = 'login/login/auth';
+$route[LINK_USER_LOGOUT]                = 'logout/logout/index';
+$route[LINK_USER_LOGIN.'/ggcallback']   = 'login/login/ggcallback';
+
+$route[LINK_USER_REGISTER]   = 'signup/signup/index';

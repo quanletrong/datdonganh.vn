@@ -41,8 +41,7 @@ class Articles_model extends CI_Model
         if ($type != '')  $where                        .= "AND A.type = $type ";
         
         $sql = "
-            SELECT A.*, B.username FROM tbl_articles as A  
-            LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
+            SELECT A.* FROM tbl_articles as A
             $where 
             ORDER BY A.id_articles DESC 
             LIMIT $limit OFFSET $offset";
