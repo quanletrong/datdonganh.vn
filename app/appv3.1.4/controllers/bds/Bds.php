@@ -27,7 +27,7 @@ class Bds extends MY_Controller {
         }
         
         if($bdsInfo['slug_title'] != $name_bds ){
-            redirect(site_url($bdsInfo['slug_title'].'-p'.$bdsInfo['id_bds'].'.html'));
+            redirect(site_url($bdsInfo['slug_title'].'-p'.$bdsInfo['id_bds']));
             die;
         }
         

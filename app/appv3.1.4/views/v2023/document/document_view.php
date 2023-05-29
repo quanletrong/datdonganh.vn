@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<?php $this->load->view($template_f . 'news/component/news_new_view.php'); ?>
+<?php $this->load->view($template_f . 'document/component/document_new_view.php'); ?>
 
 <div class="container mt-3">
     <div class="row">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div>
-                            <a href="<?= LINK_TIN_TUC . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
+                            <a href="<?= LINK_TAI_LIEU . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
                                 <?php echo $article['title']; ?>
                             </a>
                         </div>
@@ -96,20 +96,6 @@
                 <?php $i++;
                 } ?>
 
-            </div>
-
-            <div class="sticky-lg-top border rounded p-3 mt-5" style="top:100px; z-index:1019 !important">
-                <p class="fw-semibold" style="font-size: 1.125rem;"><?= $title ?> theo khu vực</p>
-
-                <?php foreach ($get_num_article_by_commune_ward as $id => $commune) { ?>
-                    <hr class="text-muted">
-                    <div class="d-flex align-items-center" style="gap:10px">
-                        <img src="<?= $commune['image_path'] ?>" style="width: 50px; aspect-ratio: 16/9; object-fit: cover;" class="rounded" alt="">
-                        <div style="font-size: 1rem;">
-                            <?= $commune['name'] ?> (<?= $commune['num_articles'] ?>)
-                        </div>
-                    </div>
-                <?php } ?>
             </div>
         </div>
     </div>
@@ -123,7 +109,7 @@
         let page = $.trim($("#page").val());
 
         $.ajax({
-            url: '<?php echo site_url(LINK_TIN_TUC . "/ajx", $langcode) ?>',
+            url: '<?php echo site_url(LINK_TAI_LIEU . "/ajx", $langcode) ?>',
             type: 'POST',
             data: {
                 page
@@ -168,7 +154,7 @@
                     let item_html = `
                         <div class="row">
                             <div class="col-12 col-lg-4">
-                                <a href="<?= LINK_TIN_TUC ?>/${val.slug}-p${val.id_articles}">
+                                <a href="<?= LINK_TAI_LIEU ?>/${val.slug}-p${val.id_articles}">
                                     <div class="position-relative">
                                         <img src="${val.image_path}"
                                             alt="" class="w-100 rounded" style="aspect-ratio: 16/9; object-fit: cover;">
@@ -179,7 +165,7 @@
 
                             </div>
                             <div class="col-12 col-lg-8">
-                                <a href="<?= LINK_TIN_TUC ?>/${val.slug}-p${val.id_articles}">
+                                <a href="<?= LINK_TAI_LIEU ?>/${val.slug}-p${val.id_articles}">
                                     <div class="text-muted" style="font-size: 0.875rem;">${formattedDate} • <?= $title ?></div>
                                     <div class="fw-bold mt-1 hover-link-red" style="font-size: 1.125rem; line-height: 1.4;">
                                         ${val.title}

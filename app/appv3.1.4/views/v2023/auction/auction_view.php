@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<?php $this->load->view($template_f . 'news/component/news_new_view.php'); ?>
+<?php $this->load->view($template_f . 'auction/component/auction_new_view.php'); ?>
 
 <div class="container mt-3">
     <div class="row">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div>
-                            <a href="<?= LINK_TIN_TUC . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
+                            <a href="<?= LINK_DAU_GIA . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
                                 <?php echo $article['title']; ?>
                             </a>
                         </div>
@@ -123,7 +123,7 @@
         let page = $.trim($("#page").val());
 
         $.ajax({
-            url: '<?php echo site_url(LINK_TIN_TUC . "/ajx", $langcode) ?>',
+            url: '<?php echo site_url(LINK_DAU_GIA . "/ajx", $langcode) ?>',
             type: 'POST',
             data: {
                 page
@@ -168,7 +168,7 @@
                     let item_html = `
                         <div class="row">
                             <div class="col-12 col-lg-4">
-                                <a href="<?= LINK_TIN_TUC ?>/${val.slug}-p${val.id_articles}">
+                                <a href="<?= LINK_DAU_GIA ?>/${val.slug}-p${val.id_articles}">
                                     <div class="position-relative">
                                         <img src="${val.image_path}"
                                             alt="" class="w-100 rounded" style="aspect-ratio: 16/9; object-fit: cover;">
@@ -179,7 +179,7 @@
 
                             </div>
                             <div class="col-12 col-lg-8">
-                                <a href="<?= LINK_TIN_TUC ?>/${val.slug}-p${val.id_articles}">
+                                <a href="<?= LINK_DAU_GIA ?>/${val.slug}-p${val.id_articles}">
                                     <div class="text-muted" style="font-size: 0.875rem;">${formattedDate} • <?= $title ?></div>
                                     <div class="fw-bold mt-1 hover-link-red" style="font-size: 1.125rem; line-height: 1.4;">
                                         ${val.title}

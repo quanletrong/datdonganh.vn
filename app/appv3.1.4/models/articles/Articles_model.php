@@ -103,5 +103,38 @@ class Articles_model extends CI_Model
         return $data;
     }
 
+    function get_num_article_by_commune_ward($type_article)
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
+        
+
+        $sql = "SELECT A.*, count(B.id_articles) as num_articles  FROM tbl_commune_ward as A  
+            LEFT JOIN tbl_articles as B ON A.id_commune_ward = B.id_commune_ward AND B.status = 1
+            WHERE A.status = 1 AND B.type = $type_article  GROUP BY A.id_commune_ward ORDER BY num_articles DESC; ";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute()) {
+                // echo json_encode($stmt, true);die;
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+  
+                        $year = date('Y', strtotime($row['create_time']));
+                        $month = date('m', strtotime($row['create_time']));
+                        $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+                        
+                        $data[$row['id_commune_ward']] = $row;
+                    }
+                }
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+
     
 }

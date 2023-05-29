@@ -25,7 +25,7 @@
             <?php foreach ($article_new as $article) { ?>
                 <div class="py-3 mb-2 news-header" data-id="<?php echo $article['id_articles']; ?>">
                     <div class="text-muted" style="font-size: 0.875rem;"><?php echo  $article['update_time'] == "" ? date('d/m/Y h:i', strtotime($article['create_time'])) : date('d/m/Y h:i', strtotime($article['update_time'])) ?> • <?= $title ?></div>
-                    <a href="<?= LINK_TIN_TUC . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
+                    <a href="<?= LINK_TAI_LIEU . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
                         <div class="fw-bold" style="font-size: 1rem; line-height: 1.2;">
                             <?php echo $article['title'] ?>
                         </div>
@@ -56,7 +56,7 @@
             $("#preview-header #img-preview").attr("src", data[id].image_path);
             $("#preview-header #title-preview").text(data[id].title);
             $("#preview-header #sapo-preview").text(data[id].sapo);
-            $("#preview-header #link-preview").attr("href", `<?= LINK_TIN_TUC ?>/${data[id].slug}-p${data[id].id_articles}`);
+            $("#preview-header #link-preview").attr("href", `<?= LINK_TAI_LIEU ?>/${data[id].slug}-p${data[id].id_articles}`);
 
 
             var date = new Date(data[id].update_time != "" ? data[id].update_time : data[id].create_time);

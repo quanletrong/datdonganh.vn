@@ -26,13 +26,16 @@ class News extends MY_Controller {
 	function index()
 	{
         $data = [];
+        $data['title'] = 'Tin tức';
         //top 5 tin tuc mơi nhat
-        $news_new = $this->Articles_model->get_list(NEWS, "", 4, 0);
-        $data['news_new'] = $news_new;
+        $article_new = $this->Articles_model->get_list(NEWS, "", 4, 0);
+        $data['article_new'] = $article_new;
         
         //top 10 tin tuc có luot view cao nhat
-        $news_view_top = $this->Articles_model->get_list_by_view(NEWS, 10);
-        $data['news_view_top'] = $news_view_top;
+        $article_view_top = $this->Articles_model->get_list_by_view(NEWS, 10);
+        $get_num_article_by_commune_ward = $this->Articles_model->get_num_article_by_commune_ward(NEWS);
+        $data['article_view_top'] = $article_view_top;
+        $data['get_num_article_by_commune_ward'] = $get_num_article_by_commune_ward;
         //showLOG($data['news_new']);die;
         
         $header = [
