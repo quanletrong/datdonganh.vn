@@ -31,6 +31,54 @@ class Account_model extends CI_Model
         return $data;
     }
     
+    function get_user_info_by_phone($phone) {
+        $data = array();
+        $iconn = $this->db->conn_id;
+        $sql = "SELECT * FROM tbl_user WHERE phone = :phone";
+        $stmt = $iconn->prepare($sql);
+        if($stmt)
+        {
+            $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+
+            if($stmt->execute())
+            {
+                if($stmt->rowCount() > 0)
+                {
+                    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                }
+                $stmt->closeCursor();
+            } else {
+                // var_dump($stmt->errorInfo());die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+    
+    function get_user_info_by_uname($uname) {
+        $data = array();
+        $iconn = $this->db->conn_id;
+        $sql = "SELECT * FROM tbl_user WHERE username = :uname";
+        $stmt = $iconn->prepare($sql);
+        if($stmt)
+        {
+            $stmt->bindParam(':uname', $uname, PDO::PARAM_STR);
+
+            if($stmt->execute())
+            {
+                if($stmt->rowCount() > 0)
+                {
+                    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                }
+                $stmt->closeCursor();
+            } else {
+                // var_dump($stmt->errorInfo());die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+    
     function get_user_info_by_uid($uid) {
         $data = array();
         $iconn = $this->db->conn_id;
