@@ -35,8 +35,10 @@ class Home extends MY_Controller {
         
         $home_vip = $this->Bds_model->get_list_vip_home(6, 0);
 
-        $limit_thuong = count($home_vip)*2;
-        $bdss = $this->Bds_model->get_list_by_top(false, 0, $limit_thuong, 0);
+        // $limit_thuong = count($home_vip) <=6 ? 6 : count($home_vip)*2;
+
+        
+        $bdss = $this->Bds_model->get_list_by_top(false, 0, 12, 0);
         $data['bdss'] = $bdss;
         $data['home_vip'] = $home_vip;
         
