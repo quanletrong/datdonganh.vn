@@ -7,14 +7,14 @@
         <div class="col-12 col-lg-10">
             <div class="row">
                 <div class="col-12 col-lg-4">
-                    <div class="fw-bold fs-4">
+                    <div class="fw-bold fs-4" style="color:green">
                         Tin vip
                     </div>
                     <div class="row">
                         <?php foreach ($home_vip as $id_bds => $bds) { ?>
                             <div class="col-md-6 col-lg-12">
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                    <div class="rounded border border-1 border-danger mb-3 shadow ">
+                                    <div class="rounded mb-3 shadow ">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
                                             <div class="position-absolute bg-danger text-white px-2 rounded-end" style="left: 0; top: 1rem">Tin
@@ -75,10 +75,10 @@
                 </div>
                 <hr class="d-block d-lg-none">
                 <div class="col-12 col-lg-8">
-                    <div class="fw-bold fs-4">
+                    <div class="fw-bold fs-4" style="color:green; margin-left: 23px;">
                         Tin mới nhất
                     </div>
-                    <div class="row">
+                    <div class="row" style="border-left: 4px solid green; margin-left: 10px;">
                         <?php foreach ($bdss as $id_bds => $bds) { ?>
                             <div class="col-md-6">
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
@@ -137,13 +137,13 @@
                                 </a>
                             </div>
                         <?php } ?>
+                        <div class="d-flex justify-content-center">
+                            <a href="<?= LINK_NHA_DAT_BAN ?>">
+                                <button class="btn btn-outline-secondary">Xem thêm</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <a href="<?= LINK_NHA_DAT_BAN ?>">
-                    <button class="btn btn-outline-secondary">Xem thêm</button>
-                </a>
             </div>
 
         </div>
@@ -156,8 +156,8 @@
                     <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($cf_bds['price_list'] as $it) { ?>
-                            <?php $num_bds = @$get_num_bds_by_price[$it['from'].'-'.$it['to']]?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?=$num_bds?>)</a>
+                            <?php $num_bds = @$get_num_bds_by_price[$it['from'] . '-' . $it['to']] ?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red <?= $num_bds ? '' : 'd-none' ?>" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?= $num_bds ?>)</a>
                         <?php } ?>
                     </div>
                 </div>
@@ -168,8 +168,8 @@
                     <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                     <div class="d-flex flex-column">
                         <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
-                            <?php $num_bds = @$get_num_bds_by_acreage[$it['from'].'-'.$it['to']]?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?=$num_bds?>)</a>
+                            <?php $num_bds = @$get_num_bds_by_acreage[$it['from'] . '-' . $it['to']] ?>
+                            <a class="text-decoration-none text-dark py-1 hover-link-red <?= $num_bds ? '' : 'd-none' ?>" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?= $num_bds ?>)</a>
                         <?php } ?>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                     <div class="d-flex flex-column">
                         <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
                             <?php if ($item['num_bds']) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN.'?id_commune_ward='.$id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                             <?php } ?>
                         <?php } ?>
                     </div>
@@ -194,7 +194,7 @@
                     <div class="d-flex flex-column">
                         <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
                             <?php if ($item['num_bds']) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN.'?id_street='.$id_street ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_street=' . $id_street ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                             <?php } ?>
                         <?php } ?>
                     </div>
