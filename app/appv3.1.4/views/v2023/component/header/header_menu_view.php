@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<nav class="navbar sticky-top navbar-expand-lg bg-light" style="box-shadow: 1px 1px 3px 0px #c1c1c1;">
+<nav class="navbar sticky-top navbar-expand-lg bg-light" style="box-shadow: 1px 1px 3px 0px #c1c1c1; padding: 0;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand p-0" href="#">
             <!-- <img src="https://placehold.co/160x48/f44336/31343C?text=LOGO" alt="" class="img-fluid"> -->
             <!-- <img src="images/logo.png" alt="" class="img-fluid"> -->
             <img src="images/logo-ngang.png" alt="" class="img-fluid">
