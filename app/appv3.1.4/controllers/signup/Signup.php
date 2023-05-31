@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+require_once(dirname(__FILE__) . "/../../libraries/facebook/autoload.php");
+require_once(dirname(__FILE__) . "/../../libraries/googleapi/vendor/autoload.php");
 class Signup extends MY_Controller {
 	
 	function __construct()
@@ -87,6 +88,19 @@ class Signup extends MY_Controller {
         }
         
         $data['info'] = $info;
+        
+        
+        //tao link button login
+        //GOOGLE
+        $gClient = new Google_Client();
+        $gClient->setClientId(gg_ClientId);
+        $gClient->setClientSecret(gg_ClientSecret);
+        $gClient->setApplicationName('Đất Đông Anh');
+        $gClient->setRedirectUri(ROOT_DOMAIN.LINK_USER_LOGIN.'/ggcallback');
+        $gClient->addScope("https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email");
+
+        $loginUrlgg = $gClient->createAuthUrl();
+        $data['loginUrlgg'] = $loginUrlgg;
         
         $this->load->view($this->_template_f . 'signup/signup_view', $data);
     }

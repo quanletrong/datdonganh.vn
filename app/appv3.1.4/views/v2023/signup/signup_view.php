@@ -133,7 +133,8 @@
                           <div class="input-group-text input-group-ct"><i class="fa-solid fa-lock"></i></div>
                         </div>
                         <div class="form-outline position-relative">
-                            <input type="password" id="pword" name="pword" class="form-control form-control-lg"  required />
+                            <input type="password" id="pword" name="pword" class="form-control form-control-lg"  required 
+                            />
                             <label class="form-label" for="pword" style="margin-left: 0px;">Mật khẩu<span class="text-danger">*</span></label>
                             <div class="form-notch">
                                 <div class="form-notch-leading" style="width: 9px;"></div>
@@ -228,7 +229,7 @@
                     
                     <div class="d-flex justify-content-around mt-1 mb-3">
                         <button type="button" class="btn btn-outline-primary btn-or-ct"><i class="fa-brands fa-facebook"></i> Facebook</button> 
-                        <a href="">
+                        <a href="<?php echo $loginUrlgg; ?>">
                             <button type="button" class="btn btn-outline-danger btn-or-ct"><i class="fa-brands fa-google"></i> Google</button> 
                         </a>
                     </div>  
@@ -283,7 +284,9 @@
     
     function validatePassword(){
         var reg_pass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        if(!reg_pass.test(password.value)) {
+        if(password.value == "") {
+            password.setCustomValidity('Hãy nhập mật khẩu');
+        }else if(!reg_pass.test(password.value)) {
             password.setCustomValidity("Mật khẩu phải chứa: Tối thiểu 8 ký tự ít nhất 1 chữ cái và 1 số");
         } else {
             password.setCustomValidity('');
@@ -291,6 +294,7 @@
     }
     
     password.onkeyup = validatePassword;
+    password.onfocus = validatePassword;
     confirm_password.onkeyup = validateRePassword;
     
     

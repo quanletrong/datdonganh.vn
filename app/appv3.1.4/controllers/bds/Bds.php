@@ -32,7 +32,19 @@ class Bds extends MY_Controller {
         }
         
         $data = [];
+        
+        $data['cf_bds'] = $this->config->item('bds');
+        // tiền + đơn vị tiền
+        if($bdsInfo['price_total']  < PRICE_ONE_BILLION) {
+            $bdsInfo['price_unit'] = PRICE_UNIT_TRIEU; 
+            $bdsInfo['price_view'] = $bdsInfo['price_total']/PRICE_ONE_MILLION;
+        } else {
+            $bdsInfo['price_unit'] = PRICE_UNIT_TY; 
+            $bdsInfo['price_view'] = $bdsInfo['price_total']/PRICE_ONE_BILLION;
+        }
+        $bdsInfo['direction_name'] = isset($data['cf_bds']['direction'][$bdsInfo['direction']]) ? $data['cf_bds']['direction'][$bdsInfo['direction']] : "";
         $data['bdsInfo'] = $bdsInfo;
+        
         $data['imgs'] = json_decode($bdsInfo['images'], true);
         $cf_bds = $this->config->item('bds');
         $data['cf_direction'] = $cf_bds['direction'];
@@ -69,7 +81,7 @@ class Bds extends MY_Controller {
         $data['get_num_bds_by_contact_name'] = $this->Bds_model->get_num_bds_by_contact_name($bdsInfo['contactname']);
         
         $data['list_commune'] = $this->Commune_model->get_list(1);
-        $data['cf_bds'] = $this->config->item('bds');
+        
         $header = [
             'title' => $bdsInfo['title'],
             'active_link' => 'bds',
