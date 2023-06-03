@@ -71,3 +71,5 @@ $route[LINK_USER_LOGOUT]                = 'logout/logout/index';
 $route[LINK_USER_LOGIN.'/ggcallback']   = 'login/login/ggcallback';
 
 $route[LINK_USER_REGISTER]   = 'signup/signup/index';
+$route['bds/ajx-heart']   = 'bds/bds/ajx_heart';
+$route['trang-ca-nhan']   = 'account/account/index';

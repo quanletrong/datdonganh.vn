@@ -98,3 +98,39 @@
         <p class="text-center">Copyright 2023 © www.abc.vn | Bất Động Sản Đông Anh</p>
     </div>
 </div>
+
+<script>
+    $(function(){
+        $("button.btn-heart").on("click", function(){
+            const type = $(this).hasClass("btn-outline-danger") ? '1' : '0'; 
+            const pid = $(this).data("id");
+
+            if(type == '1'){
+                $(this).removeClass("btn-outline-danger");
+                $(this).addClass("btn-danger");
+            }else{
+                $(this).addClass("btn-outline-danger");
+                $(this).removeClass("btn-danger");
+            }
+                    
+            $.ajax({
+            url: '<?php echo site_url("bds/ajx_heart", $langcode) ?>',
+            type: 'POST',
+            data: {
+                pid, type
+            },
+            success: function(res) {
+                if(res == 'not_login'){
+                    window.location = "<?php echo site_url(LINK_USER_LOGIN, $langcode) ?>";
+                }else{
+                     console.log(type);
+                     
+                } 
+            },
+            error: function(data) {
+
+            }
+        });
+        });
+    });
+</script>

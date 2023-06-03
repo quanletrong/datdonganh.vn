@@ -258,7 +258,7 @@
                     <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);">
                         <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
                     </button>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
+                    <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                 </div>
             </div>
 
@@ -352,50 +352,49 @@
                 <div id="owl-noi-bat" class="owl-carousel owl-theme mt-3">
 
                     <?php foreach ($bdss as $id_bds => $bds) { ?>
-                    
-                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                            <div class="rounded border border-1 mb-3 shadow ">
+                        <div class="rounded border border-1 mb-3 shadow ">
+                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                 <div class="position-relative">
                                     <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
                                 </div>
-
-                                <div class="p-2">
+                            </a>
+                            <div class="p-2">
+                                <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;"><?= $bds['title'] ?></div>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="text-danger fw-bold">
-                                            <?= $bds['price_view'] ?>
-                                            <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
-                                        </div>
-                                        <div class="mb-1">·</div>
-                                        <div class="text-danger fw-bold">
-                                            <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
-                                        </div>
-                                        <div class="mb-1">·</div>
-                                        <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                </a>
+                                <div class="d-flex justify-content-between">
+                                    <div class="text-danger fw-bold">
+                                        <?= $bds['price_view'] ?>
+                                        <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
+                                    </div>
+                                    <div class="mb-1">·</div>
+                                    <div class="text-danger fw-bold">
+                                        <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
+                                    </div>
+                                    <div class="mb-1">·</div>
+                                    <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="text-secondary">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <?php echo $bds['commune']; ?>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <?php if ($bds['direction'] > 0) { ?>
                                         <div class="text-secondary">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                            <?php echo $bds['commune']; ?>
+                                            Hướng: <?= $cf_bds['direction'][$bds['direction']] ?>
                                         </div>
+                                    <?php } ?>
+                                </div>
 
-                                        <?php if ($bds['direction'] > 0) { ?>
-                                            <div class="text-secondary">
-                                                Hướng: <?= $cf_bds['direction'][$bds['direction']] ?>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-secondary" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</span>
-                                        <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
-                                    </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-secondary" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</span>
+                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                                 </div>
                             </div>
-                        </a>
-                    
-                        
+                        </div>
+                       
                     <?php } ?>
                 </div>
 
@@ -517,7 +516,8 @@
                 'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
                 'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
                 'direction'  : '<?php echo $bdsInfo['direction_name']; ?>',
-                'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước' 
+                'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
+                'slug_title' : '<?php echo $bdsInfo['slug_title']; ?>',
             }
             localStorage.setItem("BDS_WATCHED", JSON.stringify(bds));
         }else{
@@ -539,9 +539,12 @@
                     'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
                     'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
                     'direction'  : '<?php echo $bdsInfo['direction_name']; ?>',
-                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước' 
+                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
+                    'slug_title' : '<?php echo $bdsInfo['slug_title']; ?>'
                 }
-                obj_bds_watched = { [id_bds_watched]: bds, ...obj_bds_watched };
+   
+                obj_bds_watched = { [<?php echo $bdsInfo['id_bds'] ?>]: bds, ...obj_bds_watched };
+                
             }else{
                 
                 //neu bds dang xem khong ton tai trong object BDS_WATCHED
@@ -556,7 +559,8 @@
                     'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
                     'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
                     'direction'  : '<?php echo $bdsInfo['direction_name']; ?>',
-                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước' 
+                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
+                    'slug_title' : '<?php echo $bdsInfo['slug_title']; ?>',
                 }
                 obj_bds_watched = { [id_bds_watched]: bds, ...obj_bds_watched };
             }
@@ -575,17 +579,20 @@
         const PRICE_ONE_MILLION = <?php echo PRICE_ONE_MILLION; ?>;
         const bds_watched = localStorage.getItem("BDS_WATCHED");
         const obj_bds_watched = JSON.parse(bds_watched);
+        const hearts = '<?php echo json_encode($hearts) ?>';
         for (const [id, val] of Object.entries(obj_bds_watched)) {
             let temp = 
             `
-                <a href="">
                     <div class="rounded border border-1 mb-3 shadow ">
-                        <div class="position-relative">
-                            <img src="${val.image_path}" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
-                        </div>
-
+                        <a href="${val.slug_title}-p${id}">
+                            <div class="position-relative">
+                                <img src="${val.image_path}" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                            </div>
+                        </a>
                         <div class="p-2">
-                            <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;">${val.title}</div>
+                            <a href="${val.slug_title}-p${id}">        
+                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;">${val.title}</div>
+                            </a>
                             <div class="d-flex justify-content-between">
                                 <div class="text-danger fw-bold">
                                     ${val.price_view}
@@ -617,11 +624,11 @@
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="text-secondary" style="font-size: 0.8rem;">${val.create_time}</span>
-                                <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
+                                <button data-id="${id}" class="btn btn-heart btn-sm ${ (hearts.hasOwnProperty(id)) ? 'btn-danger' : 'btn-outline-danger' } "><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
-                </a>
+         
             `;
             $("#owl-bds-da-xem").append(temp);
         }

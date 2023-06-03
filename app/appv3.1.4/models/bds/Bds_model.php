@@ -450,4 +450,97 @@ class Bds_model extends CI_Model
         return $data;
     }
     
+    
+    function get_all_favorite_bds_by_user($uid)
+    {
+        $data = [];
+        $data['ids'] = [];
+        $data['list'] = [];
+        $iconn = $this->db->conn_id;
+        $sql = " SELECT A.*, B.username, B.fullname, C.name as street, D.name as commune  FROM tbl_bds as A 
+            LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
+            LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
+            LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
+            LEFT JOIN tbl_save_bds as E ON A.id_bds = E.id_bds WHERE E.id_user = ?";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$uid])) {
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    
+                    $data['ids'][] = $row['id_bds'];
+                    
+                    $list_img = json_decode($row['images'], true);
+                    $yearFolder = date('Y', strtotime($row['create_time']));
+                    $monthFolder = date('m', strtotime($row['create_time']));
+
+                    // lấy ảnh đầu tiên
+                    $first_img = @array_pop(array_reverse($list_img));
+                    $row['main_img'] = get_path_image($row['create_time'], $first_img);
+
+                    // danh sach anh
+                    foreach($list_img as $image_name) {
+                        $row['list_img'][] = get_path_image($row['create_time'], $image_name);
+                    }
+                    $row['year'] = $yearFolder;
+                    $row['month'] = $monthFolder;
+
+                    // tiền + đơn vị tiền
+                    if($row['price_total']  < PRICE_ONE_BILLION) {
+                        $row['price_unit'] = PRICE_UNIT_TRIEU; 
+                        $row['price_view'] = $row['price_total']/PRICE_ONE_MILLION;
+                    } else {
+                        $row['price_unit'] = PRICE_UNIT_TY; 
+                        $row['price_view'] = $row['price_total']/PRICE_ONE_BILLION;
+                    }
+
+                    $data['list'][$row['id_bds']] = $row;
+                        
+                }
+                
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+    
+    function add_bds_favorite($bds_id, $uid)
+    {
+        $id = 0;
+        $iconn = $this->db->conn_id;
+        $sql = "INSERT INTO tbl_save_bds (id_bds, id_user, create_time) VALUES (?, ?, ?)";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            $param = [$bds_id, $uid, date('Y-m-d H:i:s')];
+
+            if ($stmt->execute($param)) {
+                $id = $iconn->lastInsertId();
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $id;
+    }
+    
+    function delete_bds_favorite($bds_id, $uid)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "DELETE FROM tbl_save_bds WHERE id_bds = ? AND id_user = ?";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$bds_id, $uid])) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
 }

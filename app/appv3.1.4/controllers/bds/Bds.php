@@ -188,4 +188,37 @@ class Bds extends MY_Controller {
         
         $this->_loadFooter();
 	}
+    
+    function ajx_heart()
+	{
+        if($this->input->is_ajax_request())
+		{
+            if(!$this->_islogin()){
+                echo 'not_login';
+                die;
+            }
+            //bds_id
+            $pid = trim($this->input->post("pid"));
+            $pid = isIdNumber($pid) ? $pid : 0;
+            
+            //1: add, 0: remove
+            $type = trim($this->input->post("type"));
+            $type = in_array($type, ['1', '0']) ? $type : '0';
+            
+            $uid = $this->_session_uid();
+            
+            
+            //all favorite bds by user
+            $favorite_bds = $this->Bds_model->get_all_favorite_bds_by_user($uid);
+            $favorite_ids = $favorite_bds['ids'];
+            if($type == '1' && !in_array($pid, $favorite_ids)){
+                $this->Bds_model->add_bds_favorite($pid, $uid);
+            }else if($type == '0' && in_array($pid, $favorite_ids)){
+                 $this->Bds_model->delete_bds_favorite($pid, $uid);
+            }
+            
+            echo "ok";
+            die;
+        } 
+	}
 }

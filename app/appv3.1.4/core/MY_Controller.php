@@ -78,7 +78,8 @@ class MY_Controller extends CI_Controller
         }
         
         $preHeader['langcode_url'] = $langcodeUrl;
-
+        
+        $preHeader['hearts'] = [];
         if ($this->_islogin())
         {
         	$preHeader['isLogin'] = true;
@@ -88,8 +89,10 @@ class MY_Controller extends CI_Controller
             $preHeader['avatar'] = $this->_session_avatar();
             $preHeader['fullname'] = $this->_session_fullname();
             
-            
-           
+            //get list bds save
+            $this->load->model('bds/Bds_model');
+            $favorite = $this->Bds_model->get_all_favorite_bds_by_user($this->_session_uid());
+            $preHeader['hearts'] = $favorite['ids'];
         }
 
         // assign all common param to view

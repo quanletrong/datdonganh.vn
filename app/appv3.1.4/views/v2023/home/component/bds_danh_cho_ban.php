@@ -21,7 +21,7 @@
                         </div>
                         <div class="d-flex justify-content-between mt-2">
                             <span class="text-secondary" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</span>
-                            <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fa-regular fa-heart"></i></button>
                         </div>
                     </div>
                 </div>

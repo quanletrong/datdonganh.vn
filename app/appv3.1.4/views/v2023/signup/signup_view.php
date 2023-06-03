@@ -56,7 +56,6 @@
             background-color: rgb(255, 255, 255);
         }
         .or-ct div {
-            font-family: Roboto;
             font-size: 14px;
             line-height: 20px;
             font-weight: 400;

@@ -110,8 +110,9 @@
                             <div>
                                 <a href="tel:<?= $bds['contactphone'] ?>">
                                     <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
-                                    <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
-                                </a>
+                                </a>   
+                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                               
                             </div>
                         </div>
                     </div>

@@ -120,7 +120,7 @@
                         </div>
                         <div class="d-flex justify-content-between mt-2">
                             <span class="text-secondary" style="font-size: 0.8rem;"><?= timeSince($bds['create_time']) ?> trước</span>
-                            <button class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-heart"></i></button>
+                            <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                         </div>
                     </div>
 
