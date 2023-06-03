@@ -65,6 +65,15 @@
                 ul.navbar-nav li.it-user:hover ul.re__dropdown-art{
                     display: block;
                 }
+                .count-num{
+                    color: rgb(255, 255, 255);
+                    background: rgb(218, 16, 48);
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 6px;
+                    text-align: center;
+                    line-height: 18px;
+                }
             </style>
             <ul class="navbar-nav me-right mb-2 mb-lg-0">
                 <?php if($isLogin){ ?>
@@ -87,8 +96,11 @@
                     
                     <ul class="re__dropdown-art position-absolute ps-0">
                         <li>
-                            <a href="/trang-ca-nhan" class="re__content">
-                                <i class="fa-solid fa-heart"></i> Tin đã lưu
+                            <a href="/trang-ca-nhan" class="re__content d-flex align-items-center">
+                                <i class="fa-solid fa-heart me-1"></i> Tin đã lưu 
+                                <div class="count-num ms-2" id="count-favorite">
+                                    <?php echo $count_favorite; ?>
+                                </div>
                             </a>
                         </li>
                         <li>

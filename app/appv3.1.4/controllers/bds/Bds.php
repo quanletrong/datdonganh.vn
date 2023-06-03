@@ -217,7 +217,8 @@ class Bds extends MY_Controller {
                  $this->Bds_model->delete_bds_favorite($pid, $uid);
             }
             
-            echo "ok";
+            $favorite_bds = $this->Bds_model->get_all_favorite_bds_by_user($uid);
+            echo count($favorite_bds['ids']);
             die;
         } 
 	}

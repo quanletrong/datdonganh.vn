@@ -80,6 +80,7 @@ class MY_Controller extends CI_Controller
         $preHeader['langcode_url'] = $langcodeUrl;
         
         $preHeader['hearts'] = [];
+        $preHeader['count_favorite'] = 0;
         if ($this->_islogin())
         {
         	$preHeader['isLogin'] = true;
@@ -93,6 +94,7 @@ class MY_Controller extends CI_Controller
             $this->load->model('bds/Bds_model');
             $favorite = $this->Bds_model->get_all_favorite_bds_by_user($this->_session_uid());
             $preHeader['hearts'] = $favorite['ids'];
+            $preHeader['count_favorite'] = count($favorite['ids']);
         }
 
         // assign all common param to view

@@ -123,7 +123,7 @@
                 if(res == 'not_login'){
                     window.location = "<?php echo site_url(LINK_USER_LOGIN, $langcode) ?>";
                 }else{
-                     console.log(type);
+                    $("#count-favorite").text(res);
                      
                 } 
             },
