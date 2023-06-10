@@ -112,6 +112,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Diện tích <span class="text-danger">*</span></label>
+                                        </div>
+                                        <input type="text" class="form-control" style="width:75%" name="acreage" value="<?= $info['acreage'] ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Xã <span class="text-danger">*</span></label>
                                         </div>
                                         <select class="select2" style="width:75%" name="commune">
@@ -120,39 +129,6 @@
                                                 <option value="<?= $cmn['id_commune_ward'] ?>" <?= $info['id_commune_ward'] == $cmn['id_commune_ward'] ? 'selected' : '' ?>><?= $cmn['name'] ?></option>
                                             <?php } ?>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Đường <span class="text-danger">*</span></label>
-                                        </div>
-                                        <select class="select2" style="width:75%" name="street">
-                                            <option value="0">Vui lòng chọn</option>
-                                            <?php foreach ($list_street as $street) { ?>
-                                                <option value="<?= $street['id_street'] ?>" <?= $info['id_street'] == $street['id_street'] ? 'selected' : '' ?>><?= $street['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Dự án</label>
-                                        </div>
-                                        <select class="select2" style="width:75%" name="project">
-                                            <option value="0">Vui lòng chọn</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Diện tích <span class="text-danger">*</span></label>
-                                        </div>
-                                        <input type="text" class="form-control" style="width:75%" name="acreage" value="<?= $info['acreage'] ?>">
                                     </div>
                                 </div>
 
@@ -174,6 +150,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Đường <span class="text-danger">*</span></label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="street">
+                                            <option value="0">Vui lòng chọn</option>
+                                            <?php foreach ($list_street as $street) { ?>
+                                                <option value="<?= $street['id_street'] ?>" <?= $info['id_street'] == $street['id_street'] ? 'selected' : '' ?>><?= $street['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Đơn vị <span class="text-danger">*</span></label>
                                         </div>
                                         <select class="select2" style="width:75%" name="price_type">
@@ -181,6 +171,17 @@
                                             <option value="2" <?= $info['price_type'] == '2' ? 'selected' : '' ?>>VNĐ/m2</option>
                                             <option value="3" <?= $info['price_type'] == '3' ? 'selected' : '' ?>>VNĐ/tháng</option>
                                             <option value="4" <?= $info['price_type'] == '4' ? 'selected' : '' ?>>VNĐ/m2/tháng</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Dự án</label>
+                                        </div>
+                                        <select class="select2" style="width:75%" name="project">
+                                            <option value="0">Vui lòng chọn</option>
                                         </select>
                                     </div>
                                 </div>
@@ -687,39 +688,51 @@
 
         $('#price_word').val((VNnum2words('<?= $info['price_view'] * ($info['price_unit'] == '1' ? 1000000 : 1000000000) ?>')) + ' VNĐ');
 
-        $('input[name="price"]').on('keyup', function() {
-            let unit = $('select[name="price_unit"]').find(":selected").val();
-            let price = $.trim($(this).val());
-            const regex = /,/ig;
-            price = parseInt(price.replaceAll(regex, ''));
-            if (unit == '1') {
-                price = price * 1000000;
-            } else {
-                price = price * 1000000000;
-            }
-            if (price === 0 || isNaN(price)) {
-                $('#price_word').val('');
-            } else {
-                $('#price_word').val((VNnum2words(price)) + ' VNĐ');
-            }
+        $('input[name="price"], input[name="acreage"]').on('keyup', function() {
+            render_price_red()
         })
 
-        $('select[name="price_unit"]').change(function() {
-            let unit = $(this).find(":selected").val();
-            let price = $.trim($('input[name="price"]').val());
+        $('select[name="price_unit"], select[name="price_type"]').change(function() {
+            render_price_red()
+        })
+
+        function render_price_red() {
+            let unit       = $('select[name="price_unit"]').find(":selected").val();
+            let price_type = $('select[name="price_type"]').find(":selected").val();
+            let acreage    = parseInt($.trim($('input[name="acreage"]').val()));
+            let price      = $.trim($('input[name="price"]').val());
             const regex = /,/ig;
-            price = parseInt(price.replaceAll(regex, ''));
-            if (unit == '1') {
-                price = price * 1000000;
-            } else {
-                price = price * 1000000000;
-            }
-            if (price === 0 || isNaN(price)) {
+            price = parseFloat(price.replaceAll(regex, ''));
+
+            // đơn vị total => bằng chữ giá/m2
+            if (isNaN(acreage) || isNaN(price)) {
                 $('#price_word').val('');
             } else {
-                $('#price_word').val((VNnum2words(price)) + ' VNĐ');
+
+                if (unit == '1') {
+                    price = price * 1000000;
+                } else {
+                    price = price * 1000000000;
+                }
+
+                if (price === 0 || isNaN(price)) {
+                    $('#price_word').val('');
+                } else {
+                    let price_red = 0;
+                    // show giá/m2
+                    if (price_type == '1') {
+                        price_red = price / acreage;
+                        $('#price_word').val(VNnum2words(price_red) + ' / m2');
+                    }
+
+                    //show total giá
+                    if (price_type == '2') {
+                        price_red = price * acreage;
+                        $('#price_word').val(VNnum2words(price_red) + ' VNĐ');
+                    }
+                }
             }
-        })
+        }
 
         tinymce.init({
             selector: '#content',
