@@ -100,6 +100,13 @@
                         </div>
                         
                         <ul class="re__dropdown-art position-absolute ps-0">
+                            <?php if($role == SUPERADMIN || $role == ADMIN || $role == SALE) { ?>
+                                <li>
+                                    <a href="/admin" target="_blank" class="re__content d-flex align-items-center">
+                                        <i class="fa-solid fa-hammer me-1"></i> Trang quản trị 
+                                    </a>
+                                </li>
+                            <?php } ?>
                             <li>
                                 <a href="/trang-ca-nhan" class="re__content d-flex align-items-center">
                                     <i class="fa-solid fa-heart me-1"></i> Tin đã lưu 

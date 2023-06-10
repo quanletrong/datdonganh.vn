@@ -115,6 +115,7 @@ class MY_Controller extends CI_Controller
         $header['menuTab'] = $menuTab;
         $header['subMenuTab'] = $subMenuTab;
         $header['edit_link'] = isset($data['edit_link']) ? $data['edit_link'] : '';
+        $header['role'] = $this->_session_role();
         
         // for new skin
         // check load header css, js file by page hay ko

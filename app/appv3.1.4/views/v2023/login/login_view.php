@@ -75,8 +75,8 @@
 </head>
 
 <body style="background-color: #eeeeee;">
-    <div class="container h-50 d-flex justify-content-center">
-        <div class="card shadow my-auto" style="width: 100%; max-width: 500px;">
+    <div class="container" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+        <div class="card shadow mx-auto" style="width: 100%; max-width: 500px;">
             <div class="card-body">
                 <form action="<?php echo site_url('login/auth?url=' . $currUrl) ?>" method="post">
                     <h4 class="text-center text-danger">Đăng nhập hệ thống</h4>
@@ -115,7 +115,13 @@
                         <a href="<?php echo $loginUrlgg; ?>">
                             <button type="button" class="btn btn-outline-danger btn-or-ct"><i class="fa-brands fa-google"></i> Google</button> 
                         </a>
-                    </div>    
+                    </div>   
+                    
+                    <div class="p-3 ps-4">
+                        <a href="<?=site_url()?>" style="text-decoration: none;">
+                            ← Quay lại trang chủ
+                        </a>
+                    </div> 
 
                 </form>
             </div>
