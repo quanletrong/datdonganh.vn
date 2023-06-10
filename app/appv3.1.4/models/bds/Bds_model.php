@@ -246,7 +246,6 @@ class Bds_model extends CI_Model
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute([$contact_name])) {
-                // echo json_encode($stmt, true);die;
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $num_bds = $row['num_bds'];
                
@@ -259,64 +258,89 @@ class Bds_model extends CI_Model
         return $num_bds;
     }
 
+    function get_total_bds_active() {
+        $total = 0;
+        $iconn = $this->db->conn_id;
+        $sql = " SELECT count(*) as total FROM tbl_bds WHERE status = 1 ";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute()) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $total = $row['total'];
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $total;
+    }
     function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
     {
         $data = [];
         $iconn = $this->db->conn_id;
 
-        $where = "WHERE 1=1 ";
-        if ($title != '') $where           .= "AND A.title LIKE ? ";
-        if ($category != '') $where        .= "AND A.category = $category ";
-        if ($id_commune_ward != '') $where .= "AND A.id_commune_ward = $id_commune_ward ";
-        if ($id_street != '') $where       .= "AND A.id_street = $id_street ";
-        if ($id_project != '') $where      .= "AND A.id_project = $id_project ";
-        if ($id_user != '') $where         .= "AND A.id_user = $id_user ";
-        if ($status != '')  $where         .= "AND A.status = $status ";
-        if ($type != '')  $where           .= "AND A.type = $type ";
+        $WHERE = "WHERE 1=1 ";
+        if ($title != '') $WHERE           .= "AND A.title LIKE ? ";
+        if ($category != '') $WHERE        .= "AND A.category = $category ";
+        if ($id_commune_ward != '') $WHERE .= "AND A.id_commune_ward = $id_commune_ward ";
+        if ($id_street != '') $WHERE       .= "AND A.id_street = $id_street ";
+        if ($id_project != '') $WHERE      .= "AND A.id_project = $id_project ";
+        if ($id_user != '') $WHERE         .= "AND A.id_user = $id_user ";
+        if ($status != '')  $WHERE         .= "AND A.status = $status ";
+        if ($type != '')  $WHERE           .= "AND A.type = $type ";
 
         if($price_type == PRICE_TYPE_TOTAL) {
-            if ($f_price != '' && $t_price == '') $where .= "AND A.price_total >= $f_price ";
-            if ($f_price == '' && $t_price != '') $where .= "AND A.price_total <= $t_price ";
-            if ($f_price != '' && $t_price != '') $where .= "AND A.price_total BETWEEN $f_price AND $t_price ";
+            if ($f_price != '' && $t_price == '') $WHERE .= "AND A.price_total >= $f_price ";
+            if ($f_price == '' && $t_price != '') $WHERE .= "AND A.price_total <= $t_price ";
+            if ($f_price != '' && $t_price != '') $WHERE .= "AND A.price_total BETWEEN $f_price AND $t_price ";
         }
         
         if($price_type == PRICE_TYPE_M2) {
-            if ($f_price != '' && $t_price == '') $where .= "AND A.price_m2 >= $f_price ";
-            if ($f_price == '' && $t_price != '') $where .= "AND A.price_m2 <= $t_price ";
-            if ($f_price != '' && $t_price != '') $where .= "AND A.price_m2 BETWEEN $f_price AND $t_price ";
+            if ($f_price != '' && $t_price == '') $WHERE .= "AND A.price_m2 >= $f_price ";
+            if ($f_price == '' && $t_price != '') $WHERE .= "AND A.price_m2 <= $t_price ";
+            if ($f_price != '' && $t_price != '') $WHERE .= "AND A.price_m2 BETWEEN $f_price AND $t_price ";
         }
         
-        if ($f_acreage != '' && $t_acreage == '') $where .= "AND A.acreage >= $f_acreage ";
-        if ($f_acreage == '' && $t_acreage != '') $where .= "AND A.acreage <= $t_acreage ";
-        if ($f_acreage != '' && $t_acreage != '') $where .= "AND A.acreage BETWEEN $f_acreage AND $t_acreage ";
+        if ($f_acreage != '' && $t_acreage == '') $WHERE .= "AND A.acreage >= $f_acreage ";
+        if ($f_acreage == '' && $t_acreage != '') $WHERE .= "AND A.acreage <= $t_acreage ";
+        if ($f_acreage != '' && $t_acreage != '') $WHERE .= "AND A.acreage BETWEEN $f_acreage AND $t_acreage ";
 
-        if ($direction != '')  $where                     .= "AND A.direction = $direction ";
-        if ($floor != '')  $where                         .= "AND A.floor = $floor ";
-        if ($toilet != '')  $where                        .= "AND A.toilet = $toilet ";
-        if ($bedroom != '')  $where                       .= "AND A.bedroom = $bedroom ";
-        if ($noithat != '')  $where                       .= "AND A.noithat = $noithat ";
-        if ($road_surface != '')  $where                  .= "AND A.road_surface = $road_surface ";
-        if ($juridical != '')  $where                     .= "AND A.juridical = $juridical ";
-        if ($is_vip != '')  $where                        .= "AND A.is_vip = $is_vip ";
-        if ($is_home_vip != '')  $where                   .= "AND A.is_home_vip = $is_home_vip ";
-        if ($f_expired != '' && $t_expired != '')  $where .= "AND A.expired BETWEEN '$f_expired' AND '$t_expired' ";
+        if ($direction != '')  $WHERE                     .= "AND A.direction = $direction ";
+        if ($floor != '')  $WHERE                         .= "AND A.floor = $floor ";
+        if ($toilet != '')  $WHERE                        .= "AND A.toilet = $toilet ";
+        if ($bedroom != '')  $WHERE                       .= "AND A.bedroom = $bedroom ";
+        if ($noithat != '')  $WHERE                       .= "AND A.noithat = $noithat ";
+        if ($road_surface != '')  $WHERE                  .= "AND A.road_surface = $road_surface ";
+        if ($juridical != '')  $WHERE                     .= "AND A.juridical = $juridical ";
+        if ($is_vip != '')  $WHERE                        .= "AND A.is_vip = $is_vip ";
+        if ($is_home_vip != '')  $WHERE                   .= "AND A.is_home_vip = $is_home_vip ";
+        if ($f_expired != '' && $t_expired != '')  $WHERE .= "AND A.expired BETWEEN '$f_expired' AND '$t_expired' ";
 
-        if ($f_create != '' && $t_create == '')  $where   .= "AND A.create_time >='$f_create' ";
-        if ($f_create == '' && $t_create != '')  $where   .= "AND A.create_time <= '$t_create' ";
-        if ($f_create != '' && $t_create != '')  $where   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
+        if ($f_create != '' && $t_create == '')  $WHERE   .= "AND A.create_time >='$f_create' ";
+        if ($f_create == '' && $t_create != '')  $WHERE   .= "AND A.create_time <= '$t_create' ";
+        if ($f_create != '' && $t_create != '')  $WHERE   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
+
+        $ORDER_BY = "ORDER BY ";
+        if($orderby !='') $ORDER_BY .= "? ";
+        if($sort !='') $ORDER_BY .= "? , ";
+        $ORDER_BY .="A.id_bds DESC, A.status DESC ";
+
+        $LIMIT = "";
+        if($limit !='' && $offset !='') $LIMIT .= "LIMIT $limit OFFSET $offset";
 
         $sql = "
             SELECT A.*, B.username, B.fullname, C.name as street, D.name as commune  FROM tbl_bds as A  
             LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
-            $where
-            ORDER BY A.$orderby $sort, A.id_bds DESC, A.status DESC 
-            LIMIT $limit OFFSET $offset";
+            $WHERE
+            $ORDER_BY
+            $LIMIT ";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             // $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            if ($stmt->execute(["%$title%"])) {
+            if ($stmt->execute(["%$title%", "A.$orderby", $sort])) {
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

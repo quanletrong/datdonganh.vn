@@ -8,86 +8,18 @@
             <div class="row">
                 <div class="col-12 col-lg-4">
                     <div class="fw-bold fs-4" style="color:green">
-                        Tin vip
+                        Tin vip (<?= count($bds_home_vip) ?>)
                     </div>
                     <div class="row">
-                        <?php foreach ($home_vip as $id_bds => $bds) { ?>
+                        <?php foreach ($bds_home_vip as $id_bds => $bds) { ?>
                             <div class="col-md-6 col-lg-12">
-                                
-                                    <div class="rounded mb-3 shadow ">
-                                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                            <div class="position-relative">
-                                                <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
-                                                <div class="position-absolute bg-danger text-white px-2 rounded-end" style="left: 0; top: 1rem">Tin
-                                                    VIP</div>
-                                            </div>
-                                        </a>
-                                        <div class="p-2">
-                                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;"><?= $bds['title'] ?></div>
-                                            </a>
-                                            <div class="d-flex justify-content-between">
-                                                <div class="text-danger fw-bold">
-                                                    <?= $bds['price_view'] ?>
-                                                    <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
-                                                </div>
-                                                <div class="mb-1">·</div>
-                                                <div class="text-danger fw-bold">
-                                                    <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
-                                                </div>
-                                                <div class="mb-1">·</div>
-                                                <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
-                                            </div>
 
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="text-secondary">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <?= $communes[$bds['id_commune_ward']]['name'] ?>
-                                                </div>
-
-                                                <?php if ($bds['direction'] > 0) { ?>
-                                                    <div class="text-secondary">
-                                                        Hướng: <?= $cf_bds['direction'][$bds['direction']] ?>
-                                                    </div>
-                                                <?php } ?>
-
-                                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between align-items-center d-none">
-                                                <div class="d-flex align-items-center" style="gap:10px">
-                                                    <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.0;">
-                                                        K
-                                                    </div>
-                                                    <div>
-                                                        <div class="fw-semibold" style="font-size: 0.7rem;">Kim Dung</div>
-                                                        <div class="text-muted" style="font-size: 0.7rem;">Hôm nay</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> 0936 030 966</button>
-                                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-                <hr class="d-block d-lg-none">
-                <div class="col-12 col-lg-8">
-                    <div class="fw-bold fs-4" style="color:green; margin-left: 23px;">
-                        Tin mới nhất
-                    </div>
-                    <div class="row" style="border-left: 4px solid green; margin-left: 10px;">
-                        <?php foreach ($bdss as $id_bds => $bds) { ?>
-                            <div class="col-md-6">
-                                
-                                <div class="rounded border border-1 border-muted mb-3 shadow">
+                                <div class="rounded mb-3 shadow ">
                                     <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                                            <div class="position-absolute bg-danger text-white px-2 rounded-end" style="left: 0; top: 1rem">Tin
+                                                VIP</div>
                                         </div>
                                     </a>
                                     <div class="p-2">
@@ -119,7 +51,7 @@
                                                 </div>
                                             <?php } ?>
 
-                                            <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                                            <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center d-none">
@@ -134,12 +66,86 @@
                                             </div>
                                             <div>
                                                 <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> 0936 030 966</button>
-                                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm btn-outline-danger"><i class="fa-regular fa-heart"></i></button>
+                                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <hr class="d-block d-lg-none">
+                <div class="col-12 col-lg-8">
+                    <div class="fw-bold fs-4" style="color:green; margin-left: 23px;">
+                        Tin mới nhất (<?= $total_bds_active ?>)
+                    </div>
+                    <div class="row" style="border-left: 4px solid green; margin-left: 10px;">
+                        <?php $index = 0; ?>
+                        <?php foreach ($bds_new_most as $id_bds => $bds) { ?>
+                            <?php if ($index < 20) { ?>
+                                <?php $index++; ?>
+                                <div class="col-md-6">
+
+                                    <div class="rounded border border-1 border-muted mb-3 shadow">
+                                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
+                                            <div class="position-relative">
+                                                <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                                            </div>
+                                        </a>
+                                        <div class="p-2">
+                                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
+                                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;"><?= $bds['title'] ?></div>
+                                            </a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-danger fw-bold">
+                                                    <?= $bds['price_view'] ?>
+                                                    <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
+                                                </div>
+                                                <div class="mb-1">·</div>
+                                                <div class="text-danger fw-bold">
+                                                    <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
+                                                </div>
+                                                <div class="mb-1">·</div>
+                                                <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="text-secondary">
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <?= $communes[$bds['id_commune_ward']]['name'] ?>
+                                                </div>
+
+                                                <?php if ($bds['direction'] > 0) { ?>
+                                                    <div class="text-secondary">
+                                                        Hướng: <?= $cf_bds['direction'][$bds['direction']] ?>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center d-none">
+                                                <div class="d-flex align-items-center" style="gap:10px">
+                                                    <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.0;">
+                                                        K
+                                                    </div>
+                                                    <div>
+                                                        <div class="fw-semibold" style="font-size: 0.7rem;">Kim Dung</div>
+                                                        <div class="text-muted" style="font-size: 0.7rem;">Hôm nay</div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> 0936 030 966</button>
+                                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm btn-outline-danger"><i class="fa-regular fa-heart"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } else {
+                                break;
+                            } ?>
                         <?php } ?>
                         <div class="d-flex justify-content-center">
                             <a href="<?= LINK_NHA_DAT_BAN ?>">
