@@ -917,14 +917,30 @@ function timeSince($date) {
 }
 
 function getPrice($number) {
-  if ($number >= 1000000000) {
-    echo number_format($number / 1000000000) . ' tỷ';
-  } else if ($number >= 1000000) {
-    echo number_format($number / 1000000) . ' triệu';
+  if ($number >= PRICE_ONE_BILLION) {
+    echo round($number / PRICE_ONE_BILLION, 1) . ' tỷ';
+  } else if ($number >= PRICE_ONE_MILLION) {
+    echo round($number / PRICE_ONE_MILLION, 2) . ' triệu';
   } else {
     echo number_format($number) . 'đ';
   }
 }
+
+function getPriceM2($number, $m2) {
+
+    $priceM2 = 0;
+    if(intval($m2) > 0) {
+        $priceM2 = $number/$m2;
+    }
+
+    if ($priceM2 >= PRICE_ONE_BILLION) {
+      echo round($priceM2/ PRICE_ONE_BILLION, 1) . ' tỷ/m²';
+    } else if ($priceM2 >= PRICE_ONE_MILLION) {
+      echo round($priceM2/ PRICE_ONE_MILLION, 2) . ' tr/m²';
+    } else {
+      echo number_format($number) . 'đ/m²';
+    }
+  }
 
 function create_slug($string) {
     $search = array(

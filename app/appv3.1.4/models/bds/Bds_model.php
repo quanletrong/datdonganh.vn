@@ -321,11 +321,6 @@ class Bds_model extends CI_Model
         if ($f_create == '' && $t_create != '')  $WHERE   .= "AND A.create_time <= '$t_create' ";
         if ($f_create != '' && $t_create != '')  $WHERE   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
 
-        $ORDER_BY = "ORDER BY ";
-        if($orderby !='') $ORDER_BY .= "? ";
-        if($sort !='') $ORDER_BY .= "? , ";
-        $ORDER_BY .="A.id_bds DESC, A.status DESC ";
-
         $LIMIT = "";
         if($limit !='' && $offset !='') $LIMIT .= "LIMIT $limit OFFSET $offset";
 
@@ -335,12 +330,12 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
             $WHERE
-            $ORDER_BY
+            ORDER BY A.$orderby $sort , A.id_bds DESC, A.status DESC 
             $LIMIT ";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             // $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            if ($stmt->execute(["%$title%", "A.$orderby", $sort])) {
+            if ($stmt->execute(["%$title%"])) {
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

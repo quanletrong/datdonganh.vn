@@ -224,12 +224,17 @@
                     <div class="me-3 me-md-5">
                         <div class="text-muted">Mức giá</div>
                         <div class="fw-bold fs-5">
-                            <?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?>
+                            <?php echo getPrice($bdsInfo['price_total']);?>
                         </div>
                     </div>
                     <div class="me-3 me-md-5">
                         <div class="text-muted">Diện tích</div>
                         <div class="fw-bold fs-5"><?php echo $bdsInfo['acreage']; ?> m²</div>
+                    </div>
+
+                    <div class="me-3 me-md-5">
+                        <div class="text-muted">Giá/m²</div>
+                        <div class="fw-bold fs-5"> <?= getPriceM2($bdsInfo['price_total'], $bdsInfo['acreage']) ?></div>
 
                     </div>
 
@@ -364,12 +369,11 @@
                                 </a>
                                 <div class="d-flex justify-content-between">
                                     <div class="text-danger fw-bold">
-                                        <?= $bds['price_view'] ?>
-                                        <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
+                                        <?= getPrice($bds['price_total']) ?>
                                     </div>
                                     <div class="mb-1">·</div>
                                     <div class="text-danger fw-bold">
-                                        <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
+                                        <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
                                     </div>
                                     <div class="mb-1">·</div>
                                     <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
@@ -596,11 +600,11 @@
                             <div class="d-flex justify-content-between">
                                 <div class="text-danger fw-bold">
                                     ${val.price_view}
-                                    ${val.price_unit == '1' ? 'trăm triệu' : 'tỷ' }
+                                    ${val.price_unit == '1' ? 'triệu' : 'tỷ' }
                                 </div>
                                 <div class="mb-1">·</div>
                                 <div class="text-danger fw-bold">
-                                    ${ parseInt(val.price_total) / parseInt(val.acreage) / parseInt(PRICE_ONE_MILLION)} tr/m²
+                                    ${ (parseInt(val.price_total) / parseInt(val.acreage) / parseInt(PRICE_ONE_MILLION)).toFixed(2)} tr/m²
                                 </div>
                                 <div class="mb-1">·</div>
                                 <div class="text-danger  fw-bold">${val.acreage}</div>

@@ -1970,3 +1970,23 @@ function notice_success(title, isReload){
         }
     });
 }
+
+function get_text(el) {
+    ret = "";
+    var length = el.childNodes.length;
+    for(var i = 0; i < length; i++) {
+        var node = el.childNodes[i];
+        if(node.nodeType != 8) {
+            ret += node.nodeType != 1 ? node.nodeValue : get_text(node);
+        }
+    }
+    return ret;
+}
+
+function time_read_article (el, speed=200) {
+    var words = get_text(document.getElementById(el));
+    var count = words.split(' ').length;
+    var timeTB = Math.round(count/speed);
+
+    return timeTB < 1 ? 1 : timeTB;
+}

@@ -30,7 +30,7 @@
         </div>
         <div>
             <div>Được đăng bởi <strong><?= $info['fullname'] ?></strong></div>
-            <div>Cập nhật lần cuối vào <?php echo timeSince($info['update_time']) ?> trước • Đọc trong khoảng 5 phút</div>
+            <div>Cập nhật lần cuối vào <?php echo timeSince($info['update_time']) ?> trước • Đọc trong khoảng <span id="time_read_articles">1</span> phút</div>
         </div>
     </div>
 </div>
@@ -42,7 +42,7 @@
                 <strong><?= $info['sapo'] ?></strong>
             </div>
             <!-- <hr class="text-muted"> -->
-            <div class="content-archive mt-3" style="font-family: Lexend !important">
+            <div id="content-archive" class="content-archive mt-3" style="font-family: Lexend !important">
                 <?= html_entity_decode(htmlspecialchars_decode($info['content'])) ?>
                 <script>
                     $(document).ready(function() {
@@ -51,6 +51,8 @@
                             'width': 'auto',
                             'height': 'auto'
                         });
+
+                        $('#time_read_articles').text(time_read_article('content-archive'));
                     })
                 </script>
             </div>
@@ -107,7 +109,7 @@
                         <div class="d-flex gap-2">
                             <div class="text-danger fw-bold"><?= getPrice($bds['price_total']) ?></div>
                             <div class="mb-1">.</div>
-                            <div class="text-danger  fw-bold"><?= getPrice($bds['price_m2']) ?>/m²</div>
+                            <div class="text-danger  fw-bold"><?= getPriceM2($bds['price_total'], $bds['acreage']) ?></div>
                             <div class="mb-1">.</div>
                             <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
                         </div>

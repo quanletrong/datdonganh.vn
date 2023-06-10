@@ -28,12 +28,11 @@
                                         </a>
                                         <div class="d-flex justify-content-between">
                                             <div class="text-danger fw-bold">
-                                                <?= $bds['price_view'] ?>
-                                                <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
+                                                <?= getPrice($bds['price_total']) ?>
                                             </div>
                                             <div class="mb-1">·</div>
                                             <div class="text-danger fw-bold">
-                                                <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
+                                                <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
                                             </div>
                                             <div class="mb-1">·</div>
                                             <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
@@ -99,12 +98,11 @@
                                             </a>
                                             <div class="d-flex justify-content-between">
                                                 <div class="text-danger fw-bold">
-                                                    <?= $bds['price_view'] ?>
-                                                    <?= $bds['price_unit'] === '1' ? 'trăm triệu' : 'tỷ' ?>
+                                                    <?= getPrice($bds['price_total']) ?>
                                                 </div>
                                                 <div class="mb-1">·</div>
                                                 <div class="text-danger fw-bold">
-                                                    <?= $bds['price_total'] / $bds['acreage'] / PRICE_ONE_MILLION ?> tr/m²
+                                                    <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
                                                 </div>
                                                 <div class="mb-1">·</div>
                                                 <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
