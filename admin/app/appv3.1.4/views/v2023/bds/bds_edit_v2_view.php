@@ -439,7 +439,7 @@
 
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                                     <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Địa chỉ <span class="text-danger">*</span></label>
+                                        <label class="m-0 p-0 pr-1">Địa chỉ </label>
                                     </div>
                                     <input type="text" class="form-control" style="width:75%" name="contactaddress" value="<?= $info['contactaddress'] ?>">
                                 </div>
@@ -453,7 +453,7 @@
 
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                                     <div class="me-2 w-25" style="text-align: end;">
-                                        <label class="m-0 p-0 pr-1">Email <span class="text-danger">*</span></label>
+                                        <label class="m-0 p-0 pr-1">Email </label>
                                     </div>
                                     <input type="text" class="form-control" style="width:75%" name="contactemail" value="<?= $info['contactemail'] ?>">
                                 </div>
@@ -678,7 +678,7 @@
         })
 
         $('input, textarea').focusout(function() {
-            let list_required = ['title', 'address', 'price', 'acreage', 'content', 'contactname', 'contactaddress', 'contactphone', 'contactemail'];
+            let list_required = ['title', 'address', 'price', 'acreage', 'content', 'contactname', 'contactphone'];
             let select_current_name = $(this).attr('name');
             if (list_required.includes(select_current_name)) {
                 validobj.element(`*[name="${select_current_name}"]`);
@@ -835,8 +835,6 @@
                 },
                 contactname: "required",
                 contactphone: "required",
-                contactaddress: "required",
-                contactemail: "required",
 
             },
             messages: {

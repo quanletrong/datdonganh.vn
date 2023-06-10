@@ -1,159 +1,117 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Account_model extends CI_Model
-{	
-	function __construct()
-	{
-		parent::__construct();
-	}
-
-    function user_info_by_list_uid($lstUserid)
+{
+    public function __construct()
     {
-        $data = array();
-		$iconn = $this->db->conn_id;
-        $sql   = "CALL sl_user_info_by_list_uid(:lstUserid);";
-        $stmt  = $iconn->prepare($sql);
-        if($stmt)
-        {
-            $stmt->bindParam(':lstUserid', $lstUserid, PDO::PARAM_STR);
-            if($stmt->execute())
-            {
-                if($stmt->rowCount() > 0)
-                {
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                    {
-                        $data[$row['user_id']] = $row;
-                    }
-                }
-            }
-            $stmt->closeCursor();
-        }
-		
-    	return $data;
+        // Call the CI_Model constructor
+        parent::__construct();
     }
-    
-    function user_info($user_id)
+
+    // function add($name, $status, $id_user)
+    // {
+    //     $execute = false;
+    //     $iconn = $this->db->conn_id;
+    //     $sql = "INSERT INTO tbl_street (name, status, id_user, create_time) VALUES (?, ?, ?, ?)";
+    //     $stmt = $iconn->prepare($sql);
+    //     if ($stmt) {
+    //         $param = [$name, $status, $id_user, date('Y-m-d H:i:s')];
+
+    //         if ($stmt->execute($param)) {
+    //             $execute = true;
+    //         } else {
+    //             var_dump($stmt->errorInfo());
+    //             die;
+    //         }
+    //     }
+    //     $stmt->closeCursor();
+    //     return $execute;
+    // }
+
+    function get_info($id_user)
     {
-    	$data = array();
-		// get user info
-		$uInfo = SSOServices::user_info($user_id);
-		
+        $data = [];
         $iconn = $this->db->conn_id;
-		$sql = "CALL sl_user_info(:user_id);";
-		$stmt = $iconn->prepare($sql);
-		if($stmt)
-		{
-			$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-			if($stmt->execute())
-			{
-				if($stmt->rowCount() > 0)
-				{
-					$data = $stmt->fetch(PDO::FETCH_ASSOC);
-				}
-				$stmt->closeCursor();
-			}
-		}
-
-    	if(!empty($data))
-		{
-			$data['phone'] = '';
-			$data['contact_name'] = '';
-			$data['email_address'] = '';
-			$data['address'] = '';
-			$data['gender'] = '0';
-			$data['birthday'] = '';
-			$data['gau'] = '';
-			$data['password'] = '';
-
-			if(!empty($uInfo))
-			{
-				$data['phone'] = $uInfo['phone'];
-				$data['contact_name'] = $uInfo['fullname'];
-				$data['email_address'] = $uInfo['email'];
-				$data['address'] = $uInfo['address'];
-				$data['gender'] = $uInfo['gender'];
-				$data['birthday'] = $uInfo['birthday'];
-				$data['password'] = $uInfo['password'];
-				$data['gau'] = $uInfo['gau'];
-				
-				if($data['groupid'] != $uInfo['groupid'] || $data['active'] != $uInfo['active'] || $data['block'] != $uInfo['block'] || $data['delete'] != $uInfo['delete'] || $data['issale'] != $uInfo['issale'] || $data['saleid'] != $uInfo['saleid'])
-				{
-					$sql = "CALL sl_user_sync_from_sso(:user_id, :username, :groupid, :issale, :saleid, :active, :block, :delete, :role);";
-					$stmt = $iconn->prepare($sql);
-					if($stmt)
-					{
-						$role = $data['role'];
-						$stmt->bindParam(':user_id', $uInfo['user_id'], PDO::PARAM_INT);
-						$stmt->bindParam(':username', $uInfo['username'], PDO::PARAM_STR);
-						$stmt->bindParam(':groupid', $uInfo['groupid'], PDO::PARAM_INT);
-						$stmt->bindParam(':issale', $uInfo['issale'], PDO::PARAM_INT);
-						$stmt->bindParam(':saleid', $uInfo['saleid'], PDO::PARAM_INT);
-						$stmt->bindParam(':active', $uInfo['active'], PDO::PARAM_INT);
-						$stmt->bindParam(':block', $uInfo['block'], PDO::PARAM_INT);
-						$stmt->bindParam(':delete', $uInfo['delete'], PDO::PARAM_INT);
-						$stmt->bindParam(':role', $role, PDO::PARAM_INT);
-		                if($stmt->execute())
-						{
-							$stmt->closeCursor();
-						}
-					}
-				}
-			}
-		}
-		// sync user info to safelist db
-		else
-		{
-			if(!empty($uInfo))
-			{
-				
-				//syn user
-				$sql = "CALL sl_user_sync_from_sso(:user_id, :username, :groupid, :issale, :saleid, :active, :block, :delete, :role);";
-				$stmt = $iconn->prepare($sql);
-				if($stmt)
-				{
-					$role = '3';
-					$stmt->bindParam(':user_id', $uInfo['user_id'], PDO::PARAM_INT);
-					$stmt->bindParam(':username', $uInfo['username'], PDO::PARAM_STR);
-					$stmt->bindParam(':groupid', $uInfo['groupid'], PDO::PARAM_INT);
-					$stmt->bindParam(':issale', $uInfo['issale'], PDO::PARAM_INT);
-					$stmt->bindParam(':saleid', $uInfo['saleid'], PDO::PARAM_INT);
-					$stmt->bindParam(':active', $uInfo['active'], PDO::PARAM_INT);
-					$stmt->bindParam(':block', $uInfo['block'], PDO::PARAM_INT);
-					$stmt->bindParam(':delete', $uInfo['delete'], PDO::PARAM_INT);
-					$stmt->bindParam(':role', $role, PDO::PARAM_INT);
-	                if($stmt->execute())
-					{
-						$stmt->closeCursor();
-						
-						$sql2 = "CALL sl_user_info(:user_id);";
-				        $stmt2 = $iconn->prepare($sql2);
-						if($stmt)
-						{
-							$stmt2->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-							if($stmt2->execute())
-							{
-								if($stmt2->rowCount() > 0)
-								{
-				                    $data = $stmt2->fetch(PDO::FETCH_ASSOC);
-								}
-								$stmt2->closeCursor();
-							}
-						}
-					}
-				}
-				if(!empty($data))
-				{
-					$data['phone'] = $uInfo['phone'];
-					$data['contact_name'] = $uInfo['fullname'];
-					$data['email_address'] = $uInfo['email'];
-					$data['address'] = $uInfo['address'];
-					$data['gender'] = $uInfo['gender'];
-					$data['birthday'] = $uInfo['birthday'];
-					$data['password'] = $uInfo['password'];
-					$data['gau'] = $uInfo['gau'];
-				}
-			}
-		}
-    	return $data;
+        $sql = "SELECT * FROM tbl_user WHERE id_user = ?";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$id_user])) {
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
     }
+
+    // function get_list($status = '')
+    // {
+    //     $data = [];
+    //     $iconn = $this->db->conn_id;
+
+    //     $where = 'WHERE 1=1 ';
+    //     $where .= $status !== '' ? " AND A.status =? " : "";
+
+    //     $sql = "
+    //     SELECT A.*, B.username 
+    //     FROM tbl_street as A 
+    //     LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
+    //     $where
+    //     ORDER BY A.id_street DESC";
+    //     $stmt = $iconn->prepare($sql);
+    //     if ($stmt) {
+    //         if ($stmt->execute([$status])) {
+    //             if ($stmt->rowCount() > 0) {
+    //                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //                     $data[$row['id_street']] = $row;
+    //                 }
+    //             }
+    //         } else {
+    //             var_dump($stmt->errorInfo());
+    //             die;
+    //         }
+    //     }
+    //     $stmt->closeCursor();
+    //     return $data;
+    // }
+
+    // function edit($id_street, $name, $status)
+    // {
+    //     $execute = false;
+    //     $iconn = $this->db->conn_id;
+    //     $sql = "UPDATE tbl_street SET name=?, status=?, update_time=? WHERE id_street=?";
+    //     $stmt = $iconn->prepare($sql);
+    //     if ($stmt) {
+    //         $param = [$name, $status, date('Y-m-d H:i:s'), $id_street];
+
+    //         if ($stmt->execute($param)) {
+    //             $execute = true;
+    //         } else {
+    //             var_dump($stmt->errorInfo());
+    //             die;
+    //         }
+    //     }
+    //     $stmt->closeCursor();
+    //     return $execute;
+    // }
+
+    // function delete($id_street)
+    // {
+    //     $execute = false;
+    //     $iconn = $this->db->conn_id;
+    //     $sql = "DELETE FROM tbl_street WHERE id_street=?";
+    //     $stmt = $iconn->prepare($sql);
+    //     if ($stmt) {
+    //         if ($stmt->execute([$id_street])) {
+    //             $execute = true;
+    //         } else {
+    //             var_dump($stmt->errorInfo());
+    //             die;
+    //         }
+    //     }
+    //     $stmt->closeCursor();
+    //     return $execute;
+    // }
 }

@@ -25,6 +25,7 @@ class Bds extends MY_Controller
         $this->load->model('bds/Bds_model');
         $this->load->model('tag/Tag_model');
         $this->load->model('tag_assign/Tag_assign_model');
+        $this->load->model('account/Account_model');
     }
 
     function index()
@@ -114,6 +115,7 @@ class Bds extends MY_Controller
         $data['list_street'] = $list_street;
         $data['list_commune'] = $list_commune;
         $data['list_tag'] = $list_tag;
+        $data['uinfo'] = $this->Account_model->get_info($this->_session_uid());
 
         $header = [
             'title' => 'Đăng thêm bất động sản',
