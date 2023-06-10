@@ -125,4 +125,23 @@ class Articles_model extends CI_Model
         $stmt->closeCursor();
         return $execute;
     }
+
+    function update_status($status, $id_articles) {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_articles SET status=$status WHERE id_articles = $id_articles ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    } 
 }

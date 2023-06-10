@@ -263,4 +263,26 @@ class Auction extends MY_Controller
         $this->session->set_flashdata('flsh_msg', $msg);
         redirect('auction');
     }
+
+    function ajax_update_status()
+    {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
+            resError('Không có quyền truy cập');
+        }
+
+        $status   = removeAllTags($this->input->post('status'));
+        $id_article   = removeAllTags($this->input->post('id_article'));
+
+        if (in_array($status, ['0', '1'])) {
+            $info = $this->Articles_model->get_info($id_article);
+            if (!empty($info)) {
+                $this->Articles_model->update_status($status, $id_article);
+                resSuccess('ok');
+            } else {
+                resError('Không tìm thấy bài viết');
+            }
+        } else {
+            resError('Dữ liệu không hợp lệ');
+        }
+    }
 }

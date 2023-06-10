@@ -55,13 +55,19 @@
                                             <td class="align-middle"><?= $articles['title'] ?></td>
                                             <td class="align-middle text-center"><img src='<?= $articles['image_path'] ?>' width="100" class="rounded"></td>
                                             <td class="align-middle text-center">
-                                                <?php
-                                                if ($articles['status'] === '1') {
-                                                    echo '<span class="badge bg-primary">Đang hiển thị</span>';
-                                                } else {
-                                                    echo '<span class="badge bg-warning">Ngừng hiển thị</span>';
-                                                }
-                                                ?>
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle" type="button" id="drop_change_status_<?= $id_articles ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php if ($articles['status'] == '1') { ?>
+                                                            <i class="fas fa-globe-europe text-success" title="Công khai"></i>
+                                                        <?php } else { ?>
+                                                            <i class="fas fa-lock text-secondary" title="Riêng tư"></i>
+                                                        <?php } ?>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="drop_change_status_<?= $id_articles ?>">
+                                                        <button class="dropdown-item" type="button" onclick="drop_change_status(1, <?= $id_articles ?>)">Công khai</button>
+                                                        <button class="dropdown-item" type="button" onclick="drop_change_status(0, <?= $id_articles ?>)">Riêng tư</button>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <?= date('H:i d/m/Y', strtotime($articles['create_time'])) ?>
@@ -110,25 +116,25 @@
 <div class="modal fade" id="modal-delete" style="display: none" aria-modal="true" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
-                <div class="modal-header">
-                    <h4 class="modal-title text-center">Cảnh báo xóa bài</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Cảnh báo xóa bài</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <p>
+                    <h5 id="name_for_warning_model">...</h5> sẽ chuyển vào khu vực <span class="badge bg-warning">lưu trữ</span> bạn chắc chắn muốn điều đó?
+                    <p><a href="#" class="btn btn-sm btn-warning shadow">Danh sách bài lưu trữ</a></p>
+                    </p>
                 </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <p>
-                            <h5 id="name_for_warning_model">...</h5> sẽ chuyển vào khu vực <span class="badge bg-warning">lưu trữ</span> bạn chắc chắn muốn điều đó?
-                        <p><a href="#" class="btn btn-sm btn-warning shadow">Danh sách bài lưu trữ</a></p>
-                        </p>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button class="btn btn-outline-light" data-dismiss="modal">Quay lại</button>
-                    <a href="" class="btn btn-outline-light" id="btn_xoa">Vẫn xóa</a>
-                </div>
+                <!-- /.card-body -->
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button class="btn btn-outline-light" data-dismiss="modal">Quay lại</button>
+                <a href="" class="btn btn-outline-light" id="btn_xoa">Vẫn xóa</a>
+            </div>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -152,4 +158,36 @@
 
         });
     });
+
+    function drop_change_status(status, id_article) {
+        $('#drop_change_status_' + id_article).html('<i class="fas fa-sync fa-spin "></i>');
+
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('auction/ajax_update_status') ?>", // dùng chung trong auction
+            data: {
+                'status': status,
+                'id_article': id_article,
+            },
+            success: function(res) {
+                try {
+                    let resData = JSON.parse(res);
+                    if (resData.status) {
+
+                        if (status) {
+                            $('#drop_change_status_' + id_article).html('<i class="fas fa-globe-europe text-success" title="Công khai"></i>');
+                        } else {
+                            $('#drop_change_status_' + id_article).html('<i class="fas fa-lock text-secondary" title="Riêng tư"></i>');
+
+                        }
+                        toasts_success();
+                    } else {
+                        toasts_danger(resData.data);
+                    }
+                } catch (error) {
+                    toasts_danger();
+                }
+            }
+        });
+    }
 </script>
