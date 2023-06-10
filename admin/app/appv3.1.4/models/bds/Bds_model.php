@@ -159,7 +159,12 @@ class Bds_model extends CI_Model
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, id_user=?, category=?, status=?, type=?, title=?, slug_title=?, address=?, maps=?, sapo=?, content=?, images=?, videos=?, price_total=?, price_m2=?, price_type=?, acreage=?, facades=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, contacttype=?, contactname=?, contactaddress=?, contactphone=?, contactemail=?, update_time=? WHERE id_bds=?";
+        $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, id_user=?, category=?, status=?, type=?, title=?, slug_title=?, address=?, maps=?, sapo=?, content=?, images=?, videos=?, price_total=?, price_m2=?, price_type=?, acreage=?, facades=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, contacttype=?, contactname=?, contactaddress=?, contactphone=?, contactemail=?, update_time=? WHERE id_bds=?; ";
+
+        if($is_vip == '0') {
+            $sql .= "UPDATE tbl_bds SET is_home_vip = 0 WHERE id_bds = $id_bds ; ";
+        }
+
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             $param = [$id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $update_time, $id_bds];
@@ -211,4 +216,23 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $execute;
     }
+
+    function update_status($status, $id_bds) {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_bds SET status=$status WHERE id_bds = $id_bds ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    } 
 }

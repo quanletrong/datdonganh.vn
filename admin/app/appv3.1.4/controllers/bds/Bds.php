@@ -388,4 +388,26 @@ class Bds extends MY_Controller
         $this->session->set_flashdata('flsh_msg', $msg);
         redirect('bds/edit/' . $id_bds);
     }
+
+    function ajax_update_status()
+    {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
+            resError('not_permit_func');
+        }
+
+        $status   = removeAllTags($this->input->post('status'));
+        $id_bds   = removeAllTags($this->input->post('id_bds'));
+
+        if (in_array($status, ['0', '1'])) {
+            $info = $this->Bds_model->get_info($id_bds, $this->_session_uid());
+            if (!empty($info)) {
+                $this->Bds_model->update_status($status, $id_bds);
+                resSuccess('ok');
+            } else {
+                resError('not_permit_bds');
+            }
+        } else {
+            resError('error_status');
+        }
+    }
 }

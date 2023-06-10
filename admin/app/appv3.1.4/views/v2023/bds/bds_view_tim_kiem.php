@@ -5,7 +5,7 @@
             <input type="text" class="form-control" placeholder="Tìm bài viết theo tiêu đề" value="<?= @$_GET['title'] ?>" name="title">
         </div>
         <!-- ngày -->
-        <div class="col-md-6 mb-3">
+        <div class="col-md-3 mb-3">
             <div class="input-group">
                 <input type="text" class="form-control daterange-btn" placeholder="Nhập khoảng ngày" id="create_time" value="">
                 <input type="hidden" name="f_create" value="<?= @$_GET['f_create'] ?>">
@@ -14,6 +14,16 @@
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
             </div>
+        </div>
+
+        <!-- Loại đất -->
+        <div class="col-md-3 mb-3">
+            <select class="select2" name="type" data-minimum-results-for-search="Infinity">
+                <option value="">Tất cả loại đất</option>
+                <?php foreach($cf_bds['type'] as $id => $name){?>
+                    <option value="<?=$id?>" <?= @$_GET['type'] == $id ? 'selected' : '' ?>><?=$name?></option>
+                <?php } ?>
+            </select>
         </div>
 
         <!-- Giá -->
@@ -112,8 +122,9 @@
         </div>
 
         <!-- search -->
-        <div class="col-md-2 mb-3">
-            <button type="submit" class="btn btn-primary w-100"><i class="fas fa-search"></i></button>
+        <div class="col-md-2 mb-3 d-flex" style="gap:5px">
+            <button type="submit" class="btn btn-primary w-75" title="Tìm kiếm"><i class="fas fa-search"></i></button>
+            <a href="/admin" class="btn btn-danger w-25" title="Làm mới bộ lọc"><i class="fas fa-sync-alt"></i></a>
         </div>
     </div>
 </form>

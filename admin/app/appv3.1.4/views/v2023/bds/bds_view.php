@@ -43,13 +43,15 @@
                             <!-- tim kiem -->
                             <?php $this->load->view('v2023/bds/bds_view_tim_kiem'); ?>
                             <!-- /.tim kiem -->
-                            
+
                             <!-- table data -->
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 50px;">ID</th>
                                         <th style="min-width: 300px;">Bất động sản</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Xã</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Chế độ</th>
                                         <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
@@ -71,14 +73,28 @@
                                                 </a>
                                             </td>
                                             <td class=" text-center  align-middle">
+                                                <?= $bds['commune'] ?>
+                                            </td>
+                                            <td class=" text-center  align-middle">
+                                                <?= $cf_bds['type'][$bds['type']] ?>
+                                            </td>
+                                            <td class=" text-center  align-middle">
                                                 <img src="<?= $bds['main_img'] ?>" alt="" class="img-fluid">
                                             </td>
                                             <td class=" text-center align-middle">
-                                                <?php if ($bds['status'] == '1') { ?>
-                                                    <i class="fas fa-globe-europe text-success" title="Công khai"></i>
-                                                <?php } else { ?>
-                                                    <i class="fas fa-lock text-secondary" title="Riêng tư"></i>
-                                                <?php } ?>
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle" type="button" id="drop_change_status_<?= $bds['id_bds'] ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php if ($bds['status'] == '1') { ?>
+                                                            <i class="fas fa-globe-europe text-success" title="Công khai"></i>
+                                                        <?php } else { ?>
+                                                            <i class="fas fa-lock text-secondary" title="Riêng tư"></i>
+                                                        <?php } ?>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="drop_change_status_<?= $bds['id_bds'] ?>">
+                                                        <button class="dropdown-item" type="button" onclick="drop_change_status(1, <?= $bds['id_bds'] ?>)">Công khai</button>
+                                                        <button class="dropdown-item" type="button" onclick="drop_change_status(0, <?= $bds['id_bds'] ?>)">Riêng tư</button>
+                                                    </div>
+                                                </div>
                                             </td>
 
                                             <td class="text-right  align-middle">
@@ -105,6 +121,8 @@
                                     <tr>
                                         <th class="text-center" style="width: 50px;">ID</th>
                                         <th style="min-width: 100px;">Bất động sản</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Xã</th>
+                                        <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
                                         <th class="text-center" style="min-width: 90px; width: 90px;">Chế độ</th>
                                         <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
@@ -198,4 +216,36 @@
 
         });
     });
+
+    function drop_change_status(status, id_bds) {
+        $('#drop_change_status_'+id_bds).html('<i class="fas fa-sync fa-spin "></i>');
+        
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('bds/ajax_update_status') ?>",
+            data: {
+                'status': status,
+                'id_bds': id_bds,
+            },
+            success: function(res) {
+                try {
+                    let resData = JSON.parse(res);
+                    if (resData.status) {
+
+                        if (status) {
+                            $('#drop_change_status_'+id_bds).html('<i class="fas fa-globe-europe text-success" title="Công khai"></i>');
+                        } else {
+                            $('#drop_change_status_'+id_bds).html('<i class="fas fa-lock text-secondary" title="Riêng tư"></i>');
+
+                        }
+                        toasts_success();
+                    } else {
+                        toasts_danger(resData.data);
+                    }
+                } catch (error) {
+                    toasts_danger();
+                }
+            }
+        });
+    }
 </script>

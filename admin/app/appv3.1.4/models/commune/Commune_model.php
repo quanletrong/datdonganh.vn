@@ -71,7 +71,7 @@ class Commune_model extends CI_Model
                         $month = date('m', strtotime($row['create_time']));
                         $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
 
-                        $data[] = $row;
+                        $data[$row['id_commune_ward']] = $row;
                     }
                 }
             } else {
