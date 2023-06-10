@@ -101,6 +101,12 @@ class Auction extends MY_Controller {
             'header_page_css_js' => 'news'
         ];
         
+        if ($this->_isLogin()) {
+            if($this->_session_uid() == $info['id_user'] || $this->_session_role() == SUPERADMIN) {
+                $header['edit_link'] = 'admin/auction/edit/'.$id;
+            }
+        }
+
         $this->_loadHeader($header);
         
         $this->load->view($this->_template_f . 'auction/detail/auction_detail_view', $data);

@@ -50,7 +50,7 @@
                         $('.content-archive img').css({
                             'width': 'auto',
                             'height': 'auto',
-                            "font-family" : 'Lexend'
+                            "font-family": 'Lexend'
                         });
                     })
                 </script>
@@ -60,7 +60,18 @@
                 Nguồn: <?= $info['origin'] ?>
             </div>
 
+            <!-- khác giành cho bạn -->
+            <div class="mt-5">
+                <div class="fw-bold fs-5">Các <?= $page ?> khác giành cho bạn</div>
 
+                <div class="mt-3" id="articles-load">
+
+                </div>
+                <center>
+                    <input type="hidden" value="1" id="page" />
+                    <button class="btn btn-outline-danger" onclick="get_data_more()">Xem Thêm</button>
+                </center>
+            </div>
         </div>
         <div class="col-12 col-lg-4">
             <div class="sticky-lg-top border rounded p-3" style="top:100px; z-index:1019 !important">
@@ -82,41 +93,6 @@
                         </div>
                     </div>
 
-                <?php } ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- khác giành cho bạn -->
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-12 col-md-8">
-            <div class="mt-5">
-                <div class="fw-bold fs-5">Các <?= $page ?> khác giành cho bạn</div>
-
-                <div class="mt-3" id="articles-load">
-
-                </div>
-                <center>
-                    <input type="hidden" value="1" id="page" />
-                    <button class="btn btn-outline-danger" onclick="get_data_more()">Xem Thêm</button>
-                </center>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <div class="sticky-lg-top border rounded p-3 mt-5" style="top:100px; z-index:1019 !important">
-                <p class="fw-semibold" style="font-size: 1.125rem;"><?= $page ?> theo khu vực</p>
-
-                <?php foreach ($get_num_article_by_commune_ward as $id => $commune) { ?>
-                    <hr class="text-muted">
-                    <div class="d-flex align-items-center" style="gap:10px">
-                        <img src="<?= $commune['image_path'] ?>" style="width: 50px; aspect-ratio: 16/9; object-fit: cover;" class="rounded" alt="">
-                        <div style="font-size: 1rem;">
-                            <?= $commune['name'] ?> (<?= $commune['num_articles'] ?>)
-                        </div>
-                    </div>
                 <?php } ?>
             </div>
         </div>

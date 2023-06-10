@@ -83,20 +83,29 @@ class News extends MY_Controller {
             die;
         }
         
+        $get_num_article_by_commune_ward = $this->Articles_model->get_num_article_by_commune_ward(NEWS);
         $article_view_top = $this->Articles_model->get_list_by_view(NEWS, 10);
         $list_bds_by_commune = $this->Bds_model->get_list(1, $info['id_commune_ward'], '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', 'is_vip', 'DESC', 20, 0);
-
+        
         $data = [];
         $data['page'] = 'Tin tức';
         $data['info'] = $info;
         $data['article_view_top'] = $article_view_top;
         $data['list_bds_by_commune'] = $list_bds_by_commune;
+        $data['get_num_article_by_commune_ward'] = $get_num_article_by_commune_ward;
 
         $header = [
             'title' => $info['title'],
             'active_link' => 'auction',
             'header_page_css_js' => 'news'
         ];
+
+        
+        if ($this->_isLogin()) {
+            if($this->_session_uid() == $info['id_user'] || $this->_session_role() == SUPERADMIN) {
+                $header['edit_link'] = 'admin/news/edit/'.$id;
+            }
+        }
         
         $this->_loadHeader($header);
         

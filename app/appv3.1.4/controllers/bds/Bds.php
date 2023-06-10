@@ -88,7 +88,11 @@ class Bds extends MY_Controller {
             'header_page_css_js' => 'bds'
         ];
         
-        
+        if ($this->_isLogin()) {
+            if($this->_session_uid() == $bdsInfo['id_user'] || $this->_session_role() == SUPERADMIN) {
+                $header['edit_link'] = 'admin/bds/edit/'.$id_bds;
+            }
+        }
 
         $this->_loadHeader($header);
         

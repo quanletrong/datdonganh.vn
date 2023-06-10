@@ -114,6 +114,7 @@ class MY_Controller extends CI_Controller
         $header['loadHeader'] = $loadHeader;
         $header['menuTab'] = $menuTab;
         $header['subMenuTab'] = $subMenuTab;
+        $header['edit_link'] = isset($data['edit_link']) ? $data['edit_link'] : '';
         
         // for new skin
         // check load header css, js file by page hay ko

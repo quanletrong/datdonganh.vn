@@ -75,59 +75,64 @@
                     line-height: 18px;
                 }
             </style>
-            <ul class="navbar-nav me-right mb-2 mb-lg-0">
+            <ul class="navbar-nav me-right mb-2 mb-lg-0 align-items-center">
                 <?php if($isLogin){ ?>
-                <li class="nav-item position-relative it-user">
-                    <div class="box-info d-flex justify-content-between align-items-center">
-                        <div class="login-avatar me-3">
-                            <?php if($avatar != ""){ ?>
-                            <img class="w-100" src="<?php echo $avatar; ?>" />
-                            <?php }else{ ?>
-                            <i class="fa-solid fa-circle-user" style="font-size:30px"></i>
-                            <?php } ?>
+                    <?php if($edit_link !='') { ?>
+                        <li class="nav-item ">
+                            <a class="nav-link text-danger" href="<?=$edit_link ?>" target="_blank"><i class="fa-solid fa-pen-to-square"></i> Sửa bài</a>
+                        </li>
+                    <?php } ?>
+                    <li class="nav-item position-relative it-user">
+                        <div class="box-info d-flex justify-content-between align-items-center">
+                            <div class="login-avatar me-3">
+                                <?php if($avatar != ""){ ?>
+                                <img class="w-100" src="<?php echo $avatar; ?>" />
+                                <?php }else{ ?>
+                                <i class="fa-solid fa-circle-user" style="font-size:30px"></i>
+                                <?php } ?>
+                            </div>
+                            <div class="login-info me-3">
+                                <a href="/trang-ca-nhan" rel="nofollow"><?php echo $fullname != "" ? $fullname : $username; ?></a>
+                            </div>
+                            <div class="login-icon me-3">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
                         </div>
-                        <div class="login-info me-3">
-                            <a href="/trang-ca-nhan" rel="nofollow"><?php echo $fullname != "" ? $fullname : $username; ?></a>
-                        </div>
-                        <div class="login-icon me-3">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </div>
-                    </div>
-                    
-                    <ul class="re__dropdown-art position-absolute ps-0">
-                        <li>
-                            <a href="/trang-ca-nhan" class="re__content d-flex align-items-center">
-                                <i class="fa-solid fa-heart me-1"></i> Tin đã lưu 
-                                <div class="count-num ms-2" id="count-favorite">
-                                    <?php echo $count_favorite; ?>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/trang-ca-nhan/uspg-changeinfo" class="re__content">
-                                <i class="fa-solid fa-user"></i> Thông tin cá nhân
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/trang-ca-nhan/uspg-changepass" class="re__content ">
-                                <i class="fa-solid fa-lock"></i> Thay đổi mật khẩu
-                            </a>
-                        </li>
-                        <li class="re__border-b pt-1"></li>
-                        <li>
-                            <a href="<?php echo site_url(LINK_USER_LOGOUT) ?>" class="re__content" rel="nofollow">
-                                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                        
+                        <ul class="re__dropdown-art position-absolute ps-0">
+                            <li>
+                                <a href="/trang-ca-nhan" class="re__content d-flex align-items-center">
+                                    <i class="fa-solid fa-heart me-1"></i> Tin đã lưu 
+                                    <div class="count-num ms-2" id="count-favorite">
+                                        <?php echo $count_favorite; ?>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/trang-ca-nhan/uspg-changeinfo" class="re__content">
+                                    <i class="fa-solid fa-user"></i> Thông tin cá nhân
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/trang-ca-nhan/uspg-changepass" class="re__content ">
+                                    <i class="fa-solid fa-lock"></i> Thay đổi mật khẩu
+                                </a>
+                            </li>
+                            <li class="re__border-b pt-1"></li>
+                            <li>
+                                <a href="<?php echo site_url(LINK_USER_LOGOUT) ?>" class="re__content" rel="nofollow">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php }else{ ?>
-                <li class="nav-item ">
-                    <a class="nav-link" href="<?= LINK_USER_LOGIN ?>">Đăng nhập</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="<?= LINK_USER_REGISTER ?>">Đăng ký</a>
-                </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="<?= LINK_USER_LOGIN ?>">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="<?= LINK_USER_REGISTER ?>">Đăng ký</a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>
