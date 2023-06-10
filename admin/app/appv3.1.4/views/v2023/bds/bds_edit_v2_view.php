@@ -169,8 +169,8 @@
                                         <select class="select2" style="width:75%" name="price_type">
                                             <option value="1" <?= $info['price_type'] == '1' ? 'selected' : '' ?>>VNĐ</option>
                                             <option value="2" <?= $info['price_type'] == '2' ? 'selected' : '' ?>>VNĐ/m2</option>
-                                            <option value="3" <?= $info['price_type'] == '3' ? 'selected' : '' ?>>VNĐ/tháng</option>
-                                            <option value="4" <?= $info['price_type'] == '4' ? 'selected' : '' ?>>VNĐ/m2/tháng</option>
+                                            <!-- <option value="3" <?= $info['price_type'] == '3' ? 'selected' : '' ?>>VNĐ/tháng</option> -->
+                                            <!-- <option value="4" <?= $info['price_type'] == '4' ? 'selected' : '' ?>>VNĐ/m2/tháng</option> -->
                                         </select>
                                     </div>
                                 </div>
