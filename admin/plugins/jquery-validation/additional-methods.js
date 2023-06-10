@@ -1512,9 +1512,12 @@ $.validator.addMethod( "ziprange", function( value, element ) {
 // them rule kiem tra khi nhap link youtube
 $.validator.addMethod('valid_embed_youtube', function(value, element) {
 	if (value.length > 0) {
-		var regex = /^https:\/\/www\.youtube\.com\/embed\/\S*$/;
-		if (value.trim().match(regex)) {
+		var regex_match = /^https:\/\/www\.youtube\.com\/embed\/\S*$/;
+		value = value.replace("/watch?v=", "/embed/");
+		console.log(value)
+		if (value.trim().match(regex_match)) {
 			$('#videp_pre').attr('src', value).show();
+			$('#video').val(value);
 			return true;
 		} else {
 			$('#videp_pre').attr('src', '').hide();
