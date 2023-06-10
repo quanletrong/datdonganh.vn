@@ -24,7 +24,7 @@
                                     </a>
                                     <div class="p-2">
                                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                            <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;"><?= $bds['title'] ?></div>
+                                            <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 3.2rem;"><?= $bds['title'] ?></div>
                                         </a>
                                         <div class="d-flex justify-content-between">
                                             <div class="text-danger fw-bold">
@@ -94,7 +94,7 @@
                                         </a>
                                         <div class="p-2">
                                             <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;"><?= $bds['title'] ?></div>
+                                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 3.2rem;"><?= $bds['title'] ?></div>
                                             </a>
                                             <div class="d-flex justify-content-between">
                                                 <div class="text-danger fw-bold">
