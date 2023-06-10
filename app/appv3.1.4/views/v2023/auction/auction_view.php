@@ -71,45 +71,44 @@
             </div>
         </div>
 
-
-
-
         <div class="col-12 col-lg-4">
-            <div class="border rounded p-3">
-                <p class="fw-semibold" style="font-size: 1.125rem;"><?= $title ?> được xem nhiều nhất</p>
+            <div class="sticky-lg-top" style="top:70px; z-index:auto">
+                <div class="border rounded p-3">
+                    <p class="fw-semibold" style="font-size: 1.125rem;"><?= $title ?> được xem nhiều nhất</p>
 
-                <?php $i = 1;
-                foreach ($article_view_top as $article) { ?>
-                    <hr class="text-muted">
-                    <div class="d-flex align-items-center" style="gap:10px">
+                    <?php $i = 1;
+                    foreach ($article_view_top as $article) { ?>
+                        <hr class="text-muted">
                         <div class="d-flex align-items-center" style="gap:10px">
-                            <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.1;">
-                                <?php echo $i; ?>
+                            <div class="d-flex align-items-center" style="gap:10px">
+                                <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.1;">
+                                    <?php echo $i; ?>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="<?= LINK_DAU_GIA . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
+                                    <?php echo $article['title']; ?>
+                                </a>
                             </div>
                         </div>
-                        <div>
-                            <a href="<?= LINK_DAU_GIA . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
-                                <?php echo $article['title']; ?>
-                            </a>
+                    <?php $i++;
+                    } ?>
+
+                </div>
+
+                <div class="border rounded p-3 mt-3">
+                    <p class="fw-semibold" style="font-size: 1.125rem;"><?= $title ?> theo khu vực</p>
+
+                    <?php foreach ($get_num_article_by_commune_ward as $id => $commune) { ?>
+                        <hr class="text-muted">
+                        <div class="d-flex align-items-center" style="gap:10px">
+                            <img src="<?= $commune['image_path'] ?>" style="width: 50px; aspect-ratio: 16/9; object-fit: cover;" class="rounded" alt="">
+                            <div style="font-size: 1rem;">
+                                <?= $commune['name'] ?> (<?= $commune['num_articles'] ?>)
+                            </div>
                         </div>
-                    </div>
-                <?php $i++;
-                } ?>
-
-            </div>
-
-            <div class="sticky-lg-top border rounded p-3 mt-5" style="top:100px; z-index:1019 !important">
-                <p class="fw-semibold" style="font-size: 1.125rem;"><?= $title ?> theo khu vực</p>
-
-                <?php foreach ($get_num_article_by_commune_ward as $id => $commune) { ?>
-                    <hr class="text-muted">
-                    <div class="d-flex align-items-center" style="gap:10px">
-                        <img src="<?= $commune['image_path'] ?>" style="width: 50px; aspect-ratio: 16/9; object-fit: cover;" class="rounded" alt="">
-                        <div style="font-size: 1rem;">
-                            <?= $commune['name'] ?> (<?= $commune['num_articles'] ?>)
-                        </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
         </div>
     </div>

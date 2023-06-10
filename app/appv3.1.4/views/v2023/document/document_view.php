@@ -71,13 +71,9 @@
             </div>
         </div>
 
-
-
-
         <div class="col-12 col-lg-4">
-            <div class="border rounded p-3">
+            <div class="sticky-top border rounded p-3" style="top:70px; z-index:auto">
                 <p class="fw-semibold" style="font-size: 1.125rem;"><?= $title ?> được xem nhiều nhất</p>
-
                 <?php $i = 1;
                 foreach ($article_view_top as $article) { ?>
                     <hr class="text-muted">
@@ -95,7 +91,6 @@
                     </div>
                 <?php $i++;
                 } ?>
-
             </div>
         </div>
     </div>

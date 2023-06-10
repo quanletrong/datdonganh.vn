@@ -17,14 +17,14 @@
                                 <div class="rounded mb-3 shadow ">
                                     <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                         <div class="position-relative">
-                                            <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                                            <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
                                             <div class="position-absolute bg-danger text-white px-2 rounded-end" style="left: 0; top: 1rem">Tin
                                                 VIP</div>
                                         </div>
                                     </a>
                                     <div class="p-2">
                                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                            <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 3.2rem;"><?= $bds['title'] ?></div>
+                                            <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.6rem; line-height: 1.3rem;"><?= $bds['title'] ?></div>
                                         </a>
                                         <div class="d-flex justify-content-between">
                                             <div class="text-danger fw-bold">
@@ -89,12 +89,12 @@
                                     <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                             <div class="position-relative">
-                                                <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                                                <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
                                             </div>
                                         </a>
                                         <div class="p-2">
                                             <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 3.2rem;"><?= $bds['title'] ?></div>
+                                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.6rem; line-height: 1.3rem;"><?= $bds['title'] ?></div>
                                             </a>
                                             <div class="d-flex justify-content-between">
                                                 <div class="text-danger fw-bold">
@@ -145,66 +145,68 @@
                                 break;
                             } ?>
                         <?php } ?>
-                        <div class="d-flex justify-content-center">
-                            <a href="<?= LINK_NHA_DAT_BAN ?>">
-                                <button class="btn btn-outline-secondary">Xem thêm</button>
-                            </a>
-                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="<?= LINK_NHA_DAT_BAN ?>">
+                            <button class="btn btn-outline-secondary">Xem thêm</button>
+                        </a>
                     </div>
                 </div>
             </div>
 
         </div>
         <div class="col-12 col-lg-2 d-none d-lg-block">
-            <div class="fw-bold fs-4">
-                &nbsp;
-            </div>
-            <div class="card mt-1">
-                <div class="card-body p-2">
-                    <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
-                    <div class="d-flex flex-column">
-                        <?php foreach ($cf_bds['price_list'] as $it) { ?>
-                            <?php $num_bds = @$get_num_bds_by_price[$it['from'] . '-' . $it['to']] ?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red <?= $num_bds ? '' : 'd-none' ?>" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?= $num_bds ?>)</a>
-                        <?php } ?>
-                    </div>
+            <div class="sticky-top" style="top:30px; z-index: auto;">
+                <div class="fw-bold fs-4">
+                    &nbsp;
                 </div>
-            </div>
-
-            <div class="card mt-3">
-                <div class="card-body p-2">
-                    <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
-                    <div class="d-flex flex-column">
-                        <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
-                            <?php $num_bds = @$get_num_bds_by_acreage[$it['from'] . '-' . $it['to']] ?>
-                            <a class="text-decoration-none text-dark py-1 hover-link-red <?= $num_bds ? '' : 'd-none' ?>" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?= $num_bds ?>)</a>
-                        <?php } ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mt-3">
-                <div class="card-body p-2">
-                    <span class="fw-semibold" style="font-size: 1.125rem;">Khu vực</span>
-                    <div class="d-flex flex-column">
-                        <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
-                            <?php if ($item['num_bds']) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                <div class="card mt-1" style="background-color: #f7f7f7;">
+                    <div class="card-body p-2">
+                        <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
+                        <div class="d-flex flex-column">
+                            <?php foreach ($cf_bds['price_list'] as $it) { ?>
+                                <?php $num_bds = @$get_num_bds_by_price[$it['from'] . '-' . $it['to']] ?>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red <?= $num_bds ? '' : 'd-none' ?>" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?= $num_bds ?>)</a>
                             <?php } ?>
-                        <?php } ?>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mt-3">
-                <div class="card-body p-2">
-                    <span class="fw-semibold" style="font-size: 1.125rem;">Đường</span>
-                    <div class="d-flex flex-column">
-                        <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
-                            <?php if ($item['num_bds']) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_street=' . $id_street ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                <div class="card mt-3" style="background-color: #f7f7f7;">
+                    <div class="card-body p-2">
+                        <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
+                        <div class="d-flex flex-column">
+                            <?php foreach ($cf_bds['acreage_list'] as $it) { ?>
+                                <?php $num_bds = @$get_num_bds_by_acreage[$it['from'] . '-' . $it['to']] ?>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red <?= $num_bds ? '' : 'd-none' ?>" href="<?= $it['link'] ?>"><?= $it['name'] ?> (<?= $num_bds ?>)</a>
                             <?php } ?>
-                        <?php } ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3" style="background-color: #f7f7f7;">
+                    <div class="card-body p-2">
+                        <span class="fw-semibold" style="font-size: 1.125rem;">Khu vực</span>
+                        <div class="d-flex flex-column">
+                            <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
+                                <?php if ($item['num_bds']) { ?>
+                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3" style="background-color: #f7f7f7;">
+                    <div class="card-body p-2">
+                        <span class="fw-semibold" style="font-size: 1.125rem;">Đường</span>
+                        <div class="d-flex flex-column">
+                            <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
+                                <?php if ($item['num_bds']) { ?>
+                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_street=' . $id_street ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>

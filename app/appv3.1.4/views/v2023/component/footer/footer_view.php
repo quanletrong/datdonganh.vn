@@ -95,7 +95,7 @@
             </div>
         </div>
         <hr class="mt-5">
-        <p class="text-center">Copyright 2023 © www.abc.vn | Bất Động Sản Đông Anh</p>
+        <p class="text-center">Bản quyền © <a href="/">www.datdonganh.vn</a> | Bất Động Sản Đông Anh</p>
     </div>
 </div>
 

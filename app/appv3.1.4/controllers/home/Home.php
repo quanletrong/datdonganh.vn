@@ -18,7 +18,7 @@ class Home extends MY_Controller {
         $data = [];
         
         $header = [
-            'title' => 'Trang chủ',
+            'title' => 'Đất Đông Anh | Bất động sản Đông Anh',
             'active_link' => 'home',
             'header_page_css_js' => 'home'
         ];

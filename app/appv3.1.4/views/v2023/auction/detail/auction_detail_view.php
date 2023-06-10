@@ -65,7 +65,7 @@
 
         </div>
         <div class="col-12 col-lg-4">
-            <div class="sticky-lg-top border rounded p-3" style="top:100px; z-index:1019 !important">
+            <div class="sticky-lg-top border rounded p-3" style="top:70px; z-index:auto">
                 <p class="fw-semibold" style="font-size: 1.125rem;"><?= $page ?> được xem nhiều nhất</p>
 
                 <?php $i = 1;

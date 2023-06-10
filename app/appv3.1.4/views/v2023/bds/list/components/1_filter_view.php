@@ -97,12 +97,8 @@
                                                     <span style="position: absolute; top:6px; right:6px">tỷ</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-between gap-3">
-                                                <input type="range" class="form-range" min="0" max="50000" step="500">
-                                            </div>
                                             <!--  -->
-                                            <ul class="list-group">
-
+                                            <ul class="list-group mt-2">
                                                 <li class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="price" id="all_price" data-start='' data-end='' checked>
                                                     <label class="form-check-label" for="all_price">Tất cả mức giá</label>
@@ -152,11 +148,8 @@
                                                     <span style="position: absolute; top:6px; right:6px">m²</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-between gap-3">
-                                                <input type="range" class="form-range" min="0" max="500" step="5" value="0">
-                                            </div>
                                             <!--  -->
-                                            <ul class="list-group">
+                                            <ul class="list-group mt-2">
                                                 <li class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="acreage" id="all_acreage" data-start='' data-end='' checked>
                                                     <label class="form-check-label" for="all_acreage">Tất cả diện

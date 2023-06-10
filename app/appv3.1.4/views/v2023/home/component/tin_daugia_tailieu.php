@@ -34,7 +34,7 @@
                         <div class="col-12 col-lg-6">
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($news as $id => $new) { ?>
-                                    <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
+                                    <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 5px 0;">
                                         <a href="<?= LINK_TIN_TUC . '/' . $new['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $new['title']; ?></a>
                                     </li>
                                 <?php } ?>
@@ -56,7 +56,7 @@
                         <div class="col-12 col-lg-6">
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($auctions as $id => $auction) { ?>
-                                    <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
+                                    <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 5px 0;">
                                         <a href="<?= LINK_DAU_GIA . '/' . $auction['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $auction['title']; ?></a>
                                     </li>
                                 <?php } ?>
@@ -78,7 +78,7 @@
                         <div class="col-12 col-lg-6">
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($documents as $id => $document) { ?>
-                                    <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 10px 0;">
+                                    <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 5px 0;">
                                         <a href="<?= LINK_TAI_LIEU . '/' . $document['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $document['title']; ?></a>
                                     </li>
                                 <?php } ?>
@@ -109,8 +109,8 @@
             </div>
         </div>
     </div>
+    <hr>
 </div>
-
 <script>
     $(function() {
 

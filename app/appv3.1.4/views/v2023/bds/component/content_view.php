@@ -88,6 +88,7 @@
     #slide-image .slide-image-dot {
         border: 1px solid transparent;
     }
+
     #slide-image .slide-image-dot img {
         width: 5rem;
         aspect-ratio: 4/3;
@@ -96,7 +97,7 @@
         border-radius: 3px;
     }
 
-    #slide-image .slideractive{
+    #slide-image .slideractive {
         border: 1px solid red;
     }
 
@@ -136,11 +137,11 @@
                     foreach ($imgs as $img) { ?>
                         <div class="mySlides fadeSlideImage">
                             <div class="numbertext"><?php echo $i . ' / ' . count($imgs) ?></div>
-                            <img src="<?php echo get_path_image($bdsInfo['create_time'], $img); ?>"
-                                 style="width:100%;aspect-ratio: 16/9; object-fit: cover;">
+                            <img src="<?php echo get_path_image($bdsInfo['create_time'], $img); ?>" style="width:100%;aspect-ratio: 16/9; object-fit: cover;">
                             <div class="text"></div>
                         </div>
-                        <?php $i++;} ?>
+                    <?php $i++;
+                    } ?>
 
 
                     <div class="prev" onclick="plusSlides(-1)">❮</div>
@@ -156,18 +157,19 @@
                             <div class="slide-image-dot" onclick="currentSlide(<?php echo $i; ?>)">
                                 <img src="<?php echo get_path_image($bdsInfo['create_time'], $img); ?>">
                             </div>
-                        <?php $i++;} ?>
+                        <?php $i++;
+                        } ?>
 
                     </div>
                 </div>
             </div>
 
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $("#owl-image-thumb").owlCarousel({
                         dots: false,
                         autoWidth: true,
-                        nav:false,
+                        nav: false,
                         autoplay: false,
                         margin: <?php echo count($imgs); ?>,
                     });
@@ -192,8 +194,12 @@
                     let i;
                     let slides = document.getElementsByClassName("mySlides");
                     let dots = document.getElementsByClassName("slide-image-dot");
-                    if (n > slides.length) { slideIndex = 1 }
-                    if (n < 1) { slideIndex = slides.length }
+                    if (n > slides.length) {
+                        slideIndex = 1
+                    }
+                    if (n < 1) {
+                        slideIndex = slides.length
+                    }
                     for (i = 0; i < slides.length; i++) {
                         slides[i].style.display = "none";
                     }
@@ -207,7 +213,7 @@
             <nav aria-label="breadcrumb" class="mt-3">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" class="text-secondary">Home</a></li>
-                    <li class="breadcrumb-item"><a href="<?=LINK_NHA_DAT_BAN?>" class="text-secondary">Tất cả BĐS</a></li>
+                    <li class="breadcrumb-item"><a href="<?= LINK_NHA_DAT_BAN ?>" class="text-secondary">Tất cả BĐS</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Chi tiết bđs</li>
                 </ol>
             </nav>
@@ -224,7 +230,7 @@
                     <div class="me-3 me-md-5">
                         <div class="text-muted">Mức giá</div>
                         <div class="fw-bold fs-5">
-                            <?php echo getPrice($bdsInfo['price_total']);?>
+                            <?php echo getPrice($bdsInfo['price_total']); ?>
                         </div>
                     </div>
                     <div class="me-3 me-md-5">
@@ -263,7 +269,7 @@
                     <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);">
                         <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
                     </button>
-                    <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                    <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                 </div>
             </div>
 
@@ -300,7 +306,8 @@
                         </div>
                         <div class="border-top d-flex py-2">
                             <div class="fw-semibold w-50">Hướng ban công</div>
-                            <div><?php // echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : ""  ?></div>
+                            <div><?php // echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : ""  
+                                    ?></div>
                         </div>
                         <div class="border-top border-bottom d-flex py-2">
                             <div class="fw-semibold w-50">Pháp lý</div>
@@ -310,21 +317,21 @@
                 </div>
             </div>
 
-                <?php if ($bdsInfo['maps'] != "") { ?>
+            <?php if ($bdsInfo['maps'] != "") { ?>
                 <!-- Xem trên bản đồ -->
                 <div class="mt-5">
                     <div class="fw-semibold fs-5 mb-3">Xem trên bản đồ</div>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29768.399307311087!2d105.82663151782567!3d21.15041182879494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135011877263c29%3A0xfed63a1860e09572!2zdHQuIMSQw7RuZyBBbmgsIMSQw7RuZyBBbmgsIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1685287293812!5m2!1svi!2s" style="width: 100%; height: 240px; border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <?php } ?>
+            <?php } ?>
 
             <!-- Từ khóa liên quan -->
             <div class="mt-5">
                 <div class="fw-semibold fs-5 mb-3">Từ khóa liên quan</div>
                 <div class="mt-3">
-                <?php foreach ($tags as $tag) { ?>
-                    <div class="badge rounded-pill text-bg-secondary p-2 mb-2"><?php echo $tag['name'] ?></div>
-                <?php } ?>
+                    <?php foreach ($tags as $tag) { ?>
+                        <div class="badge rounded-pill text-bg-secondary p-2 mb-2"><?php echo $tag['name'] ?></div>
+                    <?php } ?>
 
                 </div>
             </div>
@@ -394,23 +401,23 @@
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="text-secondary" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</span>
-                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                                 </div>
                             </div>
                         </div>
-                       
+
                     <?php } ?>
                 </div>
 
                 <script>
-                    $(document).ready(function () {
+                    $(document).ready(function() {
                         $("#owl-noi-bat").owlCarousel({
-                            autoplay:true,
-                            autoplayTimeout:4000,
-                            autoplayHoverPause:true,
+                            autoplay: true,
+                            autoplayTimeout: 4000,
+                            autoplayHoverPause: true,
                             margin: 10,
                             responsiveClass: true,
-                            nav:false,
+                            nav: false,
                             dots: false,
                             responsive: {
                                 0: {
@@ -450,48 +457,50 @@
 
         </div>
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body d-flex flex-column align-items-center">
-                    <img src="https://file4.batdongsan.com.vn/resize/200x200/2023/03/31/20230331171327-a131.jpg" class="rounded-circle w-25" alt="">
-                    <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
-                    <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
-                    <div class="">Xem thêm <?=$get_num_bds_by_contact_name?> tin khác</div>
+            <div class="sticky-top" style="z-index: auto; top:70px">
+                <div class="card">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <img src="https://file4.batdongsan.com.vn/resize/200x200/2023/03/31/20230331171327-a131.jpg" class="rounded-circle w-25" alt="">
+                        <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
+                        <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
+                        <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>
 
-                    <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);">
-                        <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
-                    </button>
+                        <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);">
+                            <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                        </button>
 
-                    <button class="btn btn-outline-secondary mt-2 w-100">Gửi email</button>
+                        <button class="btn btn-outline-secondary mt-2 w-100">Gửi email</button>
 
-                    <button class="btn btn-outline-secondary mt-2 w-100">Yêu cầu liên hệ lại</button>
+                        <button class="btn btn-outline-secondary mt-2 w-100">Yêu cầu liên hệ lại</button>
 
-                </div>
-            </div>
-
-            <div class="card mt-3" style="background-color: #f7f7f7;">
-                <div class="card-body">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản cùng khu vực</p>
-                    <div class="d-flex flex-column">
-
-                        <?php foreach($bds_palace_area as $palace_area){ ?>
-                        <a class="text-decoration-none text-dark py-1 hover-link-red cursor-poiter"><?php echo $palace_area['title']; ?></a>
-                        <?php } ?>
-
-      
                     </div>
                 </div>
-            </div>
 
-            <div class="card mt-3" style="background-color: #f7f7f7;">
-                <div class="card-body">
-                    <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản nổi bật</p>
-                    <div class="d-flex flex-column">
-                        <?php foreach($commune_ward_and_num_bds as $vip){ ?>
-                        <a class="text-decoration-none text-dark py-1">
-                           Bán nhà tại <?php echo $vip['name']; ?>
-                        </a>
-                        <?php } ?>
+                <div class="card mt-3" style="background-color: #f7f7f7;">
+                    <div class="card-body">
+                        <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản cùng khu vực</p>
+                        <div class="d-flex flex-column">
 
+                            <?php foreach ($bds_palace_area as $palace_area) { ?>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red cursor-poiter"><?php echo $palace_area['title']; ?></a>
+                            <?php } ?>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3" style="background-color: #f7f7f7;">
+                    <div class="card-body">
+                        <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản nổi bật</p>
+                        <div class="d-flex flex-column">
+                            <?php foreach ($commune_ward_and_num_bds as $vip) { ?>
+                                <a class="text-decoration-none text-dark py-1">
+                                    Bán nhà tại <?php echo $vip['name']; ?>
+                                </a>
+                            <?php } ?>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -500,93 +509,98 @@
 </div>
 
 <script>
-
     set_bds_watched();
     get_bds_watched();
-    
-    
-    function set_bds_watched(){
+
+
+    function set_bds_watched() {
         const bds_watched = localStorage.getItem("BDS_WATCHED");
-        if(bds_watched == null){ 
+        if (bds_watched == null) {
             // neu localStorage BDS_WATCHED == null thì set binh thuong
             let bds = {};
             bds[<?php echo $bdsInfo['id_bds'] ?>] = {
-                'title'      : '<?php echo $bdsInfo['title'] ?>',
-                'image_path' : '<?php echo!empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
-                'title'      : '<?php echo $bdsInfo['title'] ?>',
-                'price_view' : '<?php echo $bdsInfo['price_view'] ?>',
-                'price_unit' : '<?php echo $bdsInfo['price_unit'] ?>',
+                'title': '<?php echo $bdsInfo['title'] ?>',
+                'image_path': '<?php echo !empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
+                'title': '<?php echo $bdsInfo['title'] ?>',
+                'price_view': '<?php echo $bdsInfo['price_view'] ?>',
+                'price_unit': '<?php echo $bdsInfo['price_unit'] ?>',
                 'price_total': '<?php echo $bdsInfo['price_total']; ?>',
-                'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
-                'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
-                'direction'  : '<?php echo $bdsInfo['direction_name']; ?>',
+                'acreage': '<?php echo $bdsInfo['acreage']; ?> m²',
+                'commune': '<?php echo $bdsInfo['commune_name']; ?>',
+                'direction': '<?php echo $bdsInfo['direction_name']; ?>',
                 'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
-                'slug_title' : '<?php echo $bdsInfo['slug_title']; ?>',
+                'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
             }
             localStorage.setItem("BDS_WATCHED", JSON.stringify(bds));
-        }else{
+        } else {
             // neu localStorage BDS_WATCHED != null
             const id_bds_watched = <?php echo $bdsInfo['id_bds'] ?>;
             let obj_bds_watched = JSON.parse(bds_watched);
-            if(obj_bds_watched.hasOwnProperty(id_bds_watched)){
+            if (obj_bds_watched.hasOwnProperty(id_bds_watched)) {
                 //neu bds dang xem ton tai trong object BDS_WATCHED
                 // thi xoa key bds trong object BDS_WATCHED đi
                 //và lay bds dang xem lên đầu object BDS_WATCHED
-        
-                delete obj_bds_watched[id_bds_watched]; 
+
+                delete obj_bds_watched[id_bds_watched];
                 let bds = {
-                    'image_path' : '<?php echo!empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
-                    'title'      : '<?php echo $bdsInfo['title'] ?>',
-                    'price_view' : '<?php echo $bdsInfo['price_view'] ?>',
-                    'price_unit' : '<?php echo $bdsInfo['price_unit'] ?>',
+                    'image_path': '<?php echo !empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
+                    'title': '<?php echo $bdsInfo['title'] ?>',
+                    'price_view': '<?php echo $bdsInfo['price_view'] ?>',
+                    'price_unit': '<?php echo $bdsInfo['price_unit'] ?>',
                     'price_total': '<?php echo $bdsInfo['price_total']; ?>',
-                    'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
-                    'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
-                    'direction'  : '<?php echo $bdsInfo['direction_name']; ?>',
+                    'acreage': '<?php echo $bdsInfo['acreage']; ?> m²',
+                    'commune': '<?php echo $bdsInfo['commune_name']; ?>',
+                    'direction': '<?php echo $bdsInfo['direction_name']; ?>',
                     'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
-                    'slug_title' : '<?php echo $bdsInfo['slug_title']; ?>'
+                    'slug_title': '<?php echo $bdsInfo['slug_title']; ?>'
                 }
-   
-                obj_bds_watched = { [<?php echo $bdsInfo['id_bds'] ?>]: bds, ...obj_bds_watched };
-                
-            }else{
-                
+
+                obj_bds_watched = {
+                    [<?php echo $bdsInfo['id_bds'] ?>]: bds,
+                    ...obj_bds_watched
+                };
+
+            } else {
+
                 //neu bds dang xem khong ton tai trong object BDS_WATCHED
                 // thi them bds vào vị trí đâu tien cua object BDS_WATCHED
-                
+
                 let bds = {
-                    'image_path' : '<?php echo!empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
-                    'title'      : '<?php echo $bdsInfo['title'] ?>',
-                    'price_view' : '<?php echo $bdsInfo['price_view'] ?>',
-                    'price_unit' : '<?php echo $bdsInfo['price_unit'] ?>',
+                    'image_path': '<?php echo !empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
+                    'title': '<?php echo $bdsInfo['title'] ?>',
+                    'price_view': '<?php echo $bdsInfo['price_view'] ?>',
+                    'price_unit': '<?php echo $bdsInfo['price_unit'] ?>',
                     'price_total': '<?php echo $bdsInfo['price_total']; ?>',
-                    'acreage'    : '<?php echo $bdsInfo['acreage']; ?> m²',
-                    'commune'    : '<?php echo $bdsInfo['commune_name']; ?>',
-                    'direction'  : '<?php echo $bdsInfo['direction_name']; ?>',
+                    'acreage': '<?php echo $bdsInfo['acreage']; ?> m²',
+                    'commune': '<?php echo $bdsInfo['commune_name']; ?>',
+                    'direction': '<?php echo $bdsInfo['direction_name']; ?>',
                     'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
-                    'slug_title' : '<?php echo $bdsInfo['slug_title']; ?>',
+                    'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
                 }
-                obj_bds_watched = { [id_bds_watched]: bds, ...obj_bds_watched };
+                obj_bds_watched = {
+                    [id_bds_watched]: bds,
+                    ...obj_bds_watched
+                };
             }
-            
+
             //chỉ lây 10 bds trong object BDS_WATCHED
             obj_bds_watched = limitObjectSize(obj_bds_watched, 10);
-            
+
             localStorage.setItem("BDS_WATCHED", JSON.stringify(obj_bds_watched));
         }
-        
+
     }
-    
-    function get_bds_watched(){
-    
+
+    function get_bds_watched() {
+
         $("#owl-bds-da-xem").html();
         const PRICE_ONE_MILLION = <?php echo PRICE_ONE_MILLION; ?>;
         const bds_watched = localStorage.getItem("BDS_WATCHED");
         const obj_bds_watched = JSON.parse(bds_watched);
         const hearts = '<?php echo json_encode($hearts) ?>';
         for (const [id, val] of Object.entries(obj_bds_watched)) {
-            let temp = 
-            `
+            let temp =
+                `
                     <div class="rounded border border-1 mb-3 shadow ">
                         <a href="${val.slug_title}-p${id}">
                             <div class="position-relative">
@@ -636,14 +650,14 @@
             `;
             $("#owl-bds-da-xem").append(temp);
         }
-        
+
         $("#owl-bds-da-xem").owlCarousel({
-            autoplay:true,
-            autoplayTimeout:4000,
-            autoplayHoverPause:true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
             margin: 10,
             responsiveClass: true,
-            nav:false,
+            nav: false,
             dots: false,
             responsive: {
                 0: {
@@ -658,14 +672,14 @@
             }
         });
     }
-    
+
     function limitObjectSize(obj, num) {
         const keys = Object.keys(obj); // Lấy danh sách các key trong object
         if (keys.length > num) { // Kiểm tra số lượng key có vượt quá num hay không
             const limitedKeys = keys.slice(0, num); // Cắt bớt danh sách key chỉ còn num phần tử
             const limitedObject = {};
             for (const key of limitedKeys) {
-              limitedObject[key] = obj[key]; // Gán giá trị tương ứng từ object gốc vào object mới
+                limitedObject[key] = obj[key]; // Gán giá trị tương ứng từ object gốc vào object mới
             }
             return limitedObject;
         }
