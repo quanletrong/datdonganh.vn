@@ -56,7 +56,7 @@
             background-color: rgb(255, 255, 255);
         }
         .or-ct div {
-            font-size: 14px;
+            font-size: 13px;
             line-height: 20px;
             font-weight: 400;
             color: rgb(153, 153, 153);
@@ -79,7 +79,7 @@
         <div class="card shadow mx-auto" style="width: 100%; max-width: 500px;">
             <div class="card-body">
                 <form action="<?php echo site_url('login/auth?url=' . $currUrl) ?>" method="post">
-                    <h4 class="text-center text-danger">Đăng nhập hệ thống</h4>
+                    <h4 class="text-center text-danger">Đăng nhập datdonganh.vn</h4>
                     <?php if ($login_fail != '') { ?>
                         <div class="alert alert-danger" role="alert">
                             <?php echo $login_fail ?>
@@ -117,9 +117,12 @@
                         </a>
                     </div>   
                     
-                    <div class="p-3 ps-4">
+                    <div class="p-3 ps-4 d-flex justify-content-between">
                         <a href="<?=site_url()?>" style="text-decoration: none;">
                             ← Quay lại trang chủ
+                        </a>
+                        <a href="<?=site_url('dang-ky')?>" style="text-decoration: none;">
+                            Đăng ký →
                         </a>
                     </div> 
 

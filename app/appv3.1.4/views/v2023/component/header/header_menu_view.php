@@ -88,7 +88,7 @@
                                 <?php if($avatar != ""){ ?>
                                 <img class="w-100" src="<?php echo $avatar; ?>" />
                                 <?php }else{ ?>
-                                <i class="fa-solid fa-circle-user" style="font-size:30px"></i>
+                                <i class="fa-solid fa-circle-user" style="font-size:30px; color:gray"></i>
                                 <?php } ?>
                             </div>
                             <div class="login-info me-3">
@@ -103,13 +103,13 @@
                             <?php if($role == SUPERADMIN || $role == ADMIN || $role == SALE) { ?>
                                 <li>
                                     <a href="/admin" target="_blank" class="re__content d-flex align-items-center">
-                                        <i class="fa-solid fa-hammer me-1"></i> Trang quản trị 
+                                        <i class="fa-solid fa-hammer me-1" style="color:gray"></i> Trang quản trị 
                                     </a>
                                 </li>
                             <?php } ?>
                             <li>
                                 <a href="/trang-ca-nhan" class="re__content d-flex align-items-center">
-                                    <i class="fa-solid fa-heart me-1"></i> Tin đã lưu 
+                                    <i class="fa-solid fa-heart me-1" style="color:gray"></i> Tin đã lưu 
                                     <div class="count-num ms-2" id="count-favorite">
                                         <?php echo $count_favorite; ?>
                                     </div>
@@ -117,18 +117,18 @@
                             </li>
                             <li>
                                 <a href="/trang-ca-nhan/uspg-changeinfo" class="re__content">
-                                    <i class="fa-solid fa-user"></i> Thông tin cá nhân
+                                    <i class="fa-solid fa-user" style="color:gray"></i> Thông tin cá nhân
                                 </a>
                             </li>
                             <li>
                                 <a href="/trang-ca-nhan/uspg-changepass" class="re__content ">
-                                    <i class="fa-solid fa-lock"></i> Thay đổi mật khẩu
+                                    <i class="fa-solid fa-lock" style="color:gray"></i> Thay đổi mật khẩu
                                 </a>
                             </li>
                             <li class="re__border-b pt-1"></li>
                             <li>
                                 <a href="<?php echo site_url(LINK_USER_LOGOUT) ?>" class="re__content" rel="nofollow">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                                    <i class="fa-solid fa-right-from-bracket" style="color:gray"></i> Đăng xuất
                                 </a>
                             </li>
                         </ul>

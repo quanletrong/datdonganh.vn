@@ -56,7 +56,7 @@
             background-color: rgb(255, 255, 255);
         }
         .or-ct div {
-            font-size: 14px;
+            font-size: 13px;
             line-height: 20px;
             font-weight: 400;
             color: rgb(153, 153, 153);
@@ -233,9 +233,13 @@
                         </a>
                     </div>  
 
-                    <div class="p-3 ps-4">
+                    <div class="p-3 ps-4 d-flex justify-content-between">
                         <a href="<?=site_url()?>" style="text-decoration: none;">
                             ← Quay lại trang chủ
+                        </a>
+
+                        <a href="<?=site_url('login')?>" style="text-decoration: none;">
+                            Đăng nhập →
                         </a>
                     </div> 
                   </form>
