@@ -89,22 +89,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 d-none d-lg-block">
-
-
+        <div class="col-lg-4 d-none d-lg-block" style="padding-top: 70px;">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.341205954743!2d105.84419217605658!3d21.138815383987925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135011d7bfab463%3A0xd34060d3d5076677!2zVsSDbiBwaMOybmcgxJDhuqRUIMSQw5RORyBBTkg!5e0!3m2!1svi!2s!4v1685347201600!5m2!1svi!2s" style="width:100%; height: 250px; border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-            <div id="box-social">
-                <!-- dùng js để build fanpage facebook vi cân set width -->
+            <!-- 416 bằng kích thước fanpage khi render xong -->
+            <!-- dùng js để build fanpage facebook vi cân set width -->
+            <div id="box-social" style="height: 131px;">
                 <Script>
                     $(document).ready(function() {
                         jQuery(window).on("load resize", function() {
                             var width = Math.round(jQuery('#box-social').width());
 
                             var html = `
-                        <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100092471471801" data-tabs="messages" data-width="${width}" data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false">
-                            <blockquote cite="https://www.facebook.com/profile.php?id=100092471471801" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/profile.php?id=100092471471801">Đất Đông Anh - Datdonganh.vn</a></blockquote>
-                        </div>`
+                            <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100092471471801&amp;ref=embed_page" data-tabs="events" data-width="${width}" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/profile.php?id=100092471471801&amp;ref=embed_page" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/profile.php?id=100092471471801&amp;ref=embed_page">Đất Đông Anh - Datdonganh.vn</a></blockquote></div>`
                             jQuery('#box-social').html(html);
                         });
                     })
