@@ -24,14 +24,16 @@
         body {
             height: 100%;
         }
-        .input-group-ct{
-            display:block;
+
+        .input-group-ct {
+            display: block;
             background-color: #fff;
             border-right: none;
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
-        .line-or-ct{
+
+        .line-or-ct {
             display: flex;
             -webkit-box-pack: center;
             justify-content: center;
@@ -41,11 +43,13 @@
             width: 100%;
             height: 30px;
         }
+
         .line-ct {
             width: 100%;
             height: 1px;
             background-color: rgb(242, 242, 242);
         }
+
         .or-ct {
             position: absolute;
             top: 0px;
@@ -55,13 +59,15 @@
             padding: 4px 8px;
             background-color: rgb(255, 255, 255);
         }
+
         .or-ct div {
             font-size: 13px;
             line-height: 20px;
             font-weight: 400;
             color: rgb(153, 153, 153);
         }
-        .btn-or-ct{
+
+        .btn-or-ct {
             display: inline-block;
             border-radius: 8px;
             cursor: pointer;
@@ -85,46 +91,51 @@
                             <?php echo $login_fail ?>
                         </div>
                     <?php } ?>
-                    
+
                     <div class="input-group mt-3 mb-3">
                         <div class="input-group-prepend">
-                          <div class="input-group-text input-group-ct"><i class="fa-solid fa-user"></i></div>
+                            <div class="input-group-text input-group-ct"><i class="fa-solid fa-user"></i></div>
                         </div>
                         <input type="text" class="form-control " name="username" placeholder="Nhập tên đăng nhập">
                     </div>
-                    
+
 
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <div class="input-group-text input-group-ct"><i class="fa-solid fa-lock"></i></div>
+                            <div class="input-group-text input-group-ct"><i class="fa-solid fa-lock"></i></div>
                         </div>
                         <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu">
                     </div>
                     <input type="submit" class="btn btn-danger w-100" value="Đăng nhập">
-                    
+
                     <div class="line-or-ct mt-2">
                         <div class="line-ct"></div>
                         <div class="or-ct">
-                            <div type="tertiary" class="sc-crrsfI fmnTOX">Hoặc</div>  
-                        </div>  
+                            <div type="tertiary" class="sc-crrsfI fmnTOX">Hoặc</div>
+                        </div>
                     </div>
-                    
+
                     <div class="d-flex justify-content-around mt-1 mb-3">
-                        <button type="button" class="btn btn-outline-primary btn-or-ct"><i class="fa-brands fa-facebook"></i> Facebook</button> 
+                        <button type="button" class="btn btn-outline-primary btn-or-ct"><i class="fa-brands fa-facebook"></i> Facebook</button>
                         <a href="<?php echo $loginUrlgg; ?>">
-                            <button type="button" class="btn btn-outline-danger btn-or-ct"><i class="fa-brands fa-google"></i> Google</button> 
+                            <button type="button" class="btn btn-outline-danger btn-or-ct"><i class="fa-brands fa-google"></i> Google</button>
                         </a>
-                    </div>   
-                    
+                    </div>
+
                     <div class="p-3 ps-4 d-flex justify-content-between">
-                        <a href="<?=site_url()?>" style="text-decoration: none;">
-                            ← Quay lại trang chủ
-                        </a>
-                        <a href="<?=site_url('dang-ky')?>" style="text-decoration: none;">
-                            Đăng ký →
-                        </a>
-                    </div> 
+                        <small>
+                            <a href="<?= site_url() ?>" style="text-decoration: none;">
+                                ← Trang chủ
+                            </a>
+                        </small>
+                        <small><a href="quen-mat-khau" style="text-decoration: none;">Bạn quên mật khẩu?</a></small>
+                        <small>
+                            <a href="<?= site_url('dang-ky') ?>" style="text-decoration: none;">
+                                Đăng ký →
+                            </a>
+                        </small>
+                    </div>
 
                 </form>
             </div>
