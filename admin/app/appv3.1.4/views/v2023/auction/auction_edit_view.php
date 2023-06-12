@@ -80,7 +80,7 @@
                                     <label>Chọn thẻ:</label>
                                     <select class="select2" id="tag" name="tag[]" multiple="multiple" data-placeholder="Chọn thẻ" style="width: 100%">
                                         <?php foreach ($list_tag as $id_tag => $tag) { ?>
-                                            <option value="<?= $id_tag ?>" <?=isset($tag_assign[$id_tag]) ? 'selected' : ''?>><?= $tag['name'] ?></option>
+                                            <option value="<?= $id_tag ?>" <?= isset($tag_assign[$id_tag]) ? 'selected' : '' ?>><?= $tag['name'] ?></option>
                                         <?php } ?>
                                     </select>
                                     <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-tag-add">Thêm tag</button>
@@ -93,7 +93,9 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="<?= ROOT_DOMAIN ?>/filemanager/filemanager/dialog.php?type=1&field_id=image" class="btn btn-primary iframe-btn">Chọn ảnh</a>
+                                        <button type="button" class="btn btn-sm btn-warning" onclick="quanlt_upload(this);" data-callback="cb_upload_image_main_article" data-target="#image">
+                                            <i class="fas fa-upload"></i> chọn ảnh
+                                        </button>
                                     </div>
                                     <input type="text" class="form-control image_input" id="image" name="image" readonly value="<?= $info['image_path'] ?>">
                                     <div class="input-group-prepend">
@@ -257,17 +259,6 @@
         $('.select2').select2();
         $('[data-mask]').inputmask()
 
-        $('.iframe-btn').fancybox({
-            'type': 'iframe',
-            'autoScale': true,
-            'iframe': {
-                'css': {
-                    'width': '1024px',
-                    'height': '800px'
-                }
-            }
-        });
-
         $('#modal-image-delete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var image_id = button.data('image');
@@ -359,14 +350,6 @@
     });
     // end jquery
 
-    function responsive_filemanager_callback(field_id) {
-        var url = jQuery('#' + field_id).val();
-        $(`#${field_id}_pre`).attr('src', url).show();
-
-        $(`#${field_id}`).removeClass('is-invalid');
-        $('#image-error').hide();
-    }
-
     function remove_image(image_id) {
         $(image_id).val('');
         $(image_id + '_pre').attr('src', '').hide();
@@ -382,5 +365,11 @@
             $('#image-error').show();
             $(image_id).addClass('is-invalid');
         }
+    }
+
+    function cb_upload_image_main_article(link, target, name) {
+        $(target).removeClass('is-invalid');
+        $('#image_pre').attr('src', link).show();
+        $('#image-error').hide();
     }
 </script>

@@ -104,11 +104,8 @@ class Auction extends MY_Controller
 
         # lưu ảnh
         $copy = copy_image_from_file_manager_to_public_upload($image, date('Y'), date('m'));
-        if ($copy['status']) {
-            $image = $copy['basename'];
-        }
         // LƯU DỮ LIỆU
-        if ($image != '') {
+        if ($copy['status']) {
 
             // dữ liệu bổ sung
             $type        = AUCTION; // auction
@@ -119,7 +116,7 @@ class Auction extends MY_Controller
             $create_time = date('Y-m-d H:i:s');
 
             // echo (html_entity_decode(htmlspecialchars_decode($content)));die;
-            $newid = $this->Articles_model->add($status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time);
+            $newid = $this->Articles_model->add($status, $type, $slug, $title, $copy['basename'], $sapo, $content, $origin, $is_hot, $id_user, $create_time);
 
             if ($newid) {
                 # update tag
@@ -207,8 +204,7 @@ class Auction extends MY_Controller
         # lưu ảnh
         $yearFolder = date('Y', strtotime($info['create_time']));
         $monthFolder = date('m', strtotime($info['create_time']));
-        // kiểm tra ảnh upload có trong 'uploads/filemanager/source'
-        $la_anh_moi = strpos($image, ROOT_DOMAIN . 'uploads/filemanager/source');
+        $la_anh_moi = strpos($image, ROOT_DOMAIN . TMP_UPLOAD_PATH);
 
         // nếu là ảnh mới thì copy ảnh
         if ($la_anh_moi !== false) {

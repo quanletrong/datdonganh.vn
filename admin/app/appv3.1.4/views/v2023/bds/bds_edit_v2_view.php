@@ -651,7 +651,13 @@
                         var myXhr = $.ajaxSettings.xhr();
                         return myXhr;
                     },
+                    beforeSend: function(){
+                        $('.list-image').append(`<div id="placeholder-quanlt-upload" class="m-1 p-1 rounded shadow" style="width: 31%;aspect-ratio: 1;display: flex;align-items: center;justify-content: center;">
+                            <i class="fas fa-2x fa-sync fa-spin"></i>
+                        </div>`);
+                    },
                     success: function(response) {
+                        $('#placeholder-quanlt-upload').remove();
                         callback_upload_image_bds(response);
                     },
                     data: formData,
