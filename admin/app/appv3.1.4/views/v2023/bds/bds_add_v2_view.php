@@ -23,7 +23,7 @@
             width: 49.5%;
         }
 
-        .list-image>div {
+        .list-image>li {
             width: 31% !important;
         }
     }
@@ -117,7 +117,7 @@
                                         <input type="text" class="form-control" style="width:75%" name="acreage">
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
@@ -367,9 +367,7 @@
                                     </div>
 
 
-                                    <div class="d-flex w-100 flex-wrap list-image" style="gap:10px">
-
-                                    </div>
+                                    <ul id="sortable" class="d-flex w-100 flex-wrap list-image" style="gap:10px; list-style: none; padding: 0;"></ul>
                                     <hr class="d-block d-md-none">
                                 </div>
 
@@ -643,10 +641,10 @@
                         var myXhr = $.ajaxSettings.xhr();
                         return myXhr;
                     },
-                    beforeSend: function(){
-                        $('.list-image').append(`<div id="placeholder-image" class="m-1 p-1 rounded shadow" style="width: 31%;aspect-ratio: 1;display: flex;align-items: center;justify-content: center;">
+                    beforeSend: function() {
+                        $('.list-image').append(`<li id="placeholder-image" class="m-1 p-1 rounded shadow" style="width: 23%;aspect-ratio: 1;display: flex;align-items: center;justify-content: center;">
                             <i class="fas fa-2x fa-sync fa-spin"></i>
-                        </div>`);
+                        </li>`);
                     },
                     success: function(response) {
                         $('#placeholder-image').remove();
@@ -702,6 +700,7 @@
 <script>
     $(document).ready(function() {
 
+        $("#sortable").sortable();
         $('.select2').select2();
         tinymce.init({
             selector: '#content',
@@ -873,10 +872,10 @@
         })
 
         function render_price_red() {
-            let unit       = $('select[name="price_unit"]').find(":selected").val();
+            let unit = $('select[name="price_unit"]').find(":selected").val();
             let price_type = $('select[name="price_type"]').find(":selected").val();
-            let acreage    = parseInt($.trim($('input[name="acreage"]').val()));
-            let price      = $.trim($('input[name="price"]').val());
+            let acreage = parseInt($.trim($('input[name="acreage"]').val()));
+            let price = $.trim($('input[name="price"]').val());
             const regex = /,/ig;
             price = parseFloat(price.replaceAll(regex, ''));
 
@@ -926,12 +925,12 @@
 
                             } else {
                                 let image = `
-                                    <div style="width: 31%; height: fit-content; cursor: pointer; position: relative" >
+                                    <li style="width: 23%; height: fit-content; cursor: pointer; position: relative; border: none;" >
                                         <img src="${value.link}" class="img-fluid m-1 p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;"/>
-                                        <i class="fas fa-trash" style="position:absolute; right: 5px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
-                                        <i class="fas fa-search-plus" style="position:absolute; right: 30px; top: 15px; color: red"></i>
+                                        <i class="fas fa-trash" style="position:absolute; right: 10px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
+                                        <i class="fas fa-search-plus" style="position:absolute; right: 35px; top: 15px; color: red"></i>
                                         <input type="hidden" name="image[]" value="${value.link}" />
-                                    </div>
+                                    </li>
                                 `;
 
                                 $('.list-image').append(image);
