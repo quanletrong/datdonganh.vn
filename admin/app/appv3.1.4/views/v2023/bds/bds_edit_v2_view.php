@@ -23,7 +23,7 @@
             width: 49.5%;
         }
 
-        .list-image>div {
+        .list-image>li{
             width: 31% !important;
         }
     }
@@ -366,18 +366,17 @@
                                         </span>
                                     </div>
 
-
-                                    <div class="d-flex w-100 flex-wrap list-image" style="gap:10px">
-                                        <?php $images = json_decode($info['images'], true); ?>
+                                    <ul id="sortable" class="d-flex w-100 flex-wrap list-image" style="gap:10px; list-style: none; padding: 0;">
+                                    <?php $images = json_decode($info['images'], true); ?>
                                         <?php foreach ($images as $image_name) { ?>
-                                            <div style="width: 23%; height: fit-content; cursor: pointer; position: relative">
-                                                <img src="<?= fullPathImage($image_name, $info['year'], $info['month']) ?>" class="img-fluid m-1 p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;" />
-                                                <i class="fas fa-trash" style="position:absolute; right: 5px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
-                                                <i class="fas fa-search-plus" style="position:absolute; right: 30px; top: 15px; color: red"></i>
+                                            <li  class="ui-state-default" style="width: 23%; height: fit-content; cursor: pointer; position: relative; border: none;">
+                                                <img src="<?= fullPathImage($image_name, $info['year'], $info['month']) ?>" class="img-fluid p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;" />
+                                                <i class="fas fa-trash" style="position:absolute; right: 10px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
+                                                <i class="fas fa-search-plus" style="position:absolute; right: 35px; top: 15px; color: red"></i>
                                                 <input type="hidden" name="image[]" value="<?= fullPathImage($image_name, $info['year'], $info['month']) ?>" />
-                                            </div>
+                                            </li>
                                         <?php } ?>
-                                    </div>
+                                    </ul>
                                     <hr class="d-block d-md-none">
                                 </div>
 
@@ -651,10 +650,10 @@
                         var myXhr = $.ajaxSettings.xhr();
                         return myXhr;
                     },
-                    beforeSend: function(){
-                        $('.list-image').append(`<div id="placeholder-quanlt-upload" class="m-1 p-1 rounded shadow" style="width: 31%;aspect-ratio: 1;display: flex;align-items: center;justify-content: center;">
+                    beforeSend: function() {
+                        $('.list-image').append(`<li id="placeholder-quanlt-upload" class="m-1 p-1 rounded shadow" style="width: 23%;aspect-ratio: 1;display: flex;align-items: center;justify-content: center;">
                             <i class="fas fa-2x fa-sync fa-spin"></i>
-                        </div>`);
+                        </li>`);
                     },
                     success: function(response) {
                         $('#placeholder-quanlt-upload').remove();
@@ -675,6 +674,7 @@
 <script>
     $(function() {
 
+        $("#sortable").sortable();
         $('.select2').select2();
         $('.select2').on('change', function() {
             let list_required = ['commune', 'street', 'type'];
@@ -703,10 +703,10 @@
         })
 
         function render_price_red() {
-            let unit       = $('select[name="price_unit"]').find(":selected").val();
+            let unit = $('select[name="price_unit"]').find(":selected").val();
             let price_type = $('select[name="price_type"]').find(":selected").val();
-            let acreage    = parseInt($.trim($('input[name="acreage"]').val()));
-            let price      = $.trim($('input[name="price"]').val());
+            let acreage = parseInt($.trim($('input[name="acreage"]').val()));
+            let price = $.trim($('input[name="price"]').val());
             const regex = /,/ig;
             price = parseFloat(price.replaceAll(regex, ''));
 
@@ -891,12 +891,12 @@
 
                             } else {
                                 let image = `
-                                    <div style="width: 31%; height: fit-content; cursor: pointer; position: relative" >
+                                    <li style="width: 23%; height: fit-content; cursor: pointer; position: relative; border: none;" >
                                         <img src="${value.link}" class="img-fluid m-1 p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;"/>
-                                        <i class="fas fa-trash" style="position:absolute; right: 5px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
-                                        <i class="fas fa-search-plus" style="position:absolute; right: 30px; top: 15px; color: red"></i>
+                                        <i class="fas fa-trash" style="position:absolute; right: 10px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
+                                        <i class="fas fa-search-plus" style="position:absolute; right: 35px; top: 15px; color: red"></i>
                                         <input type="hidden" name="image[]" value="${value.link}" />
-                                    </div>
+                                    </li>
                                 `;
 
                                 $('.list-image').append(image);
