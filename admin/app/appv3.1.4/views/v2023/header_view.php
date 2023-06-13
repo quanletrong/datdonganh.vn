@@ -52,7 +52,7 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#" style="color: #161616;">
 						<i class="fas fa-user" style="color: #858c93;"></i>
-						Xin chào! <?= $this->session->userdata('fullname'); ?>
+						Hi! <strong><?= $this->session->userdata('fullname'); ?></strong>
 						<i class="fas fa-chevron-down" style="color: #858c93;"></i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
