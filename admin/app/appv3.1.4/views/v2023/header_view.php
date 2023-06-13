@@ -155,14 +155,15 @@
 							</a>
 						</li>
 
-						<li class="nav-item">
+						<!-- TODO: chưa làm -->
+						<!-- <li class="nav-item">
 							<a href="project" class="nav-link">
 								<i class="nav-icon fas fa-th"></i>
 								<p>
 									Dự án
 								</p>
 							</a>
-						</li>
+						</li> -->
 
 						<li class="nav-item">
 							<a href="tag" class="nav-link">

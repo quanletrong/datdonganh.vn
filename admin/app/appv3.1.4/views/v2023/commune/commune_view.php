@@ -36,13 +36,13 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
-                                <thead>
+                                <thead class="thead-danger">
                                     <tr>
                                         <th class="text-center">STT</th>
                                         <th>Tên</th>
                                         <th class="text-center">Ảnh</th>
                                         <th class="text-center">Loại</th>
-                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center" style="width: 90px; min-width: 90px;">Trạng thái</th>
                                         <th class="text-center">Ngày tạo</th>
                                         <th class="text-center">Cập nhật</th>
                                         <th>Bởi</th>

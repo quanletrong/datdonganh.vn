@@ -36,7 +36,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
-                                <thead>
+                                <thead class="thead-danger">
                                     <tr>
                                         <th class="text-center">STT</th>
                                         <th>Từ khóa</th>
