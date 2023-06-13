@@ -12,3 +12,11 @@
 .card-header .card-title{
     line-height: 1.3;
 }
+
+/* table style */
+
+.table .thead-danger th {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #ffffff;
+}
