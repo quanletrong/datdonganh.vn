@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Account_model extends CI_Model
+class User_model extends CI_Model
 {
     public function __construct()
     {
@@ -46,36 +46,31 @@ class Account_model extends CI_Model
         return $data;
     }
 
-    // function get_list($status = '')
-    // {
-    //     $data = [];
-    //     $iconn = $this->db->conn_id;
+    function get_list($status = '')
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
 
-    //     $where = 'WHERE 1=1 ';
-    //     $where .= $status !== '' ? " AND A.status =? " : "";
+        $where = 'WHERE 1=1 AND role != 1'; // k show superadmin
+        $where .= $status !== '' ? " AND status =? " : "";
 
-    //     $sql = "
-    //     SELECT A.*, B.username 
-    //     FROM tbl_street as A 
-    //     LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
-    //     $where
-    //     ORDER BY A.id_street DESC";
-    //     $stmt = $iconn->prepare($sql);
-    //     if ($stmt) {
-    //         if ($stmt->execute([$status])) {
-    //             if ($stmt->rowCount() > 0) {
-    //                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    //                     $data[$row['id_street']] = $row;
-    //                 }
-    //             }
-    //         } else {
-    //             var_dump($stmt->errorInfo());
-    //             die;
-    //         }
-    //     }
-    //     $stmt->closeCursor();
-    //     return $data;
-    // }
+        $sql = "SELECT * FROM tbl_user $where ORDER BY update_time DESC, id_user DESC";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$status])) {
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $data[$row['id_user']] = $row;
+                    }
+                }
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
 
     // function edit($id_street, $name, $status)
     // {
@@ -114,4 +109,44 @@ class Account_model extends CI_Model
     //     $stmt->closeCursor();
     //     return $execute;
     // }
+
+    function update_status($status, $id_user)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_user SET status=$status WHERE id_user = $id_user ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
+
+    function update_role($role, $id_user)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_user SET role=$role WHERE id_user = $id_user ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
 }
