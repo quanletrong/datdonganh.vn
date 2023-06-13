@@ -37,32 +37,33 @@ class Bds_model extends CI_Model
         if ($stmt) {
             if ($stmt->execute([$id_bds, $id_user])) {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
-                $data['year'] = date('Y', strtotime($data['create_time']));
-                $data['month'] = date('m', strtotime($data['create_time']));
+                if (!empty($data)) {
 
-                if($data['price_type'] == PRICE_TYPE_TOTAL) {
+                    $data['year'] = date('Y', strtotime($data['create_time']));
+                    $data['month'] = date('m', strtotime($data['create_time']));
 
-                    if($data['price_total']  < PRICE_ONE_BILLION) {
-                        $data['price_unit'] = PRICE_UNIT_TRIEU; 
-                        $data['price_view'] = $data['price_total']/PRICE_ONE_MILLION;
-                    } else {
-                        $data['price_unit'] = PRICE_UNIT_TY; 
-                        $data['price_view'] = $data['price_total']/PRICE_ONE_BILLION;
+                    if ($data['price_type'] == PRICE_TYPE_TOTAL) {
+
+                        if ($data['price_total']  < PRICE_ONE_BILLION) {
+                            $data['price_unit'] = PRICE_UNIT_TRIEU;
+                            $data['price_view'] = $data['price_total'] / PRICE_ONE_MILLION;
+                        } else {
+                            $data['price_unit'] = PRICE_UNIT_TY;
+                            $data['price_view'] = $data['price_total'] / PRICE_ONE_BILLION;
+                        }
+                    }
+
+                    if ($data['price_type'] == PRICE_TYPE_M2) {
+
+                        if ($data['price_m2']  < PRICE_ONE_BILLION) {
+                            $data['price_unit'] = PRICE_UNIT_TRIEU;
+                            $data['price_view'] = $data['price_m2'] / PRICE_ONE_MILLION;
+                        } else {
+                            $data['price_unit'] = PRICE_UNIT_TY;
+                            $data['price_view'] = $data['price_m2'] / PRICE_ONE_BILLION;
+                        }
                     }
                 }
-
-                if($data['price_type'] == PRICE_TYPE_M2) {
-
-                    if($data['price_m2']  < PRICE_ONE_BILLION) {
-                        $data['price_unit'] = PRICE_UNIT_TRIEU; 
-                        $data['price_view'] = $data['price_m2']/PRICE_ONE_MILLION;
-                    } else {
-                        $data['price_unit'] = PRICE_UNIT_TY; 
-                        $data['price_view'] = $data['price_m2']/PRICE_ONE_BILLION;
-                    }
-                }
-                
-
             } else {
                 var_dump($stmt->errorInfo());
                 die;
@@ -73,7 +74,7 @@ class Bds_model extends CI_Model
     }
 
     // -1 = lấy tất cả
-    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
+    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
     {
         $data = [];
         $iconn = $this->db->conn_id;
@@ -88,18 +89,18 @@ class Bds_model extends CI_Model
         if ($status != '')  $where         .= "AND A.status = $status ";
         if ($type != '')  $where           .= "AND A.type = $type ";
 
-        if($price_type == PRICE_TYPE_TOTAL) {
+        if ($price_type == PRICE_TYPE_TOTAL) {
             if ($f_price != '' && $t_price == '') $where .= "AND A.price_total >= $f_price ";
             if ($f_price == '' && $t_price != '') $where .= "AND A.price_total <= $t_price ";
             if ($f_price != '' && $t_price != '') $where .= "AND A.price_total BETWEEN $f_price AND $t_price ";
         }
-        
-        if($price_type == PRICE_TYPE_M2) {
+
+        if ($price_type == PRICE_TYPE_M2) {
             if ($f_price != '' && $t_price == '') $where .= "AND A.price_m2 >= $f_price ";
             if ($f_price == '' && $t_price != '') $where .= "AND A.price_m2 <= $t_price ";
             if ($f_price != '' && $t_price != '') $where .= "AND A.price_m2 BETWEEN $f_price AND $t_price ";
         }
-        
+
         if ($f_acreage != '' && $t_acreage == '') $where .= "AND A.acreage >= $f_acreage ";
         if ($f_acreage == '' && $t_acreage != '') $where .= "AND A.acreage <= $t_acreage ";
         if ($f_acreage != '' && $t_acreage != '') $where .= "AND A.acreage BETWEEN $f_acreage AND $t_acreage ";
@@ -161,7 +162,7 @@ class Bds_model extends CI_Model
         $iconn = $this->db->conn_id;
         $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, id_user=?, category=?, status=?, type=?, title=?, slug_title=?, address=?, maps=?, sapo=?, content=?, images=?, videos=?, price_total=?, price_m2=?, price_type=?, acreage=?, facades=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, contacttype=?, contactname=?, contactaddress=?, contactphone=?, contactemail=?, update_time=? WHERE id_bds=?; ";
 
-        if($is_vip == '0') {
+        if ($is_vip == '0') {
             $sql .= "UPDATE tbl_bds SET is_home_vip = 0 WHERE id_bds = $id_bds ; ";
         }
 
@@ -217,7 +218,8 @@ class Bds_model extends CI_Model
         return $execute;
     }
 
-    function update_status($status, $id_bds) {
+    function update_status($status, $id_bds)
+    {
         $execute = false;
         $iconn = $this->db->conn_id;
         $sql = "UPDATE tbl_bds SET status=$status WHERE id_bds = $id_bds ;";
@@ -234,5 +236,5 @@ class Bds_model extends CI_Model
         }
         $stmt->closeCursor();
         return $execute;
-    } 
+    }
 }
