@@ -101,5 +101,5 @@ define('BDS_CATEGOTY_BAN', 1);  // bán
 define('BDS_CATEGOTY_THUE', 2); // thuê
 
 //login google
-define("gg_ClientId", "359095629046-msc65hmsb839dto06pplif4o0vka6ct3.apps.googleusercontent.com");
-define("gg_ClientSecret", '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');
+define("gg_ClientId", "654277741157-ackuprija0fgodr47149c6mtefjnq3rs.apps.googleusercontent.com");
+define("gg_ClientSecret", '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');
