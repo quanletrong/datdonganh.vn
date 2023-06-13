@@ -47,7 +47,44 @@
 				</li>
 			</ul>
 
-			
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#" style="color: #161616;">
+						<i class="fas fa-user" style="color: #858c93;"></i>
+						Xin chào! <?= $this->session->userdata('fullname'); ?>
+						<i class="fas fa-chevron-down" style="color: #858c93;"></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<a href="<?= ROOT_DOMAIN ?>" target="_blank" class="dropdown-item">
+							<i class="fas fa-directions" style="color: #858c93;"></i> Trang người dùng
+						</a>
+						<div class="dropdown-divider"></div>
+
+						<a href="<?= ROOT_DOMAIN . 'logout' ?>" class="dropdown-item">
+							<i class="fas fa-sign-out-alt" style="color: #858c93;"></i> Thoát khỏi hệ thống
+						</a>
+						<div class="dropdown-divider"></div>
+
+						<!-- <a href="#" class="dropdown-item">
+							<div class="media">
+								<img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+								<div class="media-body">
+									<h3 class="dropdown-item-title">
+										Brad Diesel
+										<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+									</h3>
+									<p class="text-sm">Call me whenever you can...</p>
+									<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+								</div>
+							</div>
+						</a> -->
+						<!-- <a href="#" class="dropdown-item dropdown-footer">See All Messages</a> -->
+					</div>
+
+				</li>
+
+			</ul>
 		</nav>
 		<!-- /.navbar -->
 
@@ -55,21 +92,21 @@
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="index3.html" class="brand-link">
-				<img src="dist/img/AdminLTELogo.png" alt="Admin Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">Quản Trị Website</span>
+				<img src="images/logo-vuong.png" alt="Admin Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-light">Admin - Đất đông anh</span>
 			</a>
 
 			<!-- Sidebar -->
 			<div class="sidebar">
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex d-none">
 					<div class="image">
 						<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
 						<a href="#" class="d-block">Admin</a>
 					</div>
-				</div>
+				</div> -->
 
 				<!-- SidebarSearch Form -->
 				<div class="form-inline d-none">
