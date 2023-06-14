@@ -685,4 +685,13 @@
         }
         return obj; // Trả về object ban đầu nếu số lượng key không vượt quá num
     }
+
+    // tang luot xem
+    setTimeout(() => {
+        $.ajax({
+            url: "<?= site_url('bds/ajax_tang_luot_xem_bds/'.$bdsInfo['id_bds']) ?>",
+            success: function(res) {
+            }
+        });
+    }, 10000);
 </script>

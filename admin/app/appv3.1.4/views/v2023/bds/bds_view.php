@@ -42,7 +42,7 @@
                             <th class="text-center" style="min-width: 90px; width: 90px;">Xã</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
-                            <th class="text-right" style="min-width: 90px; width: 90px;">View</th>
+                            <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
                             <th class="text-center" style="width: fit-content;">Thao tác</th>
                         </tr>
                     </thead>

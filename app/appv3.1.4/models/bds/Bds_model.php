@@ -562,4 +562,23 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $execute;
     }
+
+    function tang_luot_xem_bds($view, $id_bds) {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_bds SET view=$view WHERE id_bds = $id_bds ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
 }

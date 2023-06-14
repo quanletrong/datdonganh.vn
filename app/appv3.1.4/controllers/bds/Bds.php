@@ -226,4 +226,15 @@ class Bds extends MY_Controller {
             die;
         } 
 	}
+
+    function ajax_tang_luot_xem_bds($id_bds) {
+        $id_bds = isIdNumber($id_bds) ? $id_bds : 0;
+        $bdsInfo = $this->Bds_model->get_info($id_bds);
+        if(!empty($bdsInfo)) {
+            $old_view = $bdsInfo['view'];
+            $new_view = $old_view + 1;
+            $this->Bds_model->tang_luot_xem_bds($new_view, $id_bds);
+            echo 'ok';
+        }
+    }
 }
