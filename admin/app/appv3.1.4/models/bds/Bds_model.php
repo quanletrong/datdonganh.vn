@@ -181,23 +181,23 @@ class Bds_model extends CI_Model
         return $execute;
     }
 
-    // function delete($id_street)
-    // {
-    //     $execute = false;
-    //     $iconn = $this->db->conn_id;
-    //     $sql = "DELETE FROM tbl_street WHERE id_street=?";
-    //     $stmt = $iconn->prepare($sql);
-    //     if ($stmt) {
-    //         if ($stmt->execute([$id_street])) {
-    //             $execute = true;
-    //         } else {
-    //             var_dump($stmt->errorInfo());
-    //             die;
-    //         }
-    //     }
-    //     $stmt->closeCursor();
-    //     return $execute;
-    // }
+    function delete($id_bds)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "DELETE FROM tbl_bds WHERE id_bds=?";
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute([$id_bds])) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
 
     function update_vip_to_home($is_home_vip, $str_id_bds)
     {

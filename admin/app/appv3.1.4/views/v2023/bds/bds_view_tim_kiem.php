@@ -118,9 +118,8 @@
             <!-- chế độ cong khai riêng tu -->
             <div class="col-md-2 mb-2">
                 <select class="select2" name="status" data-minimum-results-for-search="Infinity">
-                    <option value="">Tất cả chế độ</option>
                     <option value="1" <?= @$_GET['status'] == '1' ? 'selected' : '' ?>>Công khai</option>
-                    <option value="0" <?= @$_GET['status'] == '0' ? 'selected' : '' ?>>Riêng tư</option>
+                    <option value="0" <?= @$_GET['status'] == '0' ? 'selected' : '' ?>>Thùng rác</option>
                 </select>
             </div>
 

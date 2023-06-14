@@ -79,13 +79,16 @@ class Bds extends MY_Controller
             $t_price = $t_price_unit == PRICE_UNIT_TRIEU ? $t_price * PRICE_ONE_MILLION : $t_price * PRICE_ONE_BILLION;
         }
 
+        // mặc định là trạng thái công khai
+        $status = $status == '' ? '1' : $status;
+
         // neu la super admin thi cho xem all
-        if($this->_session_role() === SUPERADMIN) {
+        if ($this->_session_role() === SUPERADMIN) {
             $id_user = '';
         } else {
             $id_user = $this->_session_uid();
         }
-        
+
         $list_bds = $this->Bds_model->get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
         $list_street =  $this->Street_model->get_list(1);
         $list_commune =  $this->Commune_model->get_list(1);
@@ -417,6 +420,33 @@ class Bds extends MY_Controller
             }
         } else {
             resError('error_status');
+        }
+    }
+
+    function ajax_delete_bds()
+    {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
+            resError('not_permit_func');
+        }
+
+        $id_bds = removeAllTags($this->input->post('id_bds'));
+
+        $info = $this->Bds_model->get_info($id_bds, $this->_session_uid());
+        if (!empty($info)) {
+
+            // xoa trong db
+            $this->Bds_model->delete($id_bds);
+
+            //xoa anh 
+            $list_image = json_decode($info['images'], true);
+            $yearFolder = date('Y', strtotime($info['create_time']));
+            $monthFolder = date('m', strtotime($info['create_time']));
+            foreach ($list_image as $image_name) {
+                @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $image_name);
+            }
+            resSuccess('ok');
+        } else {
+            resError('not_permit_bds');
         }
     }
 }

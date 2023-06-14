@@ -42,14 +42,13 @@
                             <th class="text-center" style="min-width: 90px; width: 90px;">Xã</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
-                            <th class="text-center" style="min-width: 90px; width: 90px;">Chế độ</th>
                             <th class="text-right" style="min-width: 90px; width: 90px;">View</th>
-                            <th class="text-center" style="width: fit-content;"></th>
+                            <th class="text-center" style="width: fit-content;">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($list_bds as $index => $bds) { ?>
-                            <tr>
+                            <tr id="tr-<?= $bds['id_bds'] ?>">
                                 <td class=" text-center  align-middle"><?= $index ?></td>
                                 <td class=" align-middle  align-middle">
                                     <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2" title="Sửa bài">
@@ -70,34 +69,32 @@
                                 <td class=" text-center  align-middle">
                                     <img src="<?= $bds['main_img'] ?>" alt="" class="img-fluid">
                                 </td>
-                                <td class=" text-center align-middle">
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle" type="button" id="drop_change_status_<?= $bds['id_bds'] ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <?php if ($bds['status'] == '1') { ?>
-                                                <i class="fas fa-globe-europe text-success" title="Công khai"></i>
-                                            <?php } else { ?>
-                                                <i class="fas fa-lock text-secondary" title="Riêng tư"></i>
-                                            <?php } ?>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="drop_change_status_<?= $bds['id_bds'] ?>">
-                                            <button class="dropdown-item" type="button" onclick="drop_change_status(1, <?= $bds['id_bds'] ?>)">Công khai</button>
-                                            <button class="dropdown-item" type="button" onclick="drop_change_status(0, <?= $bds['id_bds'] ?>)">Riêng tư</button>
-                                        </div>
-                                    </div>
-                                </td>
-
                                 <td class="text-right  align-middle">
                                     <?= number_format($bds['view']) ?>
                                 </td>
                                 <td class="text-center  align-middle">
-                                    <div class="d-flex">
+                                    <div class="d-flex align-items-center">
                                         <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2" title="Sửa bài">
                                             <i class="fas fa-edit text-warning"></i>
                                         </a>
-                                        <a href="" class="mr-2" data-toggle="modal" data-target="#modal-bds-archive" data-bds="<?= htmlentities(json_encode($bds)) ?>" title="Xóa bài">
-                                            <i class="fas fa-trash text-danger"></i>
-                                        </a>
-                                        <a href="#" title="Xem bài đăng">
+
+                                        <!-- Nút lưu trữ -->
+                                        <?php if ($bds['status'] == '1') { ?>
+                                            <i class="fas fa-trash text-danger mr-2" style="cursor: pointer;" title="Thùng rác" onclick="on_change_status(this, 0, <?= $bds['id_bds'] ?>)"></i>
+                                        <?php } ?>
+
+
+                                        <!-- Nút khôi phục -->
+                                        <?php if ($bds['status'] == '0') { ?>
+                                            <i class="fas fa-trash-restore text-success mr-2" style="cursor: pointer;" title="Khôi phục" onclick="on_change_status(this, 1, <?= $bds['id_bds'] ?>)"></i>
+                                        <?php } ?>
+
+                                        <!-- Nút Xóa hoàn toàn -->
+                                        <?php if ($bds['status'] == '0') { ?>
+                                            <i class="fas fa-times-circle text-danger mr-2" style="cursor: pointer;" title="Xóa khỏi hệ thống" onclick="on_change_delete(this, <?= $bds['id_bds'] ?>)"></i>
+                                        <?php } ?>
+
+                                        <a href="<?= ROOT_DOMAIN . $bds['slug_title'] . '-p' . $bds['id_bds'] ?>" title="Xem bài đăng" target="_blank">
                                             <i class="fas fa-external-link-square-alt"></i>
                                         </a>
                                     </div>
@@ -120,7 +117,7 @@
 <div class="modal fade" id="modal-bds-archive" style="display: none" aria-modal="true" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
-            <form id="frm_bds_delete" method="post" action="<?= site_url('bds/delete') ?>">
+            <form id="frm_bds_delete" method="post" action="<?= site_url('bds/archive') ?>">
                 <div class="modal-header">
                     <h4 class="modal-title text-center">Cảnh báo xóa bài</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -188,35 +185,64 @@
         });
     });
 
-    function drop_change_status(status, id_bds) {
-        $('#drop_change_status_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
+    function on_change_status(e, new_status, id_bds) {
+        let text_confirm = "";
+        if(new_status) {
+            text_confirm =  "Đưa tin này ra khỏi thùng rác. Người dùng sẽ nhìn thấy tin này"
+        } else {
+            text_confirm = "Chuyển tin này vào thùng rác! Người dùng sẽ không nhìn thấy tin này nữa. Bạn có thể khôi phục tin trong thùng rác.";
+        }
 
-        $.ajax({
-            type: "POST",
-            url: "<?= site_url('bds/ajax_update_status') ?>",
-            data: {
-                'status': status,
-                'id_bds': id_bds,
-            },
-            success: function(res) {
-                try {
-                    let resData = JSON.parse(res);
-                    if (resData.status) {
-
-                        if (status) {
-                            $('#drop_change_status_' + id_bds).html('<i class="fas fa-globe-europe text-success" title="Công khai"></i>');
+        if (confirm(text_confirm) == true) {
+            $(e).removeClass('fa-trash fa-trash-restore').addClass('fa-sync fa-spin');
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('bds/ajax_update_status') ?>",
+                data: {
+                    'status': new_status,
+                    'id_bds': id_bds,
+                },
+                success: function(res) {
+                    try {
+                        let resData = JSON.parse(res);
+                        if (resData.status) {
+                            $(`#tr-${id_bds}`).remove();
+                            toasts_success(new_status ? 'Tin này đã được khôi phục' : 'Tin này đã chuyển vào thùng rác!');
                         } else {
-                            $('#drop_change_status_' + id_bds).html('<i class="fas fa-lock text-secondary" title="Riêng tư"></i>');
-
+                            toasts_danger(resData.data);
                         }
-                        toasts_success();
-                    } else {
-                        toasts_danger(resData.data);
+                    } catch (error) {
+                        toasts_danger();
                     }
-                } catch (error) {
-                    toasts_danger();
                 }
-            }
-        });
+            });
+        }
+    }
+
+    function on_change_delete(e, id_bds) {
+
+        if (confirm("Xóa khỏi hệ thống! Bạn không thể khôi phục tin đã xóa khỏi hệ thống.") == true) {
+            $(e).removeClass('fa-times-circle').addClass('fa-sync fa-spin');
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('bds/ajax_delete_bds') ?>",
+                data: {
+                    'id_bds': id_bds,
+                },
+                success: function(res) {
+                    try {
+                        let resData = JSON.parse(res);
+                        if (resData.status) {
+                            $(`#tr-${id_bds}`).remove();
+                            toasts_success('Tin này đã được xóa khỏi hệ thống.');
+                        } else {
+                            toasts_danger(resData.data);
+                        }
+                    } catch (error) {
+                        toasts_danger();
+                    }
+                }
+            });
+        }
     }
 </script>
