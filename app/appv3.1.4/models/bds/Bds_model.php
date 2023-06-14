@@ -480,7 +480,7 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
-            LEFT JOIN tbl_save_bds as E ON A.id_bds = E.id_bds WHERE E.id_user = ?";
+            LEFT JOIN tbl_save_bds as E ON A.id_bds = E.id_bds WHERE E.id_user = ? AND A.status = 1";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute([$uid])) {
