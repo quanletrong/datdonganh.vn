@@ -185,10 +185,13 @@ class Bds_model extends CI_Model
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "DELETE FROM tbl_bds WHERE id_bds=?";
+        $TAG_BDS = TAG_BDS;
+        $sql = "DELETE FROM tbl_bds WHERE id_bds= $id_bds; 
+        DELETE FROM tbl_tag_assign WHERE type_assign= $TAG_BDS AND id_assign = $id_bds; 
+        DELETE FROM tbl_save_bds WHERE id_bds = $id_bds; ";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            if ($stmt->execute([$id_bds])) {
+            if ($stmt->execute()) {
                 $execute = true;
             } else {
                 var_dump($stmt->errorInfo());
