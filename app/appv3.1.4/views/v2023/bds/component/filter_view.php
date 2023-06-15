@@ -37,10 +37,10 @@
                             <select name="type" class="form-select" aria-label="Example select with button addon" style="max-width: 200px;padding: 10px 10px;border: none;">
                                 <option value="">Tất cả loại đất</option>
                                 <?php foreach ($cf_bds['type'] as $id => $name) { ?>
-                                    <option value="<?= $id ?>" <?= $id == $type ? 'selected' : '' ?>><?= $name ?></option>
+                                    <option value="<?= $id ?>"><?= $name ?></option>
                                 <?php } ?>
                             </select>
-                            <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style="border: transparent;height: 40px;" value="<?= htmlentities($title) ?>">
+                            <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style="border: transparent;height: 40px;" value="">
                             <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 3px 8px;"><i class="fas fa-search"></i> Tìm kiếm</button>
                         </div>
 
@@ -48,7 +48,7 @@
                             <div class="col-sm-12 col-md-6 col-lg-3">
                                 <div id="dropdown-commune" class="dropdown mb-md-1">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
-                                        <?= isset($list_commune[$id_commune_ward]) != '' ? $list_commune[$id_commune_ward]['name'] : 'Xã phường thị trấn' ?>
+                                        Xã phường thị trấn
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
@@ -56,7 +56,7 @@
                                             <select name="id_commune_ward" id="id_commune_ward" class="form-select select2" style="width: 100%;" data-placeholder="Chọn khu vực">
                                                 <option value="">Tất cả</option>
                                                 <?php foreach ($list_commune as $id => $it) { ?>
-                                                    <option value="<?= $id ?>" <?= $id == $id_commune_ward ? 'selected' : '' ?>><?= $it['name'] ?></option>
+                                                    <option value="<?= $id ?>"><?= $it['name'] ?></option>
                                                 <?php } ?>
                                             </select>
 
@@ -73,27 +73,18 @@
                             <div class="col-sm-12 col-md-6 col-lg-3">
                                 <div id="dropdown-price" class="dropdown mb-md-1">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
-                                        <?php
-                                        if ($f_price == '' && $t_price == '') {
-                                            echo 'Tất cả mức giá';
-                                        } else if ($f_price != '' && $t_price != '') {
-                                            echo $f_price . ' tỷ - ' . $t_price . ' tỷ';
-                                        } else {
-                                            echo 'Trên ' . $f_price . ' tỷ';
-                                        }
-                                        ?>
-
+                                        Tất cả mức giá
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
                                             <div class="d-flex align-items-center justify-content-between gap-3">
                                                 <div style="position: relative;">
-                                                    <input type="text" name="f_price" class="w-100 form-control" value="<?= $f_price ?>">
+                                                    <input type="text" name="f_price" class="w-100 form-control" value="">
                                                     <span style="position: absolute; top:6px; right:6px">tỷ</span>
                                                 </div>
                                                 <div>đến</div>
                                                 <div style="position: relative;">
-                                                    <input type="text" name="t_price" class="w-100 form-control" value="<?= $t_price ?>">
+                                                    <input type="text" name="t_price" class="w-100 form-control" value="">
                                                     <span style="position: absolute; top:6px; right:6px">tỷ</span>
                                                 </div>
                                             </div>
@@ -107,7 +98,7 @@
                                                 </li>
                                                 <?php foreach ($cf_bds['price_list'] as $key => $price) { ?>
                                                     <li class="list-group-item">
-                                                        <input class="form-check-input me-1" type="radio" name="price" id="price_<?= $key ?>" data-start='<?= $price['from'] ?>' data-end='<?= $price['to'] ?>' <?= $f_price == $price['from'] && $t_price == $price['to'] ? 'checked' : '' ?>>
+                                                        <input class="form-check-input me-1" type="radio" name="price" id="price_<?= $key ?>" data-start='<?= $price['from'] ?>' data-end='<?= $price['to'] ?>'>
                                                         <label class="form-check-label" for="price_<?= $key ?>"><?= $price['name'] ?></label>
                                                     </li>
                                                 <?php } ?>
@@ -126,27 +117,18 @@
                             <div class="col-sm-12 col-md-6 col-lg-3">
                                 <div id="dropdown-acreage" class="dropdown mb-md-1">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
-                                        <?php
-                                        if ($f_acreage == '' && $t_acreage == '') {
-                                            echo 'Tất cả diện tích';
-                                        } else if ($f_acreage != '' && $t_acreage != '') {
-                                            echo $f_acreage . ' - ' . $t_acreage . ' m²';
-                                        } else {
-                                            echo 'Trên ' . $f_acreage . ' m²';
-                                        }
-
-                                        ?>
+                                        Tất cả diện tích
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
                                             <div class="d-flex align-items-center justify-content-between gap-3">
                                                 <div style="position: relative;">
-                                                    <input type="text" class="w-100 form-control" name="f_acreage" value="<?= $f_acreage ?>">
+                                                    <input type="text" class="w-100 form-control" name="f_acreage" value="">
                                                     <span style="position: absolute; top:6px; right:6px">m²</span>
                                                 </div>
                                                 <div>đến</div>
                                                 <div style="position: relative;">
-                                                    <input type="text" class="w-100 form-control" name="t_acreage" value="<?= $t_acreage ?>">
+                                                    <input type="text" class="w-100 form-control" name="t_acreage" value="">
                                                     <span style="position: absolute; top:6px; right:6px">m²</span>
                                                 </div>
                                             </div>
@@ -155,12 +137,11 @@
                                             <ul class="list-group mt-2">
                                                 <li class="list-group-item">
                                                     <input class="form-check-input me-1" type="radio" name="acreage" id="all_acreage" data-start='' data-end='' checked>
-                                                    <label class="form-check-label" for="all_acreage">Tất cả diện
-                                                        tích</label>
+                                                    <label class="form-check-label" for="all_acreage">Tất cả diện tích</label>
                                                 </li>
                                                 <?php foreach ($cf_bds['acreage_list'] as $key => $acreage) { ?>
                                                     <li class="list-group-item">
-                                                        <input class="form-check-input me-1" type="radio" name="acreage" id="acreage_<?= $key ?>" data-start='<?= $acreage['from'] ?>' data-end='<?= $acreage['to'] ?>' <?= $f_acreage == $acreage['from'] && $t_acreage == $acreage['to'] ? 'checked' : '' ?>>
+                                                        <input class="form-check-input me-1" type="radio" name="acreage" id="acreage_<?= $key ?>" data-start='<?= $acreage['from'] ?>' data-end='<?= $acreage['to'] ?>'>
                                                         <label class="form-check-label" for="acreage_<?= $key ?>"><?= $acreage['name'] ?></label>
                                                     </li>
                                                 <?php } ?>
@@ -194,9 +175,9 @@
                                         <div class="px-2 py-3 bg-light rounded shadow" style="min-width: 400px;">
                                             Hướng nhà
                                             <div>
-                                                <span class="badge rounded-pill <?= $direction == '' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_direction(this, '')">Tất cả</span>
+                                                <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, '')">Tất cả</span>
                                                 <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
-                                                    <span class="badge rounded-pill <?= $id == $direction ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_direction(this, <?= $id ?>)"><?= $name ?></span>
+                                                    <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, <?= $id ?>)"><?= $name ?></span>
                                                 <?php } ?>
                                                 <input type="hidden" name="direction" value="<?= $direction ?>" id="direction" />
                                             </div>

@@ -918,9 +918,9 @@ function timeSince($date) {
 
 function getPrice($number) {
   if ($number >= PRICE_ONE_BILLION) {
-    echo round($number / PRICE_ONE_BILLION, 1) . ' tỷ';
+    echo round($number / PRICE_ONE_BILLION, 2) . ' tỷ';
   } else if ($number >= PRICE_ONE_MILLION) {
-    echo round($number / PRICE_ONE_MILLION, 2) . ' triệu';
+    echo round($number / PRICE_ONE_MILLION, 1) . ' triệu';
   } else {
     echo number_format($number) . 'đ';
   }
@@ -934,9 +934,9 @@ function getPriceM2($number, $m2) {
     }
 
     if ($priceM2 >= PRICE_ONE_BILLION) {
-      echo round($priceM2/ PRICE_ONE_BILLION, 1) . ' tỷ/m²';
+      echo round($priceM2/ PRICE_ONE_BILLION, 2) . ' tỷ/m²';
     } else if ($priceM2 >= PRICE_ONE_MILLION) {
-      echo round($priceM2/ PRICE_ONE_MILLION, 2) . ' tr/m²';
+      echo round($priceM2/ PRICE_ONE_MILLION, 1) . ' tr/m²';
     } else {
       echo number_format($number) . 'đ/m²';
     }

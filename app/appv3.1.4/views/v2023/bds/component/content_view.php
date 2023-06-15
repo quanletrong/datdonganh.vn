@@ -380,7 +380,6 @@
                                     </div>
                                     <div class="mb-1">·</div>
                                     <div class="text-danger fw-bold">
-                                        <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
                                     </div>
                                     <div class="mb-1">·</div>
                                     <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
@@ -460,7 +459,7 @@
             <div class="sticky-top" style="z-index: auto; top:70px">
                 <div class="card">
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="https://file4.batdongsan.com.vn/resize/200x200/2023/03/31/20230331171327-a131.jpg" class="rounded-circle w-25" alt="">
+                        <img src="images/avatar-default.png" class="rounded-circle w-25" alt="">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
                         <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
                         <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>
