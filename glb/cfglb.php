@@ -3,7 +3,7 @@ if (!defined('CUSTOM_CHECK_GLB')){header("Location: upgrade");die();}
 else
 {
 	// define http protocol
-	define('HTTP_PROTOCOL', 'https');
+	define('HTTP_PROTOCOL', 'http');
 
 	//safelist db
     define('DB_MASTER_HOST', '82.180.152.103');
