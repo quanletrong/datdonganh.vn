@@ -191,7 +191,6 @@ class Bds extends MY_Controller
         //END validate
 
         # lưu ảnh
-        $time_start = microtime(true); 
         $image_db = [];
         $index = 1;
         foreach ($image as $url_image) {
@@ -202,11 +201,6 @@ class Bds extends MY_Controller
             }
         }
 
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start)/60;
-        echo '<b>Total Execution Time:</b> '.$execution_time.' Mins';
-        die;
-        
         // LƯU DỮ LIỆU
         if (!empty($image_db)) {
 
