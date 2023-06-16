@@ -3,6 +3,9 @@
     .error.invalid-feedback {
         margin-left: 25%;
     }
+    #content-error {
+        margin-left: 0;
+    }
 
     .input-group .error.invalid-feedback {
         margin-left: 0;
