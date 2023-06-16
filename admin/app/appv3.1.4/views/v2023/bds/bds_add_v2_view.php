@@ -371,8 +371,6 @@
                                         Tin này cần tối thiểu 1 ảnh.
                                     </span>
 
-
-
                                     <ul id="sortable" class="d-flex w-100 flex-wrap list-image" style="gap:10px; list-style: none; padding: 0;"></ul>
                                     <hr class="d-block d-md-none">
                                 </div>

@@ -356,15 +356,20 @@
                             <div class="row">
                                 <!-- ảnh -->
                                 <div class="col-md-7">
-                                    <div class="form-group">
-                                        <label for="">Thêm ảnh</label> <br>
+                                <label for="">Thêm ảnh</label>
+                                    <div class="d-flex" style="align-items: center; gap:20px">
                                         <button type="button" class="btn btn-sm btn-warning quanlt-upload" data-target="">
                                             <i class="fas fa-upload"></i> Thêm ảnh cho tin đăng
                                         </button>
-                                        <span id="image-error" class="invalid-feedback" style="font-size: 80%; color: red;">
-                                            Tin này cần tối thiểu 1 ảnh.
-                                        </span>
+                                        <div>
+                                            <input type="checkbox" id="quanlt-upload_chen-logo">
+                                            <label for="quanlt-upload_chen-logo" class="m-0">Chèn logo</label>
+                                        </div>
+
                                     </div>
+                                    <span id="image-error" class="invalid-feedback" style="font-size: 80%; color: red;">
+                                        Tin này cần tối thiểu 1 ảnh.
+                                    </span>
 
                                     <ul id="sortable" class="d-flex w-100 flex-wrap list-image" style="gap:10px; list-style: none; padding: 0;">
                                     <?php $images = json_decode($info['images'], true); ?>
@@ -643,8 +648,9 @@
                 e.preventDefault();
                 var formData = new FormData($(this).parents('form')[0]);
 
+                let checked_logo = $('#quanlt-upload_chen-logo').is(":checked") ? 1 : 0;
                 $.ajax({
-                    url: 'upload',
+                    url: 'upload?logo=' + checked_logo,
                     type: 'POST',
                     xhr: function() {
                         var myXhr = $.ajaxSettings.xhr();
