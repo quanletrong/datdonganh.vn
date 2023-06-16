@@ -102,7 +102,7 @@
 
                             var html = `
                             <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100092471471801&amp;ref=embed_page" data-tabs="events" data-width="${width}" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/profile.php?id=100092471471801&amp;ref=embed_page" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/profile.php?id=100092471471801&amp;ref=embed_page">Đất Đông Anh - Datdonganh.vn</a></blockquote></div>`
-                            jQuery('#box-social').html(html);
+                            // jQuery('#box-social').html(html);
                         });
                     })
                 </Script>
