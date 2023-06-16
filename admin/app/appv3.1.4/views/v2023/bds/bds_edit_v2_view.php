@@ -485,17 +485,6 @@
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Chế độ <span class="text-danger">*</span></label>
-                                        </div>
-                                        <select class="select2" style="width:75%" name="status">
-                                            <option value="1" <?= $info['status'] == '1' ? 'selected' : '' ?>>Công khai</option>
-                                            <option value="0" <?= $info['status'] == '0' ? 'selected' : '' ?>>Riêng tư</option>>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Hiển thị <span class="text-danger">*</span></label>
                                         </div>
                                         <select class="select2" style="width:75%" name="is_vip" data-minimum-results-for-search="Infinity">
@@ -699,7 +688,7 @@
         })
 
         // giá bằng chữ
-        $('#price_word').val((VNnum2words('<?= $info['price_view'] * ($info['price_unit'] == '1' ? 1000000 : 1000000000) ?>')) + ' VNĐ');
+        render_price_red();
 
         $('input[name="price"], input[name="acreage"]').on('keyup', function() {
             render_price_red()

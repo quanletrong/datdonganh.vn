@@ -147,7 +147,6 @@ class Bds extends MY_Controller
         $id_street       = $this->input->post('street');          // check db + rq
         $id_project      = $this->input->post('project');         // check db
         $category        = $this->input->post('category');        // check db
-        $status          = $this->input->post('status');          // check db
         $type            = $this->input->post('type');            // check cf + rq
         $title           = $this->input->post('title');           // check length + rq
         $address         = $this->input->post('address');         // check length 
@@ -318,7 +317,6 @@ class Bds extends MY_Controller
         $id_street       = $this->input->post('street');          // check db + rq
         $id_project      = $this->input->post('project');         // check db
         $category        = $this->input->post('category');        // check db
-        $status          = $this->input->post('status');          // check db
         $type            = $this->input->post('type');            // check cf + rq
         $title           = $this->input->post('title');           // check length + rq
         $address         = $this->input->post('address');         // check length 
@@ -388,11 +386,11 @@ class Bds extends MY_Controller
         if (!empty($image_db)) {
 
             // dữ liệu bổ sung
-            // dữ liệu bổ sung
+            $status      = $info['status'];
             $id_user     = $this->_session_uid();
             $slug_title  = create_slug($title);
-            $maps = '';
-            $sapo = '';
+            $maps        = '';
+            $sapo        = '';
             $images      = json_encode($image_db);
             $update_time = date('Y-m-d H:i:s');
 
