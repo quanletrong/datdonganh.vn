@@ -698,6 +698,7 @@
             }
         })
 
+        // giá bằng chữ
         $('#price_word').val((VNnum2words('<?= $info['price_view'] * ($info['price_unit'] == '1' ? 1000000 : 1000000000) ?>')) + ' VNĐ');
 
         $('input[name="price"], input[name="acreage"]').on('keyup', function() {
@@ -711,7 +712,7 @@
         function render_price_red() {
             let unit = $('select[name="price_unit"]').find(":selected").val();
             let price_type = $('select[name="price_type"]').find(":selected").val();
-            let acreage = parseInt($.trim($('input[name="acreage"]').val()));
+            let acreage = parseFloat($.trim($('input[name="acreage"]').val()));
             let price = $.trim($('input[name="price"]').val());
             const regex = /,/ig;
             price = parseFloat(price.replaceAll(regex, ''));
@@ -731,17 +732,22 @@
                     $('#price_word').val('');
                 } else {
                     let price_red = 0;
-                    // show giá/m2
-                    if (price_type == '1') {
-                        price_red = price / acreage;
-                        $('#price_word').val(VNnum2words(price_red) + ' / m2');
+
+                    if (price_type === '1') {
+                        price_red = price / acreage; // show giá/m2
+                    } else if (price_type === '2') {
+                        price_red = price * acreage; //show total giá
                     }
 
-                    //show total giá
-                    if (price_type == '2') {
-                        price_red = price * acreage;
-                        $('#price_word').val(VNnum2words(price_red) + ' VNĐ');
+                    if (price_red >= 1000000000) {
+                        price_red = (price_red / 1000000000).toFixed(3); // làm tròn đến hàng triệu
+                        price_red = price_red * 1000000000;
+                    } else {
+                        price_red = (price_red / 1000000).toFixed(1); // làm tròn đến hàng trăm
+                        price_red = price_red * 1000000;
                     }
+
+                    $('#price_word').val(VNnum2words(price_red) + `${price_type === '1' ? '/m2' : ' VND'}`);
                 }
             }
         }
