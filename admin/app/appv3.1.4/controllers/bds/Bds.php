@@ -242,11 +242,19 @@ class Bds extends MY_Controller
 
         // check right
         $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
-        $info   = $this->Bds_model->get_info($id_bds, $this->_session_uid());
+        $info   = $this->Bds_model->get_info($id_bds);
         if (empty($info)) {
-            $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
+            $this->session->set_flashdata('flsh_msg', "Không tồn tại tin vừa truy cập");
             redirect('bds');
         }
+
+        if ($this->_session_role() != SUPERADMIN) {
+            if ($info['id_user'] != $this->_session_uid()) {
+                $this->session->set_flashdata('flsh_msg', "Tài khoản không có quyền truy cập vào tin này!");
+                redirect('bds');
+            }
+        }
+
         //end check right
 
         $list_street  = $this->Street_model->get_list(1);
@@ -292,10 +300,17 @@ class Bds extends MY_Controller
 
         // check right
         $id_bds     = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
-        $info   = $this->Bds_model->get_info($id_bds, $this->_session_uid());
+        $info   = $this->Bds_model->get_info($id_bds);
         if (empty($info)) {
-            $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
+            $this->session->set_flashdata('flsh_msg', "Không tồn tại tin vừa truy cập");
             redirect('bds');
+        }
+
+        if ($this->_session_role() != SUPERADMIN) {
+            if ($info['id_user'] != $this->_session_uid()) {
+                $this->session->set_flashdata('flsh_msg', "Tài khoản không có quyền truy cập vào tin này!");
+                redirect('bds');
+            }
         }
         //end check right
 
@@ -410,17 +425,26 @@ class Bds extends MY_Controller
         $status   = removeAllTags($this->input->post('status'));
         $id_bds   = removeAllTags($this->input->post('id_bds'));
 
-        if (in_array($status, ['0', '1'])) {
-            $info = $this->Bds_model->get_info($id_bds, $this->_session_uid());
-            if (!empty($info)) {
-                $this->Bds_model->update_status($status, $id_bds);
-                resSuccess('ok');
-            } else {
-                resError('not_permit_bds');
-            }
-        } else {
+        //check right
+        if (!in_array($status, ['0', '1'])) {
             resError('error_status');
         }
+        
+        $id_bds = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
+        $info   = $this->Bds_model->get_info($id_bds);
+        if (empty($info)) {
+            resError('not_exits_bds');
+        }
+        
+        if ($this->_session_role() != SUPERADMIN) {
+            if ($info['id_user'] != $this->_session_uid()) {
+                resError('not_permit_bds');
+            }
+        }
+        //end check right
+
+        $this->Bds_model->update_status($status, $id_bds);
+        resSuccess('ok');
     }
 
     function ajax_delete_bds()
@@ -430,23 +454,31 @@ class Bds extends MY_Controller
         }
 
         $id_bds = removeAllTags($this->input->post('id_bds'));
+        $id_bds = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
 
-        $info = $this->Bds_model->get_info($id_bds, $this->_session_uid());
-        if (!empty($info)) {
-
-            // xoa trong db
-            $this->Bds_model->delete($id_bds);
-
-            //xoa anh 
-            $list_image = json_decode($info['images'], true);
-            $yearFolder = date('Y', strtotime($info['create_time']));
-            $monthFolder = date('m', strtotime($info['create_time']));
-            foreach ($list_image as $image_name) {
-                @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $image_name);
-            }
-            resSuccess('ok');
-        } else {
-            resError('not_permit_bds');
+        // check right
+        $info = $this->Bds_model->get_info($id_bds);
+        if (empty($info)) {
+            resError('not_exits_bds');
         }
+
+        if ($this->_session_role() != SUPERADMIN) {
+            if ($info['id_user'] != $this->_session_uid()) {
+                resError('not_permit_bds');
+            }
+        }
+        //end check right
+
+        // xoa trong db
+        $this->Bds_model->delete($id_bds);
+
+        //xoa anh 
+        $list_image = json_decode($info['images'], true);
+        $yearFolder = date('Y', strtotime($info['create_time']));
+        $monthFolder = date('m', strtotime($info['create_time']));
+        foreach ($list_image as $image_name) {
+            @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $image_name);
+        }
+        resSuccess('ok');
     }
 }

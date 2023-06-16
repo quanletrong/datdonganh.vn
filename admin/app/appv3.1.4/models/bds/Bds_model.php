@@ -28,14 +28,14 @@ class Bds_model extends CI_Model
         return $new_id;
     }
 
-    function get_info($id_bds, $id_user)
+    function get_info($id_bds)
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        $sql = "SELECT * FROM tbl_bds WHERE id_bds = ? AND id_user = ?";
+        $sql = "SELECT * FROM tbl_bds WHERE id_bds = ?;";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            if ($stmt->execute([$id_bds, $id_user])) {
+            if ($stmt->execute([$id_bds])) {
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (!empty($data)) {
 
