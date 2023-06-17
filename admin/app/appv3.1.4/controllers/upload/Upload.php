@@ -84,49 +84,20 @@ class Upload extends MY_Controller
                         if (move_uploaded_file($tmp_name, $target_file)) {
                             $link = ROOT_DOMAIN . TMP_UPLOAD_PATH . $name_file;
                             $data[$i]['link'] = $link;
+                            $image_path = $_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH . $name_file;
+
+                            list($width, $height, $type) = getimagesize($image_path);
+                            
+                            // giảm dung lương ảnh lấy max width hoặc height là 1000
+                            if($width > 1000 || $height > 1000) {
+                                $this->resize_image($image_path, 1000, 1000, $width, $height, $type);
+                            }
 
                             // watermart
                             if ($chen_logo == '1') {
-                                $image_path = $_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH . $name_file;
-                                switch ($imageFileType) {
-                                    case 'jpg':
-                                        $im = imagecreatefromjpeg($image_path);
-                                        break;
-                                    case 'jpeg':
-                                        $im = imagecreatefromjpeg($image_path);
-                                        break;
-                                    case 'png':
-                                        $im = imagecreatefrompng($image_path);
-                                        break;
-                                    default:
-                                        $im = imagecreatefromjpeg($image_path);
-                                }
-
-                                // get the width and height of the main image image
-                                $main_width = imagesx($im);
-                                $main_height = imagesy($im);
-
-                                // resize watermark to half-width of the image
-                                $new_height = round($water_height * $main_width / $water_width * 0.1);
-                                $new_width = round($main_width * 0.1);
-                                $new_watermark = imagecreatetruecolor($new_width, $new_height);
-                                // keep transparent background
-                                imagealphablending($new_watermark, false);
-                                imagesavealpha($new_watermark, true);
-                                imagecopyresampled($new_watermark, $watermarkImg, 0, 0, 0, 0, $new_width, $new_height, $water_width, $water_height);
-
-                                // Set the dimension of the area you want to place your watermark we use 0
-                                // from x-axis and 0 from y-axis 
-                                $dime_x = round(($main_width - $new_width) / 2);
-                                $dime_y = round(($main_height - $new_height) / 2);
-
-                                // copy both the images
-                                imagecopy($im, $new_watermark, $dime_x, $dime_y, 0, 0, $new_width, $new_height);
-
-                                // Save image and free memory 
-                                imagepng($im, $image_path);
-                                imagedestroy($im);
+                                $this->watermark($image_path, $watermarkImg, $water_height, $water_width, $type);
                             }
+
                         } else {
                             $data[$i]['status'] = 0;
                             $data[$i]['error'][] = 'Sorry, there was an error uploading your file.';
@@ -139,5 +110,93 @@ class Upload extends MY_Controller
                 resError('Xin lỗi, không tìm thấy ảnh.');
             }
         }
+    }
+
+    function watermark($image_path, $watermarkImg, $water_height, $water_width, $type)
+    {
+        $im = $this->load_image($image_path, $type);
+
+        // get the width and height of the main image image
+        $main_width = imagesx($im);
+        $main_height = imagesy($im);
+
+        // resize watermark to half-width of the image
+        $new_height = round($water_height * $main_width / $water_width * 0.1);
+        $new_width = round($main_width * 0.1);
+        $new_watermark = imagecreatetruecolor($new_width, $new_height);
+        // keep transparent background
+        imagealphablending($new_watermark, false);
+        imagesavealpha($new_watermark, true);
+        imagecopyresampled($new_watermark, $watermarkImg, 0, 0, 0, 0, $new_width, $new_height, $water_width, $water_height);
+
+        // Set the dimension of the area you want to place your watermark we use 0
+        // from x-axis and 0 from y-axis 
+        $dime_x = round(($main_width - $new_width) / 2);
+        $dime_y = round(($main_height - $new_height) / 2);
+
+        // copy both the images
+        imagecopy($im, $new_watermark, $dime_x, $dime_y, 0, 0, $new_width, $new_height);
+
+        // Save image and free memory 
+        $this->save_image($im, $image_path, $type);
+    }
+
+    function resize_image($file, $new_w, $new_h,$old_w, $old_h, $type, $crop = FALSE)
+    {
+        $r = $old_w / $old_h;
+        if ($crop) {
+            if ($old_w > $old_h) {
+                $old_w = ceil($old_w - ($old_w * abs($r - $new_w / $new_h)));
+            } else {
+                $old_h = ceil($old_h - ($old_h * abs($r - $new_w / $new_h)));
+            }
+            $newwidth = $new_w;
+            $newheight = $new_h;
+        } else {
+            if ($new_w / $new_h > $r) {
+                $newwidth = $new_h * $r;
+                $newheight = $new_h;
+            } else {
+                $newheight = $new_w / $r;
+                $newwidth = $new_w;
+            }
+        }
+        $src = $this->load_image($file, $type);
+
+        $dst = imagecreatetruecolor($newwidth, $newheight);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $old_w, $old_h);
+
+        //save
+        $this->save_image($dst, $file, $type);
+    }
+
+    function load_image($filename, $type)
+    {
+        if ($type == IMAGETYPE_JPEG) {
+            $image = imagecreatefromjpeg($filename);
+        } elseif ($type == IMAGETYPE_PNG) {
+            $image = imagecreatefrompng($filename);
+        } elseif ($type == IMAGETYPE_GIF) {
+            $image = imagecreatefromgif($filename);
+        }
+        return $image;
+    }
+
+    function save_image($im, $image_path, $type)
+    {
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($im, $image_path);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($im, $image_path);
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($im, $image_path);
+                break;
+            default:
+                imagejpeg($im, $image_path);
+        }
+        imagedestroy($im);
     }
 }
