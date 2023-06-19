@@ -108,7 +108,7 @@
                                 </li>
                             <?php } ?>
                             <li>
-                                <a href="/trang-ca-nhan" class="re__content d-flex align-items-center">
+                                <a href="/trang-ca-nhan?tab=favoritebds" class="re__content d-flex align-items-center">
                                     <i class="fa-solid fa-heart me-1" style="color:gray"></i> Tin đã lưu 
                                     <div class="count-num ms-2" id="count-favorite">
                                         <?php echo $count_favorite; ?>
@@ -116,12 +116,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/trang-ca-nhan/uspg-changeinfo" class="re__content">
+                                <a href="/trang-ca-nhan?tab=accountDetail" class="re__content">
                                     <i class="fa-solid fa-user" style="color:gray"></i> Thông tin cá nhân
                                 </a>
                             </li>
                             <li>
-                                <a href="/trang-ca-nhan/uspg-changepass" class="re__content ">
+                                <a href="/trang-ca-nhan?tab=accountPassword" class="re__content ">
                                     <i class="fa-solid fa-lock" style="color:gray"></i> Thay đổi mật khẩu
                                 </a>
                             </li>

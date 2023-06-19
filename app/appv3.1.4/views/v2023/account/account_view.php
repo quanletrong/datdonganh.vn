@@ -1,4 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<!-- jquery-validation -->
+<script src="js/<?= VERSION ?>jquery-validation/jquery.validate.min.js"></script>
+<script src="js/<?= VERSION ?>jquery-validation/additional-methods.js"></script>
+<script src="js/<?= VERSION ?>jquery-validation/localization/messages_vi.min.js"></script>
 <style>
     .account__header {
         box-shadow: inset 0px -2px 0px #0a9853;
@@ -7,7 +11,8 @@
         display: flex;
         justify-content: center;
     }
-    .account__header > .active {
+
+    .account__header>.active {
         background: #0a9853;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
@@ -22,7 +27,8 @@
         -moz-border-radius-bottomright: 0px;
         -moz-border-radius-bottomleft: 0px;
     }
-    .account__header > button {
+
+    .account__header>button {
         box-shadow: inset 0px -2px 0px #0a9853;
         -webkit-box-shadow: inset 0px -2px 0px #0a9853;
         -moz-box-shadow: inset 0px -2px 0px #0a9853;
@@ -30,59 +36,64 @@
         padding: 8px 15px;
         border: none;
     }
-    .account__header > .active > span {
+
+    .account__header>.active>span {
         color: #FFF;
         font-weight: 700;
     }
 
-    .account__header > button > span {
+    .account__header>button>span {
         font-style: normal;
         font-weight: 500;
         font-size: 18px;
         line-height: 28px;
         color: #999999;
     }
-    
+
     .account__detail {
         background: #FFF;
         padding: 40px 22% 54px 22%;
     }
-    
+
     .account__detail--avatar {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
-    .account__detail--avatar > .img-avatar {
+
+    .account__detail--avatar>.img-avatar {
         width: 100px;
         height: 100px;
     }
-    .account__detail--avatar > .img-avatar > label {
+
+    .account__detail--avatar>.img-avatar>label {
         cursor: pointer;
         width: 100%;
         height: 100%;
     }
-    .account__detail--avatar > .img-avatar > label > img {
+
+    .account__detail--avatar>.img-avatar>label>img {
         width: 100%;
         height: 100%;
         border-radius: 68px;
         -webkit-border-radius: 68px;
         -moz-border-radius: 68px;
     }
-    
-    .account__detail--title > label {
+
+    .account__detail--title>label {
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
         line-height: 28px;
         color: #1a1a1a;
     }
-    .account__detail--title > label > span {
+
+    .account__detail--title>label>span {
         color: #FF574E;
     }
-    
-    .account__detail--title > input {
+
+    .account__detail--title>input {
         width: 100%;
         height: 40px;
         padding: 10px;
@@ -113,12 +124,12 @@
 
 <div class="container">
     <div class="account__header mt-3">
-        <button type="button" class="active" data-account-head="favoritebds"><span>Tin đã lưu</span></button>
-        <button type="button" data-account-head="accountDetail"><span>Thông tin tài khoản</span></button>
-        <button type="button" data-account-head="accountPassword"><span>Đổi mật khẩu</span></button>
+        <button type="button" class="<?= $tab == 'favoritebds' ? 'active' : '' ?>" data-account-head="favoritebds"><span>Tin đã lưu</span></button>
+        <button type="button" class="<?= $tab == 'accountDetail' ? 'active' : '' ?>" data-account-head="accountDetail"><span>Thông tin tài khoản</span></button>
+        <button type="button" class="<?= $tab == 'accountPassword' ? 'active' : '' ?>" data-account-head="accountPassword"><span>Đổi mật khẩu</span></button>
     </div>
-    
-    <div class="account__detail" id="favoritebds">
+
+    <div class="account__detail <?= $tab == 'favoritebds' ? '' : 'd-none' ?>" id="favoritebds">
         <div class="row">
             <div class="col-12">
                 <?php foreach ($list_bds as $id_bds => $bds) { ?>
@@ -201,8 +212,8 @@
                                 <div>
                                     <a href="tel:<?= $bds['contactphone'] ?>">
                                         <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
-                                    </a>   
-                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' :'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                                    </a>
+                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
 
                                 </div>
                             </div>
@@ -210,46 +221,89 @@
                     </div>
                 <?php } ?>
             </div>
-        </div>    
+        </div>
     </div>
-    <div class="account__detail d-none" id="accountDetail">
-        <div class="account__detail--avatar">
-            <div class="img-avatar">
-                <input type="file" id="accountAvatar" class="d-none" onchange="change_account_avatar();">
-                <label for="accountAvatar"><img src="images/avatar-default.png" id="imgAccountAvatar"></label>
+    <div class="account__detail <?= $tab == 'accountDetail' ? '' : 'd-none' ?>" id="accountDetail">
+
+        <form action="<?php echo site_url('ajax-edit-uinfo') ?>" method="POST" id="form_edit_uinfo">
+            <div class="account__detail--avatar">
+                <div class="img-avatar">
+                    <input type="file" id="accountAvatar" class="d-none" onchange="change_account_avatar();">
+                    <label for="accountAvatar"><img src="images/avatar-default.png" id="imgAccountAvatar"></label>
+                </div>
             </div>
-        </div>
-        <div class="account__detail--title">
-            <label><span>*</span> Họ và tên</label>
-            <input type="text" name="txtfullname" id="txtfullname" value="">
-            <h5 class="info-error d-none">Bạn chưa nhập họ tên</h5>
-        </div>
-        <div class="account__detail--title mt-3">
-            <label>Email</label>
-            <input type="text" name="" value="" id="inp_email" readonly="" disabled="">
-        </div>
-        <div class="account__detail--title mt-3">
-            <label>Số điện thoại</label>
-            <input type="text" value="" id="inp_phone_number" readonly="" disabled="">
-        </div>
-        <div class="btn-title-head d-flex flex-row justify-content-center mt-3">
-            <button type="button" class="btn btn-danger">Lưu thay đổi</button>
-        </div>
+            <div class="account__detail--title">
+                <label><span>*</span> Họ và tên</label>
+                <input type="text" name="fullname" id="fullname" value="<?= $uinfo['fullname'] ?>" required>
+            </div>
+            <div class="account__detail--title mt-3">
+                <label><span>*</span> Email</label>
+                <input type="email" name="email" value="<?= $uinfo['email'] ?>" id="inp_email" required>
+            </div>
+            <div class="account__detail--title mt-3">
+                <label><span>*</span> Số điện thoại</label>
+                <input type="tel" name="phonenumber" value="<?= $uinfo['phonenumber'] ?>" id="inp_phone_number" required>
+            </div>
+            <div class="btn-title-head d-flex flex-row justify-content-center mt-3">
+                <button type="submit" class="btn btn-danger">Lưu thay đổi</button>
+            </div>
+        </form>
     </div>
-    
-    <div class="account__detail d-none" id="accountPassword">
-        
+
+    <div class="account__detail <?= $tab == 'accountPassword' ? '' : 'd-none' ?>" id="accountPassword">
+
     </div>
 </div>
 
 <script>
-$(function(){
-    
-    $('.account__header > button').click(function() {
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
-        $('.account__header').siblings().addClass('d-none');
-        $('#' + $(this).data('account-head')).removeClass('d-none');
-    });
-})
+    $(function() {
+
+        $('.account__header > button').click(function() {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            $('.account__header').siblings().addClass('d-none');
+            $('#' + $(this).data('account-head')).removeClass('d-none');
+        });
+
+        $('#form_edit_uinfo').validate({
+            submitHandler: function(form) {
+
+                // ẩn nút submit
+                // show loading
+                $(form).find('button[type="submit"]').attr('disabled', true);
+                $(form).find('button[type="submit"]').html(`Lưu thay đổi <div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div>`);
+
+                $.ajax({
+                        type: $(form).attr('method'),
+                        url: $(form).attr('action'),
+                        data: $(form).serialize(),
+                        dataType: 'json'
+                    })
+                    .done(function(response) {
+                        if (response.success == true) {
+                            toasts_success();
+                        } else {
+                            toasts_danger();
+                        }
+                        $(form).find('button[type="submit"]').attr('disabled', false);
+                        $(form).find('button[type="submit"]').html(`Lưu thay đổi`);
+                    });
+                return false;
+            },
+            ignore: [],
+            rules: {},
+            messages: {},
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.parent().append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    })
 </script>

@@ -1990,3 +1990,27 @@ function time_read_article (el, speed=200) {
 
     return timeTB < 1 ? 1 : timeTB;
 }
+
+function toasts_danger(body='Có lỗi xảy ra', title='Thất bại', delay=10000, autohide=true, subtitle=''){
+    $(document).toast('create', {
+        class: 'bg-danger',
+        title: title,
+        subtitle: '',
+        body: body,
+        delay: delay,
+        autohide: true,
+        fade: true
+    })
+}
+
+function toasts_success(body='', title='Thành công', delay=10000, autohide=true, subtitle=''){
+    $(document).toast('create', {
+        class: 'bg-success',
+        title: title,
+        subtitle: '',
+        body: body,
+        delay: delay,
+        autohide: true,
+        fade: true
+    })
+}

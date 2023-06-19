@@ -73,3 +73,4 @@ $route[LINK_USER_LOGOUT]                    = 'logout/logout/index';
 $route[LINK_USER_LOGIN.'/ggcallback']       = 'login/login/ggcallback';
 $route[LINK_USER_REGISTER]                  = 'signup/signup/index';
 $route['trang-ca-nhan']                     = 'account/account/index';
+$route['ajax-edit-uinfo']                   = 'account/account/ajax_edit_uinfo';
