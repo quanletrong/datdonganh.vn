@@ -481,8 +481,8 @@
                                             <label class="m-0 p-0 pr-1">Loại tin<span class="text-danger">*</span></label>
                                         </div>
                                         <select class="select2" style="width:75%" name="is_vip" data-minimum-results-for-search="Infinity">
+                                            <option value="0">Tin thường</option>
                                             <option value="1">Tin VIP</option>
-                                            <option value="0">Tin thường</option>>
                                         </select>
                                     </div>
                                 </div>
