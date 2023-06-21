@@ -251,7 +251,17 @@
     </div>
 
     <div class="account__detail <?= $tab == 'accountPassword' ? '' : 'd-none' ?>" id="accountPassword">
-
+        <form action="<?php echo site_url('ajax-edit-password') ?>" method="POST" id="form_edit_pass">
+            
+            <div class="account__detail--title mt-3">
+                <label><span>*</span> Mật khẩu mới</label>
+                <input type="password" name="password_new" value="" id="password_new" required>
+            </div>
+            
+            <div class="btn-title-head d-flex flex-row justify-content-center mt-3">
+                <button type="submit" class="btn btn-danger">Lưu thay đổi</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -280,18 +290,90 @@
                         dataType: 'json'
                     })
                     .done(function(response) {
-                        if (response.success == true) {
-                            toasts_success();
-                        } else {
-                            toasts_danger();
+                        try {
+                            if (response.status == true) {
+                                alert('Lưu thành công');
+                            } else {
+                                alert(response.error)
+                            }
+                        } catch (error) {
+                            alert('Vui lòng thử lại.')
                         }
+
                         $(form).find('button[type="submit"]').attr('disabled', false);
                         $(form).find('button[type="submit"]').html(`Lưu thay đổi`);
+
                     });
                 return false;
             },
             ignore: [],
-            rules: {},
+            rules: {
+                fullname: {
+                    minlength: 2,
+                    maxlength: 256
+                },
+                email: {
+                    email: true
+                },
+                phonenumber: {
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
+                }
+            },
+            messages: {},
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.parent().append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        // edit password field
+        $('#form_edit_pass').validate({
+            submitHandler: function(form) {
+
+                // ẩn nút submit
+                // show loading
+                $(form).find('button[type="submit"]').attr('disabled', true);
+                $(form).find('button[type="submit"]').html(`Lưu thay đổi <div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div>`);
+
+                $.ajax({
+                        type: $(form).attr('method'),
+                        url: $(form).attr('action'),
+                        data: $(form).serialize(),
+                        dataType: 'json'
+                    })
+                    .done(function(response) {
+                        try {
+                            if (response.status == true) {
+                                alert('Lưu thành công');
+                            } else {
+                                alert(response.error)
+                            }
+                        } catch (error) {
+                            alert('Vui lòng thử lại.')
+                        }
+
+                        $(form).find('button[type="submit"]').attr('disabled', false);
+                        $(form).find('button[type="submit"]').html(`Lưu thay đổi`);
+
+                    });
+                return false;
+            },
+            ignore: [],
+            rules: {
+                password_new: {
+                    minlength: 6,
+                    maxlength: 256
+                }
+            },
             messages: {},
             errorElement: 'span',
             errorPlacement: function(error, element) {

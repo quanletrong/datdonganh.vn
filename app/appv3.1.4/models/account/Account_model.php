@@ -31,14 +31,14 @@ class Account_model extends CI_Model
         return $data;
     }
     
-    function get_user_info_by_phone($phone) {
+    function get_user_info_by_phone($phonenumber) {
         $data = array();
         $iconn = $this->db->conn_id;
-        $sql = "SELECT * FROM tbl_user WHERE phone = :phone";
+        $sql = "SELECT * FROM tbl_user WHERE phonenumber = :phonenumber";
         $stmt = $iconn->prepare($sql);
         if($stmt)
         {
-            $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+            $stmt->bindParam(':phonenumber', $phonenumber, PDO::PARAM_STR);
 
             if($stmt->execute())
             {
@@ -123,5 +123,45 @@ class Account_model extends CI_Model
         }
         $stmt->closeCursor();
         return $id;
+    }
+
+    function edit($fullname, $email, $phonenumber, $avatar, $id_user)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_user SET fullname =?, email =?, phonenumber =?, avatar =? WHERE id_user =? ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute([$fullname, $email, $phonenumber, $avatar, $id_user])) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
+
+    function edit_password($password, $id_user)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_user SET password =? WHERE id_user =? ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute([$password, $id_user])) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
     }
 }
