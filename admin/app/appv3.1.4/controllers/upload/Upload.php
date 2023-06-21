@@ -88,9 +88,9 @@ class Upload extends MY_Controller
 
                             list($width, $height, $type) = getimagesize($image_path);
                             
-                            // giảm dung lương ảnh lấy max width hoặc height là 1000
-                            if($width > 1000 || $height > 1000) {
-                                $this->resize_image($image_path, 1000, 1000, $width, $height, $type);
+                            // giảm dung lương ảnh lấy max width hoặc height là 2000
+                            if($width > 2000 || $height > 2000) {
+                                $this->resize_image($image_path, 2000, 2000, $width, $height, $type);
                             }
 
                             // watermart
@@ -121,8 +121,8 @@ class Upload extends MY_Controller
         $main_height = imagesy($im);
 
         // resize watermark to half-width of the image
-        $new_height = round($water_height * $main_width / $water_width * 0.1);
-        $new_width = round($main_width * 0.1);
+        $new_height = round($water_height * $main_width / $water_width * 0.15);
+        $new_width = round($main_width * 0.15);
         $new_watermark = imagecreatetruecolor($new_width, $new_height);
         // keep transparent background
         imagealphablending($new_watermark, false);
