@@ -3,6 +3,7 @@
     .error.invalid-feedback {
         margin-left: 25%;
     }
+
     #content-error {
         margin-left: 0;
     }
@@ -194,7 +195,7 @@
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Bằng chữ</label>
                                         </div>
-                                        <input id="price_word" type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled>
+                                        <textarea id="price_word" type="text" class="form-control text-danger" style="width:75%" name="price" readonly disabled></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -842,34 +843,34 @@
             const regex = /,/ig;
             price = parseFloat(price.replaceAll(regex, ''));
 
-            // đơn vị total => bằng chữ giá/m2
             if (isNaN(acreage) || isNaN(price)) {
                 $('#price_word').val('');
             } else {
-
-                if (unit == '1') {
-                    price = price * 1000000;
-                } else {
-                    price = price * 1000000000;
-                }
 
                 if (price === 0 || isNaN(price)) {
                     $('#price_word').val('');
                 } else {
                     let price_red = 0;
 
+                    // tính giá
                     if (price_type === '1') {
-                        price_red = price / acreage; // show giá/m2
+                        price_red = price / acreage; // show giá/m2 nếu price_type là VNĐ
                     } else if (price_type === '2') {
-                        price_red = price * acreage; //show total giá
+                        price_red = price * acreage; // show tổng giá nếu price_type là VNĐ/m2
                     }
 
-                    if (price_red >= 1000000000) {
-                        price_red = (price_red / 1000000000).toFixed(3); // làm tròn đến hàng triệu
-                        price_red = price_red * 1000000000;
-                    } else {
-                        price_red = (price_red / 1000000).toFixed(1); // làm tròn đến hàng trăm
+                    // nhân đơn vị
+                    if (unit == '1') {
                         price_red = price_red * 1000000;
+                    } else {
+                        price_red = price_red * 1000000000;
+                    }
+
+                    // làm tròn
+                    if(price_red >= 1000000000) {
+                        price_red = Math.round(parseFloat((price_red/1000000000).toFixed(3))*1000000000);
+                    } else {
+                        price_red = Math.round(parseFloat((price_red/1000000).toFixed(1))*1000000);
                     }
 
                     $('#price_word').val(VNnum2words(price_red) + `${price_type === '1' ? '/m2' : ' VND'}`);

@@ -3,6 +3,7 @@
     .error.invalid-feedback {
         margin-left: 25%;
     }
+
     #content-error {
         margin-left: 0;
     }
@@ -26,7 +27,7 @@
             width: 49.5%;
         }
 
-        .list-image>li{
+        .list-image>li {
             width: 31% !important;
         }
     }
@@ -194,7 +195,7 @@
                                         <div class="me-2 w-25" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Bằng chữ</label>
                                         </div>
-                                        <input type="text" class="form-control text-danger" style="width:75%" id="price_word" readonly disabled>
+                                        <textarea type="text" class="form-control text-danger" style="width:75%" id="price_word" readonly disabled></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -359,7 +360,7 @@
                             <div class="row">
                                 <!-- ảnh -->
                                 <div class="col-md-7">
-                                <label for="">Thêm ảnh</label>
+                                    <label for="">Thêm ảnh</label>
                                     <div class="d-flex" style="align-items: center; gap:20px">
                                         <button type="button" class="btn btn-sm btn-warning quanlt-upload" data-target="">
                                             <i class="fas fa-upload"></i> Thêm ảnh cho tin đăng
@@ -375,9 +376,9 @@
                                     </span>
 
                                     <ul id="sortable" class="d-flex w-100 flex-wrap list-image" style="gap:10px; list-style: none; padding: 0;">
-                                    <?php $images = json_decode($info['images'], true); ?>
+                                        <?php $images = json_decode($info['images'], true); ?>
                                         <?php foreach ($images as $image_name) { ?>
-                                            <li  class="ui-state-default" style="width: 23%; height: fit-content; cursor: pointer; position: relative; border: none;">
+                                            <li class="ui-state-default" style="width: 23%; height: fit-content; cursor: pointer; position: relative; border: none;">
                                                 <img src="<?= fullPathImage($image_name, $info['year'], $info['month']) ?>" class="img-fluid p-1 rounded shadow" style="aspect-ratio: 1; object-fit: cover;" />
                                                 <i class="fas fa-trash" style="position:absolute; right: 10px; top: 15px; color: red" onclick="$(this).parent().remove()"></i>
                                                 <i class="fas fa-search-plus" style="position:absolute; right: 35px; top: 15px; color: red"></i>
@@ -709,34 +710,34 @@
             const regex = /,/ig;
             price = parseFloat(price.replaceAll(regex, ''));
 
-            // đơn vị total => bằng chữ giá/m2
             if (isNaN(acreage) || isNaN(price)) {
                 $('#price_word').val('');
             } else {
-
-                if (unit == '1') {
-                    price = price * 1000000;
-                } else {
-                    price = price * 1000000000;
-                }
 
                 if (price === 0 || isNaN(price)) {
                     $('#price_word').val('');
                 } else {
                     let price_red = 0;
 
+                    // tính giá
                     if (price_type === '1') {
-                        price_red = price / acreage; // show giá/m2
+                        price_red = price / acreage; // show giá/m2 nếu price_type là VNĐ
                     } else if (price_type === '2') {
-                        price_red = price * acreage; //show total giá
+                        price_red = price * acreage; // show tổng giá nếu price_type là VNĐ/m2
                     }
 
-                    if (price_red >= 1000000000) {
-                        price_red = (price_red / 1000000000).toFixed(3); // làm tròn đến hàng triệu
-                        price_red = price_red * 1000000000;
-                    } else {
-                        price_red = (price_red / 1000000).toFixed(1); // làm tròn đến hàng trăm
+                    // nhân đơn vị
+                    if (unit == '1') {
                         price_red = price_red * 1000000;
+                    } else {
+                        price_red = price_red * 1000000000;
+                    }
+
+                    // làm tròn
+                    if(price_red >= 1000000000) {
+                        price_red = Math.round(parseFloat((price_red/1000000000).toFixed(3))*1000000000);
+                    } else {
+                        price_red = Math.round(parseFloat((price_red/1000000).toFixed(1))*1000000);
                     }
 
                     $('#price_word').val(VNnum2words(price_red) + `${price_type === '1' ? '/m2' : ' VND'}`);
