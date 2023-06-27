@@ -993,7 +993,13 @@ function showLOG($var = "ok")
 function get_path_image($create_time, $file_name){
     $year = date('Y', strtotime($create_time));
     $month = date('m', strtotime($create_time));
-    return  ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $file_name;
+    $CI = &get_instance();
+    if ($CI->config->item('cf_upload_local') == '') {
+        $root_domain = 'https://datdonganh.vn/';
+    } else {
+        $root_domain = ROOT_DOMAIN;
+    }
+    return   $root_domain . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $file_name;
 }
 
 
