@@ -990,7 +990,7 @@ function showLOG($var = "ok")
 	echo "</pre>";
 }
 
-function get_path_image($create_time, $file_name){
+function get_path_image($create_time, $file_name, $folder = PUBLIC_UPLOAD_PATH){
     $year = date('Y', strtotime($create_time));
     $month = date('m', strtotime($create_time));
     $CI = &get_instance();
@@ -999,7 +999,7 @@ function get_path_image($create_time, $file_name){
     } else {
         $root_domain = ROOT_DOMAIN;
     }
-    return   $root_domain . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $file_name;
+    return $root_domain . $folder. $year . '/' . $month . '/' . $file_name;
 }
 
 

@@ -228,8 +228,9 @@
         <form action="<?php echo site_url('ajax-edit-uinfo') ?>" method="POST" id="form_edit_uinfo">
             <div class="account__detail--avatar">
                 <div class="img-avatar">
-                    <input type="file" id="accountAvatar" class="d-none" onchange="change_account_avatar();">
-                    <label for="accountAvatar"><img src="images/avatar-default.png" id="imgAccountAvatar"></label>
+                    <input type="hidden" id="hdd_avatar">
+                    
+                    <label for="accountAvatar" class="quanlt-upload" onclick="quanlt_upload(this);" data-callback="cb_upload_image_ava" data-target="#hdd_avatar"><img src="<?= get_path_image($uinfo['create_time'], $uinfo['avatar']) ?>" id="imgAccountAvatar"></label>
                 </div>
             </div>
             <div class="account__detail--title">
@@ -388,4 +389,8 @@
             }
         });
     })
+
+    function cb_upload_image_ava(link, target, name) {
+        $("#imgAccountAvatar").attr('src', link);
+    }
 </script>
