@@ -87,8 +87,11 @@ class MY_Controller extends CI_Controller
             $preHeader['username'] = $this->_session_uname();
             $preHeader['userid'] = $this->_session_uid();
             $preHeader['role'] = $this->_session_role();
-            $preHeader['avatar'] = $this->_session_avatar();
-            $preHeader['fullname'] = $this->_session_fullname();
+
+            $this->load->model('account/Account_model');
+            $uinfo = $this->Account_model->get_user_info_by_uid($this->_session_uid());
+            $preHeader['avatar'] = $uinfo['avatar'];
+            $preHeader['fullname'] = $uinfo['fullname'];
             
             //get list bds save
             $this->load->model('bds/Bds_model');

@@ -86,7 +86,7 @@
                         <div class="box-info d-flex justify-content-between align-items-center">
                             <div class="login-avatar me-3">
                                 <?php if($avatar != ""){ ?>
-                                <img class="w-100" src="<?php echo $avatar; ?>" />
+                                <img src="<?php echo url_image($avatar, FOLDER_AVATAR); ?>" />
                                 <?php }else{ ?>
                                 <i class="fa-solid fa-circle-user" style="font-size:30px; color:gray"></i>
                                 <?php } ?>
