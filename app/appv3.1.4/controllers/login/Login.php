@@ -180,7 +180,7 @@ class Login extends MY_Controller{
             // avatar new user
             $user_id = $this->Account_model->add($userData['id'], $password_hash, $userData['name'], $userData['email'], "", "", USER, 1, 0);
             $avatar = generateRandomString(10).'.jpg'; 
-            @file_put_contents($avatar, @file_get_contents($userData['picture']));
+            @file_put_contents(FOLDER_AVATAR.$avatar, @file_get_contents($userData['picture']));
 
             if ($user_id > 0) {
                 $uinfo = $this->Account_model->get_user_info_by_uid($user_id);
