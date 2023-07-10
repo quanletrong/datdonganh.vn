@@ -163,6 +163,7 @@ class Login extends MY_Controller{
 
         $oAuth = new Google_Service_Oauth2($gClient);
         $userData = $oAuth->userinfo_v2_me->get();
+        var_dump($userData);die;
         
         $uinfo = $this->Account_model->get_user_info_by_email($userData['email']);
         
@@ -176,7 +177,12 @@ class Login extends MY_Controller{
 
         } else {
             $password_hash = PasswordHash::hash($userData['id'], md5($this->generateRandomPassword()));
+
+            // avatar new user
             $user_id = $this->Account_model->add($userData['id'], $password_hash, $userData['name'], $userData['email'], "", "", USER, 1, 0);
+            $avatar = generateRandomString(10).'.png'; 
+
+            file_put_contents($avatar, file_get_contents( $userData['picture']));
             if ($user_id > 0) {
                 $uinfo = $this->Account_model->get_user_info_by_uid($user_id);
                 
