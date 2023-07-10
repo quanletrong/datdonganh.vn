@@ -63,6 +63,7 @@
     }
 
     .account__detail--avatar>.img-avatar {
+        position: relative;
         width: 100px;
         height: 100px;
     }
@@ -79,6 +80,9 @@
         border-radius: 68px;
         -webkit-border-radius: 68px;
         -moz-border-radius: 68px;
+    }
+    .account__detail--avatar>.img-avatar>label>img:hover{
+        opacity: 0.8;
     }
 
     .account__detail--title>label {
@@ -110,6 +114,19 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
+    }
+
+    .account__detail--avatar .icon-camera{
+        position: absolute;
+        bottom: 0px;
+        right: 9%;
+        font-size: 0.85rem;
+        border-radius: 15px;
+        background: gray;
+        padding: 5px;
+        line-height: 1;
+        color: white;
+        cursor: pointer;
     }
 </style>
 <div class="container">
@@ -227,10 +244,10 @@
 
         <form action="<?php echo site_url('ajax-edit-uinfo') ?>" method="POST" id="form_edit_uinfo">
             <div class="account__detail--avatar">
-                <div class="img-avatar">
-                    <input type="hidden" id="hdd_avatar">
-                    
-                    <label for="accountAvatar" class="quanlt-upload" onclick="quanlt_upload(this);" data-callback="cb_upload_image_ava" data-target="#hdd_avatar"><img src="<?= get_path_image($uinfo['create_time'], $uinfo['avatar']) ?>" id="imgAccountAvatar"></label>
+                <div class="img-avatar quanlt-upload" onclick="quanlt_upload(this);" data-callback="cb_upload_image_ava" data-target="#hdd_avatar">
+                    <input type="hidden" id="hdd_avatar" name="hdd_avatar" value="<?= $uinfo['avatar'] ?>">
+                    <label for="accountAvatar"><img src="<?= url_image($uinfo['avatar'], FOLDER_AVATAR) ?>" id="imgAccountAvatar"></label>
+                    <div class="icon-camera"><i class="fa-solid fa-camera"></i></div>
                 </div>
             </div>
             <div class="account__detail--title">
@@ -253,12 +270,12 @@
 
     <div class="account__detail <?= $tab == 'accountPassword' ? '' : 'd-none' ?>" id="accountPassword">
         <form action="<?php echo site_url('ajax-edit-password') ?>" method="POST" id="form_edit_pass">
-            
+
             <div class="account__detail--title mt-3">
                 <label><span>*</span> Mật khẩu mới</label>
                 <input type="password" name="password_new" value="" id="password_new" required>
             </div>
-            
+
             <div class="btn-title-head d-flex flex-row justify-content-center mt-3">
                 <button type="submit" class="btn btn-danger">Lưu thay đổi</button>
             </div>
@@ -392,5 +409,6 @@
 
     function cb_upload_image_ava(link, target, name) {
         $("#imgAccountAvatar").attr('src', link);
+        $("#hdd_avatar").val(link);
     }
 </script>

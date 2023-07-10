@@ -768,6 +768,50 @@ function validate_raw_url($rawUrl)
 	return $chk;
 }
 
+function move_file_from_tmp_to_folder($url_fmng_image, $folder_str='')
+{
+    $imginfo = getImageSizeFromUrl($url_fmng_image);
+    if (!empty($imginfo)) {
+
+        $basename = generateRandomString(10).'-'.basename($url_fmng_image);
+        $DOCUMENT_ROOT = $_SERVER["DOCUMENT_ROOT"];
+
+        $folder_arr = explode('/', $folder_str);
+
+        $RPUP = $DOCUMENT_ROOT . '/';
+
+        $FULL_FOLDER = '';
+        foreach($folder_arr as $folder) {
+
+            $localFolder = $RPUP . $FULL_FOLDER . $folder . '/';
+
+            if (!is_dir($localFolder)) {
+                $ckMkdirYear = mkdir($localFolder, 755);
+                if (!$ckMkdirYear) return ['status' => false, 'error' => 'CAN_NOT_MKDIR_'+$folder];
+            }
+
+            $FULL_FOLDER .= $folder . '/' ;
+        }
+
+        // check file exist
+        $dir_save = $RPUP . $FULL_FOLDER . $basename;
+
+        if (file_exists($dir_save)) {
+            $rdt = generateRandomString(10);
+            $basename = $rdt . $basename;
+            $dir_save = $RPUP . $FULL_FOLDER . $basename;
+
+        }
+        
+        //check move
+        $chkCopy = copy($url_fmng_image, $dir_save);
+        if (!$chkCopy) return ['status' => false, 'error' => 'CAN_NOT_MOVE_FILE'];
+        else return ['status' => true, 'pathname' => $dir_save, 'basename' => $basename];
+    } else {
+        return ['status' => false, 'error' => 'CAN_NOT_GET_IMAGE_INFO'];
+    }
+}
+
 function getImageSizeFromUrl($url)
 {
 	$rel = [];
@@ -1000,6 +1044,16 @@ function get_path_image($create_time, $file_name, $folder = PUBLIC_UPLOAD_PATH){
         $root_domain = ROOT_DOMAIN;
     }
     return $root_domain . $folder. $year . '/' . $month . '/' . $file_name;
+}
+
+function url_image($file_name, $folder){
+    $CI = &get_instance();
+    if ($CI->config->item('cf_upload_local') == '') {
+        $root_domain = 'https://datdonganh.vn/';
+    } else {
+        $root_domain = ROOT_DOMAIN;
+    }
+    return $root_domain . $folder . $file_name;
 }
 
 

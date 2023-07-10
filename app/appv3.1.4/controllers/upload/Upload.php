@@ -22,7 +22,7 @@ class Upload extends MY_Controller
                     $name_file = str_replace(" ","", $name_file); // xoa khoang trang trong ten
                     $tmp_name = $_FILES['file']['tmp_name'][$i];
                     $size = $_FILES['file']['size'][$i];
-                    $target_dir = $_SERVER["DOCUMENT_ROOT"] . "/uploads/tmp/";
+                    $target_dir = $_SERVER["DOCUMENT_ROOT"] .'/'. TMP_UPLOAD_PATH;
                     $name_file = generateRandomString(5) . '-' . basename($name_file);
                     $target_file = $target_dir . $name_file;
                     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -35,7 +35,7 @@ class Upload extends MY_Controller
                     if ($check !== false) {
                     } else {
                         $data[$i]['status'] = 0;
-                        $data[$i]['error'][] = 'File is not an image.';
+                        $data[$i]['error'][] = 'Xin lỗi file tải lên không phải là ảnh.';
                     }
 
                     // Check if file already exists
@@ -45,24 +45,24 @@ class Upload extends MY_Controller
                     }
 
                     // Check file size
-                    if ($size > 5000000) {
+                    if ($size > 50000000) {
                         $data[$i]['status'] = 0;
-                        $data[$i]['error'][] = 'Sorry, your file is too large, limit 50Mb';
+                        $data[$i]['error'][] = 'Xin lỗi, ảnh tải lên không quá 50Mb';
                     }
 
                     // Allow certain file formats
                     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
                         $data[$i]['status'] = 0;
-                        $data[$i]['error'][] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
+                        $data[$i]['error'][] = 'Xin lỗi, chỉ nhận các định dạng ảnh JPG, JPEG, PNG';
                     }
 
                     if ($data[$i]['status']) {
                         if (move_uploaded_file($tmp_name, $target_file)) {
-                            $link = ROOT_DOMAIN . '/uploads/tmp/' . $name_file;
+                            $link = ROOT_DOMAIN . TMP_UPLOAD_PATH . $name_file;
                             $data[$i]['link'] = $link;
                         } else {
                             $data[$i]['status'] = 0;
-                            $data[$i]['error'][] = 'Sorry, there was an error uploading your file.';
+                            $data[$i]['error'][] = 'Xin lỗi, vui lòng thử lại lần nữa.';
                         }
                     }
                 }

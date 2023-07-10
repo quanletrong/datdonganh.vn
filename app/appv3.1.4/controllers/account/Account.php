@@ -56,6 +56,7 @@ class Account extends MY_Controller {
             $fullname    = removeAllTags($this->input->post('fullname'));
             $email       = removeAllTags($this->input->post('email'));
             $phonenumber = removeAllTags($this->input->post('phonenumber'));
+            $hdd_avatar = removeAllTags($this->input->post('hdd_avatar'));
             $avatar      = $uinfo['avatar'];
 
             //check post
@@ -82,6 +83,21 @@ class Account extends MY_Controller {
                 $uinfoPhone = $this->Account_model->get_user_info_by_phone($phonenumber);
                 if(!empty($uinfoPhone)) {
                     resError('Số điện thoại đã tồn tại. Vui lòng chọn số khác. Hoặc liên hệ với chúng tôi để được cập nhật sô điện thoại này.');
+                }
+            }
+
+            //check avatar
+            $la_anh_moi = strpos($hdd_avatar, ROOT_DOMAIN . TMP_UPLOAD_PATH);
+            if ($la_anh_moi !== false) {
+                $copy = move_file_from_tmp_to_folder($hdd_avatar, FOLDER_AVATAR);
+                if ($copy['status']) {
+                    $avatar = $copy['basename'];
+
+                    //xóa avatar cũ
+                    @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . FOLDER_AVATAR . $uinfo['avatar']);
+
+                    //xóa avatar tạm
+                    @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH . basename($hdd_avatar));
                 }
             }
 
