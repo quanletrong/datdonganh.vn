@@ -4,9 +4,9 @@
         Bất động sản dành cho bạn
     </div>
     <div class="row">
-        <div class="col-12 col-lg-10">
+        <div class="col-12 col-lg-9">
             <div class="row">
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-6">
                     <div class="fw-bold fs-4" style="color:green">
                         Tin vip (<?= count($bds_home_vip) ?>)
                     </div>
@@ -75,16 +75,16 @@
                     </div>
                 </div>
                 <hr class="d-block d-lg-none">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-6">
                     <div class="fw-bold fs-4" style="color:green; margin-left: 23px;">
                         Tin mới nhất (<?= $total_bds_active ?>)
                     </div>
-                    <div class="row" style="border-left: 4px solid green; margin-left: 10px;">
+                    <div class="row" style="border-left: 4px solid green;">
                         <?php $index = 0; ?>
                         <?php foreach ($bds_new_most as $id_bds => $bds) { ?>
-                            <?php if ($index < 20) { ?>
+                            <?php if ($index < 12 && $bds['is_home_vip']=='0') { ?>
                                 <?php $index++; ?>
-                                <div class="col-md-6">
+                                <div class="">
 
                                     <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
@@ -155,7 +155,7 @@
             </div>
 
         </div>
-        <div class="col-12 col-lg-2 d-none d-lg-block">
+        <div class="col-12 col-lg-3 d-none d-lg-block">
             <div class="sticky-top" style="top:30px; z-index: auto;">
                 <div class="fw-bold fs-4">
                     &nbsp;

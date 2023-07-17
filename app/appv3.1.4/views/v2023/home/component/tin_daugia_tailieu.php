@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-    <hr>
+    <!-- <hr> -->
 </div>
 <script>
     $(function() {
