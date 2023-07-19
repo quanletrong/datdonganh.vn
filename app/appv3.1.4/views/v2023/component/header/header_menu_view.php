@@ -1,12 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<nav class="navbar sticky-top navbar-expand-lg bg-light" style="box-shadow: 1px 1px 3px 0px #c1c1c1; padding: 0;">
+<nav class="navbar sticky-top navbar-expand-lg bg-light" style="box-shadow: 1px 1px 3px 0px #c1c1c1; padding: 5px 0;">
     <div class="container-fluid">
         <a class="navbar-brand p-0" href="#">
             <!-- <img src="https://placehold.co/160x48/f44336/31343C?text=LOGO" alt="" class="img-fluid"> -->
             <!-- <img src="images/logo.png" alt="" class="img-fluid"> -->
-            <img src="images/logo-ngang.png" alt="" class="img-fluid">
+            <img src="images/logo-ngang.png" alt="" class="img-fluid" id="logo-nav">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
@@ -145,3 +145,23 @@
         </div>
     </div>
 </nav>
+<script>
+    $(function(){
+        // nếu cuộn chuột sẽ thu nhỏ logo
+        $(window).scroll(function(){
+            if($(this).scrollTop()>= 60){
+                $('#logo-nav').css('height', '40px');
+            } else {
+                $('#logo-nav').css('height', '68px');
+            }
+        });
+
+        //tren thiết bị di động
+        if($(window).width() <= 768) {
+            $('.navbar-nav').css('gap','10px')
+        } else {
+            $('.navbar-nav').css('gap','25px')
+        }
+        
+    });
+</script>

@@ -79,7 +79,7 @@
                     <div class="fw-bold fs-4" style="color:green; margin-left: 23px;">
                         Tin mới nhất (<?= $total_bds_active ?>)
                     </div>
-                    <div class="row" style="border-left: 4px solid green;">
+                    <div class="row" style="border-left: 4px solid green;" id="right-div-tin-moi-nhat">
                         <?php $index = 0; ?>
                         <?php foreach ($bds_new_most as $id_bds => $bds) { ?>
                             <?php if ($index < 12 && $bds['is_home_vip']=='0') { ?>
@@ -213,3 +213,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function() {
+        // trên thiết bị di động sẽ thu nhỏ chữ lại
+        if($(window).width() <= 768) {
+            $('#right-div-tin-moi-nhat').css('border-left', 'none');
+        } else {
+            $('#right-div-tin-moi-nhat').css('border-left', '4px solid green;');
+        } 
+    })
+</script>

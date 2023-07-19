@@ -114,6 +114,14 @@
 <script>
     $(function() {
 
+        // trên thiết bị di động sẽ thu nhỏ chữ lại
+        if($(window).width() <= 768) {
+            $('#pills-tab').find('button.nav-link').addClass('fs-6').removeClass('fs-4');
+        } else {
+            $('#pills-tab').find('button.nav-link').addClass('fs-4').removeClass('fs-6');
+        }
+        // end
+
         $("#pills-tab .nav-item").click(function(e) {
             $("#pills-tab .nav-item").removeClass("border-bottom border-3 border-danger");
 

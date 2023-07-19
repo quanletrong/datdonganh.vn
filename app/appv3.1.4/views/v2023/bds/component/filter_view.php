@@ -7,14 +7,14 @@
     <div class="container">
 
         <!-- FILTER MOBILE-->
-        <div id="mobile-filter" class="d-lg-none" style="width: 100%; display: flex; justify-content: center;">
+        <!-- <div id="mobile-filter" class="d-lg-none" style="width: 100%; display: flex; justify-content: center;">
             <div class="input-group mb-3 ps-3 pe-3">
                 <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <span class="input-group-text bg-red text-light bg-danger" id="basic-addon2">
                     <i class="fas fa-search"></i>
                 </span>
             </div>
-        </div>
+        </div> -->
 
         <!-- SLIDE + FILTER PC -->
 
@@ -51,7 +51,7 @@
                                         Xã phường thị trấn
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: fit-content;">
                                             <label class="form-label"> Xã phường thị trấn</label>
                                             <select name="id_commune_ward" id="id_commune_ward" class="form-select select2" style="width: 100%;" data-placeholder="Chọn khu vực">
                                                 <option value="">Tất cả</option>
@@ -76,7 +76,7 @@
                                         Tất cả mức giá
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: fit-content;">
                                             <div class="d-flex align-items-center justify-content-between gap-3">
                                                 <div style="position: relative;">
                                                     <input type="text" name="f_price" class="w-100 form-control" value="">
@@ -120,7 +120,7 @@
                                         Tất cả diện tích
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: 400px;">
+                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: fit-content;">
                                             <div class="d-flex align-items-center justify-content-between gap-3">
                                                 <div style="position: relative;">
                                                     <input type="text" class="w-100 form-control" name="f_acreage" value="">
@@ -166,13 +166,8 @@
                                     <div>
                                         <i class="fa-solid fa-rotate text-light"></i>
                                     </div>
-                                    <style>
-                                        #filter_loc_them {
-                                            inset: 0px auto auto -210px !important;
-                                        }
-                                    </style>
                                     <div id="filter_loc_them" class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                        <div class="px-2 py-3 bg-light rounded shadow" style="min-width: 400px;">
+                                        <div class="px-2 py-3 bg-light rounded shadow" style="min-width: fit-content;">
                                             Hướng nhà
                                             <div>
                                                 <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, '')">Tất cả</span>
