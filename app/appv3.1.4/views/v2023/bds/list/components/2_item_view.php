@@ -62,7 +62,7 @@
                                 </span>
                             </a>
 
-                            <div class="d-flex justify-content-between align-items-center gap-2">
+                            <div class="d-sm-flex justify-content-between align-items-center gap-2">
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="d-flex justify-content-between align-items-center gap-2">
                                         <div class="text-danger fw-bold">

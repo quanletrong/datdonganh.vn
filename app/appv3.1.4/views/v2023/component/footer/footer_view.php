@@ -38,9 +38,17 @@
 
                     <div class="mt-2">
                         <i class="fa-solid fa-location-dot"></i>
-                        153A -Tổ 4 - TT Đông Anh - Đông Anh - Hà Nội
+                        <a href="https://www.google.com/maps?ll=21.13881,105.846767&z=15&t=m&hl=vi&gl=US&mapclient=embed&cid=15222273203440674423" target="_blank">
+                            153A -Tổ 4 - TT Đông Anh - Đông Anh - Hà Nội
+                        </a>
                     </div>
                     <div class="mt-2">
+                        <i class="fa-solid fa-globe"></i>
+                        <a href="https://datdonganh.vn">
+                            www.datdonganh.vn
+                        </a>
+                    </div>
+                    <!-- <div class="mt-2">
                         <i class="fa-solid fa-mobile-retro"></i>
                         <a href="tel:0962 542 998" class="text-decoration-none text-dark">0962 542 998</a>
                     </div>
@@ -59,7 +67,7 @@
                         Chịu trách nhiệm nội dung ông Nguyễn Quốc Huy <br>
                         Email: <a href="contact@datdonganh.vn" class="text-decoration-none text-dark">contact@datdonganh.vn</a> <br>
                         Phone: <a href="tel:0974 98 6336">0974 98 6336</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

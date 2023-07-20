@@ -13,11 +13,10 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        $sql = " SELECT A.*, B.name as commune_name, C.name as street_name FROM tbl_bds as A  
-            LEFT JOIN tbl_commune_ward as B 
-            ON A.id_commune_ward = B.id_commune_ward  
-            LEFT JOIN tbl_street as C 
-            ON A.id_street = C.id_street
+        $sql = " SELECT A.*, B.name as commune_name, C.name as street_name, D.avatar as avatar FROM tbl_bds as A  
+            LEFT JOIN tbl_commune_ward as B ON A.id_commune_ward = B.id_commune_ward  
+            LEFT JOIN tbl_street as C ON A.id_street = C.id_street
+            LEFT JOIN tbl_user as D ON A.id_user = D.id_user
             WHERE A.id_bds = ?";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {

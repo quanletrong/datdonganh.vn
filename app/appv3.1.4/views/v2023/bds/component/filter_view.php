@@ -41,7 +41,7 @@
                                 <?php } ?>
                             </select>
                             <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style="border: transparent;height: 40px;" value="">
-                            <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 3px 8px;"><i class="fas fa-search"></i> <span class="d-none d-md-block">Tìm kiếm</span></button>
+                            <button class="btn btn-danger d-flex justify-content-between align-items-center" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 3px 8px;"><i class="fas fa-search"></i> <span class="d-none d-md-block ms-1">Tìm kiếm</span></button>
                         </div>
 
                         <div class="row">

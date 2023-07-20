@@ -18,20 +18,20 @@
             <p>
                 <?php echo $bdsInfo['address']; ?>
             </p>
-            <div class="d-flex justify-content-between align-items-center border-bottom border-top py-3">
-                <div class="d-flex align-items-center">
-                    <div class="me-3 me-md-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom border-top py-3">
+                <div class="d-flex flex-wrap align-items-center" style="gap:20px">
+                    <div>
                         <div class="text-muted">Mức giá</div>
                         <div class="fw-bold fs-5">
                             <?php echo getPrice($bdsInfo['price_total']); ?>
                         </div>
                     </div>
-                    <div class="me-3 me-md-5">
+                    <div>
                         <div class="text-muted">Diện tích</div>
-                        <div class="fw-bold fs-5"><?php echo $bdsInfo['acreage']; ?> m²</div>
+                        <div class="fw-bold fs-5"><?php echo $bdsInfo['acreage']; ?>m²</div>
                     </div>
 
-                    <div class="me-3 me-md-5">
+                    <div>
                         <div class="text-muted">Giá/m²</div>
                         <div class="fw-bold fs-5"> <?= getPriceM2($bdsInfo['price_total'], $bdsInfo['acreage']) ?></div>
 
@@ -40,11 +40,11 @@
                     <?php if ($bdsInfo['facades'] > 0) { ?>
                         <div>
                             <div class="text-muted">Mặt tiền</div>
-                            <div class="fw-bold fs-5">Mặt tiền <?php echo $bdsInfo['facades']; ?> m</div>
+                            <div class="fw-bold fs-5"><?php echo $bdsInfo['facades']; ?>m</div>
                         </div>
                     <?php } ?>
                 </div>
-                <div>
+                <div class="mt-sm-2 d-none d-md-block">
                     <i class="fa-solid fa-share-nodes me-1 me-md-3 fs-4"></i>
                     <i class="fa-solid fa-triangle-exclamation me-1 me-md-3 fs-4"></i>
                     <i class="fa-regular fa-heart me-1 me-md-3 fs-4"></i>
@@ -240,10 +240,10 @@
             <!--  -->
             <hr class="text-muted mt-5">
             <div class="mt-2">
-                Quý vị đang xem nội dung tin rao "<strong style="font-weight: bold">Chỉ từ 6.9 tỷ - Sở hữu ngay mảnh đất cực đẹp tại thị trấn Đông Anh. LH: 0969 640 ***</strong> - <strong style="font-weight: bold">Mã tin 123456</strong>.
+                Quý vị đang xem nội dung tin rao "<strong style="font-weight: bold"><?php echo $bdsInfo['title']; ?>. LH: <?php echo $bdsInfo['contactphone'] ?></strong> - <strong style="font-weight: bold">Mã tin #bds<?php echo $bdsInfo['id_bds']; ?></strong>.
                 Mọi thông tin, nội dung liên quan tới tin rao này là do người đăng tin đăng tải và chịu trách nhiệm.
-                Batdongsan.com.vn luôn cố gắng để các thông tin được hữu ích nhất cho quý vị tuy nhiên Batdongsan.com.vn không đảm bảo và không chịu trách nhiệm về bất kỳ thông tin, nội dung nào liên quan tới tin rao này.
-                Trường hợp phát hiện nội dung tin đăng không chính xác, Quý vị hãy thông báo và cung cấp thông tin cho Ban quản trị Batdongsan.com.vn theo <strong style="font-weight: bold">Hotline 19001881</strong> để được hỗ trợ nhanh và kịp thời nhất.
+                datdonganh.vn luôn cố gắng để các thông tin được hữu ích nhất cho quý vị tuy nhiên datdonganh.vn không đảm bảo và không chịu trách nhiệm về bất kỳ thông tin, nội dung nào liên quan tới tin rao này.
+                Trường hợp phát hiện nội dung tin đăng không chính xác, Quý vị hãy thông báo và cung cấp thông tin cho Ban quản trị datdonganh.vn theo <strong style="font-weight: bold">Hotline 0962542998 hoặc 0974986363</strong> để được hỗ trợ nhanh và kịp thời nhất.
             </div>
 
 
@@ -252,7 +252,7 @@
             <div class="sticky-top" style="z-index: auto; top:70px">
                 <div class="card">
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="images/avatar-default.png" class="rounded-circle w-25" alt="">
+                        <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="" style=" aspect-ratio: 1; object-fit: cover;">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
                         <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
                         <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>

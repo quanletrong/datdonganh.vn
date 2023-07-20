@@ -52,7 +52,7 @@
                             </select>
 
                             <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style=" border: transparent; height: 52px; font-size: 1.3rem;">
-                            <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 7px;"><i class="fas fa-search"></i> <span class="d-none d-md-block">Tìm kiếm</span></button>
+                            <button class="btn btn-danger d-flex justify-content-between align-items-center" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 7px;"><i class="fas fa-search"></i> <span class="d-none d-md-block ms-1">Tìm kiếm</span></button>
                         </div>
 
                         <div class="row">
@@ -208,14 +208,20 @@
 <script>
     $(document).ready(function() {
 
-        
         // QUAN TRỌNG
-        if($( document ).width() <= 576) {
-            $('#pc-filter').removeClass('position-absolute'); // mobile
-        } else {
-            $('#pc-filter').addClass('position-absolute'); //tablet desktop
-        }
+        position_pc_filter();
+        $(window).resize(function(){
+            position_pc_filter();
+        });
 
+        function position_pc_filter() {
+            if($(document).width() <= 576) {
+                $('#pc-filter').removeClass('position-absolute'); // mobile
+            } else {
+                $('#pc-filter').addClass('position-absolute'); //tablet desktop
+            }
+        }
+        // END QUAN TRỌNG
 
         $('#id_commune_ward').select2({
             dropdownParent: $('#dropdown-commune .dropdown-menu ')

@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="container">
-    <div class="fw-bold fs-4 d-none">
+    <div class="fw-bold fs-5 d-none">
         Bất động sản dành cho bạn
     </div>
     <div class="row">
         <div class="col-12 col-lg-9">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <div class="fw-bold fs-4" style="color:green">
+                    <div class="fw-bold fs-5" style="color:green">
                         Tin vip (<?= count($bds_home_vip) ?>)
                     </div>
                     <div class="row">
@@ -76,7 +76,7 @@
                 </div>
                 <hr class="d-block d-lg-none">
                 <div class="col-12 col-lg-6">
-                    <div class="fw-bold fs-4" style="color:green;">
+                    <div class="fw-bold fs-5" style="color:green;">
                         Tin mới nhất (<?= $total_bds_active ?>)
                     </div>
                     <div class="row" style="border-left: 4px solid green;" id="right-div-tin-moi-nhat">
@@ -157,7 +157,7 @@
         </div>
         <div class="col-12 col-lg-3 d-none d-lg-block">
             <div class="sticky-top" style="top:30px; z-index: auto;">
-                <div class="fw-bold fs-4">
+                <div class="fw-bold fs-5">
                     &nbsp;
                 </div>
                 <div class="card mt-1" style="background-color: #f7f7f7;">

@@ -6,13 +6,13 @@
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                     <li class="nav-item bg-transparent border-bottom border-3 border-danger" role="presentation" data-bs-target="#pills-news">
-                        <button class="nav-link  bg-transparent fs-4 fw-bold text-dark" id="pills-news-pin-tab" type="button">Tin tức</button>
+                        <button class="nav-link  bg-transparent fs-5 fw-bold text-dark" id="pills-news-pin-tab" type="button">Tin tức</button>
                     </li>
                     <li class="nav-item bg-transparent" role="presentation" data-bs-target="#pills-auction">
-                        <button class="nav-link bg-transparent fs-4 fw-bold text-dark" id="pills-news-pin-tab" type="button">Đấu giá đất</button>
+                        <button class="nav-link bg-transparent fs-5 fw-bold text-dark" id="pills-news-pin-tab" type="button">Đấu giá đất</button>
                     </li>
                     <li class="nav-item bg-transparent" role="presentation" data-bs-target="#pills-document">
-                        <button class="nav-link bg-transparent fs-4 fw-bold text-dark" id="pills-news-pin-tab" type="button">Tài liệu</button>
+                        <button class="nav-link bg-transparent fs-5 fw-bold text-dark" id="pills-news-pin-tab" type="button">Tài liệu</button>
                     </li>
                 </ul>
                 <a href="<?= LINK_TIN_TUC ?>" class="text-danger text-decoration-none d-none d-md-block">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
@@ -115,10 +115,17 @@
     $(function() {
 
         // trên thiết bị di động sẽ thu nhỏ chữ lại
-        if($(window).width() <= 768) {
-            $('#pills-tab').find('button.nav-link').addClass('fs-6').removeClass('fs-4');
-        } else {
-            $('#pills-tab').find('button.nav-link').addClass('fs-4').removeClass('fs-6');
+        thay_doi_fontsize_pills_tab();
+        $(window).resize(function() {
+            thay_doi_fontsize_pills_tab();
+        });
+
+        function thay_doi_fontsize_pills_tab() {
+            if ($(window).width() <= 768) {
+                $('#pills-tab').find('button.nav-link').addClass('fs-6').removeClass('fs-5');
+            } else {
+                $('#pills-tab').find('button.nav-link').addClass('fs-5').removeClass('fs-6');
+            }
         }
         // end
 
