@@ -16,7 +16,7 @@
 
     <div style="position: relative;">
         <!-- box slide -->
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block" data-bs-ride="true">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="https://hoibatdongsan.com.vn/hinh-anh/w1700/sys/xacthuc.png" class="d-block w-100" alt="...">
@@ -28,15 +28,15 @@
         </div>
 
         <!-- box filter pc -->
-        <div id="pc-filter" style="position: absolute; top:2rem;" class="m-3">
+        <div id="pc-filter" class="position-absolute m-3" style="top:2rem;" >
 
             <form method="get" action="<?= LINK_NHA_DAT_BAN ?>" id="form-search-bds">
                 <div id="tab-filter">
                     <div class="d-flex" style="gap:0.7rem">
-                        <div class="rounded-top text-light px-5 py-2" onclick="$('#s_category').val(1)" style="background-color: rgb(70, 11, 11, 0.8); width: fit-content; cursor: pointer;">
+                        <div class="rounded-top text-light px-3 py-2" onclick="$('#s_category').val(1)" style="background-color: rgb(70, 11, 11, 0.8); width: fit-content; cursor: pointer;">
                             Nhà đất bán
                         </div>
-                        <div class="rounded-top text-light px-5 py-2" onclick="//$('#s_category').val(2)" style="background-color: rgba(202, 202, 202, 0.8); width: fit-content; cursor: pointer;">
+                        <div class="rounded-top text-light px-3 py-2" onclick="//$('#s_category').val(2)" style="background-color: rgba(202, 202, 202, 0.8); width: fit-content; cursor: pointer;">
                             Nhà cho thuê
                         </div>
                         <input type="hidden" name="category" value="1" id="s_category" />
@@ -45,18 +45,18 @@
                     <div id="body-filter" class="p-3 rounded-end rounded-bottom" style="background-color: rgb(70, 11, 11, 0.8); height: auto;">
                         <div class="input-group mb-3" style="border-radius: 7px;background-color: white;align-items: center;">
                             <select name="type" class="form-select" aria-label="Example select with button addon" style="max-width: 200px;padding: 10px 10px;border: none;">
-                                <option value="">Tất cả loại đất</option>
+                                <option value="">Loại đất</option>
                                 <?php foreach ($cf_bds['type'] as $id => $name) { ?>
                                     <option value="<?= $id ?>"><?= $name ?></option>
                                 <?php } ?>
                             </select>
 
                             <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style=" border: transparent; height: 52px; font-size: 1.3rem;">
-                            <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 7px;"><i class="fas fa-search"></i> Tìm kiếm</button>
+                            <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 7px;"><i class="fas fa-search"></i> <span class="d-none d-md-block">Tìm kiếm</span></button>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-commune" class="dropdown mb-md-2">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Xã phương thị trấn
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-price" class="dropdown mb-md-2">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Mức giá
@@ -124,7 +124,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-acreage" class="dropdown mb-md-2">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Diện tích
@@ -168,7 +168,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div class="dropdown w-100 mb-md-2 d-flex align-items-center gap-2">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Lọc thêm
@@ -207,6 +207,16 @@
 
 <script>
     $(document).ready(function() {
+
+        
+        // QUAN TRỌNG
+        if($( document ).width() <= 576) {
+            $('#pc-filter').removeClass('position-absolute'); // mobile
+        } else {
+            $('#pc-filter').addClass('position-absolute'); //tablet desktop
+        }
+
+
         $('#id_commune_ward').select2({
             dropdownParent: $('#dropdown-commune .dropdown-menu ')
         });

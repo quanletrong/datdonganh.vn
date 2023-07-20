@@ -23,10 +23,10 @@
             <form method="get" action="<?= LINK_NHA_DAT_BAN ?>" id="form-search-bds">
                 <div id="tab-filter">
                     <div class="d-flex" style="gap:0.7rem">
-                        <div class="rounded-top text-light px-5 py-1" style="background-color: #611815; width: fit-content; cursor: pointer;" onclick="$('#s_category').val(1)">
+                        <div class="rounded-top text-light px-3 py-1" style="background-color: #611815; width: fit-content; cursor: pointer;" onclick="$('#s_category').val(1)">
                             Nhà đất bán
                         </div>
-                        <div class="rounded-top text-light px-5 py-1" style="background-color: rgba(202, 202, 202, 0.8); color: black; width: fit-content; cursor: pointer;">
+                        <div class="rounded-top text-light px-3 py-1" style="background-color: rgba(202, 202, 202, 0.8); color: black; width: fit-content; cursor: pointer;">
                             Nhà cho thuê
                         </div>
                         <input type="hidden" name="category" value="1" id="s_category" />
@@ -35,17 +35,17 @@
                     <div id="body-filter" class="p-2 rounded-end rounded-bottom" style="background-color: #611815; height: auto;">
                         <div class="input-group mb-2" style="border-radius: 7px;background-color: white;align-items: center;">
                             <select name="type" class="form-select" aria-label="Example select with button addon" style="max-width: 200px;padding: 10px 10px;border: none;">
-                                <option value="">Tất cả loại đất</option>
+                                <option value="">Loại đất</option>
                                 <?php foreach ($cf_bds['type'] as $id => $name) { ?>
                                     <option value="<?= $id ?>"><?= $name ?></option>
                                 <?php } ?>
                             </select>
                             <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button" style="border: transparent;height: 40px;" value="">
-                            <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 3px 8px;"><i class="fas fa-search"></i> Tìm kiếm</button>
+                            <button class="btn btn-danger" type="submit" style="height: fit-content;margin-right: 7px;border-radius: 5px;padding: 3px 8px;"><i class="fas fa-search"></i> <span class="d-none d-md-block">Tìm kiếm</span></button>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-commune" class="dropdown mb-md-1">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
                                         Xã phường thị trấn
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-price" class="dropdown mb-md-1">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
                                         Tất cả mức giá
@@ -114,7 +114,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-acreage" class="dropdown mb-md-1">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
                                         Tất cả diện tích
@@ -158,7 +158,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div class="dropdown w-100 mb-md-1 d-flex align-items-center gap-2">
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
                                         Lọc thêm

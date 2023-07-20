@@ -76,7 +76,7 @@
                 </div>
                 <hr class="d-block d-lg-none">
                 <div class="col-12 col-lg-6">
-                    <div class="fw-bold fs-4" style="color:green; margin-left: 23px;">
+                    <div class="fw-bold fs-4" style="color:green;">
                         Tin mới nhất (<?= $total_bds_active ?>)
                     </div>
                     <div class="row" style="border-left: 4px solid green;" id="right-div-tin-moi-nhat">
