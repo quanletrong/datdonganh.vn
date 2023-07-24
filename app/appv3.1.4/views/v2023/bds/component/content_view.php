@@ -22,25 +22,25 @@
                 <div class="d-flex flex-wrap align-items-center" style="gap:20px">
                     <div>
                         <div class="text-muted">Mức giá</div>
-                        <div class="fw-bold fs-5">
+                        <div class="fw-bold fs-6 text-danger">
                             <?php echo getPrice($bdsInfo['price_total']); ?>
                         </div>
                     </div>
                     <div>
                         <div class="text-muted">Diện tích</div>
-                        <div class="fw-bold fs-5"><?php echo $bdsInfo['acreage']; ?>m²</div>
+                        <div class="fw-bold fs-6 text-danger"><?php echo $bdsInfo['acreage']; ?>m²</div>
                     </div>
 
                     <div>
                         <div class="text-muted">Giá/m²</div>
-                        <div class="fw-bold fs-5"> <?= getPriceM2($bdsInfo['price_total'], $bdsInfo['acreage']) ?></div>
+                        <div class="fw-bold fs-6 text-danger"> <?= getPriceM2($bdsInfo['price_total'], $bdsInfo['acreage']) ?></div>
 
                     </div>
 
                     <?php if ($bdsInfo['facades'] > 0) { ?>
                         <div>
                             <div class="text-muted">Mặt tiền</div>
-                            <div class="fw-bold fs-5"><?php echo $bdsInfo['facades']; ?>m</div>
+                            <div class="fw-bold fs-6 text-danger"><?php echo $bdsInfo['facades']; ?>m</div>
                         </div>
                     <?php } ?>
                 </div>
@@ -243,7 +243,7 @@
                 Quý vị đang xem nội dung tin rao "<strong style="font-weight: bold"><?php echo $bdsInfo['title']; ?>. LH: <?php echo $bdsInfo['contactphone'] ?></strong> - <strong style="font-weight: bold">Mã tin #bds<?php echo $bdsInfo['id_bds']; ?></strong>.
                 Mọi thông tin, nội dung liên quan tới tin rao này là do người đăng tin đăng tải và chịu trách nhiệm.
                 datdonganh.vn luôn cố gắng để các thông tin được hữu ích nhất cho quý vị tuy nhiên datdonganh.vn không đảm bảo và không chịu trách nhiệm về bất kỳ thông tin, nội dung nào liên quan tới tin rao này.
-                Trường hợp phát hiện nội dung tin đăng không chính xác, Quý vị hãy thông báo và cung cấp thông tin cho Ban quản trị datdonganh.vn theo <strong style="font-weight: bold">Hotline 0962542998 hoặc 0974986363</strong> để được hỗ trợ nhanh và kịp thời nhất.
+                <span class="d-none">Trường hợp phát hiện nội dung tin đăng không chính xác, Quý vị hãy thông báo và cung cấp thông tin cho Ban quản trị datdonganh.vn theo <strong style="font-weight: bold">Hotline 0962542998 hoặc 0974986363</strong> để được hỗ trợ nhanh và kịp thời nhất.</span>
             </div>
 
 
