@@ -28,7 +28,7 @@
                     </div>
                     <div class="row">
                         <?php foreach ($bds_home_vip as $id_bds => $bds) { ?>
-                            <div class="col-md-6 col-lg-12 mb-md-4">
+                            <div class="col-md-6 col-lg-12 mb-4">
 
                                 <div class="rounded mb-3 shadow ">
                                     <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <hr class="d-block d-lg-none">
-                <div class="col-12 col-lg-6 ps-md-30px mb-md-4" id="right-div-tin-moi-nhat">
+                <div class="col-12 col-lg-6 ps-md-30px" id="right-div-tin-moi-nhat">
                     <div class="fw-bold fs-5" style="color:green;">
                         Tin mới nhất (<?= $total_bds_active ?>)
                     </div>
@@ -100,7 +100,7 @@
                         <?php foreach ($bds_new_most as $id_bds => $bds) { ?>
                             <?php if ($index < 12 && $bds['is_home_vip']=='0') { ?>
                                 <?php $index++; ?>
-                                <div class="mb-md-4">
+                                <div class="mb-4">
 
                                     <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
