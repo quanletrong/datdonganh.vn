@@ -14,15 +14,7 @@
 
     <div class="d-flex justify-content-between mt-3">
         <span class="">Hiện có <?= number_format(count($list_bds)) ?> bất động sản.</span>
-        <select class="form-select-sm border border-secondary" aria-label="Default select example" onchange="sort(this)">
-            <option value="0" data-orderby=order_reset>Thông thường</option>
-            <option value="1" data-orderby=price_total data-sort=DESC <?= $orderby == 'price_total' && $sort == 'DESC' ? 'selected' : '' ?>>Giá cao hiện trước</option>
-            <option value="3" data-orderby=price_total data-sort=ASC <?= $orderby == 'price_total' && $sort == 'ASC' ? 'selected' : '' ?>>Giá thấp hiện trước</option>
-            <option value="4" data-orderby=acreage data-sort=DESC <?= $orderby == 'acreage' && $sort == 'DESC' ? 'selected' : '' ?>>Diện tích lớn hiện trước</option>
-            <option value="5" data-orderby=acreage data-sort=ASC <?= $orderby == 'acreage' && $sort == 'ASC' ? 'selected' : '' ?>>Diện tích bé hiện trước</option>
-            <option value="6" data-orderby=id_bds data-sort=DESC <?= $orderby == 'id_bds' && $sort == 'DESC' ? 'selected' : '' ?>>Tin mới hiện trước</option>
-            <option value="7" data-orderby=id_bds data-sort=ASC <?= $orderby == 'id_bds' && $sort == 'ASC' ? 'selected' : '' ?>>Tin cũ hiện trước</option>
-        </select>
+
     </div>
 </div>
 
@@ -30,93 +22,97 @@
 
     <div class="row">
         <div class="col-12 col-lg-9">
-            <?php foreach ($list_bds as $id_bds => $bds) { ?>
-                <div class="card mt-3 box-shadow mb-4 mb-md-5">
-                    <div class="card-body p-0">
-                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                            <div style="width: 100%;display: flex; position: relative;">
-                                <div style="width: calc(4/6*100%)">
-                                    <img src="<?= $bds['list_img'][0] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-right: 3px;border-top-left-radius: 0.375rem;">
-                                </div>
-                                <div style="width: calc(2/6*100%)">
-                                    <div style="width: 100%;display: flex;flex-wrap: wrap;">
-                                        <div style="width: calc(6/6*100%)">
-                                            <img src="<?= @$bds['list_img'][1] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-bottom: 3px;border-top-right-radius: 0.375rem;">
-                                        </div>
-                                        <div style="width: calc(3/6*100%)">
-                                            <img src="<?= isset($bds['list_img'][2]) ? $bds['list_img'][2] : $bds['list_img'][1] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;padding-right: 3px;">
-                                        </div>
-                                        <div style="width: calc(3/6*100%)">
-                                            <img src="<?= isset($bds['list_img'][3]) ? $bds['list_img'][3] : $bds['list_img'][1] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="position-absolute bg-danger text-white px-3 fs-5 rounded-end <?= $bds['is_vip'] ? '' : 'd-none' ?>" style="left: 0; top: 1rem">Tin VIP</div>
-                            </div>
-                        </a>
-
-                        <div class="mx-3 my-1">
-                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                <span class="fw-bold">
-                                    <?= $bds['title'] ?>
-                                </span>
-                            </a>
-
-                            <div class="d-sm-flex justify-content-between align-items-center gap-2">
+            <div class="row">
+                <?php foreach ($list_bds as $id_bds => $bds) { ?>
+                    <div class="col-12 col-lg-6">
+                        <div class="card mt-3 box-shadow mb-3">
+                            <div class="card-body p-0">
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                    <div class="d-flex justify-content-between align-items-center gap-2">
-                                        <div class="text-danger fw-bold">
-                                            <?= getPrice($bds['price_total']) ?>
+                                    <div style="width: 100%;display: flex; position: relative;">
+                                        <div style="width: calc(4/6*100%)">
+                                            <img src="<?= $bds['list_img'][0] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-right: 3px;border-top-left-radius: 0.375rem;">
                                         </div>
-                                        <div class="mb-1">.</div>
-                                        <div class="text-danger fw-bold"><?= $bds['acreage'] ?> m²</div>
-                                        <div class="mb-1">.</div>
-                                        <div class="text-danger fw-bold">
-                                            <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
+                                        <div style="width: calc(2/6*100%)">
+                                            <div style="width: 100%;display: flex;flex-wrap: wrap;">
+                                                <div style="width: calc(6/6*100%)">
+                                                    <img src="<?= @$bds['list_img'][1] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-bottom: 3px;border-top-right-radius: 0.375rem;">
+                                                </div>
+                                                <div style="width: calc(3/6*100%)">
+                                                    <img src="<?= isset($bds['list_img'][2]) ? $bds['list_img'][2] : $bds['list_img'][1] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;padding-right: 3px;">
+                                                </div>
+                                                <div style="width: calc(3/6*100%)">
+                                                    <img src="<?= isset($bds['list_img'][3]) ? $bds['list_img'][3] : $bds['list_img'][1] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;">
+                                                </div>
+                                            </div>
                                         </div>
+                                        <div class="position-absolute bg-danger text-white px-2 fs-5 rounded-end fs-6 <?= $bds['is_vip'] ? '' : 'd-none' ?> " style="left: 0; top: 1rem">Tin VIP</div>
                                     </div>
                                 </a>
 
-                                <div class="d-flex justify-content-between align-items-center gap-2">
-                                    <?php if ($bds['direction'] > 0) { ?>
-                                        <div class="text-secondary">
-                                            Hướng: <a href="<?= LINK_NHA_DAT_BAN . '?direction=' . $bds['direction'] ?>"><?= $cf_bds['direction'][$bds['direction']] ?></a>
+                                <div class="mx-3 my-1">
+                                    <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
+                                        <div class="fw-bold" style="min-height: 42px;">
+                                            <?= $bds['title'] ?>
                                         </div>
-                                        <div class="mb-1">.</div>
-                                    <?php } ?>
+                                    </a>
 
-                                    <div class="text-secondary">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $bds['id_commune_ward'] ?>"><?= $bds['commune'] ?></a>
+                                    <div class="d-sm-flex justify-content-between align-items-center gap-1">
+                                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
+                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                <div class="text-danger fw-bold">
+                                                    <?= getPrice($bds['price_total']) ?>
+                                                </div>
+                                                <div class="mb-1">.</div>
+                                                <div class="text-danger fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                                <div class="mb-1">.</div>
+                                                <div class="text-danger fw-bold">
+                                                    <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <div class="d-flex justify-content-between align-items-center gap-2">
+                                            <?php if ($bds['direction'] > 0) { ?>
+                                                <div class="text-secondary">
+                                                    <a href="<?= LINK_NHA_DAT_BAN . '?direction=' . $bds['direction'] ?>"><?= $cf_bds['direction'][$bds['direction']] ?></a>
+                                                </div>
+                                                <div class="mb-1">.</div>
+                                            <?php } ?>
+
+                                            <div class="text-secondary">
+                                                <!-- <i class="fa-solid fa-location-dot"></i> -->
+                                                <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $bds['id_commune_ward'] ?>"><?= $bds['commune'] ?></a>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-footer" style="padding: 4px 10px;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center" style="gap:10px">
+                                        <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.0;">
+                                            <?= $bds['contactname'][0] ?? null ?>
 
+                                        </div>
+                                        <div>
+                                            <div class="" style="font-size: 0.7rem;"><?= $bds['contactname'] ?></div>
+                                            <div class="text-muted" style="font-size: 0.7rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="tel:<?= $bds['contactphone'] ?>">
+                                            <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83); font-size: 0.7rem; padding: 3px;"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
+                                        </a>
+                                        <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>" style=" font-size: 0.7rem; padding: 3px 5px"><i class="fa-regular fa-heart"></i></button>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center" style="gap:10px">
-                                <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.0;">
-                                    <?= $bds['contactname'][0] ?? null ?>
-
-                                </div>
-                                <div>
-                                    <div class="fw-semibold" style="font-size: 0.9rem;"><?= $bds['contactname'] ?></div>
-                                    <div class="text-muted" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</div>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="tel:<?= $bds['contactphone'] ?>">
-                                    <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
-                                </a>
-                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
+                <?php } ?>
+            </div>
 
             <!-- PAGING -->
             <div class="d-flex justify-content-center d-none">
@@ -170,7 +166,19 @@
             </div>
         </div>
         <div class="d-md-none d-lg-block col-lg-3">
-            <div class="sticky-top" style="top:70px; z-index: auto;">
+            <div class="sticky-top" style="top:60px; z-index: auto;">
+                <div>
+                    <div>Sắp xếp theo</div>
+                    <select class="form-select-sm border border-secondary" aria-label="Default select example" onchange="sort(this)" style="width: -webkit-fill-available;">
+                        <option value="0" data-orderby=order_reset>Thông thường</option>
+                        <option value="1" data-orderby=price_total data-sort=DESC <?= $orderby == 'price_total' && $sort == 'DESC' ? 'selected' : '' ?>>Giá cao hiện trước</option>
+                        <option value="3" data-orderby=price_total data-sort=ASC <?= $orderby == 'price_total' && $sort == 'ASC' ? 'selected' : '' ?>>Giá thấp hiện trước</option>
+                        <option value="4" data-orderby=acreage data-sort=DESC <?= $orderby == 'acreage' && $sort == 'DESC' ? 'selected' : '' ?>>Diện tích lớn hiện trước</option>
+                        <option value="5" data-orderby=acreage data-sort=ASC <?= $orderby == 'acreage' && $sort == 'ASC' ? 'selected' : '' ?>>Diện tích bé hiện trước</option>
+                        <option value="6" data-orderby=id_bds data-sort=DESC <?= $orderby == 'id_bds' && $sort == 'DESC' ? 'selected' : '' ?>>Tin mới hiện trước</option>
+                        <option value="7" data-orderby=id_bds data-sort=ASC <?= $orderby == 'id_bds' && $sort == 'ASC' ? 'selected' : '' ?>>Tin cũ hiện trước</option>
+                    </select>
+                </div>
                 <div class="card mt-3" style="background-color: #f7f7f7;">
                     <div class="card-body">
                         <span class="fw-semibold" style="font-size: 1.125rem;">Khoảng giá</span>
