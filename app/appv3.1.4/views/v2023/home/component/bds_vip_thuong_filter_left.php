@@ -1,4 +1,20 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<style>
+    /* css trên thiết bị di động */
+    @media (min-width: 768px) {
+        .pe-md-30px{
+            padding-right: 30px;
+        }
+        .ps-md-30px{
+            padding-left: 30px;
+        }
+
+        #right-div-tin-moi-nhat {
+            border-left: 4px solid green;
+        }
+    }
+    
+</style>
 <div class="container">
     <div class="fw-bold fs-5 d-none">
         Bất động sản dành cho bạn
@@ -6,13 +22,13 @@
     <div class="row">
         <div class="col-12 col-lg-9">
             <div class="row">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6 pe-md-30px">
                     <div class="fw-bold fs-5" style="color:green">
                         Tin vip (<?= count($bds_home_vip) ?>)
                     </div>
                     <div class="row">
                         <?php foreach ($bds_home_vip as $id_bds => $bds) { ?>
-                            <div class="col-md-6 col-lg-12">
+                            <div class="col-md-6 col-lg-12 mb-md-4">
 
                                 <div class="rounded mb-3 shadow ">
                                     <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
@@ -75,16 +91,16 @@
                     </div>
                 </div>
                 <hr class="d-block d-lg-none">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6 ps-md-30px mb-md-4" id="right-div-tin-moi-nhat">
                     <div class="fw-bold fs-5" style="color:green;">
                         Tin mới nhất (<?= $total_bds_active ?>)
                     </div>
-                    <div class="row" style="border-left: 4px solid green;" id="right-div-tin-moi-nhat">
+                    <div class="row">
                         <?php $index = 0; ?>
                         <?php foreach ($bds_new_most as $id_bds => $bds) { ?>
                             <?php if ($index < 12 && $bds['is_home_vip']=='0') { ?>
                                 <?php $index++; ?>
-                                <div class="">
+                                <div class="mb-md-4">
 
                                     <div class="rounded border border-1 border-muted mb-3 shadow">
                                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
@@ -155,7 +171,7 @@
             </div>
 
         </div>
-        <div class="col-12 col-lg-3 d-none d-lg-block">
+        <div class="col-12 col-lg-3 d-none d-lg-block ps-md-5">
             <div class="sticky-top" style="top:30px; z-index: auto;">
                 <div class="fw-bold fs-5">
                     &nbsp;
@@ -215,12 +231,12 @@
 </div>
 
 <script>
-    $(function() {
-        // trên thiết bị di động sẽ thu nhỏ chữ lại
-        if($(window).width() <= 768) {
-            $('#right-div-tin-moi-nhat').css('border-left', 'none');
-        } else {
-            $('#right-div-tin-moi-nhat').css('border-left', '4px solid green;');
-        } 
-    })
+    // $(function() {
+    //     // trên thiết bị di động sẽ thu nhỏ chữ lại
+    //     if($(window).width() <= 768) {
+    //         $('#right-div-tin-moi-nhat').css('border-left', 'none');
+    //     } else {
+    //         $('#right-div-tin-moi-nhat').css('border-left', '4px solid green;');
+    //     } 
+    // })
 </script>

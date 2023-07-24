@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-12 col-lg-9">
             <?php foreach ($list_bds as $id_bds => $bds) { ?>
-                <div class="card mt-3 box-shadow">
+                <div class="card mt-3 box-shadow mb-md-5">
                     <div class="card-body p-0">
                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                             <div style="width: 100%;display: flex; position: relative;">
