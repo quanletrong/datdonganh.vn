@@ -345,6 +345,7 @@ class Bds extends MY_Controller
         $contactphone    = $this->input->post('contactphone');    // check cf
         $contactemail    = $this->input->post('contactemail');    // check cf
         $tag             = $this->input->post('tag');                // check db
+        $create_time     = $this->input->post('create_time');
 
         // TODO: validate dữ liệu submit
         $price = floatval(str_replace(',', '', $price));
@@ -394,7 +395,7 @@ class Bds extends MY_Controller
             $images      = json_encode($image_db);
             $update_time = date('Y-m-d H:i:s');
 
-            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $update_time);
+            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time, $update_time);
 
             if ($exc) {
                 # update tag

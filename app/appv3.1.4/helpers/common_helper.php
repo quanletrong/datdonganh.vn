@@ -961,16 +961,24 @@ function timeSince($date) {
 }
 
 function getPrice($number) {
-  if ($number >= PRICE_ONE_BILLION) {
+    if($number == 0) {
+        return  'Thỏa thuận';
+    }
+
+    if ($number >= PRICE_ONE_BILLION) {
     echo round($number / PRICE_ONE_BILLION, 2) . ' tỷ';
-  } else if ($number >= PRICE_ONE_MILLION) {
+    } else if ($number >= PRICE_ONE_MILLION) {
     echo round($number / PRICE_ONE_MILLION, 1) . ' triệu';
-  } else {
-    echo number_format($number) . 'đ';
-  }
+    } else {
+    echo number_format($number) .'đ';
+    }
 }
 
 function getPriceM2($number, $m2) {
+
+    if($number == 0) {
+        return  '&nbsp;';
+    }
 
     $priceM2 = 0;
     if(intval($m2) > 0) {
@@ -982,7 +990,7 @@ function getPriceM2($number, $m2) {
     } else if ($priceM2 >= PRICE_ONE_MILLION) {
       echo round($priceM2/ PRICE_ONE_MILLION, 1) . ' tr/m²';
     } else {
-      echo number_format($number) . 'đ/m²';
+      echo number_format($priceM2) . 'đ/m²';
     }
   }
 

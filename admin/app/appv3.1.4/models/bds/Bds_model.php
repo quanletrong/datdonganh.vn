@@ -156,11 +156,11 @@ class Bds_model extends CI_Model
         return $data;
     }
 
-    function edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $update_time)
+    function edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time, $update_time)
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, id_user=?, category=?, status=?, type=?, title=?, slug_title=?, address=?, maps=?, sapo=?, content=?, images=?, videos=?, price_total=?, price_m2=?, price_type=?, acreage=?, facades=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, contacttype=?, contactname=?, contactaddress=?, contactphone=?, contactemail=?, update_time=? WHERE id_bds=?; ";
+        $sql = "UPDATE tbl_bds SET id_commune_ward=?, id_street=?, id_project=?, id_user=?, category=?, status=?, type=?, title=?, slug_title=?, address=?, maps=?, sapo=?, content=?, images=?, videos=?, price_total=?, price_m2=?, price_type=?, acreage=?, facades=?, direction=?, floor=?, toilet=?, bedroom=?, noithat=?, road_surface=?, juridical=?, is_vip=?, contacttype=?, contactname=?, contactaddress=?, contactphone=?, contactemail=?, create_time=?, update_time=? WHERE id_bds=?; ";
 
         if ($is_vip == '0') {
             $sql .= "UPDATE tbl_bds SET is_home_vip = 0 WHERE id_bds = $id_bds ; ";
@@ -168,7 +168,7 @@ class Bds_model extends CI_Model
 
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $param = [$id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $update_time, $id_bds];
+            $param = [$id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail,$create_time, $update_time, $id_bds];
 
             if ($stmt->execute($param)) {
                 $execute = true;

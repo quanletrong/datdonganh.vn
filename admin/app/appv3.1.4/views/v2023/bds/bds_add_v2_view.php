@@ -139,7 +139,7 @@
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
+                                            <label class="m-0 p-0 pr-1">Giá</label>
                                         </div>
                                         <div class="input-group" style="width:75%">
                                             <input type="text" class="form-control w-75" name="price">
@@ -165,7 +165,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Đơn vị <span class="text-danger">*</span></label>
+                                            <label class="m-0 p-0 pr-1">Đơn vị</label>
                                         </div>
                                         <select class="select2" style="width:75%" name="price_type">
                                             <option value="1">VNĐ</option>
@@ -745,10 +745,10 @@
                     required: true,
                     minlength: 5
                 },
-                price: {
-                    number: true,
-                    valid_price: true
-                },
+                // price: {
+                //     number: true,
+                //     valid_price: true
+                // },
                 facades: {
                     number: true,
                     min: 1

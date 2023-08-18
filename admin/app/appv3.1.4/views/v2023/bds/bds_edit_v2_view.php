@@ -139,7 +139,7 @@
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Giá <span class="text-danger">*</span></label>
+                                            <label class="m-0 p-0 pr-1">Giá</label>
                                         </div>
                                         <div class="input-group" style="width:75%">
                                             <input type="text" class="form-control w-75" name="price" value="<?= $info['price_view'] ?>">
@@ -168,7 +168,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Đơn vị <span class="text-danger">*</span></label>
+                                            <label class="m-0 p-0 pr-1">Đơn vị</label>
                                         </div>
                                         <select class="select2" style="width:75%" name="price_type">
                                             <option value="1" <?= $info['price_type'] == '1' ? 'selected' : '' ?>>VNĐ</option>
@@ -506,6 +506,17 @@
                                         <input type="text" class="form-control text-danger" style="width:75%" value="Tin của admin không hết hạn" readonly disabled>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-25" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Ngày tạo</label>
+                                        </div>
+                                        <input type="text" class="form-control w-75" id="create_time" />
+                                        <input type="hidden" name="create_time" id="hidden_create_time" />
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -734,10 +745,10 @@
                     }
 
                     // làm tròn
-                    if(price_red >= 1000000000) {
-                        price_red = Math.round(parseFloat((price_red/1000000000).toFixed(3))*1000000000);
+                    if (price_red >= 1000000000) {
+                        price_red = Math.round(parseFloat((price_red / 1000000000).toFixed(3)) * 1000000000);
                     } else {
-                        price_red = Math.round(parseFloat((price_red/1000000).toFixed(1))*1000000);
+                        price_red = Math.round(parseFloat((price_red / 1000000).toFixed(1)) * 1000000);
                     }
 
                     $('#price_word').val(VNnum2words(price_red) + `${price_type === '1' ? '/m2' : ' VND'}`);
@@ -825,10 +836,10 @@
                     minlength: 5,
                     maxlength: 5000
                 },
-                price: {
-                    number: true,
-                    valid_price: true
-                },
+                // price: {
+                //     number: true,
+                //     valid_price: true
+                // },
                 facades: {
                     number: true,
                     min: 1
@@ -879,6 +890,20 @@
             }
         });
 
+        $(function() {
+            $('#create_time').daterangepicker({
+                "singleDatePicker": true,
+                "showDropdowns": true,
+                "autoApply": true,
+                "startDate": "<?= date("d/m/Y", strtotime($info['create_time'])) ?>",
+                "endDate": "<?= date("d/m/Y", strtotime($info['create_time'])) ?>",
+                "locale": {
+                    "format": 'DD/MM/YYYY',
+                }
+            }, function(start, end, label) {
+                $('#hidden_create_time').val(start.format('YYYY-MM-D hh:mm A'));
+            });
+        });
     });
 
     function callback_upload_image_bds(response, target = '') {

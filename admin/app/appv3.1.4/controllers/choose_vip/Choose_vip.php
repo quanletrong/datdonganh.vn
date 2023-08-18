@@ -33,12 +33,14 @@ class Choose_vip extends MY_Controller
         if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
+        $uid = $this->_session_uid();
+        $role = $this->_session_role();
 
         $category        = '';
         $id_commune_ward = '';
         $id_street       = '';
         $id_project      = '';
-        $id_user         = '';
+        $id_user         = $role == SUPERADMIN ? '' : $uid;
         $status          = 1;
         $type            = '';
         $title           = '';
