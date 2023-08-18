@@ -24,8 +24,9 @@ class Home extends MY_Controller {
         ];
         
         $data['total_bds_active']                = $this->Bds_model->get_total_bds_active();
-        $data['bds_new_most']                    = $this->Bds_model->get_list_by_top(false, 0, 12, 0);
         $data['bds_home_vip']                    = $this->Bds_model->get_list_vip_home(12, 0);
+        $limit_new_most                          = count($data['bds_home_vip']) ? 12 : count($data['bds_home_vip']);
+        $data['bds_new_most']                    = $this->Bds_model->get_list_by_top(0, 0, 0, count($data['bds_home_vip']), 0);
         $data['street_and_num_bds']              = $this->Bds_model->get_num_bds_by_street();
         $data['get_num_bds_by_price']            = $this->Bds_model->get_num_bds_by_price();
         $data['get_num_bds_by_acreage']          = $this->Bds_model->get_num_bds_by_acreage();

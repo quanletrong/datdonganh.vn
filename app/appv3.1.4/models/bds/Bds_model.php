@@ -52,14 +52,13 @@ class Bds_model extends CI_Model
     }
 
 
-    function get_list_by_top($is_vip, $id_commune_ward, $limit, $offset)
+    function get_list_by_top($is_vip, $is_home_vip, $id_commune_ward, $limit, $offset)
     {
         $data = [];
         $iconn = $this->db->conn_id;
         
-        $where = "WHERE A.status = 1 ";
+        $where = "WHERE A.status = 1 AND A.is_vip = $is_vip AND A.is_home_vip = $is_home_vip ";
         
-        if ($is_vip)  $where                        .= "AND A.is_vip > 0 ";
         if ($id_commune_ward > 0)  $where           .= "AND A.id_commune_ward = $id_commune_ward ";
 
 
