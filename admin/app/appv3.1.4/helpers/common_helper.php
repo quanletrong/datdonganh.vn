@@ -790,7 +790,7 @@ function copy_image_from_file_manager_to_public_upload($url_fmng_image, $yearFol
     $imginfo = getImageSizeFromUrl($url_fmng_image);
     if (!empty($imginfo)) {
 
-        $basename = generateRandomString(10).'-'.basename($url_fmng_image);
+        $basename = generateRandomString(10) . '-' . basename($url_fmng_image);
         $DOCUMENT_ROOT = $_SERVER["DOCUMENT_ROOT"];
         // check year folder exists
         $localFolder = $DOCUMENT_ROOT . '/' . PUBLIC_UPLOAD_PATH . '/' . $yearFolder . '/';
@@ -866,67 +866,94 @@ function create_slug($string)
     return $string;
 }
 
-function resError($error, $msg='', $show_status = true)
+function resError($error, $msg = '', $show_status = true)
 {
     # neu co show_status
     if ($show_status) {
-        if(ENVIRONMENT == 'development') {
-			$dbgt = debug_backtrace();
-			$line = $dbgt[0]['line'];
-			$file = $dbgt[0]['file'];
-			echo json_encode(['status' => 0, 'error' => $error, 'msg'=>$msg, 'line' => $line, 'file' => $file]);
-		} else {
-			echo json_encode(['status' => 0, 'error' => $error, 'msg'=>$msg]);
-		}
+        if (ENVIRONMENT == 'development') {
+            $dbgt = debug_backtrace();
+            $line = $dbgt[0]['line'];
+            $file = $dbgt[0]['file'];
+            echo json_encode(['status' => 0, 'error' => $error, 'msg' => $msg, 'line' => $line, 'file' => $file]);
+        } else {
+            echo json_encode(['status' => 0, 'error' => $error, 'msg' => $msg]);
+        }
     } else {
         # neu data la mang  thi echo json_encode
-        if(is_array($error)) {
+        if (is_array($error)) {
             echo json_encode($error);
-        } 
+        }
         # nguoc lai
         else {
             echo $error;
         }
-        
     }
-    
+
     dbClose();
     die();
 }
 
 // set response data
-function resSuccess($data, $msg='', $show_status = true)
+function resSuccess($data, $msg = '', $show_status = true)
 {
     # neu co show_status
     if ($show_status) {
 
-        if(ENVIRONMENT == 'development') {
-			$dbgt = debug_backtrace();
-			$line = $dbgt[0]['line'];
-			$file = $dbgt[0]['file'];
-			echo json_encode(['status' => 1, 'data' => $data, 'msg'=>$msg, 'line' => $line, 'file' => $file]);
-		} else {
-			echo json_encode(['status' => 1, 'data' => $data, 'msg'=>$msg]);
-		}
+        if (ENVIRONMENT == 'development') {
+            $dbgt = debug_backtrace();
+            $line = $dbgt[0]['line'];
+            $file = $dbgt[0]['file'];
+            echo json_encode(['status' => 1, 'data' => $data, 'msg' => $msg, 'line' => $line, 'file' => $file]);
+        } else {
+            echo json_encode(['status' => 1, 'data' => $data, 'msg' => $msg]);
+        }
     } else {
         # neu data la mang  thi echo json_encode
-        if(is_array($data)) {
+        if (is_array($data)) {
             echo json_encode($data);
-        } 
+        }
         # nguoc lai
         else {
             echo $data;
         }
-        
     }
-    
+
     dbClose();
     die();
 }
 
-function fullPathImage($nameImage, $yearFolder, $monthFolder) {
+function fullPathImage($nameImage, $yearFolder, $monthFolder)
+{
 
-    $path = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $yearFolder.'/'.$monthFolder.'/'.$nameImage;
+    $path = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $nameImage;
 
     return $path;
+}
+
+function getPrice($number)
+{
+    if ($number >= PRICE_ONE_BILLION) {
+        echo round($number / PRICE_ONE_BILLION, 2) . ' tỷ';
+    } else if ($number >= PRICE_ONE_MILLION) {
+        echo round($number / PRICE_ONE_MILLION, 1) . ' triệu';
+    } else {
+        echo number_format($number) . 'đ';
+    }
+}
+
+function getPriceM2($number, $m2)
+{
+
+    $priceM2 = 0;
+    if (intval($m2) > 0) {
+        $priceM2 = $number / $m2;
+    }
+
+    if ($priceM2 >= PRICE_ONE_BILLION) {
+        echo round($priceM2 / PRICE_ONE_BILLION, 2) . ' tỷ/m²';
+    } else if ($priceM2 >= PRICE_ONE_MILLION) {
+        echo round($priceM2 / PRICE_ONE_MILLION, 1) . ' tr/m²';
+    } else {
+        echo number_format($number) . 'đ/m²';
+    }
 }

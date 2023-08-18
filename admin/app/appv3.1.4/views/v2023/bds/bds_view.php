@@ -39,6 +39,7 @@
                         <tr>
                             <th class="text-center" style="width: 50px;">ID</th>
                             <th style="min-width: 300px;">Bất động sản</th>
+                            <th class="text-right" style="min-width: 90px; width: 90px;">Giá</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Xã</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
@@ -59,6 +60,9 @@
                                         <?php } ?>
                                         <?= $bds['title'] ?>
                                     </a>
+                                </td>
+                                <td class=" text-right  align-middle">
+                                    <?= getPrice($bds['price_total']) ?>
                                 </td>
                                 <td class=" text-center  align-middle">
                                     <?= $bds['commune'] ?>
@@ -187,8 +191,8 @@
 
     function on_change_status(e, new_status, id_bds) {
         let text_confirm = "";
-        if(new_status) {
-            text_confirm =  "Đưa tin này ra khỏi thùng rác. Người dùng sẽ nhìn thấy tin này"
+        if (new_status) {
+            text_confirm = "Đưa tin này ra khỏi thùng rác. Người dùng sẽ nhìn thấy tin này"
         } else {
             text_confirm = "Chuyển tin này vào thùng rác! Người dùng sẽ không nhìn thấy tin này nữa. Bạn có thể khôi phục tin trong thùng rác.";
         }
