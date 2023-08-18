@@ -47,7 +47,7 @@
                 <script>
                     $(document).ready(function() {
                         $('.content-archive img').addClass('img-fluid');
-                        $('.content-archive img').css({
+                        $('.content-archive *').css({
                             'width': 'auto',
                             'height': 'auto'
                         });
