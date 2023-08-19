@@ -223,7 +223,7 @@
                                     </div>
                                     <div>
                                         <div class="fw-semibold" style="font-size: 0.9rem;"><?= $bds['contactname'] ?></div>
-                                        <div class="text-muted" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</div>
+                                        <div class="text-muted" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</div>
                                     </div>
                                 </div>
                                 <div>

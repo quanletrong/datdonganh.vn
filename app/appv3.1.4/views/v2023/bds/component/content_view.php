@@ -133,7 +133,7 @@
                 <div class="d-flex align-items-center" style="gap:50px">
                     <div>
                         <div class="text-muted">Ngày đăng</div>
-                        <div class="fw-semibold"><?php echo date("d/m/Y", strtotime($bdsInfo['create_time'])); ?></div>
+                        <div class="fw-semibold"><?php echo date("d/m/Y", strtotime($bdsInfo['create_time_set'])); ?></div>
                     </div>
                     <div>
                         <div class="text-muted">Ngày hết hạn</div>
@@ -320,7 +320,7 @@
                 'acreage': '<?php echo $bdsInfo['acreage']; ?> m²',
                 'commune': '<?php echo $bdsInfo['commune_name']; ?>',
                 'direction': '<?php echo $bdsInfo['direction_name']; ?>',
-                'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
+                'create_time': 'Đăng <?php echo timeSince($bds['create_time_set']) ?> trước',
                 'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
             }
             localStorage.setItem("BDS_WATCHED", JSON.stringify(bds));
@@ -343,7 +343,7 @@
                     'acreage': '<?php echo $bdsInfo['acreage']; ?> m²',
                     'commune': '<?php echo $bdsInfo['commune_name']; ?>',
                     'direction': '<?php echo $bdsInfo['direction_name']; ?>',
-                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
+                    'create_time': 'Đăng <?php echo timeSince($bds['create_time_set']) ?> trước',
                     'slug_title': '<?php echo $bdsInfo['slug_title']; ?>'
                 }
 
@@ -366,7 +366,7 @@
                     'acreage': '<?php echo $bdsInfo['acreage']; ?> m²',
                     'commune': '<?php echo $bdsInfo['commune_name']; ?>',
                     'direction': '<?php echo $bdsInfo['direction_name']; ?>',
-                    'create_time': 'Đăng <?php echo timeSince($bds['create_time']) ?> trước',
+                    'create_time': 'Đăng <?php echo timeSince($bds['create_time_set']) ?> trước',
                     'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
                 }
                 obj_bds_watched = {
@@ -433,7 +433,7 @@
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-secondary" style="font-size: 0.8rem;">${val.create_time}</span>
+                                <span class="text-secondary" style="font-size: 0.8rem;">${val.create_time_set}</span>
                                 <button data-id="${id}" class="btn btn-heart btn-sm ${ (hearts.hasOwnProperty(id)) ? 'btn-danger' : 'btn-outline-danger' } "><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>

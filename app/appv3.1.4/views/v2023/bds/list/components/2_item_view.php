@@ -35,13 +35,21 @@
                                         <div style="width: calc(2/6*100%)">
                                             <div style="width: 100%;display: flex;flex-wrap: wrap;">
                                                 <div style="width: calc(6/6*100%)">
-                                                    <img src="<?= @$bds['list_img'][1] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-bottom: 3px;border-top-right-radius: 0.375rem;">
+                                                    <?php if (isset($bds['list_img'][1])) { ?>
+                                                        <img src="<?= $bds['list_img'][1] ?>" class="w-100 ratio ratio-16x9 object-fit-cover" alt="" style="aspect-ratio: 2/1;object-fit: cover;padding-bottom: 3px;border-top-right-radius: 0.375rem;">
+                                                    <?php } ?>
+
                                                 </div>
                                                 <div style="width: calc(3/6*100%)">
-                                                    <img src="<?= isset($bds['list_img'][2]) ? $bds['list_img'][2] : $bds['list_img'][1] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;padding-right: 3px;">
+                                                    <?php if (isset($bds['list_img'][2])) { ?>
+                                                        <img src="<?= $bds['list_img'][2] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;padding-right: 3px;">
+                                                    <?php } ?>
+
                                                 </div>
                                                 <div style="width: calc(3/6*100%)">
-                                                    <img src="<?= isset($bds['list_img'][3]) ? $bds['list_img'][3] : $bds['list_img'][1] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;">
+                                                    <?php if (isset($bds['list_img'][3])) { ?>
+                                                        <img src="<?= $bds['list_img'][3] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;">
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +105,7 @@
                                         </div>
                                         <div>
                                             <div class="" style="font-size: 0.7rem;"><?= $bds['contactname'] ?></div>
-                                            <div class="text-muted" style="font-size: 0.7rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</div>
+                                            <div class="text-muted" style="font-size: 0.7rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</div>
                                         </div>
                                     </div>
                                     <div>

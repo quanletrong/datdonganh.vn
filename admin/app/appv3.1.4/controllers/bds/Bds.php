@@ -335,7 +335,7 @@ class Bds extends MY_Controller
         $floor           = $this->input->post('floor');           // check cf
         $toilet          = $this->input->post('toilet');          // check cf
         $bedroom         = $this->input->post('room');            // check cf
-        $noithat         = $this->input->post('noithat');            // check cf
+        $noithat         = $this->input->post('noithat');         // check cf
         $road_surface    = $this->input->post('road_surface');    // check số + lớn 1
         $juridical       = $this->input->post('juridical');       // check cf
         $is_vip          = $this->input->post('is_vip');          // check cf
@@ -344,8 +344,13 @@ class Bds extends MY_Controller
         $contactaddress  = $this->input->post('contactaddress');  // check cf
         $contactphone    = $this->input->post('contactphone');    // check cf
         $contactemail    = $this->input->post('contactemail');    // check cf
-        $tag             = $this->input->post('tag');                // check db
-        $create_time     = $this->input->post('create_time');
+        $tag             = $this->input->post('tag');             // check db
+        $create_time_set = $this->input->post('create_time_set'); // check time hợp lệ
+
+        $create_time_set = date('Y-m-d H:i:s'); // TODO: //////////////
+
+        // echo $create_time_set;
+        // echo strtotime($create_time_set);die;
 
         // TODO: validate dữ liệu submit
         $price = floatval(str_replace(',', '', $price));
@@ -395,7 +400,7 @@ class Bds extends MY_Controller
             $images      = json_encode($image_db);
             $update_time = date('Y-m-d H:i:s');
 
-            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time, $update_time);
+            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time_set, $update_time);
 
             if ($exc) {
                 # update tag

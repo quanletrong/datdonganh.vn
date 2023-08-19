@@ -488,10 +488,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
+                                        <div class="me-2 w-50" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Hiển thị <span class="text-danger">*</span></label>
                                         </div>
-                                        <select class="select2" style="width:75%" name="is_vip" data-minimum-results-for-search="Infinity">
+                                        <select class="select2" style="width:50%" name="is_vip" data-minimum-results-for-search="Infinity">
                                             <option value="1" <?= $info['is_vip'] == '1' ? 'selected' : '' ?>>Tin VIP</option>
                                             <option value="0" <?= $info['is_vip'] == '0' ? 'selected' : '' ?>>Tin thường</option>>
                                         </select>
@@ -500,20 +500,20 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
+                                        <div class="me-2 w-50" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Hết hạn</label>
                                         </div>
-                                        <input type="text" class="form-control text-danger" style="width:75%" value="Tin của admin không hết hạn" readonly disabled>
+                                        <input type="text" class="form-control text-danger" style="width:50%" value="Admin không hết hạn" readonly disabled>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
-                                        <div class="me-2 w-25" style="text-align: end;">
-                                            <label class="m-0 p-0 pr-1">Ngày tạo</label>
+                                        <div class="me-2 w-50" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1">Sửa ngày tạo</label>
                                         </div>
-                                        <input type="text" class="form-control w-75" id="create_time" />
-                                        <input type="hidden" name="create_time" id="hidden_create_time" />
+                                        <input type="text" class="form-control w-50" id="create_time_set" />
+                                        <input type="hidden" name="create_time_set" id="hidden_create_time_set" />
                                     </div>
                                 </div>
 
@@ -891,17 +891,17 @@
         });
 
         $(function() {
-            $('#create_time').daterangepicker({
+            $('#create_time_set').daterangepicker({
                 "singleDatePicker": true,
                 "showDropdowns": true,
                 "autoApply": true,
-                "startDate": "<?= date("d/m/Y", strtotime($info['create_time'])) ?>",
-                "endDate": "<?= date("d/m/Y", strtotime($info['create_time'])) ?>",
+                "startDate": "<?= date("d/m/Y", strtotime($info['create_time_set'])) ?>",
+                "endDate": "<?= date("d/m/Y", strtotime($info['create_time_set'])) ?>",
                 "locale": {
                     "format": 'DD/MM/YYYY',
                 }
             }, function(start, end, label) {
-                $('#hidden_create_time').val(start.format('YYYY-MM-D hh:mm A'));
+                $('#hidden_create_time_set').val(start.format('YYYY-MM-D'));
             });
         });
     });

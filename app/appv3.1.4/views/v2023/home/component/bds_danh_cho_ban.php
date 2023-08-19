@@ -20,7 +20,7 @@
                             <?php echo $bds['commune']; ?>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
-                            <span class="text-secondary" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time']) ?> trước</span>
+                            <span class="text-secondary" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</span>
                             <button class="btn btn-sm btn-outline-danger"><i class="fa-regular fa-heart"></i></button>
                         </div>
                     </div>
