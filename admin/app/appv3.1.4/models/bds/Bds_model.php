@@ -12,10 +12,10 @@ class Bds_model extends CI_Model
     {
         $new_id = 0;
         $iconn = $this->db->conn_id;
-        $sql = "INSERT INTO tbl_bds (id_commune_ward, id_street, id_project, id_user, category, `status`, `type`, title, slug_title, `address`, maps, sapo, content, images, videos, price_total, price_m2, price_type, acreage, facades, direction, floor, toilet, bedroom, noithat, road_surface, juridical, is_vip, contacttype, contactname, contactaddress, contactphone, contactemail, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_bds (id_commune_ward, id_street, id_project, id_user, category, `status`, `type`, title, slug_title, `address`, maps, sapo, content, images, videos, price_total, price_m2, price_type, acreage, facades, direction, floor, toilet, bedroom, noithat, road_surface, juridical, is_vip, contacttype, contactname, contactaddress, contactphone, contactemail, create_time, create_time_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $param = [$id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time];
+            $param = [$id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time, $create_time];
 
             if ($stmt->execute($param)) {
                 $new_id = $iconn->lastInsertId();
@@ -126,7 +126,7 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
             $where
-            ORDER BY A.$orderby $sort, A.id_bds DESC, A.status DESC 
+            ORDER BY A.$orderby $sort, A.create_time_set DESC, A.id_bds DESC, A.status DESC 
             LIMIT $limit OFFSET $offset";
 
         // var_dump($sql);die;

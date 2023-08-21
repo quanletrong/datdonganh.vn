@@ -179,12 +179,20 @@
                                     <div id="filter_loc_them" class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow" style="min-width: fit-content;">
                                             Hướng nhà
-                                            <div>
+                                            <div class="mb-2">
                                                 <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, '')">Tất cả</span>
                                                 <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
                                                     <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, <?= $id ?>)"><?= $name ?></span>
                                                 <?php } ?>
                                                 <input type="hidden" name="direction" value="" id="direction" />
+                                            </div>
+
+                                            Loại tin
+                                            <div>
+                                                <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_is_vip(this, '')">Tất cả</span>
+                                                <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_is_vip(this, 1)">Tin vip</span>
+                                                <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_is_vip(this, 0)">Tin thường</span>
+                                                <input type="hidden" name="is_vip" value="" id="is_vip" />
                                             </div>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
@@ -274,5 +282,11 @@
         $(e).addClass('text-bg-danger').removeClass('text-bg-secondary');
         $(e).siblings().removeClass('text-bg-danger').addClass('text-bg-secondary')
         $('#direction').val(id);
+    }
+
+    function search_is_vip(e, id) {
+        $(e).addClass('text-bg-danger').removeClass('text-bg-secondary');
+        $(e).siblings().removeClass('text-bg-danger').addClass('text-bg-secondary')
+        $('#is_vip').val(id);
     }
 </script>

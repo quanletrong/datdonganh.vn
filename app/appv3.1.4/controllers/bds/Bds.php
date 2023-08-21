@@ -60,6 +60,7 @@ class Bds extends MY_Controller {
          $data['f_acreage']       = $bdsInfo['acreage'];
          $data['t_acreage']       = $bdsInfo['acreage'];
          $data['direction']       = $bdsInfo['direction'];
+         $data['is_vip']          = $bdsInfo['is_vip'];
          $data['orderby']         = '';
          $data['sort']            = '';
         
@@ -130,7 +131,7 @@ class Bds extends MY_Controller {
         $noithat         = '';
         $road_surface    = '';
         $juridical       = '';
-        $is_vip          = '';
+        $is_vip          = trim($this->input->get('is_vip'));
         $is_home_vip     = '';
         $f_expired       = '';
         $t_expired       = '';
@@ -150,6 +151,7 @@ class Bds extends MY_Controller {
         $data['f_acreage']       = $f_acreage;
         $data['t_acreage']       = $t_acreage;
         $data['direction']       = $direction;
+        $data['is_vip']          = $is_vip;
         $data['orderby']         = $orderby;
         $data['sort']            = $sort;
 

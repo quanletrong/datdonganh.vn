@@ -347,10 +347,8 @@ class Bds extends MY_Controller
         $tag             = $this->input->post('tag');             // check db
         $create_time_set = $this->input->post('create_time_set'); // check time hợp lệ
 
-        $create_time_set = date('Y-m-d H:i:s'); // TODO: //////////////
-
-        // echo $create_time_set;
-        // echo strtotime($create_time_set);die;
+        // bổ sung thêm giờ phút giây của ngày tạo.
+        $create_time_set = $create_time_set.' '.date('H:i:s');
 
         // TODO: validate dữ liệu submit
         $price = floatval(str_replace(',', '', $price));
@@ -433,13 +431,13 @@ class Bds extends MY_Controller
         if (!in_array($status, ['0', '1'])) {
             resError('error_status');
         }
-        
+
         $id_bds = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
         $info   = $this->Bds_model->get_info($id_bds);
         if (empty($info)) {
             resError('not_exits_bds');
         }
-        
+
         if ($this->_session_role() != SUPERADMIN) {
             if ($info['id_user'] != $this->_session_uid()) {
                 resError('not_permit_bds');

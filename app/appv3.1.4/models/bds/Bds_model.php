@@ -56,8 +56,10 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
         
         $where = "WHERE A.status = 1 AND A.is_vip = $is_vip AND A.is_home_vip = $is_home_vip ";
+        $where .= " AND A.create_time_set <= '$current_time' ";
         
         if ($id_commune_ward > 0)  $where           .= "AND A.id_commune_ward = $id_commune_ward ";
 
@@ -67,7 +69,7 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
             $where
-            ORDER BY A.id_bds DESC 
+            ORDER BY A.create_time_set DESC
             LIMIT $limit OFFSET $offset";
 
             // var_dump($sql);die;
@@ -117,12 +119,13 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
+
         $sql = "SELECT A.*, B.username, B.phonenumber, C.name as street, D.name as commune  FROM tbl_bds as A  
                 LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
                 LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
                 LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
-                WHERE A.status = 1 AND A.is_home_vip = 1 AND A.is_vip = 1
+                WHERE A.status = 1 AND A.is_home_vip = 1 AND A.is_vip = 1 AND A.create_time_set <= '$current_time' 
                 ORDER BY A.id_bds DESC
                 LIMIT $limit OFFSET $offset";
 
@@ -171,12 +174,13 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
-        $sql = "
-             SELECT A.*, count(B.id_bds) as num_bds  FROM tbl_commune_ward as A  
-            LEFT JOIN tbl_bds as B ON A.id_commune_ward = B.id_commune_ward AND B.status = 1
-            WHERE A.status = 1 GROUP BY A.id_commune_ward ORDER BY num_bds DESC;
+        $sql = "SELECT A.*, count(B.id_bds) as num_bds  FROM tbl_commune_ward as A  
+            LEFT JOIN tbl_bds as B ON A.id_commune_ward = B.id_commune_ward AND B.status = 1 AND B.create_time_set <= '$current_time' 
+            WHERE A.status = 1 
+            GROUP BY A.id_commune_ward 
+            ORDER BY num_bds DESC;
             ";
 
         $stmt = $iconn->prepare($sql);
@@ -206,13 +210,12 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
-        $sql = "
-             SELECT A.*, count(B.id_bds) as num_bds  FROM tbl_street as A  
-            LEFT JOIN tbl_bds as B ON A.id_street = B.id_street AND B.status = 1
-            WHERE A.status = 1 GROUP BY A.id_street ORDER BY num_bds DESC;
-            ";
+        $sql = "SELECT A.*, count(B.id_bds) as num_bds  FROM tbl_street as A  
+            LEFT JOIN tbl_bds as B ON A.id_street = B.id_street AND B.status = 1 
+            WHERE A.status = 1 AND B.create_time_set <= '$current_time' 
+            GROUP BY A.id_street ORDER BY num_bds DESC ;";
 
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
@@ -236,10 +239,10 @@ class Bds_model extends CI_Model
     {
         $num_bds = 0;
         $iconn = $this->db->conn_id;
-        
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $sql = "SELECT count(*) as num_bds  FROM tbl_bds as A
-            WHERE A.status = 1 AND A.contactname LIKE ? ";
+            WHERE A.status = 1 AND A.create_time_set <= '$current_time' AND A.contactname LIKE ? ";
 
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
@@ -257,9 +260,10 @@ class Bds_model extends CI_Model
     }
 
     function get_total_bds_active() {
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
         $total = 0;
         $iconn = $this->db->conn_id;
-        $sql = " SELECT count(*) as total FROM tbl_bds WHERE status = 1 ";
+        $sql = " SELECT count(*) as total FROM tbl_bds WHERE status = 1 AND create_time_set <= '$current_time' ";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {
@@ -278,7 +282,9 @@ class Bds_model extends CI_Model
         $data = [];
         $iconn = $this->db->conn_id;
 
-        $WHERE = "WHERE 1=1 ";
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
+
+        $WHERE = "WHERE 1=1 AND A.create_time_set <= '$current_time'";
         if ($title != '') $WHERE           .= "AND A.title LIKE ? ";
         if ($category != '') $WHERE        .= "AND A.category = $category ";
         if ($id_commune_ward != '') $WHERE .= "AND A.id_commune_ward = $id_commune_ward ";
@@ -328,7 +334,7 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
             $WHERE
-            ORDER BY A.$orderby $sort , A.id_bds DESC, A.status DESC 
+            ORDER BY A.$orderby $sort , A.create_time_set DESC, A.status DESC 
             $LIMIT ";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
@@ -380,17 +386,18 @@ class Bds_model extends CI_Model
 
         $cf_bds = $this->config->item('bds');
         $price_list = $cf_bds['price_list'];
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $sql = "";
         foreach($price_list as $price){
             $from = @intval($price['from'] * PRICE_ONE_BILLION);
             $to = @intval($price['to'] * PRICE_ONE_BILLION);
             if($from > 0 && $to > 0) {
-                $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND A.price_total BETWEEN $from AND $to ; ";
+                $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.price_total BETWEEN $from AND $to ; ";
             } else if($from == 0){
-                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.price_total <= $to ; ";
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.price_total <= $to ; ";
             } else {
-                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.price_total >= $from ; ";
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.price_total >= $from ; ";
             }
         }
 
@@ -427,17 +434,18 @@ class Bds_model extends CI_Model
 
         $cf_bds = $this->config->item('bds');
         $acreage_list = $cf_bds['acreage_list'];
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $sql = "";
         foreach($acreage_list as $acreage){
             $from = @intval($acreage['from']);
             $to = @intval($acreage['to']);
             if($from > 0 && $to > 0) {
-                $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND A.acreage BETWEEN $from AND $to ; ";
+                $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.acreage BETWEEN $from AND $to ; ";
             } else if($from == 0){
-                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.acreage <= $to ; ";
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.acreage <= $to ; ";
             } else {
-                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND A.acreage >= $from ; ";
+                $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.acreage >= $from ; ";
             }
         }
 
