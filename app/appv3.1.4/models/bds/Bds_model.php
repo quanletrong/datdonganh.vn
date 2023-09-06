@@ -180,7 +180,7 @@ class Bds_model extends CI_Model
             LEFT JOIN tbl_bds as B ON A.id_commune_ward = B.id_commune_ward AND B.status = 1 AND B.create_time_set <= '$current_time' 
             WHERE A.status = 1 
             GROUP BY A.id_commune_ward 
-            ORDER BY num_bds DESC;
+            ORDER BY A.name ASC;
             ";
 
         $stmt = $iconn->prepare($sql);
@@ -215,7 +215,8 @@ class Bds_model extends CI_Model
         $sql = "SELECT A.*, count(B.id_bds) as num_bds  FROM tbl_street as A  
             LEFT JOIN tbl_bds as B ON A.id_street = B.id_street AND B.status = 1 
             WHERE A.status = 1 AND B.create_time_set <= '$current_time' 
-            GROUP BY A.id_street ORDER BY num_bds DESC ;";
+            GROUP BY A.id_street 
+            ORDER BY name ASC ;";
 
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
