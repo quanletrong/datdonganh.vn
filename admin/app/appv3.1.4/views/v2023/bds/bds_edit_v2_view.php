@@ -513,7 +513,8 @@
                                             <label class="m-0 p-0 pr-1">Sửa ngày tạo</label>
                                         </div>
                                         <input type="text" class="form-control w-50" id="create_time_set" />
-                                        <input type="hidden" name="create_time_set" id="hidden_create_time_set" />
+                                        <input type="hidden" name="create_time_set" id="hidden_create_time_set" value="<?=date("Y-m-d", strtotime($info['create_time_set']));
+?>"/>
                                     </div>
                                 </div>
 
@@ -901,6 +902,7 @@
                     "format": 'DD/MM/YYYY',
                 }
             }, function(start, end, label) {
+                console.log(start.format('YYYY-MM-D'))
                 $('#hidden_create_time_set').val(start.format('YYYY-MM-D'));
             });
         });
