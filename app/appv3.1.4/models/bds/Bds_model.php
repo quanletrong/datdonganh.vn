@@ -126,7 +126,7 @@ class Bds_model extends CI_Model
                 LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
                 LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
                 WHERE A.status = 1 AND A.is_home_vip = 1 AND A.is_vip = 1 AND A.create_time_set <= '$current_time' 
-                ORDER BY A.id_bds DESC
+                ORDER BY A.create_time_set DESC
                 LIMIT $limit OFFSET $offset";
 
             // var_dump($sql);die;
