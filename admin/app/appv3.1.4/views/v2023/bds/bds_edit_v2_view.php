@@ -231,7 +231,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <textarea id="content" name="content"><?= $info['content'] ?></textarea>
+                                <textarea id="content" name="content"><?= htmlentities($info['content']) ?></textarea>
                             </div>
                         </div>
                     </div>

@@ -153,7 +153,7 @@ class Bds extends MY_Controller
         // $maps            = $this->input->post('maps', false);        // check length regx
         // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump (html_entity_decode(htmlspecialchars_decode($maps))); // to render
         // $sapo            = $this->input->post('sapo');               // check length + rq
-        $content         = $this->input->post('content');         // check length + rq
+        $content         = $this->input->post('content', false);         // check length + rq
         $image           = $this->input->post('image');           // check lưu
         $videos          = $this->input->post('video');           // check regx
         $price           = $this->input->post('price');           // check number > 0
@@ -323,7 +323,7 @@ class Bds extends MY_Controller
         // $maps            = $this->input->post('maps', false);        // check length regx
         // $maps            = (htmlentities(htmlspecialchars($maps)));  // to save db // var_dump (html_entity_decode(htmlspecialchars_decode($maps))); // to render
         // $sapo            = $this->input->post('sapo');               // check length + rq
-        $content         = $this->input->post('content');         // check length + rq
+        $content         = $this->input->post('content', false);         // check length + rq
         $image           = $this->input->post('image');           // check lưu
         $videos          = $this->input->post('video');           // check regx
         $price           = $this->input->post('price');           // check number > 0
