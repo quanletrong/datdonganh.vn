@@ -673,18 +673,11 @@
             plugins: [
                 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-                'table', 'emoticons', 'template', 'help', 'link', 'responsivefilemanager'
+                'table', 'emoticons', 'template', 'help', 'link'
             ],
-            toolbar: 'responsivefilemanager | undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-                'forecolor backcolor emoticons | help',
+            toolbar: 'undo redo | formatselect fontsizeselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link  emoticons | help',
             menubar: 'favs file edit view insert format tools table help',
-            external_filemanager_path: "<?= ROOT_DOMAIN ?>filemanager/filemanager/",
-            filemanager_title: "Thư viện ảnh",
-            external_plugins: {
-                // "responsivefilemanager": "<?= ROOT_DOMAIN ?>filemanager/filemanager/plugin.min.js",
-                "filemanager": "<?= ROOT_DOMAIN ?>filemanager/filemanager/plugin.min.js"
-            },
             setup: function(ed) {
                 ed.on('change', function(e) {
                     $('#content').val(ed.getContent())
