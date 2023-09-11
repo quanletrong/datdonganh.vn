@@ -42,67 +42,18 @@ class Upload extends MY_Controller
                 $data = [];
                 for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
 
+                    $FILE['name']     = $_FILES['file']['name'][$i];
+                    $FILE['tmp_name'] = $_FILES['file']['tmp_name'][$i];
+                    $FILE['size']     = $_FILES['file']['size'][$i];
+                    $FILE['type']     = $_FILES['file']['type'][$i];
+                    $FILE['error']    = $_FILES['file']['error'][$i];
 
-                    $name_file = $_FILES['file']['name'][$i];
-                    $name_file = str_replace(" ", "", $name_file); // xoa khoang trang trong ten
-                    $tmp_name = $_FILES['file']['tmp_name'][$i];
-                    $size = $_FILES['file']['size'][$i];
-                    $target_dir = $_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH;
-                    $target_file = $target_dir . basename($name_file);
-                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                    $CONFIG['logo'] = $chen_logo;
+                    $CONFIG['watermarkImg'] = $watermarkImg;
+                    $CONFIG['water_height'] = $water_width;
+                    $CONFIG['water_width'] = $water_height;
 
-                    $data[$i]['status'] = 1;
-                    $data[$i]['name'] = $name_file;
-
-
-                    $check = @getimagesize($tmp_name);
-                    if ($check !== false) {
-                    } else {
-                        $data[$i]['status'] = 0;
-                        $data[$i]['error'][] = 'File is not an image.';
-                    }
-
-                    // Check if file already exists
-                    if (file_exists($target_file)) {
-                        $name_file = generateRandomString(5) . '-' . basename($name_file);
-                        $target_file = $target_dir . $name_file;
-                    }
-
-                    // Check file size
-                    if ($size > 50000000) {
-                        $data[$i]['status'] = 0;
-                        $data[$i]['error'][] = 'Sorry, your file is too large, limit 50Mb';
-                    }
-
-                    // Allow certain file formats
-                    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                        $data[$i]['status'] = 0;
-                        $data[$i]['error'][] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
-                    }
-
-                    if ($data[$i]['status']) {
-                        if (move_uploaded_file($tmp_name, $target_file)) {
-                            $link = ROOT_DOMAIN . TMP_UPLOAD_PATH . $name_file;
-                            $data[$i]['link'] = $link;
-                            $image_path = $_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH . $name_file;
-
-                            list($width, $height, $type) = getimagesize($image_path);
-                            
-                            // giảm dung lương ảnh lấy max width hoặc height là 2000
-                            if($width > 2000 || $height > 2000) {
-                                $this->resize_image($image_path, 2000, 2000, $width, $height, $type);
-                            }
-
-                            // watermart
-                            if ($chen_logo == '1') {
-                                $this->watermark($image_path, $watermarkImg, $water_height, $water_width, $type);
-                            }
-
-                        } else {
-                            $data[$i]['status'] = 0;
-                            $data[$i]['error'][] = 'Sorry, there was an error uploading your file.';
-                        }
-                    }
+                    $data[$i] = $this->_handle_upload($FILE, $CONFIG, TMP_UPLOAD_PATH);
                 }
 
                 resSuccess($data);
@@ -110,6 +61,114 @@ class Upload extends MY_Controller
                 resError('Xin lỗi, không tìm thấy ảnh.');
             }
         }
+    }
+
+    function tinymce($action)
+    {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
+            show_custom_error('Tài khoản không có quyền truy cập!');
+        }
+
+        // SUBMIT FORM (nếu có)
+        if (isset($_FILES['file'])) {
+
+            $watermarkImagePath = 'images/watermark.png';
+            $watermarkImg = imagecreatefrompng($watermarkImagePath);
+            // get the width and height of the watermark image
+            $water_width = imagesx($watermarkImg);
+            $water_height = imagesy($watermarkImg);
+
+            $FILE['name']     = $_FILES['file']['name'];
+            $FILE['tmp_name'] = $_FILES['file']['tmp_name'];
+            $FILE['size']     = $_FILES['file']['size'];
+            $FILE['type']     = $_FILES['file']['type'];
+            $FILE['error']    = $_FILES['file']['error'];
+
+            $CONFIG['logo'] = 1;
+            $CONFIG['watermarkImg'] = $watermarkImg;
+            $CONFIG['water_height'] = $water_width;
+            $CONFIG['water_width'] = $water_height;
+
+            if ($action == 'auction') {
+                $FOLDER_UPLOAD = FOLDER_AUCTION;
+            } else if ($action == 'news') {
+                $FOLDER_UPLOAD = FOLDER_NEWS;
+            } else if ($action == 'document') {
+                $FOLDER_UPLOAD = FOLDER_DOCUMENT;
+            } else {
+                resError('Lỗi action');
+            }
+            $data = $this->_handle_upload($FILE, $CONFIG, $FOLDER_UPLOAD);
+
+            if ($data['status']) {
+                resSuccess($data);
+            } else {
+                resError($data);
+            }
+        } else {
+            resError('Xin lỗi, không tìm thấy ảnh.');
+        }
+    }
+
+    function _handle_upload($F, $CF, $FOLDER_UPLOAD)
+    {
+        $name_file = str_replace(" ", "", $F['name']); // xoa khoang trang trong ten
+        $target_dir = $_SERVER["DOCUMENT_ROOT"] . '/' . $FOLDER_UPLOAD;
+        $target_file = $target_dir . basename($name_file);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        $data['status'] = 1;
+        $data['name'] = $name_file;
+
+
+        $check = @getimagesize($F['tmp_name']);
+        if ($check !== false) {
+        } else {
+            $data['status'] = 0;
+            $data['error'][] = 'File is not an image.';
+        }
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            $name_file = generateRandomString(5) . '-' . basename($name_file);
+            $target_file = $target_dir . $name_file;
+        }
+
+        // Check file size
+        if ($F['size'] > 50000000) {
+            $data['status'] = 0;
+            $data['error'][] = 'Sorry, your file is too large, limit 50Mb';
+        }
+
+        // Allow certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            $data['status'] = 0;
+            $data['error'][] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
+        }
+
+        if ($data['status']) {
+            if (move_uploaded_file($F['tmp_name'], $target_file)) {
+                $link = ROOT_DOMAIN . $FOLDER_UPLOAD . $name_file;
+                $data['link'] = $link;
+                $image_path = $_SERVER["DOCUMENT_ROOT"] . '/' . $FOLDER_UPLOAD . $name_file;
+
+                list($width, $height, $type) = getimagesize($image_path);
+
+                // giảm dung lương ảnh lấy max width hoặc height là 2000
+                if ($width > 2000 || $height > 2000) {
+                    $this->resize_image($image_path, 2000, 2000, $width, $height, $type);
+                }
+
+                // watermart
+                if ($CF['logo'] == '1') {
+                    $this->watermark($image_path, $CF['watermarkImg'], $CF['water_height'], $CF['water_width'], $type);
+                }
+            } else {
+                $data['status'] = 0;
+                $data['error'][] = 'Sorry, there was an error uploading your file.';
+            }
+        }
+        return $data;
     }
 
     function watermark($image_path, $watermarkImg, $water_height, $water_width, $type)
@@ -141,7 +200,7 @@ class Upload extends MY_Controller
         $this->save_image($im, $image_path, $type);
     }
 
-    function resize_image($file, $new_w, $new_h,$old_w, $old_h, $type, $crop = FALSE)
+    function resize_image($file, $new_w, $new_h, $old_w, $old_h, $type, $crop = FALSE)
     {
         $r = $old_w / $old_h;
         if ($crop) {
