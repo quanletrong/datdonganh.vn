@@ -28,15 +28,8 @@ class Upload extends MY_Controller
 
         // SUBMIT FORM (nếu có)
         if (isset($_FILES['file'])) {
-
-            $watermarkImagePath = 'images/watermark.png';
-            $watermarkImg = imagecreatefrompng($watermarkImagePath);
-            // get the width and height of the watermark image
-            $water_width = imagesx($watermarkImg);
-            $water_height = imagesy($watermarkImg);
-
             $chen_logo = $this->input->get('logo');
-            $chen_logo = in_array($chen_logo, ['1', '0']) ? $chen_logo : '0';
+            $WATER_MARK = in_array($chen_logo, ['1', '0']) ? $chen_logo : '0';
 
             if (count($_FILES['file']['name'])) {
                 $data = [];
@@ -48,12 +41,7 @@ class Upload extends MY_Controller
                     $FILE['type']     = $_FILES['file']['type'][$i];
                     $FILE['error']    = $_FILES['file']['error'][$i];
 
-                    $CONFIG['logo'] = $chen_logo;
-                    $CONFIG['watermarkImg'] = $watermarkImg;
-                    $CONFIG['water_height'] = $water_width;
-                    $CONFIG['water_width'] = $water_height;
-
-                    $data[$i] = $this->_handle_upload($FILE, $CONFIG, TMP_UPLOAD_PATH);
+                    $data[$i] = $this->_handle_upload($FILE, $WATER_MARK, TMP_UPLOAD_PATH);
                 }
 
                 resSuccess($data);
@@ -63,7 +51,7 @@ class Upload extends MY_Controller
         }
     }
 
-    function tinymce($action)
+    function tinymce()
     {
         if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
             show_custom_error('Tài khoản không có quyền truy cập!');
@@ -72,33 +60,15 @@ class Upload extends MY_Controller
         // SUBMIT FORM (nếu có)
         if (isset($_FILES['file'])) {
 
-            $watermarkImagePath = 'images/watermark.png';
-            $watermarkImg = imagecreatefrompng($watermarkImagePath);
-            // get the width and height of the watermark image
-            $water_width = imagesx($watermarkImg);
-            $water_height = imagesy($watermarkImg);
-
             $FILE['name']     = $_FILES['file']['name'];
             $FILE['tmp_name'] = $_FILES['file']['tmp_name'];
             $FILE['size']     = $_FILES['file']['size'];
             $FILE['type']     = $_FILES['file']['type'];
             $FILE['error']    = $_FILES['file']['error'];
 
-            $CONFIG['logo'] = 1;
-            $CONFIG['watermarkImg'] = $watermarkImg;
-            $CONFIG['water_height'] = $water_width;
-            $CONFIG['water_width'] = $water_height;
+            $WATER_MARK = 1;
 
-            if ($action == 'auction') {
-                $FOLDER_UPLOAD = FOLDER_AUCTION;
-            } else if ($action == 'news') {
-                $FOLDER_UPLOAD = FOLDER_NEWS;
-            } else if ($action == 'document') {
-                $FOLDER_UPLOAD = FOLDER_DOCUMENT;
-            } else {
-                resError('Lỗi action');
-            }
-            $data = $this->_handle_upload($FILE, $CONFIG, $FOLDER_UPLOAD);
+            $data = $this->_handle_upload($FILE, $WATER_MARK, TMP_UPLOAD_PATH);
 
             if ($data['status']) {
                 resSuccess($data);
@@ -110,7 +80,7 @@ class Upload extends MY_Controller
         }
     }
 
-    function _handle_upload($F, $CF, $FOLDER_UPLOAD)
+    function _handle_upload($F, $WATER_MARK, $FOLDER_UPLOAD)
     {
         $name_file = str_replace(" ", "", $F['name']); // xoa khoang trang trong ten
         $target_dir = $_SERVER["DOCUMENT_ROOT"] . '/' . $FOLDER_UPLOAD;
@@ -141,7 +111,7 @@ class Upload extends MY_Controller
         }
 
         // Allow certain file formats
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+        if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
             $data['status'] = 0;
             $data['error'][] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
         }
@@ -160,8 +130,13 @@ class Upload extends MY_Controller
                 }
 
                 // watermart
-                if ($CF['logo'] == '1') {
-                    $this->watermark($image_path, $CF['watermarkImg'], $CF['water_height'], $CF['water_width'], $type);
+                if ($WATER_MARK) {
+                    $watermarkImagePath = 'images/watermark.png';
+                    $watermarkImg       = imagecreatefrompng($watermarkImagePath);
+                    $water_height       = imagesy($watermarkImg);
+                    $water_width        = imagesx($watermarkImg);
+
+                    $this->watermark($image_path, $watermarkImg, $water_height, $water_width, $type);
                 }
             } else {
                 $data['status'] = 0;

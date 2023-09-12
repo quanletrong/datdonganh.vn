@@ -108,13 +108,13 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <textarea id="content" name="content">Nội dung bài viết</textarea>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 d-none">
                                 <div id="content_pre" style="font-family: Lexend">
 
                                 </div>
@@ -309,21 +309,18 @@
             selector: '#content',
             height: "800",
             relative_urls: false,
+            file_picker_types: 'image',
             plugins: [
                 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-                'table', 'emoticons', 'template', 'help', 'link', 'responsivefilemanager'
+                'table', 'emoticons', 'template', 'help', 'link', 'autoresize'
             ],
-            toolbar: 'responsivefilemanager | undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-                'forecolor backcolor emoticons | help',
+            toolbar: 'undo redo | formatselect fontsizeselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image emoticons | help',
             menubar: 'favs file edit view insert format tools table help',
-            external_filemanager_path: "<?= ROOT_DOMAIN ?>filemanager/filemanager/",
-            filemanager_title: "Thư viện ảnh",
-            external_plugins: {
-                // "responsivefilemanager": "<?= ROOT_DOMAIN ?>filemanager/filemanager/plugin.min.js",
-                "filemanager": "<?= ROOT_DOMAIN ?>filemanager/filemanager/plugin.min.js"
-            },
+            image_title: true,
+            // images_upload_url: 'upload/tinymce/auction',
+            images_upload_handler: example_image_upload_handler,
             setup: function(ed) {
                 ed.on('change', function(e) {
                     $('#content').val(ed.getContent())
@@ -331,6 +328,52 @@
                 });
             }
         });
+
+        function example_image_upload_handler(blobInfo, success, failure, progress) {
+            var xhr, formData;
+
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', 'upload/tinymce');
+
+            xhr.upload.onprogress = function(e) {
+                progress(e.loaded / e.total * 100);
+            };
+
+            xhr.onload = function() {
+                var json;
+
+                if (xhr.status === 403) {
+                    failure('HTTP Error: ' + xhr.status, {
+                        remove: true
+                    });
+                    return;
+                }
+
+                if (xhr.status < 200 || xhr.status >= 300) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                json = JSON.parse(xhr.responseText);
+
+                if (!json || json.data.status == false) {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                success(json.data.link);
+            };
+
+            xhr.onerror = function() {
+                failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+            };
+
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+            xhr.send(formData);
+        };
     });
     // end jquery
 

@@ -36,7 +36,7 @@ class Document extends MY_Controller
         //END validate
 
         $status   = '';
-        $type     = DOCUMENT; // auction
+        $type     = DOCUMENT;
         $title    = '';
         $id_user  = '';
         $f_create = '';
@@ -92,30 +92,43 @@ class Document extends MY_Controller
         $image   = $this->input->post('image');                 // check lưu
         $sapo    = $this->input->post('sapo');                  // check db + rq
         $content = $this->input->post('content', false);        // check length regx
-        $content = (htmlentities(htmlspecialchars($content)));  // render var_dump(html_entity_decode(htmlspecialchars_decode($maps)))
         $origin  = $this->input->post('origin');
-        $tag     = $this->input->post('tag');  
+        $tag     = $this->input->post('tag');                   // check db
+
         $id_user     = $this->_session_uid();
         $create_time = date('Y-m-d H:i:s');
 
         // TODO: validate dữ liệu submit
         //END validate
 
-        # lưu ảnh
-        $copy = copy_image_from_file_manager_to_public_upload($image, date('Y'), date('m'));
+        # lưu ảnh bài viết
+        preg_match_all('/<img[^>]*src=([\'"])(?<src>.+?)\1[^>]*>/i', $content, $list_img_tmp);
+        foreach (array_pop($list_img_tmp) as $img_tmp) {
+            $copy = copy_image_to_public_upload($img_tmp, FOLDER_DOCUMENT);
+
+            $img_link = $copy['status'] ? ROOT_DOMAIN . FOLDER_DOCUMENT . $copy['basename'] : '';
+            $content = str_replace($img_tmp, $img_link, $content);
+
+            $basename = basename($img_tmp);
+            @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH . $basename);
+        }
+
+        # lưu ảnh chính
+        $copy_main = copy_image_from_file_manager_to_public_upload($image, date('Y'), date('m'));
+
         // LƯU DỮ LIỆU
-        if ($copy['status']) {
+        if ($copy_main['status']) {
 
             // dữ liệu bổ sung
-            $type        = DOCUMENT; // auction
-            $slug  = create_slug($title);
+            $type        = DOCUMENT;
+            $slug        = create_slug($title);
             $status      = 1;
-            $is_hot      = 1;                                     //1 hot 0 thường
+            $is_hot      = 1;                      //1 hot 0 thường
             $id_user     = $this->_session_uid();
             $create_time = date('Y-m-d H:i:s');
 
-            // echo (html_entity_decode(htmlspecialchars_decode($content)));die;
-            $newid = $this->Articles_model->add($status, $type, $slug, $title, $copy['basename'], $sapo, $content, $origin, $is_hot, $id_user, $create_time);
+            $content_db = (htmlentities(htmlspecialchars($content))); //xss
+            $newid = $this->Articles_model->add($status, $type, $slug, $title, $copy_main['basename'], $sapo, $content_db, $origin, $is_hot, $id_user, $create_time);
 
             if ($newid) {
                 # update tag
@@ -123,7 +136,6 @@ class Document extends MY_Controller
                 foreach ($tag as $id_tag) {
                     $this->Tag_assign_model->add($id_tag, $newid, TAG_DOCUMENT, $id_user, $create_time);
                 }
-                $msg = 'OK';
             } else {
                 $msg = 'Lưu không thành công vui lòng thử lại!';
             }
@@ -147,7 +159,7 @@ class Document extends MY_Controller
         $info   = $this->Articles_model->get_info($id_article);
         if (empty($info)) {
             $this->session->set_flashdata('flsh_msg', "Không tồn tại bài đăng vừa truy cập");
-            redirect('auction');
+            redirect('document');
         }
         //end check right
 
@@ -186,7 +198,7 @@ class Document extends MY_Controller
         $info   = $this->Articles_model->get_info($id_article);
         if (empty($info)) {
             $this->session->set_flashdata('flsh_msg', 'Sửa không thành công vui lòng thử lại!!');
-            redirect('auction');
+            redirect('document');
         }
 
         $status      = $this->input->post('status');                // check length + rq
@@ -194,7 +206,6 @@ class Document extends MY_Controller
         $image       = $this->input->post('image');                 // check lưu
         $sapo        = $this->input->post('sapo');                  // check db + rq
         $content     = $this->input->post('content', false);        // check length regx
-        $content     = (htmlentities(htmlspecialchars($content)));  // render var_dump(html_entity_decode(htmlspecialchars_decode($maps)))
         $origin      = $this->input->post('origin');
         $tag         = $this->input->post('tag');                   // check db
         $update_time = date('Y-m-d H:i:s');
@@ -202,28 +213,53 @@ class Document extends MY_Controller
         // TODO: validate dữ liệu submit
         //END validate
 
-        # lưu ảnh
-        $yearFolder = date('Y', strtotime($info['create_time']));
+        # nếu là ảnh mới thì copy ảnh
+        $yearFolder  = date('Y', strtotime($info['create_time']));
         $monthFolder = date('m', strtotime($info['create_time']));
-        $la_anh_moi = strpos($image, ROOT_DOMAIN . TMP_UPLOAD_PATH);
+        $la_anh_moi  = strpos($image, ROOT_DOMAIN . TMP_UPLOAD_PATH);
 
-        // nếu là ảnh mới thì copy ảnh
         if ($la_anh_moi !== false) {
             $copy = copy_image_from_file_manager_to_public_upload($image, $yearFolder, $monthFolder);
             if ($copy['status']) {
                 $image = $copy['basename'];
             }
-        }
-        // là ảnh cũ thì giữ nguyên
-        else {
+        } else {
             $image = basename($image);
+        }
+
+        # loại bỏ những ảnh đã xóa ra khỏi hệ thống (tránh rác)
+        preg_match_all('/<img[^>]*src=([\'"])(?<src>.+?)\1[^>]*>/i', $content, $list_img_new);
+        preg_match_all('/<img[^>]*src=([\'"])(?<src>.+?)\1[^>]*>/i', html_entity_decode(htmlspecialchars_decode($info['content'])), $list_img_old);
+        $list_img_new = array_pop($list_img_new);
+        $list_img_old = array_pop($list_img_old);
+
+        foreach ($list_img_old as $key => $item) {
+            $list_img_old[$key] = str_replace(ROOT_DOMAIN, '/', $item);
+        }
+
+        $list_img_remove = array_diff($list_img_old, $list_img_new);
+        foreach ($list_img_remove as $img_removed) {
+            $basename = basename($img_removed);
+            @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . FOLDER_DOCUMENT . $basename);
+        }
+
+        # chuyển ảnh mới từ TMP sang FOLDER_DOCUMENT
+        $list_img_tmp = array_diff($list_img_new, $list_img_old);
+        foreach ($list_img_tmp as $img_tmp) {
+            $copy = copy_image_to_public_upload($img_tmp, FOLDER_DOCUMENT);
+
+            $img_link = $copy['status'] ? ROOT_DOMAIN . FOLDER_DOCUMENT . $copy['basename'] : '';
+            $content = str_replace($img_tmp, $img_link, $content);
+
+            $basename = basename($img_tmp);
+            @unlink($_SERVER["DOCUMENT_ROOT"] . '/' . TMP_UPLOAD_PATH . $basename);
         }
 
         // LƯU DỮ LIỆU
         if ($image != '') {
-
-            $slug  = create_slug($title);
-            $newid = $this->Articles_model->edit($status, $slug, $title, $image, $sapo, $content, $origin, $update_time, $id_article);
+            $slug       = create_slug($title);
+            $content_db = htmlentities(htmlspecialchars($content)); // xss
+            $newid = $this->Articles_model->edit($status, $slug, $title, $image, $sapo, $content_db, $origin, $update_time, $id_article);
 
             if ($newid) {
                 # update tag

@@ -17,6 +17,9 @@ include_once('cfsite.php');
 define('PUBLIC_UPLOAD_PATH', 'uploads/images/');
 define('TMP_UPLOAD_PATH', 'uploads/tmp/');
 define('FOLDER_AVATAR', 'uploads/avatar/');
+define('FOLDER_NEWS', 'uploads/news/');
+define('FOLDER_AUCTION', 'uploads/auction/');
+define('FOLDER_DOCUMENT', 'uploads/document/');
 
 //define upload folder
 DEFINE('UPLOAD_FOLDER_PATH', 'uploads/');// folder nay can config write permission tren server

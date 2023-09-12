@@ -824,6 +824,57 @@ function copy_image_from_file_manager_to_public_upload($url_fmng_image, $yearFol
     }
 }
 
+function copy_image_to_public_upload($url_fmng_image, $folder_str = 'uploads/')
+{
+    # thêm HOST NAME (nếu chưa có) trước khi gọi hàm getImageSizeFromUrl()
+    $parse_url = parse_url($url_fmng_image);
+    if(!isset($parse_url['host'])) {
+        $url_fmng_image = ROOT_DOMAIN . $url_fmng_image;
+    }
+
+    $imginfo = getImageSizeFromUrl($url_fmng_image);
+    if (!empty($imginfo)) {
+        # create folder
+        $folder_arr = explode('/', $folder_str);
+        $FULL_FOLDER = '';
+        foreach ($folder_arr as $folder) {
+
+            $localFolder = $_SERVER["DOCUMENT_ROOT"] . '/' . $FULL_FOLDER . $folder . '/';
+
+            if (!is_dir($localFolder)) {
+                $ckMkdirYear = mkdir($localFolder, 755);
+                if (!$ckMkdirYear) return ['status' => false, 'error' => 'CAN_NOT_MKDIR_' + $folder];
+            }
+            $FULL_FOLDER .= $folder . '/';
+        }
+
+        # create name image
+        $parse_url = parse_url($url_fmng_image);
+        if ($parse_url['host'] != $_SERVER['SERVER_NAME']) {
+            $extension = str_replace('image/', '', $imginfo['mime']);
+            $basename = generateRandomString(10) . '.' . $extension;
+        } else {
+            $basename = basename($url_fmng_image);
+        }
+
+        # check file exist
+        $dir_save = $_SERVER["DOCUMENT_ROOT"] . '/' . $FULL_FOLDER . $basename;
+
+        if (file_exists($dir_save)) {
+            $rdt = generateRandomString(10);
+            $basename = $rdt . '-' . $basename;
+            $dir_save = $_SERVER["DOCUMENT_ROOT"] . '/' . $FULL_FOLDER . $basename;
+        }
+
+        # check move
+        $chkCopy = copy($url_fmng_image, $dir_save);
+        if (!$chkCopy) return ['status' => false, 'error' => 'CAN_NOT_MOVE_FILE'];
+        else return ['status' => true, 'pathname' => $dir_save, 'basename' => $basename];
+    } else {
+        return ['status' => false, 'error' => 'CAN_NOT_GET_IMAGE_INFO'];
+    }
+}
+
 function create_slug($string)
 {
     $search = array(
@@ -930,36 +981,38 @@ function fullPathImage($nameImage, $yearFolder, $monthFolder)
     return $path;
 }
 
-function getPrice($number) {
-    if($number == 0) {
+function getPrice($number)
+{
+    if ($number == 0) {
         return  'Thỏa thuận';
     }
 
     if ($number >= PRICE_ONE_BILLION) {
-    echo round($number / PRICE_ONE_BILLION, 2) . ' tỷ';
+        echo round($number / PRICE_ONE_BILLION, 2) . ' tỷ';
     } else if ($number >= PRICE_ONE_MILLION) {
-    echo round($number / PRICE_ONE_MILLION, 1) . ' triệu';
+        echo round($number / PRICE_ONE_MILLION, 1) . ' triệu';
     } else {
-    echo number_format($number) .'đ';
+        echo number_format($number) . 'đ';
     }
 }
 
-function getPriceM2($number, $m2) {
+function getPriceM2($number, $m2)
+{
 
-    if($number == 0) {
+    if ($number == 0) {
         return  '&nbsp;';
     }
 
     $priceM2 = 0;
-    if(intval($m2) > 0) {
-        $priceM2 = $number/$m2;
+    if (intval($m2) > 0) {
+        $priceM2 = $number / $m2;
     }
 
     if ($priceM2 >= PRICE_ONE_BILLION) {
-      echo round($priceM2/ PRICE_ONE_BILLION, 2) . ' tỷ/m²';
+        echo round($priceM2 / PRICE_ONE_BILLION, 2) . ' tỷ/m²';
     } else if ($priceM2 >= PRICE_ONE_MILLION) {
-      echo round($priceM2/ PRICE_ONE_MILLION, 1) . ' tr/m²';
+        echo round($priceM2 / PRICE_ONE_MILLION, 1) . ' tr/m²';
     } else {
-      echo number_format($priceM2) . 'đ/m²';
+        echo number_format($priceM2) . 'đ/m²';
     }
-  }
+}

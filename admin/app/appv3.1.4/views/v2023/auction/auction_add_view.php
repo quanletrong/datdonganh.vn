@@ -314,13 +314,12 @@
             plugins: [
                 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-                'table', 'emoticons', 'template', 'help', 'link'
+                'table', 'emoticons', 'template', 'help', 'link', 'autoresize'
             ],
             toolbar: 'undo redo | formatselect fontsizeselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
                 'bullist numlist outdent indent | link image emoticons | help',
             menubar: 'favs file edit view insert format tools table help',
             image_title: true,
-            // images_upload_url: 'upload/tinymce/auction',
             images_upload_handler: example_image_upload_handler,
             setup: function(ed) {
                 ed.on('change', function(e) {
@@ -329,54 +328,54 @@
                 });
             }
         });
+
+        function example_image_upload_handler(blobInfo, success, failure, progress) {
+            var xhr, formData;
+
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', 'upload/tinymce');
+
+            xhr.upload.onprogress = function(e) {
+                progress(e.loaded / e.total * 100);
+            };
+
+            xhr.onload = function() {
+                var json;
+
+                if (xhr.status === 403) {
+                    failure('HTTP Error: ' + xhr.status, {
+                        remove: true
+                    });
+                    return;
+                }
+
+                if (xhr.status < 200 || xhr.status >= 300) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                json = JSON.parse(xhr.responseText);
+
+                if (!json || json.data.status == false) {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                success(json.data.link);
+            };
+
+            xhr.onerror = function() {
+                failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+            };
+
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+            xhr.send(formData);
+        };
     });
     // end jquery
-
-    function example_image_upload_handler(blobInfo, success, failure, progress) {
-        var xhr, formData;
-
-        xhr = new XMLHttpRequest();
-        xhr.withCredentials = false;
-        xhr.open('POST', 'upload/tinymce/auction');
-
-        xhr.upload.onprogress = function(e) {
-            progress(e.loaded / e.total * 100);
-        };
-
-        xhr.onload = function() {
-            var json;
-
-            if (xhr.status === 403) {
-                failure('HTTP Error: ' + xhr.status, {
-                    remove: true
-                });
-                return;
-            }
-
-            if (xhr.status < 200 || xhr.status >= 300) {
-                failure('HTTP Error: ' + xhr.status);
-                return;
-            }
-
-            json = JSON.parse(xhr.responseText);
-
-            if (!json || json.data.status == false) {
-                failure('Invalid JSON: ' + xhr.responseText);
-                return;
-            }
-
-            success(json.data.link);
-        };
-
-        xhr.onerror = function() {
-            failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
-        };
-
-        formData = new FormData();
-        formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-        xhr.send(formData);
-    };
 
     function remove_image(image_id) {
         $(image_id).val('');
