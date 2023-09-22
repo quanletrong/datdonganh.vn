@@ -38,7 +38,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-lg-8">
-            <div class="sapo mt-3">
+            <div class="sapo mt-3 d-none">
                 <strong><?= $info['sapo'] ?></strong>
             </div>
             <!-- <hr class="text-muted"> -->
