@@ -174,7 +174,7 @@
             </div>
         </div>
         <div class="d-md-none d-lg-block col-lg-3">
-            <div class="sticky-top" style="top:60px; z-index: auto;">
+            <div style="top:60px; z-index: auto;">
                 <div>
                     <div>Sắp xếp theo</div>
                     <select class="form-select-sm border border-secondary" aria-label="Default select example" onchange="sort(this)" style="width: -webkit-fill-available;">

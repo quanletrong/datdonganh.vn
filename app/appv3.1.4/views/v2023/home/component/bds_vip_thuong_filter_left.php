@@ -166,7 +166,7 @@
 
         </div>
         <div class="col-12 col-lg-3 d-none d-lg-block ps-md-5">
-            <div class="sticky-top" style="top:30px; z-index: auto;">
+            <div style="top:30px; z-index: auto;">
                 <div class="fw-bold fs-5">
                     &nbsp;
                 </div>
