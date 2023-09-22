@@ -255,7 +255,9 @@
                         <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="" style=" aspect-ratio: 1; object-fit: cover;">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
                         <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
-                        <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>
+                        <a href="<?=LINK_NHA_DAT_BAN . '?moi-gioi='. urlencode($bdsInfo['contactname']) ?>">
+                            <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>
+                        </a>
 
                         <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);">
                             <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>

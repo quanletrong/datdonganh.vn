@@ -278,15 +278,28 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $total;
     }
-    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
+
+    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
     {
         $data = [];
         $iconn = $this->db->conn_id;
 
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
+        $PARAMS = [];
         $WHERE = "WHERE 1=1 AND A.create_time_set <= '$current_time'";
-        if ($title != '') $WHERE           .= "AND A.title LIKE ? ";
+        
+        if ($title != '') {
+            $WHERE .= "AND A.title LIKE ? ";
+            $PARAMS[] = "%$title%";
+
+        }
+
+        if ($moi_gioi != '') {
+            $WHERE .= "AND A.contactname = ? ";
+            $PARAMS[] = $moi_gioi;
+        }
+
         if ($category != '') $WHERE        .= "AND A.category = $category ";
         if ($id_commune_ward != '') $WHERE .= "AND A.id_commune_ward = $id_commune_ward ";
         if ($id_street != '') $WHERE       .= "AND A.id_street = $id_street ";
@@ -340,7 +353,7 @@ class Bds_model extends CI_Model
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             // $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            if ($stmt->execute(["%$title%"])) {
+            if ($stmt->execute($PARAMS)) {
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

@@ -10,6 +10,9 @@
 <div class="container">
     <div class="fw-bold fs-4">
         Danh sách bất động sản đang bán
+        <?php if ($moi_gioi != '') {
+            echo " của " . htmlentities($moi_gioi);
+        } ?>
     </div>
 
     <div class="d-flex justify-content-between mt-3">
@@ -104,7 +107,9 @@
 
                                         </div>
                                         <div>
-                                            <div class="" style="font-size: 0.7rem;"><?= $bds['contactname'] ?></div>
+                                            <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bds['contactname']) ?>">
+                                                <div class="" style="font-size: 0.7rem;"><?= $bds['contactname'] ?></div>
+                                            </a>
                                             <div class="text-muted" style="font-size: 0.7rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</div>
                                         </div>
                                     </div>
