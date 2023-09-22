@@ -12,6 +12,10 @@
         Danh sách bất động sản đang bán
         <?php if ($moi_gioi != '') {
             echo " của " . htmlentities($moi_gioi);
+        } else if ($id_commune_ward != '') {
+            echo " tại " . htmlentities($list_commune[$id_commune_ward]['name']);
+        }else if ($id_street != '') {
+            echo " tại " . htmlentities($list_street[$id_street]['name']);
         } ?>
     </div>
 
@@ -226,7 +230,7 @@
                         <div class="d-flex flex-column">
                             <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
                                 <?php if ($item['num_bds']) { ?>
-                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '/' . @$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                                 <?php } ?>
                             <?php } ?>
                         </div>
@@ -239,7 +243,7 @@
                         <div class="d-flex flex-column">
                             <?php foreach ($street_and_num_bds as $id_street => $item) { ?>
                                 <?php if ($item['num_bds']) { ?>
-                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '/' . @$item['slug'] ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_street=' . $id_street ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                                 <?php } ?>
                             <?php } ?>
                         </div>

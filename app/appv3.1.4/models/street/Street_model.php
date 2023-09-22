@@ -65,7 +65,7 @@ class Street_model extends CI_Model
             if ($stmt->execute([$status])) {
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $data[] = $row;
+                        $data[$row['id_street']] = $row;
                     }
                 }
             } else {

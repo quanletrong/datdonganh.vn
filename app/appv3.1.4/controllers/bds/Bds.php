@@ -145,6 +145,7 @@ class Bds extends MY_Controller {
 
         // du lieu tim kiem
         $data['id_commune_ward'] = $id_commune_ward;
+        $data['id_street'] = $id_street;
         $data['type']            = $type;
         $data['title']           = $title;
         $data['f_price']         = $f_price;
