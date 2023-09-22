@@ -675,6 +675,7 @@
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
                 'table', 'emoticons', 'template', 'help', 'link'
             ],
+            toolbar_sticky: true,
             toolbar: 'undo redo | formatselect fontsizeselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
                 'bullist numlist outdent indent | link  emoticons | help',
             menubar: 'favs file edit view insert format tools table help',

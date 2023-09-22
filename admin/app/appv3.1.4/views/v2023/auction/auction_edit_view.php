@@ -331,6 +331,7 @@
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
                 'table', 'emoticons', 'template', 'help', 'link', 'autoresize'
             ],
+            toolbar_sticky: true,
             toolbar: 'undo redo | formatselect fontsizeselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
                 'bullist numlist outdent indent | link image emoticons | help',
             menubar: 'favs file edit view insert format tools table help',
