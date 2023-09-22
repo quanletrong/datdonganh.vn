@@ -1,5 +1,18 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
+<style>
+    .select2-selection__rendered {
+        line-height: 31px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 35px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 34px !important;
+    }
+</style>
 <div class="container-fluid g-0">
 
     <!-- FILTER MOBILE-->
@@ -28,7 +41,7 @@
         </div>
 
         <!-- box filter pc -->
-        <div id="pc-filter" class="position-absolute m-3" style="top:2rem;" >
+        <div id="pc-filter" class="position-absolute m-3" style="top:2rem;">
 
             <form method="get" action="<?= LINK_NHA_DAT_BAN ?>" id="form-search-bds">
                 <div id="tab-filter">
@@ -99,7 +112,7 @@
                                                     <span style="position: absolute; top:6px; right:6px">tỷ</span>
                                                 </div>
                                             </div>
-                                            
+
                                             <!--  -->
                                             <ul class="list-group mt-2">
                                                 <li class="list-group-item">
@@ -218,12 +231,12 @@
 
         // QUAN TRỌNG
         position_pc_filter();
-        $(window).resize(function(){
+        $(window).resize(function() {
             position_pc_filter();
         });
 
         function position_pc_filter() {
-            if($(document).width() <= 576) {
+            if ($(document).width() <= 576) {
                 $('#pc-filter').removeClass('position-absolute'); // mobile
             } else {
                 $('#pc-filter').addClass('position-absolute'); //tablet desktop
