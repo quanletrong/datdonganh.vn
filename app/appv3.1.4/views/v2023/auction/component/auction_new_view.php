@@ -24,7 +24,7 @@
         <div class="col-12 col-lg-4" id="list-news-header">
             <?php foreach ($article_new as $article) { ?>
                 <div class="py-3 mb-2 news-header" data-id="<?php echo $article['id_articles']; ?>">
-                    <div class="text-muted" style="font-size: 0.875rem;"><?php echo  $article['update_time'] == "" ? date('d/m/Y h:i', strtotime($article['create_time'])) : date('d/m/Y h:i', strtotime($article['update_time'])) ?> • <?= $title ?></div>
+                    <div class="text-muted" style="font-size: 0.875rem;"><?php echo date('d/m/Y h:i', strtotime($article['create_time'])) ?> • <?= $title ?></div>
                     <a href="<?= LINK_DAU_GIA . '/' . $article['slug'] . '-p' . $article['id_articles'] ?>" class="hover-link-red">
                         <div class="fw-bold" style="font-size: 1rem; line-height: 1.2;">
                             <?php echo $article['title'] ?>
@@ -59,7 +59,7 @@
             $("#preview-header #link-preview").attr("href", `<?= LINK_DAU_GIA ?>/${data[id].slug}-p${data[id].id_articles}`);
 
 
-            var date = new Date(data[id].update_time != "" ? data[id].update_time : data[id].create_time);
+            var date = new Date(data[id].create_time);
 
             var year = date.getFullYear();
             var month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0

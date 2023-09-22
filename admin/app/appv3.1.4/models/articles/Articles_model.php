@@ -12,10 +12,10 @@ class Articles_model extends CI_Model
     {
         $new_id = 0;
         $iconn = $this->db->conn_id;
-        $sql = "INSERT INTO tbl_articles (status, type, slug, title, image, sapo, content, origin, is_hot, id_user, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_articles (status, type, slug, title, image, sapo, content, origin, is_hot, id_user, create_time, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $param = [$status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time];
+            $param = [$status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time, $create_time];
 
             if ($stmt->execute($param)) {
                 $new_id = $iconn->lastInsertId();
