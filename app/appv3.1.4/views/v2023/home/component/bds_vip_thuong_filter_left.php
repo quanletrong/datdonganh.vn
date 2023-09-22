@@ -30,7 +30,7 @@
                         <?php foreach ($bds_home_vip as $id_bds => $bds) { ?>
                             <div class="col-md-6 col-lg-12 mb-4">
 
-                                <div class="rounded mb-3 shadow ">
+                                <div class="rounded mb-3 shadow">
                                     <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                         <div class="position-relative">
                                             <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
@@ -170,8 +170,8 @@
                 <div class="fw-bold fs-5">
                     &nbsp;
                 </div>
-                <div class="card mt-1" style="background-color: #f7f7f7;">
-                    <div class="card-body p-2">
+                <div class="card mt-1 shadow" style="background-color: #f7f7f7;">
+                    <div class="card-body p-2 ">
                         <span class="fw-semibold" style="font-size: 1.125rem;">Giá</span>
                         <div class="d-flex flex-column">
                             <?php foreach ($cf_bds['price_list'] as $it) { ?>
@@ -182,7 +182,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card mt-3 shadow" style="background-color: #f7f7f7;">
                     <div class="card-body p-2">
                         <span class="fw-semibold" style="font-size: 1.125rem;">Diện tích</span>
                         <div class="d-flex flex-column">
@@ -194,7 +194,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card mt-3 shadow" style="background-color: #f7f7f7;">
                     <div class="card-body p-2">
                         <span class="fw-semibold" style="font-size: 1.125rem;">Khu vực</span>
                         <div class="d-flex flex-column">
@@ -207,7 +207,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-3" style="background-color: #f7f7f7;">
+                <div class="card mt-3 shadow" style="background-color: #f7f7f7;">
                     <div class="card-body p-2">
                         <span class="fw-semibold" style="font-size: 1.125rem;">Đường</span>
                         <div class="d-flex flex-column">
