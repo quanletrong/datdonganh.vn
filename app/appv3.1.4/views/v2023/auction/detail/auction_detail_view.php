@@ -99,7 +99,7 @@
             <?php foreach ($list_bds_by_commune as $id_bds => $bds) { ?>
                 <div class="rounded border border-1 border-muted">
                     <a href="<?= $bds['slug_title'] . '-p' . $bds['id_bds'] ?>">
-                        <img src="<?= $bds['main_img'] ?>" class="rounded-top img-fluid w-100" alt="">
+                        <img src="<?= $bds['main_img'] ?>" class="rounded-top img-fluid w-100" alt="" style="object-fit: cover; aspect-ratio: 4/3;" >
                     </a>
                     <div class="p-3">
                         <a href="<?= $bds['slug_title'] . '-p' . $bds['id_bds'] ?>">
