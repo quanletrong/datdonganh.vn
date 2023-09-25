@@ -85,7 +85,7 @@ class News extends MY_Controller {
         
         $get_num_article_by_commune_ward = $this->Articles_model->get_num_article_by_commune_ward(NEWS);
         $article_view_top = $this->Articles_model->get_list_by_view(NEWS, 10);
-        $list_bds_by_commune = $this->Bds_model->get_list(1, $info['id_commune_ward'], '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', 'is_vip', 'DESC', 20, 0);
+        $list_bds_by_commune = $this->Bds_model->get_list(1, $info['id_commune_ward'], '', '', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', '', 'is_vip', 'DESC', 20, 0);
         
         $data = [];
         $data['page'] = 'Tin tức';
