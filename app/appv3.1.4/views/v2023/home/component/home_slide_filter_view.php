@@ -34,10 +34,10 @@
                 <!-- https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-atmospheric-real-estate-glory-opening-background-template-image_187009.jpg -->
                 <!-- https://webmuanha.net/webs_image/uploads/website/banner-dich-vu-webmuanha-10.png -->
                 <div class="carousel-item active">
-                    <img src="images/banne-trong-suot.png" class="d-block w-100" alt="">
+                    <img src="images/PngItem_6090243.png" class="d-block w-100" alt="">
                 </div>
                 <div class="carousel-item">
-                    <img src="images/banne-trong-suot.png" class="d-block w-100" alt="">
+                    <img src="images/PngItem_6090243.png" class="d-block w-100" alt="">
                 </div>
             </div>
         </div>
