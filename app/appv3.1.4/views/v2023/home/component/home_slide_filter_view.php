@@ -31,17 +31,19 @@
         <!-- box slide -->
         <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block" data-bs-ride="true">
             <div class="carousel-inner">
+                <!-- https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-atmospheric-real-estate-glory-opening-background-template-image_187009.jpg -->
+                <!-- https://webmuanha.net/webs_image/uploads/website/banner-dich-vu-webmuanha-10.png -->
                 <div class="carousel-item active">
-                    <img src="https://hoibatdongsan.com.vn/hinh-anh/w1700/sys/xacthuc.png" class="d-block w-100" alt="...">
+                    <img src="images/banne-trong-suot.png" class="d-block w-100" alt="">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://hoibatdongsan.com.vn/hinh-anh/w1700/sys/khuyenmai.png" class="d-block w-100" alt="...">
+                    <img src="images/banne-trong-suot.png" class="d-block w-100" alt="">
                 </div>
             </div>
         </div>
 
         <!-- box filter pc -->
-        <div id="pc-filter" class="position-absolute m-3" style="top:2rem;">
+        <div id="pc-filter" class="position-absolute my-3 " style="top:2rem;">
 
             <form method="get" action="<?= LINK_NHA_DAT_BAN ?>" id="form-search-bds">
                 <div id="tab-filter">
