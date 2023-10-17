@@ -76,7 +76,7 @@
                                                 <a href="#" class="btn btn-sm btn-primary mb-1" data-toggle="modal" data-target="#modal-commune" data-type="edit" data-commune="<?= htmlentities(json_encode($cmn)) ?>">
                                                     Sửa
                                                 </a>
-                                                <a href="" class="btn btn-sm btn-danger mb-1" data-toggle="modal" data-target="#modal-commune-delete" data-commune="<?= htmlentities(json_encode($cmn)) ?>">Xóa</a>
+                                                <a href="" class="btn btn-sm btn-danger mb-1 d-none" data-toggle="modal" data-target="#modal-commune-delete" data-commune="<?= htmlentities(json_encode($cmn)) ?>">Xóa</a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -166,7 +166,9 @@
                                 <label>Nhập ảnh nổi bật</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="<?= ROOT_DOMAIN ?>/filemanager/filemanager/dialog.php?type=1&field_id=commune_image" class="btn btn-primary iframe-btn">Chọn ảnh</a>
+                                        <button type="button" class="btn btn-sm btn-warning" onclick="quanlt_upload(this);" data-callback="cb_upload_image_commune" data-target="#commune_image">
+                                            <i class="fas fa-upload"></i> chọn ảnh
+                                        </button>
                                     </div>
                                     <input type="text" class="form-control" id="commune_image" name="commune_image" readonly>
                                 </div>
@@ -190,7 +192,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- modal edit -->
+<!-- modal edit (tạm bỏ chức năng xóa xã)-->
 <div class="modal fade" id="modal-commune-delete" style="display: none" aria-modal="true" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
@@ -229,22 +231,14 @@
     $(function() {
 
         $("#example1").DataTable({
+            "order": [],
+            "lengthChange": true,
+            "pageLength": 50,
             "responsive": true,
-            "lengthChange": false,
+            "lengthChange": true,
             "autoWidth": false,
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-        $('.iframe-btn').fancybox({
-            'type': 'iframe',
-            'autoScale': true,
-            'iframe': {
-                'css': {
-                    'width': '1024px',
-                    'height': '800px'
-                }
-            }
-        });
 
         const cf_commune = <?= json_encode($cf_commune) ?>;
         $('#frm_commune').validate({
@@ -324,9 +318,10 @@
         });
     });
 
-    function responsive_filemanager_callback(field_id) {
-        var url = jQuery('#' + field_id).val();
-        $('#commune_image_pre').attr('src', url).show();
-        // $('#commune_image_name').text(url.match(/.*\/(.*)$/)[1])
+    function cb_upload_image_commune(link, target, name) {
+        $(target).removeClass('is-invalid');
+        $('#commune_image').val(link);
+        $('#commune_image_pre').attr('src', link).show();
+        $('#image-error').hide();
     }
 </script>

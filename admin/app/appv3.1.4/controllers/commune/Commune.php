@@ -91,17 +91,17 @@ class Commune extends MY_Controller
                 redirect('commune');
             }
 
-            // DELETE
+            // DELETE (tạm bỏ chức năng xóa xã)
             if ($_POST['action'] == 'delete') {
-                $commune_info   = $this->Commune_model->get_info($id_commune);
-                if (empty($commune_info)) {
-                    $msg = 'Xóa không thành công vui lòng thử lại!!';
-                } else {
-                    $exc = $this->Commune_model->delete($id_commune);
-                    $msg = $exc ? 'OK' : 'Xóa không thành công vui lòng thử lại!';
-                }
-                $this->session->set_flashdata('flsh_msg', $msg);
-                redirect('commune');
+                // $commune_info   = $this->Commune_model->get_info($id_commune);
+                // if (empty($commune_info)) {
+                //     $msg = 'Xóa không thành công vui lòng thử lại!!';
+                // } else {
+                //     $exc = $this->Commune_model->delete($id_commune);
+                //     $msg = $exc ? 'OK' : 'Xóa không thành công vui lòng thử lại!';
+                // }
+                // $this->session->set_flashdata('flsh_msg', $msg);
+                // redirect('commune');
             }
         }
 
