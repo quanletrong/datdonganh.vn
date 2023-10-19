@@ -301,7 +301,7 @@ class Bds_model extends CI_Model
         }
 
         if ($category != '') $WHERE        .= "AND A.category = $category ";
-        if ($id_commune_ward != '') $WHERE .= "AND A.id_commune_ward = $id_commune_ward ";
+        if ($id_commune_ward != '') $WHERE .= "AND A.id_commune_ward IN ($id_commune_ward) ";
         if ($id_street != '') $WHERE       .= "AND A.id_street = $id_street ";
         if ($id_project != '') $WHERE      .= "AND A.id_project = $id_project ";
         if ($id_user != '') $WHERE         .= "AND A.id_user = $id_user ";

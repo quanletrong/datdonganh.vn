@@ -2,6 +2,7 @@
     .select2-selection__rendered {
         line-height: 31px !important;
     }
+
     .select2-container .select2-selection--single {
         height: 35px !important;
     }
@@ -9,7 +10,6 @@
     .select2-selection__arrow {
         height: 34px !important;
     }
-    
 </style>
 <div class="container-fluid py-3 px-0" style="background: #dedede;">
     <div class="container">
@@ -55,20 +55,32 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6 col-lg-3 mb-1">
                                 <div id="dropdown-commune" class="dropdown mb-md-1">
-                                    <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
-                                        <?= isset($list_commune[$id_commune_ward]) != '' ? $list_commune[$id_commune_ward]['name'] : 'Xã phường thị trấn' ?>
+                                    <button class="btn dropdown-toggle w-100 text-light border border-secondary text-truncate" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
+                                        <?php
+                                        if (count($id_commune_ward)) {
+                                            $dia_diem = [];
+                                            foreach ($id_commune_ward as $id) {
+                                                isset($list_commune[$id]) && $list_commune[$id]['name'] != ''
+                                                    ? $dia_diem[] = $list_commune[$id]['name']
+                                                    : '';
+                                            }
+                                            echo implode(', ', $dia_diem);
+                                        } else {
+                                            echo 'Xã phường thị trấn';
+                                        }
+                                        ?>
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: fit-content;">
                                             <label class="form-label"> Xã phường thị trấn</label>
-                                            <select name="id_commune_ward" id="id_commune_ward" class="form-select select2" style="width: 100%;" data-placeholder="Chọn khu vực">
+                                            <select name="id_commune_ward[]" id="id_commune_ward" class="form-select select2" multiple style="width: 100%;" data-placeholder="Chọn khu vực">
                                                 <option value="">Tất cả</option>
                                                 <?php foreach ($list_commune as $id => $it) { ?>
-                                                    <option value="<?= $id ?>" <?= $id == $id_commune_ward ? 'selected' : '' ?>><?= $it['name'] ?></option>
+                                                    <option value="<?= $id ?>" <?= in_array($id, $id_commune_ward) ? 'selected' : '' ?>><?= $it['name'] ?></option>
                                                 <?php } ?>
                                             </select>
 
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div class="d-flex justify-content-between align-items-center mt-3" style="width: 330px;">
                                                 <div>
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>
@@ -235,7 +247,13 @@
         });
         $('#id_commune_ward').on('change', function() {
             var data = $(this).find("option:selected").text();
-            $("#dropdown-commune .dropdown-toggle").text(data)
+
+            var text = [];
+            $(this).find("option:selected").each(function() {
+                text.push($(this).text());
+            })
+
+            $("#dropdown-commune .dropdown-toggle").text(text.join(', '))
         })
 
         // xử lý k ẩn dropdown-menu commune

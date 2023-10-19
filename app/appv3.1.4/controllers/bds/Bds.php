@@ -109,7 +109,7 @@ class Bds extends MY_Controller {
  
 
         $category        = 1;
-        $id_commune_ward = trim($this->input->get('id_commune_ward'));
+        $id_commune_ward = $this->input->get('id_commune_ward');
 
         $id_street       = trim($this->input->get('id_street'));
         $id_project      = '';
@@ -143,6 +143,8 @@ class Bds extends MY_Controller {
         $limit           = 1000;
         $offset          = 0;
 
+        $id_commune_ward = is_array($id_commune_ward) ? $id_commune_ward : [];
+
         // du lieu tim kiem
         $data['id_commune_ward'] = $id_commune_ward;
         $data['id_street'] = $id_street;
@@ -171,7 +173,7 @@ class Bds extends MY_Controller {
         $sort = $sort == '' ? 'DESC' : $sort;
         // end check du lieu
 
-        $list_bds = $this->Bds_model->get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
+        $list_bds = $this->Bds_model->get_list($category, implode(',', $id_commune_ward), $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
         $list_street =  $this->Street_model->get_list(1);
         $list_commune =  $this->Commune_model->get_list(1);
 

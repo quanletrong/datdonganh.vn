@@ -5,32 +5,7 @@
 <!-- FOOTER -->
 <div class="contaier-fluid" style="background: #f2f2f2;">
     <div class="container py-5">
-        <p>
-            <a class="fw-bold fs-6 text-dark text-decoration-none" data-bs-toggle="collapse" href="#collapseCommune" role="button" aria-expanded="false" aria-controls="collapseCommune">
-                Bất động sản Phường/Xã thuộc Huyện Đông Anh, Hà Nội
-            </a>
-        </p>
-        <div class="collapse show" id="collapseCommune">
-            <div class="row">
-                <?php foreach ($communes as $id => $comm) { ?>
-                    <div class="col-6 col-md-4 col-lg-3"><a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id ?>"><?php echo $comm['name']; ?></a></div>
-                <?php } ?>
-            </div>
-        </div>
-
-        <p class="mt-5">
-            <a class="fw-bold fs-6 text-dark text-decoration-none" data-bs-toggle="collapse" href="#collapseStreet" role="button" aria-expanded="false" aria-controls="collapseStreet">
-                Bất động sản trên đường phố Huyện Đông Anh, Hà Nội
-            </a>
-        </p>
-        <div class="collapse show" id="collapseStreet">
-            <div class="row">
-                <?php foreach ($streets as $id => $street) { ?>
-                    <div class="col-6 col-md-4 col-lg-3"><a href="<?= LINK_NHA_DAT_BAN . '?id_street=' . $id ?>"><?php echo $street['name']; ?></a></div>
-                <?php } ?>
-            </div>
-        </div>
-        <hr class="mt-5">
+        
         <div class="row">
             <div class="col-md-6 col-lg-4 mt-5">
                 <h5>VĂN PHÒNG GIAO DỊCH <br />BẤT ĐỘNG SẢN ĐẤT ĐÔNG ANH</h5>
