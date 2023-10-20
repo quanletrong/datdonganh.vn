@@ -10,6 +10,15 @@
     .select2-selection__arrow {
         height: 34px !important;
     }
+
+    #dropdown-commune ul li * {
+        cursor: pointer;
+        padding: 5px 0;
+    }
+
+    #dropdown-commune ul li:hover {
+        background-color: #eee;
+    }
 </style>
 <div class="container-fluid py-3 px-0" style="background: #dedede;">
     <div class="container">
@@ -71,16 +80,40 @@
                                         ?>
                                     </button>
                                     <div class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
-                                        <div class="px-2 py-3 bg-light rounded shadow border border-light" style="min-width: fit-content;">
-                                            <label class="form-label"> Xã phường thị trấn</label>
-                                            <select name="id_commune_ward[]" id="id_commune_ward" class="form-select select2" multiple style="width: 100%;" data-placeholder="Chọn khu vực">
-                                                <option value="">Tất cả</option>
-                                                <?php foreach ($list_commune as $id => $it) { ?>
-                                                    <option value="<?= $id ?>" <?= in_array($id, $id_commune_ward) ? 'selected' : '' ?>><?= $it['name'] ?></option>
-                                                <?php } ?>
-                                            </select>
+                                        <div class="py-3 bg-light rounded shadow border border-light" style="min-width: fit-content;">
+                                            <label class="px-2 form-label">Chọn xã phường thị trấn</label>
 
-                                            <div class="d-flex justify-content-between align-items-center mt-3" style="width: 330px;">
+                                            <input type="text" class="form-control m-2" placeholder="Tìm xã phường thị trấn" id="search_commune" autocomplete="off" style="width: -moz-available;width: -webkit-fill-available;width: fill-available;">
+
+                                            <ul style="list-style: none; padding: 0; max-height: 400px; overflow-y: auto;">
+                                                <?php foreach ($list_commune as $id => $it) { ?>
+                                                    <li class="px-2 d-flex justify-content-between align-items-center">
+                                                        <label class="name" for="comune_<?= $id ?>" style="width: 90%;"><?= $it['name'] ?></label>
+                                                        <input type="checkbox" name="id_commune_ward[]" id="comune_<?= $id ?>" style="width: 10%;" value="<?= $id ?>" <?= in_array($id, $id_commune_ward) ? 'checked' : '' ?>>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+
+                                            <script>
+                                                $('#search_commune').bind('keyup', function() {
+
+                                                    var searchString = $(this).val();
+
+                                                    $("#dropdown-commune ul li").each(function(index, value) {
+
+                                                        currentName = $.trim($(value).text())
+                                                        if (currentName.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
+                                                            $(value).removeClass('d-none');
+                                                        } else {
+                                                            $(value).addClass('d-none');
+                                                        }
+
+                                                    });
+
+                                                });
+                                            </script>
+
+                                            <div class="px-2 d-flex justify-content-between align-items-center mt-3" style="width: 330px;">
                                                 <div>
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>

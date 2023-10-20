@@ -55,12 +55,11 @@ class Commune_model extends CI_Model
         $where = 'WHERE 1=1 ';
         $where .= $status !== '' ? " AND A.status =? " : "";
 
-        $sql = "
-        SELECT A.*, B.username 
+        $sql = " SELECT A.*, B.username 
         FROM tbl_commune_ward as A 
         LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
 
-        ORDER BY id_commune_ward DESC";
+        ORDER BY `name` ASC";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {
