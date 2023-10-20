@@ -114,7 +114,7 @@
                                             </script>
 
                                             <div class="px-2 d-flex justify-content-between align-items-center mt-3" style="width: 330px;">
-                                                <div>
+                                                <div onclick="reset_commune()" style="cursor: pointer;">
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>
                                                 <button type="submit" class="btn btn-danger btn-sm">Áp dụng</button>
@@ -165,7 +165,7 @@
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div>
+                                                <div onclick="reset_price()" style="cursor: pointer;">
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>
                                                 <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
@@ -217,7 +217,7 @@
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div>
+                                                <div onclick="reset_acreage()" style="cursor: pointer;">
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>
                                                 <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
@@ -232,14 +232,14 @@
                                     <button class="btn dropdown-toggle w-100 text-light border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 3px;">
                                         Lọc thêm
                                     </button>
-                                    <div>
+                                    <div onclick="reset_filter()" style="cursor: pointer;">
                                         <i class="fa-solid fa-rotate text-light"></i>
                                     </div>
                                     <div id="filter_loc_them" class="dropdown-menu w-100 bg-transparent border-0 p-0 m-0">
                                         <div class="px-2 py-3 bg-light rounded shadow" style="min-width: fit-content;">
                                             Hướng nhà
                                             <div class="mb-2">
-                                                <span class="badge rounded-pill <?= $direction == '' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_direction(this, '')">Tất cả</span>
+                                                <span class="badge rounded-pill <?= $direction == '' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter all_direction" onclick="search_direction(this, '')">Tất cả</span>
                                                 <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
                                                     <span class="badge rounded-pill <?= $id == $direction ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_direction(this, <?= $id ?>)"><?= $name ?></span>
                                                 <?php } ?>
@@ -248,14 +248,14 @@
 
                                             Loại tin
                                             <div>
-                                                <span class="badge rounded-pill <?= $is_vip == '' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_is_vip(this, '')">Tất cả</span>
+                                                <span class="badge rounded-pill <?= $is_vip == '' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter all_tin" onclick="search_is_vip(this, '')">Tất cả</span>
                                                 <span class="badge rounded-pill <?= $is_vip == '1' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_is_vip(this, 1)">Tin vip</span>
                                                 <span class="badge rounded-pill <?= $is_vip == '0' ? 'text-bg-danger' : 'text-bg-secondary' ?> fw-light cursor-poiter" onclick="search_is_vip(this, 0)">Tin thường</span>
                                                 <input type="hidden" name="is_vip" value="<?= $is_vip ?>" id="is_vip" />
                                             </div>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div>
+                                                <div onclick="reset_filter_loc_them()" style="cursor: pointer;">
                                                     <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
                                                 </div>
                                                 <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
@@ -338,5 +338,53 @@
         $(e).addClass('text-bg-danger').removeClass('text-bg-secondary');
         $(e).siblings().removeClass('text-bg-danger').addClass('text-bg-secondary')
         $('#is_vip').val(id);
+    }
+
+    function reset_commune() {
+
+        $("input[name='id_commune_ward[]']").each(function(index, obj) {
+            $(obj).prop("checked", false);
+        });
+
+        $("#dropdown-commune .dropdown-toggle").text('Xã phường thị trấn')
+    }
+
+    function reset_price() {
+        $("input[name='price']").each(function(index, obj) {
+            $(obj).prop("checked", false);
+        });
+
+        $('input[name=f_price]').val('');
+        $('input[name=t_price]').val('');
+
+        $("#dropdown-price .dropdown-toggle").text('Tất cả mức giá')
+
+    }
+
+    function reset_acreage() {
+        $("input[name='acreage']").each(function(index, obj) {
+            $(obj).prop("checked", false);
+        });
+
+        $("input[name='f_acreage']").val('')
+        $("input[name='t_acreage']").val('')
+        $("#dropdown-acreage .dropdown-toggle").text('Tất cả diện tích')
+    }
+
+    function reset_filter_loc_them() {
+        let all_direction = $('#filter_loc_them .all_direction');
+        search_direction(all_direction, '');
+
+        let all_tin = $('#filter_loc_them .all_tin');
+        search_is_vip(all_tin, '');
+    }
+
+    function reset_filter() {
+        reset_commune();
+        reset_price();
+        reset_acreage();
+        reset_filter_loc_them();
+        $('#form-search-bds').submit();
+
     }
 </script>
