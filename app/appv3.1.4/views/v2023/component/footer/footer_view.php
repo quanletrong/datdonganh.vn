@@ -23,26 +23,7 @@
                             www.datdonganh.vn
                         </a>
                     </div>
-                    <!-- <div class="mt-2">
-                        <i class="fa-solid fa-mobile-retro"></i>
-                        <a href="tel:0962 542 998" class="text-decoration-none text-dark">0962 542 998</a>
-                    </div>
-                    <div class="mt-2">
-                        <i class="fa-solid fa-mobile-retro"></i>
-                        <a href="tel:0974 98 6336" class="text-decoration-none text-dark">0974 98 6336</a>
-                    </div>
-
-                    <div class="mt-2">
-                        <i class="fa-solid fa-envelope-circle-check"></i>
-                        <a href="mailto:abc@gmail.com" class="text-decoration-none text-dark">contact@datdonganh.vn</a>
-                    </div>
-
-                    <hr>
-                    <div class="mt-2">
-                        Chịu trách nhiệm nội dung ông Nguyễn Quốc Huy <br>
-                        Email: <a href="contact@datdonganh.vn" class="text-decoration-none text-dark">contact@datdonganh.vn</a> <br>
-                        Phone: <a href="tel:0974 98 6336">0974 98 6336</a>
-                    </div> -->
+                    
                 </div>
             </div>
 
