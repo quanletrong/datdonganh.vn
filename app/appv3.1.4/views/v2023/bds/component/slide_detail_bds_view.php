@@ -163,7 +163,7 @@
             <?php $i = 1;
             foreach ($imgs as $img) { ?>
                 <div class="slide-image-dot" onclick="currentSlide(<?php echo $i; ?>)">
-                    <img src="<?php echo get_path_image($bdsInfo['create_time'], $img); ?>">
+                    <img src="<?php echo get_path_image($bdsInfo['create_time'], $img); ?>" alt="<?=$img?>">
                 </div>
             <?php $i++;
             } ?>

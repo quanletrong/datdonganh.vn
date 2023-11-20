@@ -160,7 +160,7 @@
                         <div class="rounded border border-1 mb-3 shadow ">
                             <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                 <div class="position-relative">
-                                    <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                                    <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="<?= basename($bds['image_path']) ?>" style="aspect-ratio: 2/1; object-fit: cover;">
                                 </div>
                             </a>
                             <div class="p-2">
@@ -252,7 +252,7 @@
             <div class="sticky-top" style="z-index: auto; top:70px">
                 <div class="card">
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="" style=" aspect-ratio: 1; object-fit: cover;">
+                        <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $bdsInfo['contactname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
                         <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
                         <a href="<?=LINK_NHA_DAT_BAN . '?moi-gioi='. urlencode($bdsInfo['contactname']) ?>">
@@ -398,7 +398,7 @@
                     <div class="rounded border border-1 mb-3 shadow ">
                         <a href="${val.slug_title}-p${id}">
                             <div class="position-relative">
-                                <img src="${val.image_path}" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;">
+                                <img src="${val.image_path}" class="rounded-top img-fluid" alt="${val.title}" style="aspect-ratio: 2/1; object-fit: cover;">
                             </div>
                         </a>
                         <div class="p-2">
