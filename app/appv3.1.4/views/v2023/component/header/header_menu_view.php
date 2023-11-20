@@ -2,9 +2,7 @@
 <nav class="navbar sticky-top navbar-expand-lg bg-light" style="box-shadow: 1px 1px 3px 0px #c1c1c1; padding: 5px 0;">
     <div class="container-fluid">
         <a class="navbar-brand p-0" href="#">
-            <!-- <img src="https://placehold.co/160x48/f44336/31343C?text=LOGO" alt="" class="img-fluid"> -->
-            <!-- <img src="images/logo.png" alt="" class="img-fluid"> -->
-            <img src="images/logo-ngang.png" alt="" class="img-fluid" id="logo-nav">
+            <img src="images/logo-ngang.png" alt="Logo" class="img-fluid" id="logo-nav">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -86,7 +84,7 @@
                         <div class="box-info d-flex justify-content-between align-items-center">
                             <div class="login-avatar me-3">
                                 <?php if($avatar != ""){ ?>
-                                <img src="<?php echo url_image($avatar, FOLDER_AVATAR); ?>" />
+                                <img src="<?php echo url_image($avatar, FOLDER_AVATAR); ?>" alt="<?=$avatar?>"/>
                                 <?php }else{ ?>
                                 <i class="fa-solid fa-circle-user" style="font-size:30px; color:gray"></i>
                                 <?php } ?>
