@@ -227,7 +227,7 @@
                                         <div class="px-2 py-3 bg-light rounded shadow" style="min-width: fit-content;">
                                             Hướng nhà
                                             <div class="mb-2">
-                                                <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter all_direction" onclick="search_direction(this, '')">Tất cả</span>
+                                                <span class="badge rounded-pill text-bg-danger fw-light cursor-poiter all_direction" onclick="search_direction(this, '')">Tất cả</span>
                                                 <?php foreach ($cf_bds['direction'] as $id => $name) { ?>
                                                     <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_direction(this, <?= $id ?>)"><?= $name ?></span>
                                                 <?php } ?>
@@ -236,7 +236,7 @@
 
                                             Loại tin
                                             <div>
-                                                <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter all_tin" onclick="search_is_vip(this, '')">Tất cả</span>
+                                                <span class="badge rounded-pill text-bg-danger fw-light cursor-poiter all_tin" onclick="search_is_vip(this, '')">Tất cả</span>
                                                 <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_is_vip(this, 1)">Tin vip</span>
                                                 <span class="badge rounded-pill text-bg-secondary fw-light cursor-poiter" onclick="search_is_vip(this, 0)">Tin thường</span>
                                                 <input type="hidden" name="is_vip" value="" id="is_vip" />

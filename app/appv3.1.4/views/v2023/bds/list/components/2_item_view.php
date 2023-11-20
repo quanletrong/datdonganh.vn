@@ -213,7 +213,7 @@
                         <div class="d-flex flex-column">
                             <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
                                 <?php if ($item['num_bds']) { ?>
-                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
                                 <?php } ?>
                             <?php } ?>
                         </div>

@@ -50,26 +50,9 @@ class Bds extends MY_Controller {
         $data['cf_direction'] = $cf_bds['direction'];
         $data['cf_floor'] = $cf_bds['floor'];
         $data['cf_juridical'] = $cf_bds['juridical'];
-
-         // du lieu tim kiem
-         $data['id_commune_ward'] = $bdsInfo['id_commune_ward'];
-         $data['type']            = $bdsInfo['type'];
-         $data['title']           = $bdsInfo['title'];
-         $data['f_price']         = $bdsInfo['price_total']/PRICE_ONE_BILLION;
-         $data['t_price']         = $bdsInfo['price_total']/PRICE_ONE_BILLION;
-         $data['f_acreage']       = $bdsInfo['acreage'];
-         $data['t_acreage']       = $bdsInfo['acreage'];
-         $data['direction']       = $bdsInfo['direction'];
-         $data['is_vip']          = $bdsInfo['is_vip'];
-         $data['orderby']         = '';
-         $data['sort']            = '';
-        
-        //top 5 bds danh cho ban
-        $bdss = $this->Bds_model->get_list_by_top(0, 1, 0, 5, 0);
-        $data['bdss'] = $bdss;
         
         //top 10 bds cung khu vuc
-        $bds_palace_area = $this->Bds_model->get_list_by_top(0, 1, $bdsInfo['id_commune_ward'], 10, 0);
+        $bds_palace_area = $this->Bds_model->get_list_by_top(0, 0, $bdsInfo['id_commune_ward'], 10, 0);
         $data['bds_palace_area'] = $bds_palace_area;
         
         //top 10 bds noi bat

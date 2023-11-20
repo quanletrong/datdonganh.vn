@@ -156,7 +156,7 @@
 
                 <div id="owl-noi-bat" class="owl-carousel owl-theme mt-3">
 
-                    <?php foreach ($bdss as $id_bds => $bds) { ?>
+                    <?php foreach ($bds_palace_area as $id_bds => $bds) { ?>
                         <div class="rounded border border-1 mb-3 shadow ">
                             <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                 <div class="position-relative">
@@ -275,8 +275,8 @@
                         <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản cùng khu vực</p>
                         <div class="d-flex flex-column">
 
-                            <?php foreach ($bds_palace_area as $palace_area) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red cursor-poiter"><?php echo $palace_area['title']; ?></a>
+                            <?php foreach ($bds_palace_area as $id_bds => $bds) { ?>
+                                <a class="text-decoration-none text-dark py-1 hover-link-red cursor-poiter" href="<?= $bds['slug_title'] . '-p' . $id_bds ?>" ><?php echo $bds['title']; ?></a>
                             <?php } ?>
 
 
@@ -288,10 +288,10 @@
                     <div class="card-body">
                         <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản nổi bật</p>
                         <div class="d-flex flex-column">
-                            <?php foreach ($commune_ward_and_num_bds as $vip) { ?>
-                                <a class="text-decoration-none text-dark py-1">
-                                    Bán nhà tại <?php echo $vip['name']; ?>
-                                </a>
+                            <?php foreach ($commune_ward_and_num_bds as $id_commune => $item) { ?>
+                                <?php if ($item['num_bds']) { ?>
+                                    <a class="text-decoration-none text-dark py-1 hover-link-red" href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $id_commune ?>"><?= $item['name'] ?> (<?= $item['num_bds'] ?>)</a>
+                                <?php } ?>
                             <?php } ?>
 
                         </div>
@@ -435,7 +435,7 @@
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-secondary" style="font-size: 0.8rem;">${val.create_time_set}</span>
+                                <span class="text-secondary" style="font-size: 0.8rem;">${val.create_time}</span>
                                 <button data-id="${id}" class="btn btn-heart btn-sm ${ (hearts.hasOwnProperty(id)) ? 'btn-danger' : 'btn-outline-danger' } "><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
