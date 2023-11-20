@@ -8,22 +8,9 @@
 </div>
 
 <div class="container">
-    <div class="fw-bold fs-4">
-        Danh sách bất động sản đang bán
-        <?php if ($moi_gioi != '') {
-            echo " của " . htmlentities($moi_gioi);
-        } else if ($id_commune_ward != '') {
-            $dia_diem = [];
-            foreach ($id_commune_ward as $id) {
-                isset($list_commune[$id]) && $list_commune[$id]['name'] != ''
-                    ? $dia_diem[] = htmlentities($list_commune[$id]['name'])
-                    : '';
-            }
-            echo " tại " . implode(', ', $dia_diem);
-        } else if ($id_street != '') {
-            echo " tại " . htmlentities($list_street[$id_street]['name']);
-        } ?>
-    </div>
+    <h1 class="fw-bold fs-4">
+        <?= $seo_title ?>
+    </h1>
 
     <div class="d-flex justify-content-between mb-2">
         <span class="">Hiện có <?= number_format(count($list_bds)) ?> bất động sản.</span>
@@ -55,9 +42,9 @@
                             <div class="p-2" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="my-2">
-                                        <div class="fw-bold" style="color: #0c65ab;">
+                                        <h2 class="fs-6 fw-bold" style="color: #0c65ab;">
                                             <?= $bds['title'] ?>
-                                        </div>
+                                        </h2>
                                     </div>
 
                                     <div class="d-flex gap-2">

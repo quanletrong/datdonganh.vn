@@ -170,8 +170,31 @@ class Bds extends MY_Controller {
         $data['get_num_bds_by_acreage'] = $this->Bds_model->get_num_bds_by_acreage();
         $data['all_tag'] = $this->Tag_model->get_list(TAG_BDS);
 
+        // làm tiêu đề SEO
+        $seo_title = "Bất động sản Đông Anh " ;
+        if ($moi_gioi != '') {
+            $seo_title .= " của " . htmlentities($moi_gioi);
+        } else if ($id_commune_ward != []) {
+            $dia_diem = [];
+            foreach ($id_commune_ward as $id) {
+                isset($list_commune[$id]) && $list_commune[$id]['name'] != ''
+                    ? $dia_diem[] = htmlentities($list_commune[$id]['name'])
+                    : '';
+            }
+            $seo_title .=  " tại " . implode(', ', $dia_diem);
+        } else if ($id_street != '') {
+            $seo_title .=  " tại " . htmlentities($list_street[$id_street]['name']);
+        } else if ($data['f_price'] != '' || $data['t_price'] !=''){
+            $seo_title .=  $data['f_price'] !='' ? " từ ".$data['f_price']." tỷ " : "";
+            $seo_title .=  $data['t_price']!='' ? " đến ".$data['t_price']." tỷ " : "";
+        } else if ($f_acreage != '' || $t_acreage !=''){
+            $seo_title .=  $f_acreage!='' ? " từ $f_acreage m² " : "";
+            $seo_title .=  $t_acreage!='' ? " đến $t_acreage m² " : "";
+        }
+        $data['seo_title'] = $seo_title;
+
         $header = [
-            'title' => 'Danh sách bất động sản',
+            'title' => $seo_title,
             'active_link' => 'bds',
             'header_page_css_js' => 'bds'
         ];
