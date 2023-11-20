@@ -110,6 +110,7 @@ class MY_Controller extends CI_Controller
         $header = array();
 
         $header['title'] = isset($data['title']) ? $data['title'] : '';
+        $header['og_image'] = isset($data['og_image']) ? $data['og_image'] : site_url('images/logo-ngang.png');
         $header['metaTitle'] = isset($data['metaTitle']) ? $data['metaTitle'] : '';
         $header['metaKeyword'] = isset($data['metaKeyword']) ? $data['metaKeyword'] : '';
         $header['metaDesc'] = isset($data['metaDesc']) ? $data['metaDesc'] : '';

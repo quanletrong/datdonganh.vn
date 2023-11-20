@@ -98,7 +98,8 @@ class Auction extends MY_Controller {
         $header = [
             'title' => $info['title'],
             'active_link' => 'auction',
-            'header_page_css_js' => 'news'
+            'header_page_css_js' => 'news',
+            'og_image' => get_path_image($info['create_time'], $info['image']),
         ];
         
         if ($this->_isLogin()) {

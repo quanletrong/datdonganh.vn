@@ -67,6 +67,7 @@ class Bds extends MY_Controller
 
         $header = [
             'title' => $bdsInfo['title'],
+            'og_image' => get_path_image($bdsInfo['create_time'], $data['imgs'][1]),
             'active_link' => 'bds',
             'header_page_css_js' => 'bds'
         ];
