@@ -8,7 +8,7 @@
         
         <div class="row">
             <div class="col-md-6 col-lg-4 mt-5">
-                <h5>VĂN PHÒNG GIAO DỊCH <br />BẤT ĐỘNG SẢN ĐẤT ĐÔNG ANH</h5>
+                <div class="fs-6 fw-bold">VĂN PHÒNG GIAO DỊCH <br />BẤT ĐỘNG SẢN ĐẤT ĐÔNG ANH</div>
                 <div class="w-100 mt-3">
 
                     <div class="mt-2">
@@ -47,7 +47,7 @@
             </div>
 
             <div class="col-md-6 col-lg-3 mt-5">
-                <h5>VỀ CHÚNG TÔI</h5>
+                <div class="fs-6 fw-bold">VỀ CHÚNG TÔI</div>
                 <div class="mt-3">
                     <div class="w-100"><a href="" class="text-decoration-none text-dark"><i class="fa-solid fa-angle-right"></i> Trang chủ</a></div>
                     <div class="w-100 mt-2"><a href="<?= LINK_NHA_DAT_BAN ?>" class="text-decoration-none text-dark"><i class="fa-solid fa-angle-right"></i> Bất động sản Đông Anh</a>
@@ -64,7 +64,7 @@
             </div>
 
             <div class="col-md-12 col-lg-5 mt-5">
-                <h5>ĐĂNG KÝ NHẬN TIN TƯ VẤN</h5>
+                <div class="fs-6 fw-bold">ĐĂNG KÝ NHẬN TIN TƯ VẤN</div>
                 <div class="w-100 mt-3">
                     <input type="text" class="form-control w-100" placeholder="Họ và tên">
                     <div class="hstack gap-3 mt-2">
