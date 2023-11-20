@@ -10,7 +10,7 @@
                 <div class="row g-1">
                     <?php if ($index % 2) { ?>
                         <div class="col-12">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $chunk[0]['id_commune_ward'] ?>">
+                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $chunk[0]['id_commune_ward'] ?>">
                                 <div class="position-relative">
                                     <div style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
                             border-radius: 4px;
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="col-6">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $chunk[1]['id_commune_ward'] ?>">
+                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $chunk[1]['id_commune_ward'] ?>">
                                 <div class="position-relative">
                                     <div style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
                             transform: rotate(-180deg); position: absolute; top: 0; left: 0; width: 100%; height: 50%;"></div>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="col-6">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $chunk[2]['id_commune_ward'] ?>">
+                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $chunk[2]['id_commune_ward'] ?>">
                                 <div class="position-relative">
                                     <div style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
                             transform: rotate(-180deg); position: absolute; top: 0; left: 0; width: 100%; height: 50%;"></div>
@@ -54,7 +54,7 @@
                     <?php } else { ?>
 
                         <div class="col-6">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $chunk[0]['id_commune_ward'] ?>">
+                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $chunk[0]['id_commune_ward'] ?>">
                                 <div class="position-relative">
                                     <div style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
                             transform: rotate(-180deg); position: absolute; top: 0; left: 0; width: 100%; height: 50%;"></div>
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="col-6">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $chunk[1]['id_commune_ward'] ?>">
+                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $chunk[1]['id_commune_ward'] ?>">
                                 <div class="position-relative">
                                     <div style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
                             transform: rotate(-180deg); position: absolute; top: 0; left: 0; width: 100%; height: 50%;"></div>
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="col-12 mt-1">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $chunk[2]['id_commune_ward'] ?>">
+                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $chunk[2]['id_commune_ward'] ?>">
                                 <div class="position-relative">
                                     <div style="background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);;
                             transform: rotate(-180deg); position: absolute; top: 0; left: 0; width: 100%; height: 50%;"></div>
@@ -103,7 +103,7 @@
     <div id="owl-dia-diem-2" class="owl-carousel owl-theme mt-3">
 
         <?php foreach ($communes as $id => $comm) { ?>
-            <span class="badge rounded-pill text-bg-secondary p-2"><a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $id ?>"><?php echo $comm['name']; ?></a></span>
+            <span class="badge rounded-pill text-bg-secondary p-2"><a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward[]=' . $id ?>"><?php echo $comm['name']; ?></a></span>
 
         <?php } ?>
 
