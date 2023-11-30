@@ -44,7 +44,7 @@
         margin-top: -22px;
         color: white;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 2rem;
         transition: 0.6s ease;
         border-radius: 0 3px 3px 0;
         user-select: none;
@@ -136,7 +136,11 @@
         }
     }
 </style>
-<div id="slide-image">
+<div class="d-flex">
+    <div class="btn btn-danger btn-sm" style="border-radius: 0; margin-right: 2px;" onclick="$('#slide-video').hide();$('#slide-image').show();">Hình ảnh</div>
+    <div class="btn btn-danger btn-sm" style="border-radius: 0;" onclick="$('#slide-video').show();$('#slide-image').hide();">Video</div>
+</div>
+<div id="slide-image" style="display: block;">
     <div class="slideshow-container">
 
         <?php $i = 1;
@@ -172,6 +176,11 @@
     </div>
 </div>
 
+<div id="slide-video" style="display: none;">
+    <?php if($bdsInfo['videos'] != ''){?>
+        <iframe style="width: 100%;" height="480px" src="<?= $bdsInfo['videos'] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen allowscriptaccess="always"></iframe>
+    <?php } ?>
+</div>
 <script>
     $(document).ready(function() {
         $("#owl-image-thumb").owlCarousel({

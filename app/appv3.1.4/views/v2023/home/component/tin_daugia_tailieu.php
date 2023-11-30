@@ -24,7 +24,7 @@
                 <div class="tab-pane active" id="pills-news" role="tabpanel" aria-labelledby="pills-news-tab" tabindex="0">
                     <div class="row">
                         <div class="col-12 col-lg-6">
-                            <a href="" class="text-decoration-none ">
+                            <a id="link-pills-news" href="" class="text-decoration-none ">
                                 <img id="img-pills-news" src="https://img.iproperty.com.my/angel/610x342-crop/wp-content/uploads/sites/7/2023/02/20230322210912-c7c2_wm.jpg" alt="" class="img-alive rounded img-fluid w-100">
                                 <p id="name-pills-news" class="fs-5 fw-bold text-dark"></p>
                                 <p id="hour-pills-news" class="text-secondary"><i class="fa-solid fa-clock"></i> <span>1 giờ trước</span></p>
@@ -35,7 +35,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($news as $id => $new) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 5px 0;">
-                                        <a href="<?= LINK_TIN_TUC . '/' . $new['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $new['title']; ?></a>
+                                        <a href="<?= $new['link'] ?>" class="hover-link-red"><?php echo $new['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -46,7 +46,7 @@
                 <div class="tab-pane" id="pills-auction" role="tabpanel" aria-labelledby="pills-auction-tab" tabindex="0">
                     <div class="row">
                         <div class="col-12 col-lg-6">
-                            <a href="" class="text-decoration-none ">
+                            <a id="link-pills-auction" href="" class="text-decoration-none ">
                                 <img id="img-pills-auction" src="https://img.iproperty.com.my/angel/610x342-crop/wp-content/uploads/sites/7/2023/02/20230322210912-c7c2_wm.jpg" alt="" class="img-alive rounded img-fluid w-100">
                                 <p id="name-pills-auction" class="fs-5 fw-bold text-dark"></p>
                                 <p id="hour-pills-auction" class="text-secondary"><i class="fa-solid fa-clock"></i> <span>1 giờ trước</span></p>
@@ -57,7 +57,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($auctions as $id => $auction) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 5px 0;">
-                                        <a href="<?= LINK_DAU_GIA . '/' . $auction['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $auction['title']; ?></a>
+                                        <a href="<?= $auction['link'] ?>" class="hover-link-red"><?php echo $auction['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -68,7 +68,7 @@
                 <div class="tab-pane" id="pills-document" role="tabpanel" aria-labelledby="pills-law-land-tab" tabindex="0">
                     <div class="row">
                         <div class="col-12 col-lg-6">
-                            <a href="" class="text-decoration-none ">
+                            <a id="link-pills-document" href="" class="text-decoration-none ">
                                 <img id="img-pills-document" src="https://img.iproperty.com.my/angel/610x342-crop/wp-content/uploads/sites/7/2023/02/20230322210912-c7c2_wm.jpg" alt="" class="img-alive rounded img-fluid w-100">
                                 <p id="name-pills-document" class="fs-5 fw-bold text-dark"></p>
                                 <p id="hour-pills-document" class="text-secondary"><i class="fa-solid fa-clock"></i> <span>1 giờ trước</span></p>
@@ -79,7 +79,7 @@
                             <ul class="list-group list-group-flush list-group-numbered">
                                 <?php foreach ($documents as $id => $document) { ?>
                                     <li data-id="<?php echo $id; ?>" class="list-group-item text-truncate text-wrap" style="padding: 5px 0;">
-                                        <a href="<?= LINK_TAI_LIEU . '/' . $document['slug'] . '-p' . $id ?>" class="hover-link-red"><?php echo $document['title']; ?></a>
+                                        <a href="<?= $document['link'] ?>" class="hover-link-red"><?php echo $document['title']; ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -138,7 +138,9 @@
             $("#pills-tabContent .tab-pane").removeClass("active");
             $("#pills-tabContent " + tab).addClass("active");
 
-            preview_article();
+            let fisrt_item = $(".tab-pane.active").find("ul.list-group li:first").data('id')
+
+            preview_article(fisrt_item);
             $(".tab-pane.active").find("ul.list-group li").mouseover(function() {
                 let id = $(this).data("id");
                 preview_article(id);
@@ -146,7 +148,8 @@
 
         });
 
-        preview_article();
+        let fisrt_item = $(".tab-pane.active").find("ul.list-group li:first").data('id')
+        preview_article(fisrt_item);
         $(".tab-pane.active").find("ul.list-group li").mouseover(function() {
             let id = $(this).data("id");
             preview_article(id);
@@ -165,6 +168,7 @@
 
             $("#img-" + id_tabactive).attr("src", data[id].image_path);
             $("#name-" + id_tabactive).text(data[id].title);
+            $("#link-" + id_tabactive).attr("href", data[id].link);
 
             //get hour ngay gio hien tai - create_time tai viet
             const postDate = new Date(data[id].create_time);

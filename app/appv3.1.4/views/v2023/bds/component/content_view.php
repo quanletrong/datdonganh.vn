@@ -45,9 +45,14 @@
                     <?php } ?>
                 </div>
                 <div class="mt-sm-2 d-none d-md-block">
-                    <i class="fa-solid fa-share-nodes me-1 me-md-3 fs-4"></i>
-                    <i class="fa-solid fa-triangle-exclamation me-1 me-md-3 fs-4"></i>
-                    <i class="fa-regular fa-heart me-1 me-md-3 fs-4"></i>
+                    <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);">
+                        <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                    </button>
+                    <i class=" me-1 me-md-3 fs-4"></i>
+
+                    <button class="btn btn-sm me-1 me-md-3 btn-outline-danger"><i class="fa-solid fa-share-nodes"></i></button>
+
+                    <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm me-1 me-md-3 <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                 </div>
             </div>
 
@@ -63,50 +68,6 @@
                         <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
                     </button>
                     <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
-                </div>
-            </div>
-
-            <!-- Đặc điểm bất động sản -->
-            <div class="mt-5">
-                <div class="fw-semibold fs-5">Đặc điểm bất động sản</div>
-                <div class="row mt-3">
-                    <div class="col-12 col-lg-6">
-                        <div class="border-top d-flex py-2">
-                            <div class="fw-semibold w-50">Diện tích</div>
-                            <div><?php echo $bdsInfo['acreage']; ?> m²</div>
-                        </div>
-                        <div class="border-top d-flex py-2">
-                            <div class="fw-semibold w-50">Mặt tiền</div>
-                            <div><?php echo $bdsInfo['facades']; ?> m</div>
-                        </div>
-                        <div class="border-top d-flex py-2">
-                            <div class="fw-semibold w-50">Hướng nhà</div>
-                            <div><?php echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : "" ?></div>
-                        </div>
-                        <div class="border-top border-bottom d-flex py-2">
-                            <div class="fw-semibold w-50">Số tầng</div>
-                            <div><?php echo isset($cf_floor[$bdsInfo['floor']]) ? $cf_floor[$bdsInfo['floor']] : "" ?> tầng</div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="border-top d-flex py-2">
-                            <div class="fw-semibold w-50">Mức giá</div>
-                            <div><?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?></div>
-                        </div>
-                        <div class="border-top d-flex py-2">
-                            <div class="fw-semibold w-50">Đường vào</div>
-                            <div><?php echo $bdsInfo['road_surface']; ?> m</div>
-                        </div>
-                        <div class="border-top d-flex py-2">
-                            <div class="fw-semibold w-50">Hướng ban công</div>
-                            <div><?php // echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : ""  
-                                    ?></div>
-                        </div>
-                        <div class="border-top border-bottom d-flex py-2">
-                            <div class="fw-semibold w-50">Pháp lý</div>
-                            <div><?php echo isset($cf_juridical[$bdsInfo['juridical']]) ? $cf_juridical[$bdsInfo['juridical']] : "" ?></div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -152,7 +113,7 @@
 
             <!-- Bất động sản dành cho bạn -->
             <div class="mt-5">
-                <div class="fw-bold fs-5">Bất động sản dành cho bạn</div>
+                <div class="fw-bold fs-5">Bất động sản cùng khu vực</div>
 
                 <div id="owl-noi-bat" class="owl-carousel owl-theme mt-3">
 
@@ -249,7 +210,7 @@
 
         </div>
         <div class="col-lg-4">
-            <div class="sticky-top" style="z-index: auto; top:70px">
+            <div class="" style="z-index: auto; top:70px">
                 <div class="card">
                     <div class="card-body d-flex flex-column align-items-center">
                         <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $bdsInfo['contactname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
@@ -270,16 +231,46 @@
                     </div>
                 </div>
 
-                <div class="card mt-3" style="background-color: #f7f7f7;">
+                <!-- Đặc điểm bất động sản -->
+                <div class="card mt-3" style="background-color: #f7f7f7; color: #585858">
                     <div class="card-body">
-                        <p class="fw-semibold" style="font-size: 1.125rem;">Bất động sản cùng khu vực</p>
-                        <div class="d-flex flex-column">
-
-                            <?php foreach ($bds_palace_area as $id_bds => $bds) { ?>
-                                <a class="text-decoration-none text-dark py-1 hover-link-red cursor-poiter" href="<?= $bds['slug_title'] . '-p' . $id_bds ?>" ><?php echo $bds['title']; ?></a>
-                            <?php } ?>
-
-
+                        <div class="fw-semibold fs-5">Đặc điểm bất động sản</div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Diện tích</div>
+                                    <div><?php echo $bdsInfo['acreage']; ?> m²</div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Mặt tiền</div>
+                                    <div><?php echo $bdsInfo['facades']; ?> m</div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Hướng nhà</div>
+                                    <div><?php echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : "" ?></div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Số tầng</div>
+                                    <div><?php echo isset($cf_floor[$bdsInfo['floor']]) ? $cf_floor[$bdsInfo['floor']] : "" ?> tầng</div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Mức giá</div>
+                                    <div><?php echo getPrice($bdsInfo['price_total']); ?><?php echo isset($price_type[$bdsInfo['price_type']]) ? $price_type[$bdsInfo['price_type']] : ''; ?></div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Đường vào</div>
+                                    <div><?php echo $bdsInfo['road_surface']; ?> m</div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Hướng ban công</div>
+                                    <div><?php // echo isset($cf_direction[$bdsInfo['direction']]) ? $cf_direction[$bdsInfo['direction']] : ""  
+                                            ?></div>
+                                </div>
+                                <div class="border-top d-flex py-2">
+                                    <div class="fw-semibold w-50">Pháp lý</div>
+                                    <div><?php echo isset($cf_juridical[$bdsInfo['juridical']]) ? $cf_juridical[$bdsInfo['juridical']] : "" ?></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

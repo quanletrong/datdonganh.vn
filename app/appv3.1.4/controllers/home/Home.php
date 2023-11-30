@@ -31,7 +31,7 @@ class Home extends MY_Controller {
         $data['get_num_bds_by_price']            = $this->Bds_model->get_num_bds_by_price();
         $data['get_num_bds_by_acreage']          = $this->Bds_model->get_num_bds_by_acreage();
         $data['commune_ward_and_num_bds']        = $this->Bds_model->get_num_bds_by_commune_ward();
-        $data['news']                            = $this->Articles_model->get_list(NEWS, "", 7, 0);
+        $data['news']                            = $this->Articles_model->get_list(NEWS.','.AUCTION, "", 7, 0); // yeeu cau moi: new = new + dau gia
         $data['auctions']                        = $this->Articles_model->get_list(AUCTION, "", 7, 0);
         $data['documents']                       = $this->Articles_model->get_list(DOCUMENT, "", 7, 0);
         $data['news2']                           = $this->Articles_model->get_list("", "", 5, 0);

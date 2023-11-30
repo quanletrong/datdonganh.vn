@@ -37,8 +37,8 @@ class Articles_model extends CI_Model
 
         $where = "WHERE A.status=1 ";
 
-        if ($title != '')  $where                       .= "AND A.title LIKE '%$title%' ";
-        if ($type != '')  $where                        .= "AND A.type = $type ";
+        if ($title != '')  $where .= "AND A.title LIKE '%$title%' ";
+        if ($type != '')  $where  .= "AND A.type IN ($type) ";
         
         $sql = "
             SELECT A.* FROM tbl_articles as A
@@ -56,6 +56,16 @@ class Articles_model extends CI_Model
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
                         $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+
+                        if($row['type'] == NEWS) {
+                            $loai = LINK_TIN_TUC;
+                        } else if($row['type']== AUCTION) {
+                            $loai =  LINK_DAU_GIA;
+                        } else {
+                            $loai =  LINK_TAI_LIEU;
+                        }
+                        
+                        $row['link'] = ROOT_DOMAIN . $loai . '/' . $row['slug'] .'-p'. $row['id_articles'];
                         $data[$row['id_articles']] = $row;
                     }
                 }

@@ -668,12 +668,12 @@
         $('.select2').select2();
         tinymce.init({
             selector: '#content',
-            height: "400",
+            height: "auto",
             relative_urls: false,
             plugins: [
                 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
                 'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-                'table', 'emoticons', 'template', 'help', 'link'
+                'table', 'emoticons', 'template', 'help', 'link', 'autoresize'
             ],
             toolbar_sticky: true,
             toolbar: 'undo redo | formatselect fontsizeselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +

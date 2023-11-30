@@ -23,8 +23,8 @@
         <div class="col-12 col-lg-9">
             <div class="row">
                 <div class="col-12 col-lg-6 pe-md-30px">
-                    <div class="fw-bold fs-5" style="color:green">
-                        <a href="<?= LINK_NHA_DAT_BAN ?>?is_vip=1">Tin vip (<?= count($bds_home_vip) ?>)</a>
+                    <div class="fw-bold fs-5 mb-3" style="color:green">
+                        <a href="<?= LINK_NHA_DAT_BAN ?>?is_vip=1">Tin VIP (<?= count($bds_home_vip) ?>)</a>
                     </div>
                     <div class="row">
                         <?php foreach ($bds_home_vip as $id_bds => $bds) { ?>
@@ -92,7 +92,7 @@
                 </div>
                 <hr class="d-block d-lg-none">
                 <div class="col-12 col-lg-6 ps-md-30px" id="right-div-tin-moi-nhat">
-                    <div class="fw-bold fs-5" style="color:green;">
+                    <div class="fw-bold fs-5 mb-3" style="color:green;">
                         <a href="<?= LINK_NHA_DAT_BAN ?>?is_vip=0">Tin mới nhất (<?= $total_bds_active ?>)</a>
                     </div>
                     <div class="row">

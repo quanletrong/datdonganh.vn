@@ -21,9 +21,10 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-lg-9">
+            <?php $i = 1 ?>
             <?php foreach ($list_bds as $id_bds => $bds) { ?>
-                <div class="mb-3 shadow rounded" style="border: 1px solid #dedede;">
-
+                <!-- BOX TREN PC -->
+                <div class="mb-3 shadow rounded d-none d-sm-block" style="border: 1px solid #dedede;">
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
@@ -43,7 +44,8 @@
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="my-2">
                                         <h2 class="fs-6 fw-bold" style="color: #0c65ab;">
-                                            <?= $bds['title'] ?>
+                                            <span style="color: #9f9f9f"><?=$i++?>.</span>
+                                            <?=$bds['title'] ?>
                                         </h2>
                                     </div>
 
@@ -75,30 +77,91 @@
                                     </div>
                                 </a>
 
-                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                <div class="d-none d-sm-block">
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
 
-                                    <div class="text-muted" style="font-size: 0.85rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</div>
+                                        <div class="text-muted" style="font-size: 0.85rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</div>
 
-                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                        <div class="d-flex justify-content-between align-items-center gap-2">
 
-                                        <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bds['contactname']) ?>">
-                                            <button class="btn btn-sm text-light" style="background-color: rgb(158 158 158); font-size: 0.85rem; padding: 3px;">
-                                                <?= $bds['contactname'] ?>
-                                            </button>
-                                        </a>
+                                            <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bds['contactname']) ?>">
+                                                <button class="btn btn-sm text-light" style="background-color: rgb(158 158 158); font-size: 0.85rem; padding: 3px;">
+                                                    <?= $bds['contactname'] ?>
+                                                </button>
+                                            </a>
 
-                                        <a href="tel:<?= $bds['contactphone'] ?>">
-                                            <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83); font-size: 0.85rem; padding: 3px;"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
-                                        </a>
+                                            <a href="tel:<?= $bds['contactphone'] ?>">
+                                                <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83); font-size: 0.85rem; padding: 3px;"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
+                                            </a>
 
-                                        <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>" style=" font-size: 0.85rem; padding: 3px 5px"><i class="fa-regular fa-heart"></i></button>
+                                            <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>" style=" font-size: 0.85rem; padding: 3px 5px"><i class="fa-regular fa-heart"></i></button>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- END BOX TREN PC -->
+                <!-- BOX TREN MOBILE-->
+                <div class="mb-4 d-block d-sm-none">
+                    <div class="rounded border border-1 border-muted mb-3 shadow">
+                        <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
+                            <div class="position-relative">
+                                <img src="<?= $bds['list_img'][0] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
+                            </div>
+                        </a>
+                        <div class="p-2">
+                            <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
+                                <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.6rem; line-height: 1.3rem;"><?= $bds['title'] ?></div>
+                            </a>
+                            <div class="d-flex justify-content-between">
+                                <div class="text-danger fw-bold">
+                                    <?= getPrice($bds['price_total']) ?>
+                                </div>
+                                <div class="mb-1">·</div>
+                                <div class="text-danger fw-bold">
+                                    <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
+                                </div>
+                                <div class="mb-1">·</div>
+                                <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-secondary">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <?= $bds['commune'] ?>
+                                </div>
+
+                                <?php if ($bds['direction'] > 0) { ?>
+                                    <div class="text-secondary">
+                                        Hướng: <?= $cf_bds['direction'][$bds['direction']] ?>
+                                    </div>
+                                <?php } ?>
+
+                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center d-none">
+                                <div class="d-flex align-items-center" style="gap:10px">
+                                    <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.0;">
+                                        K
+                                    </div>
+                                    <div>
+                                        <div class="fw-semibold" style="font-size: 0.7rem;">Kim Dung</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">Hôm nay</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> 0936 030 966</button>
+                                    <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm btn-outline-danger"><i class="fa-regular fa-heart"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END BOX TREN MOBILE -->
             <?php } ?>
 
             <!-- PAGING -->
