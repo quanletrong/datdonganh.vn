@@ -513,8 +513,7 @@
                                             <label class="m-0 p-0 pr-1">Sửa ngày tạo</label>
                                         </div>
                                         <input type="text" class="form-control w-50" id="create_time_set" />
-                                        <input type="hidden" name="create_time_set" id="hidden_create_time_set" value="<?=date("Y-m-d", strtotime($info['create_time_set']));
-?>"/>
+                                        <input type="hidden" name="create_time_set" id="hidden_create_time_set" value="<?=$info['create_time_set']?>" />
                                     </div>
                                 </div>
 
@@ -888,16 +887,18 @@
         $(function() {
             $('#create_time_set').daterangepicker({
                 "singleDatePicker": true,
+                "timePicker24Hour": true,
+                "timePicker": true,
                 "showDropdowns": true,
                 "autoApply": true,
-                "startDate": "<?= date("d/m/Y", strtotime($info['create_time_set'])) ?>",
-                "endDate": "<?= date("d/m/Y", strtotime($info['create_time_set'])) ?>",
+                "startDate": "<?=$info['create_time_set'] ?>",
+                "endDate": "<?=$info['create_time_set'] ?>",
                 "locale": {
-                    "format": 'DD/MM/YYYY',
+                    "format": 'YYYY-MM-DD HH:mm:ss'
                 }
             }, function(start, end, label) {
-                console.log(start.format('YYYY-MM-D'))
-                $('#hidden_create_time_set').val(start.format('YYYY-MM-D'));
+                console.log(start.format('YYYY-MM-D HH:mm:ss'))
+                $('#hidden_create_time_set').val(start.format('YYYY-MM-D HH:mm:ss'));
             });
         });
     });

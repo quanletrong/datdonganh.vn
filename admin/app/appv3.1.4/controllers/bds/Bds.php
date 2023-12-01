@@ -347,9 +347,6 @@ class Bds extends MY_Controller
         $tag             = $this->input->post('tag');             // check db
         $create_time_set = $this->input->post('create_time_set'); // check time hợp lệ
 
-        // bổ sung thêm giờ phút giây của ngày tạo.
-        $create_time_set = $create_time_set.' '.date('H:i:s');
-
         // TODO: validate dữ liệu submit
         $price = floatval(str_replace(',', '', $price));
         $price = $price_unit == PRICE_UNIT_TRIEU ? $price * PRICE_ONE_MILLION : $price * PRICE_ONE_BILLION;
@@ -360,6 +357,10 @@ class Bds extends MY_Controller
             $price_total = $price * $acreage;
             $price_m2 = $price;
         }
+
+
+        # check create_time_set
+        $create_time_set = strtotime($create_time_set) === false ? $info['create_time_set'] : $create_time_set;
 
         //END validate
 
