@@ -52,7 +52,7 @@
                                     <?php foreach ($list as $id_articles => $articles) { ?>
                                         <tr>
                                             <td class="align-middle text-center"><?= $id_articles ?></td>
-                                            <td class="align-middle"><?= $articles['title'] ?></td>
+                                            <td class="align-middle"><a href="news/edit/<?= $id_articles ?>"><?= $articles['title'] ?></a></td>
                                             <td class="align-middle text-center"><img src='<?= $articles['image_path'] ?>' width="100" class="rounded"></td>
                                             <td class="align-middle text-center">
                                                 <div class="dropdown">
