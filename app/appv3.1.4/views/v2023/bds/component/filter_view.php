@@ -102,8 +102,8 @@
                                             </script>
 
                                             <div class="px-2 d-flex justify-content-between align-items-center mt-3" style="width: 330px;">
-                                                <div onclick="reset_commune()" style="cursor: pointer;">
-                                                    <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
+                                                <div onclick="reset_commune()" class="btn btn-sm btn-success">
+                                                    <i class="fa-solid fa-rotate"></i> Đặt lại
                                                 </div>
                                                 <button type="submit" class="btn btn-danger btn-sm">Áp dụng</button>
                                             </div>
@@ -146,8 +146,8 @@
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div onclick="reset_price()" style="cursor: pointer;">
-                                                    <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
+                                                <div onclick="reset_price()" class="btn btn-sm btn-success">
+                                                    <i class="fa-solid fa-rotate"></i> Đặt lại
                                                 </div>
                                                 <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                             </div>
@@ -189,8 +189,8 @@
                                             </ul>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div onclick="reset_acreage()" style="cursor: pointer;">
-                                                    <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
+                                                <div onclick="reset_acreage()" class="btn btn-sm btn-success">
+                                                    <i class="fa-solid fa-rotate"></i> Đặt lại
                                                 </div>
                                                 <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                             </div>
@@ -227,8 +227,8 @@
                                             </div>
 
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div onclick="reset_filter_loc_them()" style="cursor: pointer;">
-                                                    <i class="fa-solid fa-rotate text-dark"></i> Đặt lại
+                                                <div onclick="reset_filter_loc_them()" class="btn btn-sm btn-success">
+                                                    <i class="fa-solid fa-rotate"></i> Đặt lại
                                                 </div>
                                                 <button class="btn btn-danger btn-sm" type="submit">Áp dụng</button>
                                             </div>
