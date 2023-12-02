@@ -828,7 +828,7 @@ function copy_image_to_public_upload($url_fmng_image, $folder_str = 'uploads/')
 {
     # thêm HOST NAME (nếu chưa có) trước khi gọi hàm getImageSizeFromUrl()
     $parse_url = parse_url($url_fmng_image);
-    if(!isset($parse_url['host'])) {
+    if (!isset($parse_url['host'])) {
         $url_fmng_image = ROOT_DOMAIN . $url_fmng_image;
     }
 
@@ -1015,4 +1015,30 @@ function getPriceM2($number, $m2)
     } else {
         echo number_format($priceM2) . 'đ/m²';
     }
+}
+
+function timeSince($date)
+{
+    $seconds = time() - strtotime($date);
+    $interval = floor($seconds / 31536000);
+    if ($interval >= 1) {
+        return $interval . " năm";
+    }
+    $interval = floor($seconds / 2592000);
+    if ($interval >= 1) {
+        return $interval . " tháng";
+    }
+    $interval = floor($seconds / 86400);
+    if ($interval >= 1) {
+        return $interval . " ngày";
+    }
+    $interval = floor($seconds / 3600);
+    if ($interval >= 1) {
+        return $interval . " giờ";
+    }
+    $interval = floor($seconds / 60);
+    if ($interval >= 1) {
+        return $interval . " phút";
+    }
+    return floor($seconds) . " giây";
 }

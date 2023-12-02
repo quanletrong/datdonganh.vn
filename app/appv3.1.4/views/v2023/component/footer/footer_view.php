@@ -5,7 +5,7 @@
 <!-- FOOTER -->
 <div class="contaier-fluid" style="background: #f2f2f2;">
     <div class="container py-5">
-        
+
         <div class="row">
             <div class="col-md-6 col-lg-4 mt-5">
                 <div class="fs-6 fw-bold">VĂN PHÒNG GIAO DỊCH <br />BẤT ĐỘNG SẢN ĐẤT ĐÔNG ANH</div>
@@ -23,7 +23,7 @@
                             www.datdonganh.vn
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -46,15 +46,20 @@
 
             <div class="col-md-12 col-lg-5 mt-5">
                 <div class="fs-6 fw-bold">ĐĂNG KÝ NHẬN TIN TƯ VẤN</div>
-                <div class="w-100 mt-3">
-                    <input type="text" class="form-control w-100" placeholder="Họ và tên">
+                <div class="w-100 mt-3" id="dang-ky-nhan-thong-tin">
+                    <input type="text" class="form-control w-100 fullname" placeholder="Họ và tên">
                     <div class="hstack gap-3 mt-2">
-                        <input type="text" class="form-control" placeholder="Số điện thoại">
-                        <input type="text" class="form-control" placeholder="Email">
+                        <input type="text" class="form-control phone" placeholder="Số điện thoại">
+                        <input type="text" class="form-control email" placeholder="Email">
                     </div>
-                    <textarea name="" id="" cols="30" rows="5" class="form-control mt-2" placeholder="Nhập nội dung cần tư vấn"></textarea>
+                    <textarea name="" id="" cols="30" rows="5" class="form-control mt-2 content" placeholder="Nhập nội dung cần tư vấn"></textarea>
 
-                    <button class="btn btn-danger mt-3">Gửi yêu cầu</button>
+                    <div class="d-flex mt-3" style="align-items: center; gap:20px">
+                        <button class="btn btn-danger" onclick="ajax_dang_ky_nhan_thong_tin(this)" style="width: 120px;">Gửi yêu cầu</button>
+                        <div class="error text-danger" style="display: none;"> Các trường thông tin không được bỏ trống</div>
+                        <div class="ok text-success" style="color: red;  display: none"> Yêu cầu của bạn đã được gửi đến datdonganh.vn</div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -98,4 +103,54 @@
             });
         });
     });
+
+    function ajax_dang_ky_nhan_thong_tin(btn) {
+        // LINK_DANG_KY_NHAN_THONG_TIN
+
+        let form = $('#dang-ky-nhan-thong-tin');
+        let fullname = form.find('.fullname').val();
+        let phone = form.find('.phone').val();
+        let email = form.find('.email').val();
+        let content = form.find('.content').val();
+
+        if (fullname == '' || phone == '' || email == '' || content == '') {
+            form.find('.error').show();
+            form.find('.ok').hide();
+            return;
+        }
+
+        //show loading
+        $(btn).html(`<div class="spinner-border spinner-border-sm text-light"><span class="visually-hidden">Loading...</span></div>`);
+        $(btn).attr('disabled', true)
+        //ajax
+        $.ajax({
+            url: '<?= LINK_DANG_KY_NHAN_THONG_TIN ?>',
+            type: 'POST',
+            data: {
+                fullname,
+                phone,
+                email,
+                content
+            },
+            success: function(res) {
+                try {
+                    let kq = JSON.parse(res);
+                    if (kq.status) {
+                        form.find('.error').hide();
+                        form.find('.ok').show();
+                    } else {
+                        form.find('.error').show().html(kq.error);
+                        form.find('.ok').hide();
+                    }
+                } catch (error) {
+
+                }
+                $(btn).html(`Gửi yêu cầu`);
+                $(btn).attr('disabled', false)
+            },
+            error: function(data) {
+
+            }
+        });
+    }
 </script>
