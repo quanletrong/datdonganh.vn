@@ -47,7 +47,6 @@
                                     <?= date('H:s- d/m/Y', strtotime($ct['create_time'])) ?>
                                 </div>
                             </td>
-                            k
                             <td class="align-middle"><?= $ct['fullname'] ?></td>
                             <td class="align-middle"><?= $ct['email'] ?></td>
                             <td class="align-middle"><?= $ct['phonenumber'] ?></td>

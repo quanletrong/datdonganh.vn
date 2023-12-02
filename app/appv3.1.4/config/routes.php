@@ -80,6 +80,7 @@ $route[LINK_USER_REGISTER]                  = 'signup/signup/index';
 $route['trang-ca-nhan']                     = 'account/account/index';
 $route['ajax-edit-uinfo']                   = 'account/account/ajax_edit_uinfo';
 $route['ajax-edit-password']                = 'account/account/ajax_edit_password';
-$route[LINK_DANG_KY_NHAN_THONG_TIN]         = 'account/account/ajax_dang_ky_nhan_thong_tin';
+
+$route[LINK_DANG_KY_NHAN_THONG_TIN]         = 'contact/contact/ajax_dang_ky_nhan_thong_tin';
 
 $route['upload']                            = 'upload/upload/index';
