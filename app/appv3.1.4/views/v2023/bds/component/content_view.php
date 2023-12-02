@@ -171,7 +171,7 @@
                             margin: 10,
                             responsiveClass: true,
                             nav: false,
-                            dots: false,
+                            dots: true,
                             responsive: {
                                 0: {
                                     items: 1
@@ -443,7 +443,7 @@
             margin: 10,
             responsiveClass: true,
             nav: false,
-            dots: false,
+            dots: true,
             responsive: {
                 0: {
                     items: 1

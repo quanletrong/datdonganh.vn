@@ -1,5 +1,59 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <style>
+    /* END CSS NÚT NEXT BACK SLIDE */
+    #main-owl-noi-bat {
+        position: relative;
+    }
+
+    #main-owl-noi-bat .owl-theme .custom-nav {
+        position: absolute;
+        top: 40%;
+        left: 0;
+        right: 0;
+    }
+
+    #main-owl-noi-bat .owl-theme .custom-nav .owl-prev,
+    #main-owl-noi-bat .owl-theme .custom-nav .owl-next {
+        position: absolute;
+        height: 100px;
+        color: inherit;
+        background: none;
+        border: none;
+        z-index: 100;
+    }
+
+    #main-owl-noi-bat .owl-theme .custom-nav .owl-prev i,
+    #main-owl-noi-bat .owl-theme .custom-nav .owl-next i {
+        font-size: 5rem;
+        color: #cecece;
+    }
+
+    #main-owl-noi-bat .owl-theme .custom-nav .owl-prev {
+        left: -70px;
+    }
+
+    #main-owl-noi-bat .owl-theme .custom-nav .owl-next {
+        right: -70px;
+    }
+
+    @media (max-width: 991.98px) {
+
+        #main-owl-noi-bat .owl-theme .custom-nav .owl-prev i,
+        #main-owl-noi-bat .owl-theme .custom-nav .owl-next i {
+            font-size: 3rem;
+            color: #cecece;
+        }
+
+        #main-owl-noi-bat .owl-theme .custom-nav .owl-prev {
+            left: 0;
+        }
+
+        #main-owl-noi-bat .owl-theme .custom-nav .owl-next {
+            right: 0;
+        }
+    }
+
+    /* END CSS NÚT NEXT BACK SLIDE */
     .loading-area {
         animation-duration: 2s;
         animation-fill-mode: forwards;
@@ -94,41 +148,50 @@
     <div class="mt-5">
         <div class="fw-bold fs-5">Bất động sản liên quan <?= $page ?></div>
 
-        <div id="owl-noi-bat" class="owl-carousel owl-theme mt-3">
-            <?php foreach ($list_bds_by_commune as $id_bds => $bds) { ?>
-                <div class="rounded border border-1 border-muted">
-                    <a href="<?= $bds['slug_title'] . '-p' . $bds['id_bds'] ?>">
-                        <img src="<?= $bds['main_img'] ?>" class="rounded-top img-fluid w-100" alt="" style="object-fit: cover; aspect-ratio: 4/3;" >
-                    </a>
-                    <div class="p-3">
+        <div id="main-owl-noi-bat" style="position: relative;">
+
+            <div id="owl-noi-bat" class="owl-carousel owl-theme mt-3">
+                <?php foreach ($list_bds_by_commune as $id_bds => $bds) { ?>
+                    <div class="rounded border border-1 border-muted">
                         <a href="<?= $bds['slug_title'] . '-p' . $bds['id_bds'] ?>">
-                            <p class="fw-semibold text-truncate text-wrap" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                <?= $bds['title'] ?>
-                            </p>
+                            <img src="<?= $bds['main_img'] ?>" class="rounded-top img-fluid w-100" alt="" style="object-fit: cover; aspect-ratio: 4/3;">
                         </a>
-                        <div class="d-flex gap-2">
-                            <div class="text-danger fw-bold"><?= getPrice($bds['price_total']) ?></div>
-                            <div class="mb-1">.</div>
-                            <div class="text-danger  fw-bold"><?= getPriceM2($bds['price_total'], $bds['acreage']) ?></div>
-                            <div class="mb-1">.</div>
-                            <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
-                        </div>
-                        <div class="text-secondary mt-2">
-                            <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $bds['id_commune_ward'] ?>">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <?= $bds['commune'] ?>
+                        <div class="p-3">
+                            <a href="<?= $bds['slug_title'] . '-p' . $bds['id_bds'] ?>">
+                                <p class="fw-semibold text-truncate text-wrap" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    <?= $bds['title'] ?>
+                                </p>
                             </a>
+                            <div class="d-flex gap-2">
+                                <div class="text-danger fw-bold"><?= getPrice($bds['price_total']) ?></div>
+                                <div class="mb-1">.</div>
+                                <div class="text-danger  fw-bold"><?= getPriceM2($bds['price_total'], $bds['acreage']) ?></div>
+                                <div class="mb-1">.</div>
+                                <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                            </div>
+                            <div class="text-secondary mt-2">
+                                <a href="<?= LINK_NHA_DAT_BAN . '?id_commune_ward=' . $bds['id_commune_ward'] ?>">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <?= $bds['commune'] ?>
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="text-secondary" style="font-size: 0.8rem;"><?= timeSince($bds['create_time_set']) ?> trước</span>
+                                <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <span class="text-secondary" style="font-size: 0.8rem;"><?= timeSince($bds['create_time_set']) ?> trước</span>
-                            <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
-                        </div>
+
                     </div>
+                <?php } ?>
+            </div>
 
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
                 </div>
-            <?php } ?>
-        </div>
+            </div>
 
+        </div>
         <script>
             $(document).ready(function() {
                 $("#owl-noi-bat").owlCarousel({
@@ -137,8 +200,17 @@
                     autoplayHoverPause: true,
                     margin: 10,
                     responsiveClass: true,
-                    nav: false,
                     dots: false,
+
+
+                    nav: true,
+                    navText: [
+                        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+                    ],
+                    navContainer: '#main-owl-noi-bat .custom-nav',
+
+
                     responsive: {
                         0: {
                             items: 1
