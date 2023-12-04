@@ -15,6 +15,11 @@
 </head>
 <?php flush();?>
 <body>
+	<!-- HEADER -->
     <?php $this->load->view($template_f . 'component/header/header_menu_view'); ?>
+	<!-- END HEADER -->
+
+	<!-- CONTENT -->
+	<div style="margin-top: 78px;">
 
 	

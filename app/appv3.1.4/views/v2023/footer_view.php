@@ -1,6 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
+</div>
+<!-- END CONTENT -->
+
+<!-- FOOTER -->
 <?php $this->load->view($template_f . 'component/footer/footer_view'); ?>
+<!-- END FOOTER -->
 
 <!-- upload anh -->
 <form id="quanlt_frm_files" enctype="multipart/form-data" action="upload" method="post">
