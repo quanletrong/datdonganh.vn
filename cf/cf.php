@@ -104,6 +104,10 @@ define('PRICE_ONE_MILLION', 1000000);
 define('BDS_CATEGOTY_BAN', 1);  // bán
 define('BDS_CATEGOTY_THUE', 2); // thuê
 
+// danh mục bđs
+define('BDS_VIP', 1);  // bán
+define('BDS_THUONG', 0); // thuê
+
 //login google
 define("gg_ClientId", "654277741157-g3eecjl5a6nq1d3n55jdubasik12221u.apps.googleusercontent.com");
 define("gg_ClientSecret", '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');

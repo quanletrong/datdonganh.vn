@@ -90,51 +90,107 @@ class Bds extends MY_Controller
     {
         $data = [];
 
-
         $category        = 1;
         $id_commune_ward = $this->input->get('id_commune_ward');
-
-        $id_street       = trim($this->input->get('id_street'));
+        $id_street       = removeAllTags($this->input->get('id_street'));
         $id_project      = '';
         $id_user         = '';
         $status          = '1';
-        $type            = trim($this->input->get('type'));
-        $title           = trim($this->input->get('title'));
-        $f_price         = trim($this->input->get('f_price'));
-        $f_price_unit    = trim($this->input->get('f_price_unit'));
-        $t_price         = trim($this->input->get('t_price'));
+        $type            = removeAllTags($this->input->get('type'));
+        $title           = removeAllTags($this->input->get('title'));
+        $f_price         = removeAllTags($this->input->get('f_price'));
+        $f_price_unit    = removeAllTags($this->input->get('f_price_unit'));
+        $t_price         = removeAllTags($this->input->get('t_price'));
         $t_price_unit    = PRICE_UNIT_TY;
         $price_type      = PRICE_TYPE_TOTAL;
-        $f_acreage       = trim($this->input->get('f_acreage'));
-        $t_acreage       = trim($this->input->get('t_acreage'));
-        $direction       = trim($this->input->get('direction'));
+        $f_acreage       = removeAllTags($this->input->get('f_acreage'));
+        $t_acreage       = removeAllTags($this->input->get('t_acreage'));
+        $direction       = removeAllTags($this->input->get('direction'));
         $floor           = '';
         $toilet          = '';
         $bedroom         = '';
         $noithat         = '';
         $road_surface    = '';
         $juridical       = '';
-        $is_vip          = trim($this->input->get('is_vip'));
-        $moi_gioi        = trim($this->input->get('moi-gioi'));
+        $is_vip          = removeAllTags($this->input->get('is_vip'));
+        $moi_gioi        = removeAllTags($this->input->get('moi-gioi'));
         $is_home_vip     = '';
         $f_expired       = '';
         $t_expired       = '';
         $f_create        = '';
         $t_create        = '';
-        $orderby         = trim($this->input->get('orderby'));
-        $sort            = trim($this->input->get('sort'));
-        $page            = trim($this->input->get('page'));
+        $orderby         = removeAllTags($this->input->get('orderby'));
+        $sort            = removeAllTags($this->input->get('sort'));
+        $page            = removeAllTags($this->input->get('page'));
         $limit           = 10;
+        $tag             = removeAllTags($this->input->get('tag'));
 
-        // validate dư liệu input
+        // CHECK DU LIEU INPUT
+
+        $cf           = $this->config->item('bds');
+        $all_tag      = $this->Tag_model->get_list(TAG_BDS);
+        $list_street  = $this->Street_model->get_list(1);
+        $list_commune = $this->Commune_model->get_list(1);
+
+        $f_price_ok = 0;
+        if ($f_price != '') {
+            $f_price_ok = $f_price_unit == PRICE_UNIT_TRIEU ? $f_price * PRICE_ONE_MILLION : $f_price * PRICE_ONE_BILLION;
+        }
+
+        $t_price_ok = 0;
+        if ($t_price != '') {
+            $t_price_ok = $t_price_unit == PRICE_UNIT_TRIEU ? $t_price * PRICE_ONE_MILLION : $t_price * PRICE_ONE_BILLION;
+        }
+
         $id_commune_ward = is_array($id_commune_ward) ? $id_commune_ward : [];
-        $page            = is_numeric($page) && $page > 0 ? $page : 1;
-        $offset = ($page - 1) * $limit;
-        //end validate input
+        if (is_array($id_commune_ward)) {
+            foreach ($id_commune_ward as $idcw) {
+                if (!isIdNumber($idcw)) {
+                    $id_commune_ward = [];
+                    break;
+                }
+
+                if (!isset($list_commune[$idcw])) {
+                    $id_commune_ward = [];
+                    break;
+                }
+            }
+        } else {
+            $id_commune_ward = [];
+        }
+
+        $tag       = isset($all_tag[$tag]) ? $tag : '';
+        $id_street = isset($list_street[$id_street]) ? $id_street : '';
+        $type      = isset($cf['type'][$type]) ? $type : '';
+        $f_acreage = is_numeric($f_acreage) && $f_acreage > 0 ? $f_acreage : '';
+        $t_acreage = is_numeric($t_acreage) && $t_acreage > 0 ? $t_acreage : '';
+        $direction = is_numeric($direction) && $direction > 0 ? $direction : '';
+        $page      = is_numeric($page) && $page > 0 ? $page : 1;
+        $is_vip    = in_array($is_vip, [BDS_VIP, BDS_THUONG]) ? $is_vip : '';
+        $orderby   = in_array($orderby, ['price_total', 'acreage', 'id_bds']) ? $orderby : 'is_vip';
+        $sort      = in_array($sort, ['DESC', 'ASC']) ? $sort : 'DESC';
+        $offset    = ($page - 1) * $limit;
+        // END CHECK DU LIEU INPUT
+
+        // CALL DB
+        $list_bds = $this->Bds_model->get_list($category, implode(',', $id_commune_ward), $id_street, $id_project, $id_user, $status, $type, $title, $f_price_ok, $t_price_ok, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset, $tag);
+        // END CALL DB
+
+        // GÁN DU LIEU RA VIEW
+        $data['list_bds']                 = $list_bds['list'];
+        $data['total']                    = $list_bds['total'];
+        $data['cf_bds']                   = $this->config->item('bds');
+        $data['list_street']              = $list_street;
+        $data['list_commune']             = $list_commune;
+        $data['all_tag']                  = $all_tag;
+        $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward();
+        $data['street_and_num_bds']       = $this->Bds_model->get_num_bds_by_street();
+        $data['get_num_bds_by_price']     = $this->Bds_model->get_num_bds_by_price();
+        $data['get_num_bds_by_acreage']   = $this->Bds_model->get_num_bds_by_acreage();
 
         // du lieu tim kiem
         $data['id_commune_ward'] = $id_commune_ward;
-        $data['id_street'] = $id_street;
+        $data['id_street']       = $id_street;
         $data['type']            = $type;
         $data['title']           = $title;
         $data['f_price']         = $f_price;
@@ -148,34 +204,7 @@ class Bds extends MY_Controller
         $data['sort']            = $sort;
         $data['page']            = $page;
         $data['limit']           = $limit;
-
-        // check du lieu
-        if ($f_price != '') {
-            $f_price = $f_price_unit == PRICE_UNIT_TRIEU ? $f_price * PRICE_ONE_MILLION : $f_price * PRICE_ONE_BILLION;
-        }
-
-        if ($t_price != '') {
-            $t_price = $t_price_unit == PRICE_UNIT_TRIEU ? $t_price * PRICE_ONE_MILLION : $t_price * PRICE_ONE_BILLION;
-        }
-
-        $orderby = $orderby == '' ? 'is_vip' : $orderby;
-        $sort = $sort == '' ? 'DESC' : $sort;
-        // end check du lieu
-
-        $list_bds = $this->Bds_model->get_list($category, implode(',', $id_commune_ward), $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset);
-        $list_street =  $this->Street_model->get_list(1);
-        $list_commune =  $this->Commune_model->get_list(1);
-
-        $data['list_bds'] = $list_bds['list'];
-        $data['total'] = $list_bds['total'];
-        $data['cf_bds'] = $this->config->item('bds');
-        $data['list_street'] = $list_street;
-        $data['list_commune'] = $list_commune;
-        $data['commune_ward_and_num_bds'] = $this->Bds_model->get_num_bds_by_commune_ward();
-        $data['street_and_num_bds'] = $this->Bds_model->get_num_bds_by_street();
-        $data['get_num_bds_by_price'] = $this->Bds_model->get_num_bds_by_price();
-        $data['get_num_bds_by_acreage'] = $this->Bds_model->get_num_bds_by_acreage();
-        $data['all_tag'] = $this->Tag_model->get_list(TAG_BDS);
+        $data['tag']             = $tag;
 
         // làm tiêu đề SEO
         $seo_title = "Bất động sản Đông Anh";
@@ -202,7 +231,11 @@ class Bds extends MY_Controller
             $seo_title .=  $f_acreage != '' ? ", diện tích từ $f_acreage m²" : "";
             $seo_title .=  $t_acreage != '' ? " - $t_acreage m² " : "";
         }
+        if ($tag != '') {
+            $seo_title .=  ", từ khóa '" . $all_tag[$tag]['name'] . "'";
+        }
         $data['seo_title'] = $seo_title;
+        // END GÁN DU LIEU RA VIEW
 
         $header = [
             'title' => $seo_title,

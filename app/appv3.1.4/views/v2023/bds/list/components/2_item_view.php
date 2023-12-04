@@ -195,7 +195,7 @@
 
                 <div class="mt-3">
                     <?php foreach ($all_tag as $id => $tag) { ?>
-                        <span class="badge rounded-pill text-bg-secondary p-2 mb-2"><a href="<?= LINK_NHA_DAT_BAN . '?id_tag=' . $id ?>"><?php echo $tag['name']; ?></a></span>
+                        <span class="badge rounded-pill text-bg-secondary p-2 mb-2"><a href="<?= LINK_NHA_DAT_BAN . '?tag=' . $id ?>"><?php echo $tag['name']; ?></a></span>
                     <?php } ?>
                 </div>
 

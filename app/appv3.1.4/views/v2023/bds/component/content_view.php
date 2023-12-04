@@ -103,7 +103,10 @@
                 <div class="fw-semibold fs-5 mb-3">Từ khóa liên quan</div>
                 <div class="mt-3">
                     <?php foreach ($tags as $tag) { ?>
-                        <div class="badge rounded-pill text-bg-secondary p-2 mb-2"><?php echo $tag['name'] ?></div>
+                        <a href="<?= LINK_NHA_DAT_BAN ?>?tag=<?= $tag['id_tag'] ?>">
+                            <div class="badge rounded-pill text-bg-secondary p-2 mb-2"><?php echo $tag['name'] ?></div>
+                        </a>
+
                     <?php } ?>
 
                 </div>
@@ -243,7 +246,7 @@
                             <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
                         </button>
 
-                        <a href="mailto:<?=$bdsInfo['contactemail']?>" class="mt-2 w-100">
+                        <a href="mailto:<?= $bdsInfo['contactemail'] ?>" class="mt-2 w-100">
                             <button class="btn btn-outline-secondary w-100">Gửi email</button>
                         </a>
 

@@ -279,7 +279,7 @@ class Bds_model extends CI_Model
         return $total;
     }
 
-    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
+    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset, $tag)
     {
         $data['list'] = [];
         $data['total'] = 0;
@@ -338,6 +338,8 @@ class Bds_model extends CI_Model
         if ($f_create != '' && $t_create == '')  $WHERE   .= "AND A.create_time >='$f_create' ";
         if ($f_create == '' && $t_create != '')  $WHERE   .= "AND A.create_time <= '$t_create' ";
         if ($f_create != '' && $t_create != '')  $WHERE   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
+
+        if ($tag != '') $WHERE .= "AND A.id_bds IN (SELECT tbl_tag_assign.id_assign FROM tbl_tag_assign WHERE tbl_tag_assign.id_tag = $tag AND tbl_tag_assign.type_assign = ".TAG_BDS." )";
 
         $LIMIT = "LIMIT $limit OFFSET $offset";
 
