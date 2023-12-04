@@ -2,7 +2,7 @@
 <div class="container mt-2">
     <div class="row">
         <div class="col-lg-8">
-            <?php $this->load->view($template_f . 'bds/component/slide_detail_bds_view.php')?>
+            <?php $this->load->view($template_f . 'bds/component/slide_detail_bds_view.php') ?>
             <nav aria-label="breadcrumb" class="mt-3">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" class="text-secondary">Home</a></li>
@@ -45,14 +45,24 @@
                     <?php } ?>
                 </div>
                 <div class="mt-sm-2 d-none d-md-block">
-                    <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);">
-                        <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
-                    </button>
-                    <i class=" me-1 me-md-3 fs-4"></i>
+                    <div class="d-flex" style="gap:15px">
+                        <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);">
+                            <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                        </button>
 
-                    <button class="btn btn-sm me-1 me-md-3 btn-outline-danger"><i class="fa-solid fa-share-nodes"></i></button>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="copy_url()"><i class="fa-solid fa-link"></i> Copy url</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="share_fb()"><i class="fa-brands fa-facebook"></i> Share FB</a></li>
+                            </ul>
+                        </div>
 
-                    <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm me-1 me-md-3 <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                        <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+
                 </div>
             </div>
 
@@ -63,10 +73,19 @@
                     <?php echo $bdsInfo['content']; ?>
 
                 </div>
-                <div class="mt-3">
-                    <button class="btn btn-sm text-light me-2" style="background-color: rgb(7 152 83);">
+                <div class="mt-3 d-flex" style="gap:15px">
+                    <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);">
                         <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
                     </button>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="javascript:void(0)" onclick="copy_url()"><i class="fa-solid fa-link"></i> Copy url</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" onclick="share_fb()"><i class="fa-brands fa-facebook"></i> Share FB</a></li>
+                        </ul>
+                    </div>
                     <button data-id="<?php echo $bdsInfo['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bdsInfo['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                 </div>
             </div>
@@ -216,7 +235,7 @@
                         <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $bdsInfo['contactname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
                         <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
-                        <a href="<?=LINK_NHA_DAT_BAN . '?moi-gioi='. urlencode($bdsInfo['contactname']) ?>">
+                        <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bdsInfo['contactname']) ?>">
                             <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>
                         </a>
 
@@ -478,4 +497,23 @@
             success: function(res) {}
         });
     }, 10000);
+
+    function copy_url() {
+        var dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = window.location.href;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+
+        $.toast({
+            text: 'Đã copy link',
+            position: 'top-right',
+        })
+    }
+
+    function share_fb() {
+        let url = window.location.href;
+        window.open("https://www.facebook.com/sharer/sharer.php?u=" + url, '','height=500,width=300');
+    }
 </script>
