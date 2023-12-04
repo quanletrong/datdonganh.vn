@@ -14,15 +14,26 @@ class Contact extends MY_Controller
     {
 
         $fullname = removeAllTags($this->input->post('fullname'));
-        $phone = removeAllTags($this->input->post('phone'));
-        $email = removeAllTags($this->input->post('email'));
-        $content = removeAllTags($this->input->post('content'));
+        $phone    = removeAllTags($this->input->post('phone'));
+        $email    = removeAllTags($this->input->post('email'));
+        $content  = removeAllTags($this->input->post('content'));
+        $id_bds   = removeAllTags($this->input->post('id_bds'));
+        $type     = removeAllTags($this->input->post('type'));
+
 
         if ($fullname == '' || $phone == '' || $email == '' || $content == '') {
             resError('Các trường thông tin không được bỏ trống');
         }
 
-        $newid = $this->Contact_model->add_thong_tin_dang_ky($fullname, $phone, $email, $content);
+        if($id_bds != '' && !isIdNumber($id_bds)) {
+            resError('Bất động sản không tồn tại');
+        }
+
+        if(!in_array($type, [CONTACT, REQUEST_CONTACT])) {
+            resError('Dữ liệu không hợp lệ');
+        }
+
+        $newid = $this->Contact_model->add_thong_tin_dang_ky($fullname, $phone, $email, $content, $id_bds, $type);
 
         $newid ? resSuccess('ok') : resError('Có lỗi xảy ra. Vui lòng thử lại!');
     }

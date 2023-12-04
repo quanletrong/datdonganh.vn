@@ -112,6 +112,7 @@
         let phone = form.find('.phone').val();
         let email = form.find('.email').val();
         let content = form.find('.content').val();
+        let type = <?=CONTACT?>; // phản hổi người dùng
 
         if (fullname == '' || phone == '' || email == '' || content == '') {
             form.find('.error').show();
@@ -130,7 +131,8 @@
                 fullname,
                 phone,
                 email,
-                content
+                content,
+                type
             },
             success: function(res) {
                 try {

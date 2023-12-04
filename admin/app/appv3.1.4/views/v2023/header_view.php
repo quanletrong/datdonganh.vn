@@ -240,6 +240,15 @@
 							</a>
 						</li>
 
+						<li class="nav-item">
+							<a href="request_contact" class="nav-link">
+								<i class="nav-icon fas fa-th"></i>
+								<p>
+									Yêu cầu liên hệ lại
+								</p>
+							</a>
+						</li>
+
 						<li class="nav-header">KHÁC</li>
 						<li class="nav-item">
 							<a href="setting" class="nav-link">

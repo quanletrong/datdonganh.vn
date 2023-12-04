@@ -15,3 +15,7 @@ define('LINK_USER_LOGIN', 'login');
 define('LINK_USER_LOGOUT', 'logout');
 define('LINK_USER_REGISTER', 'dang-ky');
 define('LINK_DANG_KY_NHAN_THONG_TIN', 'ajax-dang-ky-nhan-thong-tin');
+
+
+define('CONTACT', 1);
+define('REQUEST_CONTACT', 2);

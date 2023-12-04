@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Contact extends MY_Controller
+class Request_contact extends MY_Controller
 {
 
     function __construct()
@@ -30,7 +30,7 @@ class Contact extends MY_Controller
             show_custom_error('Tài khoản không có quyền truy cập!');
         }
         $header = [
-            'title' => 'Đăng ký nhận thông tin tư vấn',
+            'title' => 'Yêu cầu liên hệ lại',
             'header_page_css_js' => 'commune'
         ];
 
@@ -43,13 +43,14 @@ class Contact extends MY_Controller
 
         $status     = in_array($status, [0, 1]) ? $status : '';
         $id_contact = isIdNumber($id_contact) ? $id_contact : 0;
-        $list_contact =  $this->Contact_model->get_list_can_tu_van($fullname, $phone, $email, $content, $status, CONTACT);
+        $id_user = $this->_session_role() == SUPERADMIN ? '' : $this->_session_uid(); // super admin xem dc all
+        $list_contact =  $this->Contact_model->get_list_yclhl($fullname, $phone, $email, $content, $status, REQUEST_CONTACT, $id_user);
 
         $data['list_contact'] = $list_contact;
         $data['cf_commune'] = $this->config->item('commune');
 
         $this->_loadHeader($header);
-        $this->load->view($this->_template_f . 'contact/contact_view', $data);
+        $this->load->view($this->_template_f . 'request_contact/request_contact_view', $data);
         $this->_loadFooter();
     }
 

@@ -47,25 +47,63 @@ class Contact_model extends CI_Model
         return $execute;
     }
 
-    function get_list($fullname, $phone, $email, $content, $status = '')
+    function get_list_can_tu_van($fullname, $phone, $email, $content, $status, $type)
     {
         $data = [];
         $iconn = $this->db->conn_id;
 
         $where = 'WHERE 1=1 ';
-        $where .= $fullname !== '' ? " AND A.fullname LIKE ? " : "";
-        $where .= $phone    !== '' ? " AND A.phone LIKE ? " : "";
-        $where .= $email    !== '' ? " AND A.email LIKE ? " : "";
-        $where .= $content  !== '' ? " AND A.content LIKE ? " : "";
-        $where .= $status   !== '' ? " AND A.status =? " : "";
+        $where .= $fullname !== '' ? " AND tbl_contact.fullname LIKE ? " : "";
+        $where .= $phone    !== '' ? " AND tbl_contact.phone LIKE ? " : "";
+        $where .= $email    !== '' ? " AND tbl_contact.email LIKE ? " : "";
+        $where .= $content  !== '' ? " AND tbl_contact.content LIKE ? " : "";
+        $where .= $status   !== '' ? " AND tbl_contact.status = $status " : "";
+        $where .= $type     !== '' ? " AND tbl_contact.type = $type " : "";
 
-        $sql = " SELECT * FROM tbl_contact ";
+        $sql = " SELECT tbl_contact.*, tbl_bds.title as title_bds FROM tbl_contact ";
+        $sql .= "LEFT JOIN tbl_bds ON tbl_bds.id_bds = tbl_contact.id_bds ";
         $sql .= $where;
         $sql .= "ORDER BY tbl_contact.status ASC, tbl_contact.id_contact DESC";
 
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            if ($stmt->execute(["%$fullname%", "%$phone%", "%$email%", "%$content%", $status])) {
+            if ($stmt->execute(["%$fullname%", "%$phone%", "%$email%", "%$content%"])) {
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $data[$row['id_contact']] = $row;
+                    }
+                }
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+
+        $stmt->closeCursor();
+        return $data;
+    }
+
+    function get_list_yclhl($fullname, $phone, $email, $content, $status, $type, $id_user)
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
+        $where = 'WHERE 1=1 ';
+        $where .= $fullname !== '' ? " AND tbl_contact.fullname LIKE ? " : "";
+        $where .= $phone    !== '' ? " AND tbl_contact.phone LIKE ? " : "";
+        $where .= $email    !== '' ? " AND tbl_contact.email LIKE ? " : "";
+        $where .= $content  !== '' ? " AND tbl_contact.content LIKE ? " : "";
+        $where .= $status   !== '' ? " AND tbl_contact.status = $status " : "";
+        $where .= $id_user  !== '' ? " AND tbl_bds.id_user = $id_user " : '';
+        $where .= " AND tbl_contact.type = $type ";
+
+        $sql = " SELECT tbl_contact.*, tbl_bds.title as title_bds FROM tbl_contact ";
+        $sql .= "LEFT JOIN tbl_bds ON tbl_bds.id_bds = tbl_contact.id_bds ";
+        $sql .= $where;
+        $sql .= "ORDER BY tbl_contact.status ASC, tbl_contact.id_contact DESC";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute(["%$fullname%", "%$phone%", "%$email%", "%$content%"])) {
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         $data[$row['id_contact']] = $row;

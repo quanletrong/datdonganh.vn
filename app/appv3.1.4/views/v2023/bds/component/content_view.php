@@ -245,8 +245,7 @@
 
                         <button class="btn btn-outline-secondary mt-2 w-100">Gửi email</button>
 
-                        <button class="btn btn-outline-secondary mt-2 w-100">Yêu cầu liên hệ lại</button>
-
+                        <button class="btn btn-outline-secondary mt-2 w-100" data-bs-toggle="modal" data-bs-target="#modal_yclhl">Yêu cầu liên hệ lại</button>
                     </div>
                 </div>
 
@@ -311,6 +310,33 @@
         </div>
     </div>
 </div>
+<!-- Modal yêu cầu liên hệ lại -->
+<div class="modal fade" id="modal_yclhl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Yêu cầu liên hệ lại</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="w-100 mt-3">
+                    <input type="text" class="form-control w-100 fullname" placeholder="Họ và tên">
+                    <div class="hstack gap-3 mt-2">
+                        <input type="text" class="form-control phone" placeholder="Số điện thoại">
+                        <input type="text" class="form-control email" placeholder="Email">
+                        <input type="hidden" class="form-control id_bds" value="<?= $bdsInfo['id_bds'] ?>">
+                    </div>
+                    <textarea name="" id="" cols="30" rows="5" class="form-control mt-2 content" placeholder="Nội dung cần tư vấn"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex" style="justify-content: space-between;">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button class="btn btn-danger" onclick="ajax_yclhl(this)" style="width: 120px;">Gửi yêu cầu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal yêu cầu liên hệ lại -->
 
 <script>
     set_bds_watched();
@@ -514,6 +540,81 @@
 
     function share_fb() {
         let url = window.location.href;
-        window.open("https://www.facebook.com/sharer/sharer.php?u=" + url, '','height=500,width=300');
+        window.open("https://www.facebook.com/sharer/sharer.php?u=" + url, '', 'height=500,width=300');
+    }
+
+    function ajax_yclhl(btn) {
+        let form = $('#modal_yclhl');
+        let fullname = form.find('.fullname').val();
+        let phone = form.find('.phone').val();
+        let email = form.find('.email').val();
+        let content = form.find('.content').val();
+        let id_bds = form.find('.id_bds').val();
+        let type = <?=REQUEST_CONTACT?>; // yêu cầu liên hệ lại
+
+        if (fullname == '' || phone == '' || email == '' || content == '') {
+            $.toast({
+                heading: 'Thông báo lỗi',
+                text: 'Các trường thông tin không được bỏ trống',
+                showHideTransition: 'fade',
+                icon: 'error',
+                position: 'top-right',
+                hideAfter: 15000
+            })
+            return;
+        }
+
+        //show loading
+        $(btn).html(`<div class="spinner-border spinner-border-sm text-light"><span class="visually-hidden">Loading...</span></div>`);
+        $(btn).attr('disabled', true)
+        //ajax
+        $.ajax({
+            url: '<?= LINK_DANG_KY_NHAN_THONG_TIN ?>',
+            type: 'POST',
+            data: {
+                fullname,
+                phone,
+                email,
+                content,
+                id_bds,
+                type
+            },
+            success: function(res) {
+                try {
+                    let kq = JSON.parse(res);
+                    if (kq.status) {
+                        $.toast({
+                            heading: 'Thành công',
+                            text: 'Yêu cầu của bạn đã được gửi đến người đăng tin. Chúng tôi sẽ sớm liên hệ lại với bạn. Xin cảm ơn!',
+                            showHideTransition: 'fade',
+                            icon: 'success',
+                            position: 'top-right',
+                            hideAfter: 15000
+                        })
+
+                        // close modal
+                        var myModalEl = document.getElementById('modal_yclhl');
+                        var modal = bootstrap.Modal.getInstance(myModalEl)
+                        modal.hide();
+                    } else {
+                        $.toast({
+                            heading: 'Thông báo lỗi',
+                            text: kq.error,
+                            showHideTransition: 'fade',
+                            icon: 'error',
+                            position: 'top-right',
+                            hideAfter: 15000
+                        })
+                    }
+                } catch (error) {
+
+                }
+                $(btn).html(`Gửi yêu cầu`);
+                $(btn).attr('disabled', false)
+            },
+            error: function(data) {
+
+            }
+        });
     }
 </script>

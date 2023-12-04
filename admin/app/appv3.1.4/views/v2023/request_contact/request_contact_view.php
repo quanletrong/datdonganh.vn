@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Đăng ký nhận tư vấn</h1>
+                    <h1>Yêu cầu liên hệ lại</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= site_url() ?>">Home</a></li>
-                        <li class="breadcrumb-item active">Đăng ký nhận tư vấn</li>
+                        <li class="breadcrumb-item active">Yêu cầu liên hệ lại</li>
                     </ol>
                 </div>
             </div>
@@ -25,10 +25,11 @@
                 <thead class="thead-danger">
                     <tr>
                         <th class="text-center" width="50">STT</th>
-                        <th>Nội dung cần tư vấn</th>
+                        <th width="350">Bất động sản được yêu cầu liên hệ lại</th>
                         <th class="text-center" width="120">Ngày tạo</th>
-                        <th width="150">Người gửi yêu câu</th>
+                        <th width="150">Người gửi yêu cầu</th>
                         <th width="150">Phone Email</th>
+                        <th>Nội dung cần liên hệ</th>
                         <th class="text-center" style="width: 90px; min-width: 90px;">Trạng thái</th>
                         <th width="100">IP</th>
                     </tr>
@@ -39,7 +40,9 @@
                         <tr>
                             <td class="align-middle text-center"><?= $index++ ?></td>
                             <td class="align-middle">
-                                <div style="white-space: pre-line;"><?= $ct['content'] ?></div>
+                                <a href="<?= site_url('bds/edit/' . $ct['id_bds']) ?>">
+                                    <?= $ct['title_bds'] ?>
+                                </a>
                             </td>
                             <td class="align-middle" onclick="$('.time_since, .time_date').toggleClass('d-none');" style="cursor: pointer;">
                                 <div class="time_since">
@@ -51,7 +54,10 @@
                             </td>
                             <td class="align-middle"><?= $ct['fullname'] ?></td>
                             <td class="align-middle"><?= $ct['email'] ?> <br> <?= $ct['phonenumber'] ?></td>
-                            
+                            <td class="align-middle">
+                                <div style="white-space: pre-line;"><?= $ct['content'] ?></div>
+                            </td>
+
                             <td class="align-middle text-center">
 
                                 <div class="dropdown">
