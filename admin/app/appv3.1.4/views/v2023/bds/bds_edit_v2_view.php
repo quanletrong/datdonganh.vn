@@ -828,7 +828,7 @@
                 content: {
                     required: true,
                     minlength: 5,
-                    maxlength: 5000
+                    maxlength: 10000
                 },
                 // price: {
                 //     number: true,

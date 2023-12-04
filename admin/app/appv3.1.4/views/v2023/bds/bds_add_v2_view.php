@@ -737,7 +737,8 @@
                 street: "select_required",
                 content: {
                     required: true,
-                    minlength: 5
+                    minlength: 5,
+                    maxlength: 10000
                 },
                 // price: {
                 //     number: true,
