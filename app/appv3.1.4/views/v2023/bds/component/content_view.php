@@ -243,7 +243,9 @@
                             <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
                         </button>
 
-                        <button class="btn btn-outline-secondary mt-2 w-100">Gửi email</button>
+                        <a href="mailto:<?=$bdsInfo['contactemail']?>" class="mt-2 w-100">
+                            <button class="btn btn-outline-secondary w-100">Gửi email</button>
+                        </a>
 
                         <button class="btn btn-outline-secondary mt-2 w-100" data-bs-toggle="modal" data-bs-target="#modal_yclhl">Yêu cầu liên hệ lại</button>
                     </div>
@@ -550,7 +552,7 @@
         let email = form.find('.email').val();
         let content = form.find('.content').val();
         let id_bds = form.find('.id_bds').val();
-        let type = <?=REQUEST_CONTACT?>; // yêu cầu liên hệ lại
+        let type = <?= REQUEST_CONTACT ?>; // yêu cầu liên hệ lại
 
         if (fullname == '' || phone == '' || email == '' || content == '') {
             $.toast({
