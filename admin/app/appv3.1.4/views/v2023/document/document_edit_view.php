@@ -342,6 +342,8 @@
                 ed.on('change', function(e) {
                     $('#content').val(ed.getContent())
                     $('#content_pre').html(ed.getContent())
+                    tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.dom.select('img'), 'height', 'auto');
+                    tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.dom.select('img'), 'width', '100%');
                 });
             }
         });
