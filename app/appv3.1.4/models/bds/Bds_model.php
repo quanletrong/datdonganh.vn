@@ -58,11 +58,13 @@ class Bds_model extends CI_Model
         $iconn = $this->db->conn_id;
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
-        $where = "WHERE A.status = 1 AND A.is_vip = $is_vip AND A.is_home_vip = $is_home_vip ";
+        $where = "WHERE A.status = 1 ";
+
+        if ($is_vip != '')  $where          .= "AND A.is_vip = $is_vip ";
+        if ($is_home_vip != '')  $where     .= "AND A.is_home_vip = $is_home_vip ";
+        if ($id_commune_ward != '')  $where .= "AND A.id_commune_ward = $id_commune_ward ";
+
         $where .= " AND A.create_time_set <= '$current_time' ";
-
-        if ($id_commune_ward > 0)  $where           .= "AND A.id_commune_ward = $id_commune_ward ";
-
 
         $sql = "SELECT A.*, B.username, B.phonenumber, C.name as street, D.name as commune  FROM tbl_bds as A  
             LEFT JOIN tbl_user as B ON A.id_user = B.id_user 

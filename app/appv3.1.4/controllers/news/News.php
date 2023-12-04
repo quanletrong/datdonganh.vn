@@ -91,7 +91,7 @@ class News extends MY_Controller {
         $data['page'] = 'Tin tức';
         $data['info'] = $info;
         $data['article_view_top'] = $article_view_top;
-        $data['list_bds_by_commune'] = $list_bds_by_commune;
+        $data['list_bds_by_commune'] = $list_bds_by_commune['list'];
         $data['get_num_article_by_commune_ward'] = $get_num_article_by_commune_ward;
 
         $header = [

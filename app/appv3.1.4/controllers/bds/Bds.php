@@ -51,7 +51,7 @@ class Bds extends MY_Controller
         $data['cf_juridical'] = $cf_bds['juridical'];
 
         //top 10 bds cung khu vuc
-        $bds_palace_area = $this->Bds_model->get_list_by_top(0, 0, $bdsInfo['id_commune_ward'], 10, 0);
+        $bds_palace_area = $this->Bds_model->get_list_by_top('', '', $bdsInfo['id_commune_ward'], 10, 0);
         $data['bds_palace_area'] = $bds_palace_area;
 
         //top 10 bds noi bat
