@@ -30,7 +30,7 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $data;
     }
-    
+
     function get_all_tag_by($type, $id_bds)
     {
         $data = [];
@@ -57,10 +57,10 @@ class Bds_model extends CI_Model
         $data = [];
         $iconn = $this->db->conn_id;
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
-        
+
         $where = "WHERE A.status = 1 AND A.is_vip = $is_vip AND A.is_home_vip = $is_home_vip ";
         $where .= " AND A.create_time_set <= '$current_time' ";
-        
+
         if ($id_commune_ward > 0)  $where           .= "AND A.id_commune_ward = $id_commune_ward ";
 
 
@@ -72,7 +72,7 @@ class Bds_model extends CI_Model
             ORDER BY A.create_time_set DESC
             LIMIT $limit OFFSET $offset";
 
-            // var_dump($sql);die;
+        // var_dump($sql);die;
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {
@@ -81,25 +81,25 @@ class Bds_model extends CI_Model
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
                         $row['image_path'] = '';
-     
-                        if($row['images'] != ""){
+
+                        if ($row['images'] != "") {
                             $arr_img = json_decode($row['images'], true);
-                            
+
                             $img_first = array_shift($arr_img);
 
-                            
+
                             $year = date('Y', strtotime($row['create_time']));
                             $month = date('m', strtotime($row['create_time']));
                             $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $img_first;
                         }
 
                         // tiền + đơn vị tiền
-                        if($row['price_total']  < PRICE_ONE_BILLION) {
-                            $row['price_unit'] = PRICE_UNIT_TRIEU; 
-                            $row['price_view'] = $row['price_total']/PRICE_ONE_MILLION;
+                        if ($row['price_total']  < PRICE_ONE_BILLION) {
+                            $row['price_unit'] = PRICE_UNIT_TRIEU;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_MILLION;
                         } else {
-                            $row['price_unit'] = PRICE_UNIT_TY; 
-                            $row['price_view'] = $row['price_total']/PRICE_ONE_BILLION;
+                            $row['price_unit'] = PRICE_UNIT_TY;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_BILLION;
                         }
                         // end tiền + đơn vị tiền
 
@@ -129,7 +129,7 @@ class Bds_model extends CI_Model
                 ORDER BY A.create_time_set DESC
                 LIMIT $limit OFFSET $offset";
 
-            // var_dump($sql);die;
+        // var_dump($sql);die;
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {
@@ -138,25 +138,25 @@ class Bds_model extends CI_Model
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
                         $row['image_path'] = '';
-     
-                        if($row['images'] != ""){
+
+                        if ($row['images'] != "") {
                             $arr_img = json_decode($row['images'], true);
-                            
+
                             $img_first = array_shift($arr_img);
 
-                            
+
                             $year = date('Y', strtotime($row['create_time']));
                             $month = date('m', strtotime($row['create_time']));
                             $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $img_first;
                         }
 
                         // tiền + đơn vị tiền
-                        if($row['price_total']  < PRICE_ONE_BILLION) {
-                            $row['price_unit'] = PRICE_UNIT_TRIEU; 
-                            $row['price_view'] = $row['price_total']/PRICE_ONE_MILLION;
+                        if ($row['price_total']  < PRICE_ONE_BILLION) {
+                            $row['price_unit'] = PRICE_UNIT_TRIEU;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_MILLION;
                         } else {
-                            $row['price_unit'] = PRICE_UNIT_TY; 
-                            $row['price_view'] = $row['price_total']/PRICE_ONE_BILLION;
+                            $row['price_unit'] = PRICE_UNIT_TY;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_BILLION;
                         }
                         $data[$row['id_bds']] = $row;
                     }
@@ -169,7 +169,7 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $data;
     }
-    
+
     function get_num_bds_by_commune_ward()
     {
         $data = [];
@@ -189,11 +189,11 @@ class Bds_model extends CI_Model
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-  
+
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
                         $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
-                        
+
                         $data[$row['id_commune_ward']] = $row;
                     }
                 }
@@ -250,7 +250,6 @@ class Bds_model extends CI_Model
             if ($stmt->execute([$contact_name])) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $num_bds = $row['num_bds'];
-               
             } else {
                 var_dump($stmt->errorInfo());
                 die;
@@ -260,7 +259,8 @@ class Bds_model extends CI_Model
         return $num_bds;
     }
 
-    function get_total_bds_active() {
+    function get_total_bds_active()
+    {
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
         $total = 0;
         $iconn = $this->db->conn_id;
@@ -279,20 +279,20 @@ class Bds_model extends CI_Model
         return $total;
     }
 
-    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip,$is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
+    function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset)
     {
-        $data = [];
+        $data['list'] = [];
+        $data['total'] = 0;
         $iconn = $this->db->conn_id;
 
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $PARAMS = [];
         $WHERE = "WHERE 1=1 AND A.create_time_set <= '$current_time'";
-        
+
         if ($title != '') {
             $WHERE .= "AND A.title LIKE ? ";
             $PARAMS[] = "%$title%";
-
         }
 
         if ($moi_gioi != '') {
@@ -308,18 +308,18 @@ class Bds_model extends CI_Model
         if ($status != '')  $WHERE         .= "AND A.status = $status ";
         if ($type != '')  $WHERE           .= "AND A.type = $type ";
 
-        if($price_type == PRICE_TYPE_TOTAL) {
+        if ($price_type == PRICE_TYPE_TOTAL) {
             if ($f_price != '' && $t_price == '') $WHERE .= "AND A.price_total >= $f_price ";
             if ($f_price == '' && $t_price != '') $WHERE .= "AND A.price_total <= $t_price ";
             if ($f_price != '' && $t_price != '') $WHERE .= "AND A.price_total BETWEEN $f_price AND $t_price ";
         }
-        
-        if($price_type == PRICE_TYPE_M2) {
+
+        if ($price_type == PRICE_TYPE_M2) {
             if ($f_price != '' && $t_price == '') $WHERE .= "AND A.price_m2 >= $f_price ";
             if ($f_price == '' && $t_price != '') $WHERE .= "AND A.price_m2 <= $t_price ";
             if ($f_price != '' && $t_price != '') $WHERE .= "AND A.price_m2 BETWEEN $f_price AND $t_price ";
         }
-        
+
         if ($f_acreage != '' && $t_acreage == '') $WHERE .= "AND A.acreage >= $f_acreage ";
         if ($f_acreage == '' && $t_acreage != '') $WHERE .= "AND A.acreage <= $t_acreage ";
         if ($f_acreage != '' && $t_acreage != '') $WHERE .= "AND A.acreage BETWEEN $f_acreage AND $t_acreage ";
@@ -339,17 +339,21 @@ class Bds_model extends CI_Model
         if ($f_create == '' && $t_create != '')  $WHERE   .= "AND A.create_time <= '$t_create' ";
         if ($f_create != '' && $t_create != '')  $WHERE   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
 
-        $LIMIT = "";
-        if($limit !='' && $offset !='') $LIMIT .= "LIMIT $limit OFFSET $offset";
+        $LIMIT = "LIMIT $limit OFFSET $offset";
 
-        $sql = "
-            SELECT A.*, B.username, B.fullname, C.name as street, D.name as commune  FROM tbl_bds as A  
-            LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
-            LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
-            LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
+        $sql_list =
+            "SELECT A.*, B.username, B.fullname, C.name as street, D.name as commune  
+                FROM tbl_bds as A  
+                LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
+                LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
+                LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 
             $WHERE
             ORDER BY A.$orderby $sort , A.create_time_set DESC, A.status DESC 
-            $LIMIT ";
+            $LIMIT ;";
+
+        $sql_total = " SELECT count(*) as total  FROM tbl_bds as A  $WHERE ;";
+
+        $sql = $sql_list . $sql_total;
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             // $stmt->bindParam(':title', $title, PDO::PARAM_STR);
@@ -366,23 +370,28 @@ class Bds_model extends CI_Model
                         $row['main_img'] = get_path_image($row['create_time'], $first_img);
 
                         // danh sach anh
-                        foreach($list_img as $image_name) {
+                        foreach ($list_img as $image_name) {
                             $row['list_img'][] = get_path_image($row['create_time'], $image_name);
                         }
                         $row['year'] = $yearFolder;
                         $row['month'] = $monthFolder;
 
                         // tiền + đơn vị tiền
-                        if($row['price_total']  < PRICE_ONE_BILLION) {
-                            $row['price_unit'] = PRICE_UNIT_TRIEU; 
-                            $row['price_view'] = $row['price_total']/PRICE_ONE_MILLION;
+                        if ($row['price_total']  < PRICE_ONE_BILLION) {
+                            $row['price_unit'] = PRICE_UNIT_TRIEU;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_MILLION;
                         } else {
-                            $row['price_unit'] = PRICE_UNIT_TY; 
-                            $row['price_view'] = $row['price_total']/PRICE_ONE_BILLION;
+                            $row['price_unit'] = PRICE_UNIT_TY;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_BILLION;
                         }
-                        
-                        $data[$row['id_bds']] = $row;
+
+                        $data['list'][$row['id_bds']] = $row;
                     }
+                }
+
+                if ($stmt->nextRowSet()) {
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $data['total'] = $row['total'];
                 }
             } else {
                 var_dump($stmt->errorInfo());
@@ -403,12 +412,12 @@ class Bds_model extends CI_Model
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $sql = "";
-        foreach($price_list as $price){
+        foreach ($price_list as $price) {
             $from = @intval($price['from'] * PRICE_ONE_BILLION);
             $to = @intval($price['to'] * PRICE_ONE_BILLION);
-            if($from > 0 && $to > 0) {
+            if ($from > 0 && $to > 0) {
                 $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.price_total BETWEEN $from AND $to ; ";
-            } else if($from == 0){
+            } else if ($from == 0) {
                 $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.price_total <= $to ; ";
             } else {
                 $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.price_total >= $from ; ";
@@ -418,20 +427,18 @@ class Bds_model extends CI_Model
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {
-                foreach($price_list as $key => $price){
-                    $price_key = $price['from'].'-'.$price['to'];
-                    if($key == 0) {
+                foreach ($price_list as $key => $price) {
+                    $price_key = $price['from'] . '-' . $price['to'];
+                    if ($key == 0) {
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         $data[$price_key] = $row['total'];
                     } else {
-                        if ($stmt->nextRowSet())
-                        {
+                        if ($stmt->nextRowSet()) {
                             $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             $data[$price_key] = $row['total'];
                         }
                     }
                 }
-                
             } else {
                 var_dump($stmt->errorInfo());
                 die;
@@ -451,12 +458,12 @@ class Bds_model extends CI_Model
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $sql = "";
-        foreach($acreage_list as $acreage){
+        foreach ($acreage_list as $acreage) {
             $from = @intval($acreage['from']);
             $to = @intval($acreage['to']);
-            if($from > 0 && $to > 0) {
+            if ($from > 0 && $to > 0) {
                 $sql .= " SELECT count(*) as total  FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.acreage BETWEEN $from AND $to ; ";
-            } else if($from == 0){
+            } else if ($from == 0) {
                 $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.acreage <= $to ; ";
             } else {
                 $sql .= " SELECT count(*) as total FROM tbl_bds as A WHERE A.status = 1 AND create_time_set <= '$current_time' AND A.acreage >= $from ; ";
@@ -466,20 +473,18 @@ class Bds_model extends CI_Model
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {
-                foreach($acreage_list as $key => $acreage){
-                    $acreage_key = $acreage['from'].'-'.$acreage['to'];
-                    if($key == 0) {
+                foreach ($acreage_list as $key => $acreage) {
+                    $acreage_key = $acreage['from'] . '-' . $acreage['to'];
+                    if ($key == 0) {
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         $data[$acreage_key] = $row['total'];
                     } else {
-                        if ($stmt->nextRowSet())
-                        {
+                        if ($stmt->nextRowSet()) {
                             $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             $data[$acreage_key] = $row['total'];
                         }
                     }
                 }
-                
             } else {
                 var_dump($stmt->errorInfo());
                 die;
@@ -488,8 +493,8 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $data;
     }
-    
-    
+
+
     function get_all_favorite_bds_by_user($uid)
     {
         $data = [];
@@ -504,10 +509,10 @@ class Bds_model extends CI_Model
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute([$uid])) {
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
                     $data['ids'][] = $row['id_bds'];
-                    
+
                     $list_img = json_decode($row['images'], true);
                     $yearFolder = date('Y', strtotime($row['create_time']));
                     $monthFolder = date('m', strtotime($row['create_time']));
@@ -517,25 +522,23 @@ class Bds_model extends CI_Model
                     $row['main_img'] = get_path_image($row['create_time'], $first_img);
 
                     // danh sach anh
-                    foreach($list_img as $image_name) {
+                    foreach ($list_img as $image_name) {
                         $row['list_img'][] = get_path_image($row['create_time'], $image_name);
                     }
                     $row['year'] = $yearFolder;
                     $row['month'] = $monthFolder;
 
                     // tiền + đơn vị tiền
-                    if($row['price_total']  < PRICE_ONE_BILLION) {
-                        $row['price_unit'] = PRICE_UNIT_TRIEU; 
-                        $row['price_view'] = $row['price_total']/PRICE_ONE_MILLION;
+                    if ($row['price_total']  < PRICE_ONE_BILLION) {
+                        $row['price_unit'] = PRICE_UNIT_TRIEU;
+                        $row['price_view'] = $row['price_total'] / PRICE_ONE_MILLION;
                     } else {
-                        $row['price_unit'] = PRICE_UNIT_TY; 
-                        $row['price_view'] = $row['price_total']/PRICE_ONE_BILLION;
+                        $row['price_unit'] = PRICE_UNIT_TY;
+                        $row['price_view'] = $row['price_total'] / PRICE_ONE_BILLION;
                     }
 
                     $data['list'][$row['id_bds']] = $row;
-                        
                 }
-                
             } else {
                 var_dump($stmt->errorInfo());
                 die;
@@ -544,7 +547,7 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $data;
     }
-    
+
     function add_bds_favorite($bds_id, $uid)
     {
         $id = 0;
@@ -564,7 +567,7 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $id;
     }
-    
+
     function delete_bds_favorite($bds_id, $uid)
     {
         $execute = false;
@@ -583,7 +586,8 @@ class Bds_model extends CI_Model
         return $execute;
     }
 
-    function tang_luot_xem_bds($view, $id_bds) {
+    function tang_luot_xem_bds($view, $id_bds)
+    {
         $execute = false;
         $iconn = $this->db->conn_id;
         $sql = "UPDATE tbl_bds SET view=$view WHERE id_bds = $id_bds ;";

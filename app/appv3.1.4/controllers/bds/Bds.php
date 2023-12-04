@@ -123,10 +123,14 @@ class Bds extends MY_Controller
         $t_create        = '';
         $orderby         = trim($this->input->get('orderby'));
         $sort            = trim($this->input->get('sort'));
-        $limit           = 1000;
-        $offset          = 0;
+        $page            = trim($this->input->get('page'));
+        $limit           = 10;
 
+        // validate dư liệu input
         $id_commune_ward = is_array($id_commune_ward) ? $id_commune_ward : [];
+        $page            = is_numeric($page) && $page > 0 ? $page : 1;
+        $offset = ($page - 1) * $limit;
+        //end validate input
 
         // du lieu tim kiem
         $data['id_commune_ward'] = $id_commune_ward;
@@ -142,6 +146,8 @@ class Bds extends MY_Controller
         $data['is_vip']          = $is_vip;
         $data['orderby']         = $orderby;
         $data['sort']            = $sort;
+        $data['page']            = $page;
+        $data['limit']           = $limit;
 
         // check du lieu
         if ($f_price != '') {
@@ -160,7 +166,8 @@ class Bds extends MY_Controller
         $list_street =  $this->Street_model->get_list(1);
         $list_commune =  $this->Commune_model->get_list(1);
 
-        $data['list_bds'] = $list_bds;
+        $data['list_bds'] = $list_bds['list'];
+        $data['total'] = $list_bds['total'];
         $data['cf_bds'] = $this->config->item('bds');
         $data['list_street'] = $list_street;
         $data['list_commune'] = $list_commune;

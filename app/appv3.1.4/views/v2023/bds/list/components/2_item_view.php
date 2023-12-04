@@ -13,7 +13,7 @@
     </h1>
 
     <div class="d-flex justify-content-between mb-2">
-        <span class="">Hiện có <?= number_format(count($list_bds)) ?> bất động sản.</span>
+        <span class="">Hiện có <?= number_format($total) ?> bất động sản.</span>
 
     </div>
 </div>
@@ -21,7 +21,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-lg-9">
-            <?php $i = 1 ?>
+            <?php $i = ($page - 1) * $limit + 1 ?>
             <?php foreach ($list_bds as $id_bds => $bds) { ?>
                 <!-- BOX TREN PC -->
                 <div class="mb-3 shadow rounded d-none d-sm-block" style="border: 1px solid #dedede;">
@@ -44,8 +44,8 @@
                                 <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
                                     <div class="my-2">
                                         <h2 class="fs-6 fw-bold" style="color: #0c65ab;">
-                                            <span style="color: #9f9f9f"><?=$i++?>.</span>
-                                            <?=$bds['title'] ?>
+                                            <span style="color: #9f9f9f"><?= $i++ ?>.</span>
+                                            <?= $bds['title'] ?>
                                         </h2>
                                     </div>
 
@@ -165,28 +165,28 @@
             <?php } ?>
 
             <!-- PAGING -->
-            <div class="d-flex justify-content-center d-none">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination mt-3">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+            <div class="mt-5 d-flex justify-content-center">
+                <div id="paging"></div>
+                <script type='text/javascript'>
+                    $('#paging').bootstrapPaginator({
+                        currentPage: <?= $page ?>,
+                        totalPages: <?= ceil($total / $limit) ?>,
+                        itemContainerClass: function(type, page, current) {
+                            return (page === current) ? "active" : "pointer-cursor";
+                        },
+                        pageUrl: function(type, page, current) {
+
+                            var url = new URL(window.location.href);
+                            var search_params = url.searchParams;
+                            search_params.set('page', page);
+                            url.search = search_params.toString();
+                            return url.toString();
+                        }
+                    });
+                </script>
             </div>
+            <!-- PAGING -->
+
             <!-- TỪ KHÓA LIÊN QUAN -->
             <div class="mt-5">
                 <a class="fw-bold fs-6" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">

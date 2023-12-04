@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="skins/<?=VERSION?>select2.min.css" />
 <link rel="stylesheet" href="skins/<?=VERSION?>select2-bootstrap-5-theme.min.css" />
-<link rel="stylesheet" href="skins/<?=VERSION?>all.css"/>
+<link rel="stylesheet" href="skins/<?=VERSION?>all.css?v=1"/>
 
 <!-- SCRIPT -->
 <script src="js/<?=VERSION?>jquery_3.6.4.min.js"></script>
