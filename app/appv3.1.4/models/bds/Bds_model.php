@@ -287,17 +287,20 @@ class Bds_model extends CI_Model
 
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
-        $PARAMS = [];
+        $PARAMS_LIST = [];
+        $PARAMS_TOTAL = [];
         $WHERE = "WHERE 1=1 AND A.create_time_set <= '$current_time'";
 
         if ($title != '') {
             $WHERE .= "AND A.title LIKE ? ";
-            $PARAMS[] = "%$title%";
+            $PARAMS_LIST[] = "%$title%";
+            $PARAMS_TOTAL[] = "%$title%";
         }
 
         if ($moi_gioi != '') {
             $WHERE .= "AND A.contactname = ? ";
-            $PARAMS[] = $moi_gioi;
+            $PARAMS_LIST[] = $moi_gioi;
+            $PARAMS_TOTAL[] = $moi_gioi;
         }
 
         if ($category != '') $WHERE        .= "AND A.category = $category ";
@@ -339,7 +342,7 @@ class Bds_model extends CI_Model
         if ($f_create == '' && $t_create != '')  $WHERE   .= "AND A.create_time <= '$t_create' ";
         if ($f_create != '' && $t_create != '')  $WHERE   .= "AND A.create_time BETWEEN '$f_create' AND '$t_create' ";
 
-        if ($tag != '') $WHERE .= "AND A.id_bds IN (SELECT tbl_tag_assign.id_assign FROM tbl_tag_assign WHERE tbl_tag_assign.id_tag = $tag AND tbl_tag_assign.type_assign = ".TAG_BDS." )";
+        if ($tag != '') $WHERE .= "AND A.id_bds IN (SELECT tbl_tag_assign.id_assign FROM tbl_tag_assign WHERE tbl_tag_assign.id_tag = $tag AND tbl_tag_assign.type_assign = " . TAG_BDS . " )";
 
         $LIMIT = "LIMIT $limit OFFSET $offset";
 
@@ -359,7 +362,7 @@ class Bds_model extends CI_Model
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             // $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            if ($stmt->execute($PARAMS)) {
+            if ($stmt->execute(array_merge($PARAMS_LIST, $PARAMS_TOTAL))) {
                 // echo json_encode($stmt, true);die;
                 if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
