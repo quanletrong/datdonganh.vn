@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="container my-5">
-    <img src="https://tpc.googlesyndication.com/simgad/16381994165507055885" class="w-100 img-fluid" alt="Poster">
+    <img src="images/footer/dat-dong-anh-22.png" class="w-100 img-fluid" alt="Poster">
 </div>
 <!-- FOOTER -->
 <div class="contaier-fluid" style="background: #f2f2f2;">
@@ -112,7 +112,7 @@
         let phone = form.find('.phone').val();
         let email = form.find('.email').val();
         let content = form.find('.content').val();
-        let type = <?=CONTACT?>; // phản hổi người dùng
+        let type = <?= CONTACT ?>; // phản hổi người dùng
 
         if (fullname == '' || phone == '' || email == '' || content == '') {
             form.find('.error').show();
