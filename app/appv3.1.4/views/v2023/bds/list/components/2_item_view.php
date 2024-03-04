@@ -107,8 +107,8 @@
                 <div class="mb-4 d-block d-sm-none">
                     <div class="rounded border border-1 border-muted mb-3 shadow">
                         <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                            <div class="position-relative">
-                                <img src="<?= $bds['list_img'][0] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
+                            <div class="position-relative <?= $bds['is_vip'] ? 'ribbon-vip' : '' ?>">
+                                <img src="<?= $bds['list_img'][0] ?>" class="rounded-top img-fluid ratio" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
                             </div>
                         </a>
                         <div class="p-2">
