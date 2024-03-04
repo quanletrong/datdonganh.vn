@@ -450,6 +450,44 @@ class Bds extends MY_Controller
         resSuccess('ok');
     }
 
+    function ajax_update_vip()
+    {
+        if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {
+            resError('not_permit_func');
+        }
+
+        $vip   = removeAllTags($this->input->post('vip'));
+        $id_bds   = removeAllTags($this->input->post('id_bds'));
+
+        //check right
+        if (!in_array($vip, [BDS_VIP, BDS_THUONG])) {
+            resError('error_vip');
+        }
+
+        $id_bds = is_numeric($id_bds) && $id_bds > 0 ? $id_bds : 0;
+        $info   = $this->Bds_model->get_info($id_bds);
+        if (empty($info)) {
+            resError('not_exits_bds');
+        }
+
+        if ($this->_session_role() != SUPERADMIN) {
+            if ($info['id_user'] != $this->_session_uid()) {
+                resError('not_permit_bds');
+            }
+        }
+
+        if($vip == BDS_VIP) {
+            $total_vip = $this->Bds_model->get_total_vip_by_user(BDS_VIP, $info['id_user']);
+            if($total_vip >= 2) {
+                resError('Bạn chỉ được đặt tối đa 2 tin VIP');
+            }
+        }
+        //end check right
+
+        $this->Bds_model->update_vip($vip, $id_bds);
+        resSuccess('ok');
+    }
+
     function ajax_delete_bds()
     {
         if (!in_array($this->_session_role(), [ADMIN, SUPERADMIN])) {

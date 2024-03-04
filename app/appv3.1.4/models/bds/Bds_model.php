@@ -60,9 +60,9 @@ class Bds_model extends CI_Model
 
         $where = "WHERE A.status = 1 ";
 
-        if ($is_vip != '')  $where          .= "AND A.is_vip = $is_vip ";
-        if ($is_home_vip != '')  $where     .= "AND A.is_home_vip = $is_home_vip ";
-        if ($id_commune_ward != '')  $where .= "AND A.id_commune_ward = $id_commune_ward ";
+        if ($is_vip !== '')  $where          .= "AND A.is_vip = $is_vip ";
+        if ($is_home_vip !== '')  $where     .= "AND A.is_home_vip = $is_home_vip ";
+        if ($id_commune_ward !== '')  $where .= "AND A.id_commune_ward = $id_commune_ward ";
 
         $where .= " AND A.create_time_set <= '$current_time' ";
 
@@ -132,6 +132,63 @@ class Bds_model extends CI_Model
                 LIMIT $limit OFFSET $offset";
 
         // var_dump($sql);die;
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+            if ($stmt->execute()) {
+                // echo json_encode($stmt, true);die;
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                        $row['image_path'] = '';
+
+                        if ($row['images'] != "") {
+                            $arr_img = json_decode($row['images'], true);
+
+                            $img_first = array_shift($arr_img);
+
+
+                            $year = date('Y', strtotime($row['create_time']));
+                            $month = date('m', strtotime($row['create_time']));
+                            $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $img_first;
+                        }
+
+                        // tiền + đơn vị tiền
+                        if ($row['price_total']  < PRICE_ONE_BILLION) {
+                            $row['price_unit'] = PRICE_UNIT_TRIEU;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_MILLION;
+                        } else {
+                            $row['price_unit'] = PRICE_UNIT_TY;
+                            $row['price_view'] = $row['price_total'] / PRICE_ONE_BILLION;
+                        }
+                        $data[$row['id_bds']] = $row;
+                    }
+                }
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $data;
+    }
+
+    
+    function get_list_vip_home_v2($limit, $offset)
+    {
+        $data = [];
+        $iconn = $this->db->conn_id;
+        $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
+        $ADMIN = ADMIN;
+
+        $sql = 
+        "SELECT * 
+        FROM tbl_bds 
+        WHERE 
+            id_user in (SELECT id_user FROM tbl_user WHERE role = $ADMIN) 
+            AND is_vip = 1 
+            ORDER BY create_time_set DESC 
+            LIMIT $limit OFFSET $offset";
+
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             if ($stmt->execute()) {

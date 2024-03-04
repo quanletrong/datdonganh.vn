@@ -40,6 +40,7 @@
                             <th class="text-center" style="width: 50px;">ID</th>
                             <th style="min-width: 300px;">Bất động sản</th>
                             <th class="text-right" style="min-width: 90px; width: 90px;">Giá</th>
+                            <th class="text-center" style="min-width: 90px; width: 90px;">Loại Tin</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Xã</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
@@ -53,16 +54,26 @@
                                 <td class=" text-center  align-middle"><?= $index ?></td>
                                 <td class=" align-middle  align-middle">
                                     <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2" title="Sửa bài">
-                                        <?php if ($bds['is_vip']) { ?>
-                                            <span class="badge bg-warning">
-                                                TIN VIP
-                                            </span>
-                                        <?php } ?>
                                         <?= $bds['title'] ?>
                                     </a>
                                 </td>
                                 <td class=" text-right  align-middle">
                                     <?= getPrice($bds['price_total']) ?>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="drop_change_vip_<?= $bds['id_bds'] ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <?php if ($bds['is_vip'] == '1') { ?>
+                                                <span class="badge bg-warning">TIN VIP</span>
+                                            <?php } else { ?>
+                                                <span class="badge bg-secondary">TIN THƯỜNG</span>
+                                            <?php } ?>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="drop_change_vip_<?= $bds['id_bds'] ?>">
+                                            <button class="dropdown-item" type="button" onclick="drop_change_vip(1, <?= $bds['id_bds'] ?>)">TIN VIP</button>
+                                            <button class="dropdown-item" type="button" onclick="drop_change_vip(0, <?= $bds['id_bds'] ?>)">TIN THƯỜNG</button>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class=" text-center  align-middle">
                                     <?= $bds['commune'] ?>
@@ -248,5 +259,39 @@
                 }
             });
         }
+    }
+
+    function drop_change_vip(vip, id_bds) {
+        let old_html = $('#drop_change_vip_' + id_bds).html();
+        $('#drop_change_vip_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
+
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('bds/ajax_update_vip') ?>",
+            data: {
+                'vip': vip,
+                'id_bds': id_bds,
+            },
+            success: function(res) {
+                try {
+                    let resData = JSON.parse(res);
+                    if (resData.status) {
+
+                        if (vip) {
+                            $('#drop_change_vip_' + id_bds).html('<span class="badge bg-warning">TIN VIP</span>');
+                        } else {
+                            $('#drop_change_vip_' + id_bds).html('<span class="badge bg-secondary">TIN THƯỜNG</span>');
+
+                        }
+                        toasts_success();
+                    } else {
+                        toasts_danger(resData.error);
+                        $('#drop_change_vip_' + id_bds).html(old_html);
+                    }
+                } catch (error) {
+                    toasts_danger();
+                }
+            }
+        });
     }
 </script>

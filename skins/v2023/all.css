@@ -135,3 +135,36 @@ a {
 }
 
 /* end paging */
+
+/* ribbon-vip */
+.ribbon-vip {
+  position: relative;
+}
+.ribbon-vip::before {
+  position: absolute;
+  top: 23px;
+  left: -5px;
+  content: "";
+  background: #af2b38;
+  height: 28px;
+  width: 28px;
+  transform: rotate(45deg);
+  /* z-index:-1; */
+}
+.ribbon-vip::after {
+  position: absolute;
+  content: 'VIP';
+  top: 6.5px;
+  left: -11px;
+  padding: 0.3rem;
+  width: 5rem;
+  background: #dc3545;
+  color: white;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+
+  border-radius: 3px 5px 5px 0;
+}
+
+/* end ribbon-vip */

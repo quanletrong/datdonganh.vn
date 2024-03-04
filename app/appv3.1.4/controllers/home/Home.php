@@ -22,12 +22,17 @@ class Home extends MY_Controller {
             'active_link' => 'home',
             'header_page_css_js' => 'home'
         ];
+
         
-        $data['total_bds_active']                = $this->Bds_model->get_total_bds_active();
+        // TIN VIP (count($bds_vip))
         $data['bds_vip']                         = $this->Bds_model->get_list_by_top(BDS_VIP, '', '', 100000, 0);
-        $data['bds_home_vip']                    = $this->Bds_model->get_list_vip_home(12, 0);                             // tối đa hiện 12 tin vip
+        $data['bds_home_vip']                    = $this->Bds_model->get_list_vip_home_v2(15, 0); // tối đa hiện 15 tin vip
+
+        // TIN MỚI NHẤT (count($total_bds_active))
+        $data['total_bds_active']                = $this->Bds_model->get_total_bds_active();
         $limit_new_most                          = count($data['bds_home_vip']) < 12 ? 12 : count($data['bds_home_vip']);  // tối thiểu hiện 12 tin thường
-        $data['bds_new_most']                    = $this->Bds_model->get_list_by_top('', '', '', $limit_new_most, 0);
+        $data['bds_thuong']                      = $this->Bds_model->get_list_by_top(BDS_THUONG, '', '', $limit_new_most, 0);
+
         $data['street_and_num_bds']              = $this->Bds_model->get_num_bds_by_street();
         $data['get_num_bds_by_price']            = $this->Bds_model->get_num_bds_by_price();
         $data['get_num_bds_by_acreage']          = $this->Bds_model->get_num_bds_by_acreage();

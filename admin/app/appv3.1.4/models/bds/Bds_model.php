@@ -240,4 +240,44 @@ class Bds_model extends CI_Model
         $stmt->closeCursor();
         return $execute;
     }
+
+    function get_total_vip_by_user($vip, $id_user) {
+        $total = 0;
+        $iconn = $this->db->conn_id;
+        $sql = "SELECT count(*) as total FROM tbl_bds WHERE id_user = $id_user AND is_vip = $vip";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $total = $row['total'];
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $total;
+    }
+
+    function update_vip($vip, $id_bds)
+    {
+        $execute = false;
+        $iconn = $this->db->conn_id;
+        $sql = "UPDATE tbl_bds SET is_vip=$vip WHERE id_bds = $id_bds ;";
+
+        $stmt = $iconn->prepare($sql);
+        if ($stmt) {
+
+            if ($stmt->execute()) {
+                $execute = true;
+            } else {
+                var_dump($stmt->errorInfo());
+                die;
+            }
+        }
+        $stmt->closeCursor();
+        return $execute;
+    }
 }

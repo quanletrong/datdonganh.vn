@@ -28,9 +28,8 @@
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                <div style="position: relative;">
+                                <div style="position: relative;" class="<?= $bds['is_vip'] ? 'ribbon-vip' : '' ?>">
                                     <img src="<?= $bds['list_img'][0] ?>" class="w-100 ratio ratio-4x3 object-fit-cover" alt="" style="aspect-ratio: 4/3;object-fit: cover; ">
-                                    <!-- <div class="position-absolute bg-danger text-white px-2 fs-5 rounded-end fs-6 <?= $bds['is_vip'] ? '' : 'd-none' ?> " style="left: 0; top: 1rem">Tin VIP</div> -->
 
                                     <div class="p-2 w-100 fs-6 d-flex justify-content-end align-items-center gap-2" style="position: absolute; right: 0; bottom: 0; color: white; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);">
                                         <i class="fa-solid fa-image"></i>

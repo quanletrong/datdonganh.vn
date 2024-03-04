@@ -167,7 +167,7 @@ class Bds extends MY_Controller
         $direction = is_numeric($direction) && $direction > 0 ? $direction : '';
         $page      = is_numeric($page) && $page > 0 ? $page : 1;
         $is_vip    = in_array($is_vip, [BDS_VIP, BDS_THUONG]) ? $is_vip : '';
-        $orderby   = in_array($orderby, ['price_total', 'acreage', 'id_bds']) ? $orderby : 'is_vip';
+        $orderby   = in_array($orderby, ['price_total', 'acreage', 'id_bds']) ? $orderby : 'create_time_set';
         $sort      = in_array($sort, ['DESC', 'ASC']) ? $sort : 'DESC';
         $offset    = ($page - 1) * $limit;
         // END CHECK DU LIEU INPUT

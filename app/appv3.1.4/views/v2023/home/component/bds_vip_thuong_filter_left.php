@@ -32,10 +32,8 @@
 
                                 <div class="rounded mb-3 shadow">
                                     <a href="<?= $bds['slug_title'] . '-p' . $id_bds ?>">
-                                        <div class="position-relative">
-                                            <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
-                                            <div class="position-absolute bg-danger text-white px-2 rounded-end" style="left: 0; top: 1rem">Tin
-                                                VIP</div>
+                                        <div style="position: relative;" class="<?= $bds['is_vip'] ? 'ribbon-vip' : '' ?>">
+                                            <img src="<?= $bds['image_path'] ?>" class="rounded-top img-fluid ratio" alt="" style="aspect-ratio: 2/1; object-fit: cover;width: 100%; height: 100%;">
                                         </div>
                                     </a>
                                     <div class="p-2">
@@ -96,7 +94,7 @@
                         <a href="<?= LINK_NHA_DAT_BAN ?>">Tin mới nhất (<?= $total_bds_active ?>)</a>
                     </div>
                     <div class="row">
-                        <?php foreach ($bds_new_most as $id_bds => $bds) { ?>
+                        <?php foreach ($bds_thuong as $id_bds => $bds) { ?>
                             <div class="mb-4">
 
                                 <div class="rounded border border-1 border-muted mb-3 shadow">
