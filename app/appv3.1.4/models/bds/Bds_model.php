@@ -295,18 +295,18 @@ class Bds_model extends CI_Model
         return $data;
     }
 
-    function get_num_bds_by_contact_name($contact_name)
+    function get_num_bds_by_user($id_user)
     {
         $num_bds = 0;
         $iconn = $this->db->conn_id;
         $current_time = date('Y-m-d H:i:s'); // thời gian hiện tại
 
         $sql = "SELECT count(*) as num_bds  FROM tbl_bds as A
-            WHERE A.status = 1 AND A.create_time_set <= '$current_time' AND A.contactname LIKE ? ";
+            WHERE A.status = 1 AND A.create_time_set <= '$current_time' AND A.id_user = ? ";
 
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            if ($stmt->execute([$contact_name])) {
+            if ($stmt->execute([$id_user])) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $num_bds = $row['num_bds'];
             } else {
@@ -338,6 +338,7 @@ class Bds_model extends CI_Model
         return $total;
     }
 
+    // TODO: validate 
     function get_list($category, $id_commune_ward, $id_street, $id_project, $id_user, $status, $type, $title, $f_price, $t_price, $price_type, $f_acreage, $t_acreage, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $moi_gioi, $is_vip, $is_home_vip, $f_expired, $t_expired, $f_create, $t_create, $orderby, $sort, $limit, $offset, $tag)
     {
         $data['list'] = [];
@@ -357,7 +358,7 @@ class Bds_model extends CI_Model
         }
 
         if ($moi_gioi != '') {
-            $WHERE .= "AND A.contactname = ? ";
+            $WHERE .= "AND A.id_user = ? ";
             $PARAMS_LIST[] = $moi_gioi;
             $PARAMS_TOTAL[] = $moi_gioi;
         }

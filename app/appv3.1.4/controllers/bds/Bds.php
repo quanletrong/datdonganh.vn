@@ -12,6 +12,7 @@ class Bds extends MY_Controller
         $this->load->model('commune/Commune_model');
         $this->load->model('street/Street_model');
         $this->load->model('tag/Tag_model');
+        $this->load->model('account/Account_model');
     }
 
     // chi tiết bất động sản
@@ -60,8 +61,9 @@ class Bds extends MY_Controller
         //get all tag 
         $data['tags'] = $this->Bds_model->get_all_tag_by(TAG_BDS, $bdsInfo['id_bds']);
 
-        // get num_bds by contact name
-        $data['get_num_bds_by_contact_name'] = $this->Bds_model->get_num_bds_by_contact_name($bdsInfo['contactname']);
+        // get num_bds by user
+        $data['user'] = $this->Account_model->get_user_info_by_uid($bdsInfo['id_user']);
+        $data['get_num_bds_by_user'] = $this->Bds_model->get_num_bds_by_user($bdsInfo['id_user']);
 
         $data['list_commune'] = $this->Commune_model->get_list(1);
 
@@ -209,7 +211,8 @@ class Bds extends MY_Controller
         // làm tiêu đề SEO
         $seo_title = "Bất động sản Đông Anh";
         if ($moi_gioi != '') {
-            $seo_title .= ", của " . htmlentities($moi_gioi);
+            $info_moi_gioi = $this->Account_model->get_user_info_by_uid($moi_gioi);
+            $seo_title .= ", của " . htmlentities(@$info_moi_gioi['fullname']);
         }
         if ($id_commune_ward != []) {
             $dia_diem = [];

@@ -443,28 +443,28 @@
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Tên liên hệ <span class="text-danger">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="contactname" value="<?= $info['contactname'] ?>">
+                                    <input type="text" class="form-control" style="width:75%" name="contactname" value="<?= $info['contactname'] ?>" disabled>
                                 </div>
 
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Địa chỉ </label>
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="contactaddress" value="<?= $info['contactaddress'] ?>">
+                                    <input type="text" class="form-control" style="width:75%" name="contactaddress" value="<?= $info['contactaddress'] ?>" disabled>
                                 </div>
 
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Điện thoại <span class="text-danger">*</span></label>
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="contactphone" value="<?= $info['contactphone'] ?>">
+                                    <input type="text" class="form-control" style="width:75%" name="contactphone" value="<?= $info['contactphone'] ?>" disabled>
                                 </div>
 
                                 <div class="form-group d-flex align-items-center justify-content-between flex-wrap mb-2 w-50">
                                     <div class="me-2 w-25" style="text-align: end;">
                                         <label class="m-0 p-0 pr-1">Email </label>
                                     </div>
-                                    <input type="text" class="form-control" style="width:75%" name="contactemail" value="<?= $info['contactemail'] ?>">
+                                    <input type="text" class="form-control" style="width:75%" name="contactemail" value="<?= $info['contactemail'] ?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -486,7 +486,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-none">
                                     <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
                                         <div class="me-2 w-50" style="text-align: end;">
                                             <label class="m-0 p-0 pr-1">Hiển thị <span class="text-danger">*</span></label>

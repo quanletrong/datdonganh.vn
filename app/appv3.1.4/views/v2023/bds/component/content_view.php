@@ -151,14 +151,15 @@
                                     <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;"><?= $bds['title'] ?></div>
                                 </a>
                                 <div class="d-flex justify-content-between">
+                                    <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                    <div class="mb-1">·</div>
+                                    <div class="text-danger fw-bold">
+                                        <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
+                                    </div>
+                                    <div class="mb-1">·</div>
                                     <div class="text-danger fw-bold">
                                         <?= getPrice($bds['price_total']) ?>
                                     </div>
-                                    <div class="mb-1">·</div>
-                                    <div class="text-danger fw-bold">
-                                    </div>
-                                    <div class="mb-1">·</div>
-                                    <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center">
@@ -220,33 +221,23 @@
 
             </div>
 
-            <!--  -->
-            <!-- <hr class="text-muted mt-5"> -->
-            <div class="mt-2 d-none">
-                Quý vị đang xem nội dung tin rao "<strong style="font-weight: bold"><?php echo $bdsInfo['title']; ?>. LH: <?php echo $bdsInfo['contactphone'] ?></strong> - <strong style="font-weight: bold">Mã tin #bds<?php echo $bdsInfo['id_bds']; ?></strong>.
-                Mọi thông tin, nội dung liên quan tới tin rao này là do người đăng tin đăng tải và chịu trách nhiệm.
-                datdonganh.vn luôn cố gắng để các thông tin được hữu ích nhất cho quý vị tuy nhiên datdonganh.vn không đảm bảo và không chịu trách nhiệm về bất kỳ thông tin, nội dung nào liên quan tới tin rao này.
-                <span class="d-none">Trường hợp phát hiện nội dung tin đăng không chính xác, Quý vị hãy thông báo và cung cấp thông tin cho Ban quản trị datdonganh.vn theo <strong style="font-weight: bold">Hotline 0962542998 hoặc 0974986363</strong> để được hỗ trợ nhanh và kịp thời nhất.</span>
-            </div>
-
-
         </div>
         <div class="col-lg-4">
             <div class="" style="z-index: auto; top:70px">
                 <div class="card">
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $bdsInfo['contactname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
+                        <img src="<?= $user['avatar'] != '' ? url_image($user['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $user['fullname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
-                        <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['contactname']; ?></div>
-                        <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bdsInfo['contactname']) ?>">
-                            <div class="">Xem thêm <?= $get_num_bds_by_contact_name ?> tin khác</div>
+                        <div class="fw-semibold fs-5 text-truncate"><?php echo $user['fullname']; ?></div>
+                        <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($user['id_user']) ?>">
+                            <div class="">Xem thêm <?= $get_num_bds_by_user ?> tin khác</div>
                         </a>
 
                         <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);">
-                            <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                            <a href="tel:<?php echo $user['phonenumber'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $user['phonenumber'] ?></a>
                         </button>
 
-                        <a href="mailto:<?= $bdsInfo['contactemail'] ?>" class="mt-2 w-100">
+                        <a href="mailto:<?= $user['email'] ?>" class="mt-2 w-100">
                             <button class="btn btn-outline-secondary w-100">Gửi email</button>
                         </a>
 
@@ -365,6 +356,7 @@
                 'direction': '<?php echo $bdsInfo['direction_name']; ?>',
                 'create_time': 'Đăng <?php echo timeSince($bds['create_time_set']) ?> trước',
                 'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
+                'is_vip': '<?php echo $bdsInfo['is_vip']; ?>'
             }
             localStorage.setItem("BDS_WATCHED", JSON.stringify(bds));
         } else {
@@ -387,7 +379,8 @@
                     'commune': '<?php echo $bdsInfo['commune_name']; ?>',
                     'direction': '<?php echo $bdsInfo['direction_name']; ?>',
                     'create_time': 'Đăng <?php echo timeSince($bds['create_time_set']) ?> trước',
-                    'slug_title': '<?php echo $bdsInfo['slug_title']; ?>'
+                    'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
+                    'is_vip': '<?php echo $bdsInfo['is_vip']; ?>'
                 }
 
                 obj_bds_watched = {
@@ -411,6 +404,7 @@
                     'direction': '<?php echo $bdsInfo['direction_name']; ?>',
                     'create_time': 'Đăng <?php echo timeSince($bds['create_time_set']) ?> trước',
                     'slug_title': '<?php echo $bdsInfo['slug_title']; ?>',
+                    'is_vip': '<?php echo $bdsInfo['is_vip']; ?>',
                 }
                 obj_bds_watched = {
                     [id_bds_watched]: bds,
@@ -438,8 +432,8 @@
                 `
                     <div class="rounded border border-1 mb-3 shadow ">
                         <a href="${val.slug_title}-p${id}">
-                            <div class="position-relative">
-                                <img src="${val.image_path}" class="rounded-top img-fluid" alt="${val.title}" style="aspect-ratio: 2/1; object-fit: cover;">
+                            <div class="position-relative ${val.is_vip ? 'ribbon-vip' : ''}">
+                                <img src="${val.image_path}" class="rounded-top img-fluid ratio" alt="${val.title}" style="aspect-ratio: 2/1; object-fit: cover;">
                             </div>
                         </a>
                         <div class="p-2">
@@ -447,16 +441,16 @@
                                 <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.5rem;">${val.title}</div>
                             </a>
                             <div class="d-flex justify-content-between">
-                                <div class="text-danger fw-bold">
-                                    ${val.price_view}
-                                    ${val.price_unit == '1' ? 'triệu' : 'tỷ' }
-                                </div>
+                                <div class="text-danger  fw-bold">${val.acreage}</div>
                                 <div class="mb-1">·</div>
                                 <div class="text-danger fw-bold">
                                     ${ (parseInt(val.price_total) / parseInt(val.acreage) / parseInt(PRICE_ONE_MILLION)).toFixed(2)} tr/m²
                                 </div>
                                 <div class="mb-1">·</div>
-                                <div class="text-danger  fw-bold">${val.acreage}</div>
+                                <div class="text-danger fw-bold">
+                                    ${val.price_view}
+                                    ${val.price_unit == '1' ? 'triệu' : 'tỷ' }
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">

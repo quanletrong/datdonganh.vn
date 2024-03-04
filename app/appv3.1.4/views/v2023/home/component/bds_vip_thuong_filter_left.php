@@ -41,15 +41,15 @@
                                             <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.6rem; line-height: 1.3rem;"><?= $bds['title'] ?></div>
                                         </a>
                                         <div class="d-flex justify-content-between">
-                                            <div class="text-danger fw-bold">
-                                                <?= getPrice($bds['price_total']) ?>
-                                            </div>
+                                            <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
                                             <div class="mb-1">·</div>
                                             <div class="text-danger fw-bold">
                                                 <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
                                             </div>
                                             <div class="mb-1">·</div>
-                                            <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                            <div class="text-danger fw-bold">
+                                                <?= getPrice($bds['price_total']) ?>
+                                            </div>
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center">
@@ -108,15 +108,15 @@
                                             <div class="fw-semibold text-truncate text-wrap hover-link-red" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.6rem; line-height: 1.3rem;"><?= $bds['title'] ?></div>
                                         </a>
                                         <div class="d-flex justify-content-between">
-                                            <div class="text-danger fw-bold">
-                                                <?= getPrice($bds['price_total']) ?>
-                                            </div>
+                                            <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
                                             <div class="mb-1">·</div>
                                             <div class="text-danger fw-bold">
                                                 <?= getPriceM2($bds['price_total'], $bds['acreage']) ?>
                                             </div>
                                             <div class="mb-1">·</div>
-                                            <div class="text-danger  fw-bold"><?= $bds['acreage'] ?> m²</div>
+                                            <div class="text-danger fw-bold">
+                                                <?= getPrice($bds['price_total']) ?>
+                                            </div>
                                         </div>
 
                                         <div class="d-flex justify-content-between align-items-center">

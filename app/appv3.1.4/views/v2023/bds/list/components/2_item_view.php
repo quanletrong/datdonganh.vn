@@ -83,9 +83,9 @@
 
                                         <div class="d-flex justify-content-between align-items-center gap-2">
 
-                                            <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bds['contactname']) ?>">
+                                            <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bds['id_user']) ?>">
                                                 <button class="btn btn-sm text-light" style="background-color: rgb(158 158 158); font-size: 0.85rem; padding: 3px;">
-                                                    <?= $bds['contactname'] ?>
+                                                    <?= $bds['fullname'] ?>
                                                 </button>
                                             </a>
 
