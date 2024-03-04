@@ -13,7 +13,7 @@ class Bds_model extends CI_Model
     {
         $data = [];
         $iconn = $this->db->conn_id;
-        $sql = " SELECT A.*, B.name as commune_name, C.name as street_name, D.avatar as avatar FROM tbl_bds as A  
+        $sql = " SELECT A.*, B.name as commune_name, C.name as street_name, D.fullname, D.phonenumber, D.email, D.avatar as avatar FROM tbl_bds as A  
             LEFT JOIN tbl_commune_ward as B ON A.id_commune_ward = B.id_commune_ward  
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street
             LEFT JOIN tbl_user as D ON A.id_user = D.id_user
@@ -407,7 +407,7 @@ class Bds_model extends CI_Model
         $LIMIT = "LIMIT $limit OFFSET $offset";
 
         $sql_list =
-            "SELECT A.*, B.username, B.fullname, C.name as street, D.name as commune  
+            "SELECT A.*, B.username, B.fullname, B.phonenumber, B.email, C.name as street, D.name as commune  
                 FROM tbl_bds as A  
                 LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
                 LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
@@ -566,7 +566,7 @@ class Bds_model extends CI_Model
         $data['ids'] = [];
         $data['list'] = [];
         $iconn = $this->db->conn_id;
-        $sql = " SELECT A.*, B.username, B.fullname, C.name as street, D.name as commune  FROM tbl_bds as A 
+        $sql = " SELECT A.*, B.username, B.fullname, B.phonenumber, B.email, C.name as street, D.name as commune  FROM tbl_bds as A 
             LEFT JOIN tbl_user as B ON A.id_user = B.id_user 
             LEFT JOIN tbl_street as C ON A.id_street = C.id_street 
             LEFT JOIN tbl_commune_ward as D ON A.id_commune_ward = D.id_commune_ward 

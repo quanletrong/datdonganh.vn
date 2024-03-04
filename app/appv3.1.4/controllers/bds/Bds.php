@@ -62,7 +62,6 @@ class Bds extends MY_Controller
         $data['tags'] = $this->Bds_model->get_all_tag_by(TAG_BDS, $bdsInfo['id_bds']);
 
         // get num_bds by user
-        $data['user'] = $this->Account_model->get_user_info_by_uid($bdsInfo['id_user']);
         $data['get_num_bds_by_user'] = $this->Bds_model->get_num_bds_by_user($bdsInfo['id_user']);
 
         $data['list_commune'] = $this->Commune_model->get_list(1);

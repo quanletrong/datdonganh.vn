@@ -47,7 +47,7 @@
                 <div class="mt-sm-2 d-none d-md-block">
                     <div class="d-flex" style="gap:15px">
                         <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);">
-                            <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                            <a href="tel:<?php echo $bdsInfo['phonenumber'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['phonenumber'] ?></a>
                         </button>
 
                         <div class="dropdown">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="mt-3 d-flex" style="gap:15px">
                     <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);">
-                        <a href="tel:<?php echo $bdsInfo['contactphone'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['contactphone'] ?></a>
+                        <a href="tel:<?php echo $bdsInfo['phonenumber'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['phonenumber'] ?></a>
                     </button>
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -226,18 +226,18 @@
             <div class="" style="z-index: auto; top:70px">
                 <div class="card">
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="<?= $user['avatar'] != '' ? url_image($user['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $user['fullname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
+                        <img src="<?= $bdsInfo['avatar'] != '' ? url_image($bdsInfo['avatar'], FOLDER_AVATAR) : 'images/avatar-default.png' ?> " class="rounded-circle w-25" alt="<?php echo $bdsInfo['fullname']; ?>" style=" aspect-ratio: 1; object-fit: cover;">
                         <div class="text-muted mt-2" style="font-size: 0.875rem;">Được đăng bởi</div>
-                        <div class="fw-semibold fs-5 text-truncate"><?php echo $user['fullname']; ?></div>
-                        <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($user['id_user']) ?>">
+                        <div class="fw-semibold fs-5 text-truncate"><?php echo $bdsInfo['fullname']; ?></div>
+                        <a href="<?= LINK_NHA_DAT_BAN . '?moi-gioi=' . urlencode($bdsInfo['id_user']) ?>">
                             <div class="">Xem thêm <?= $get_num_bds_by_user ?> tin khác</div>
                         </a>
 
                         <button class="btn text-light mt-2 w-100" style="background-color: rgb(7 152 83);">
-                            <a href="tel:<?php echo $user['phonenumber'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $user['phonenumber'] ?></a>
+                            <a href="tel:<?php echo $bdsInfo['phonenumber'] ?>"><i class="fa-solid fa-phone-volume"></i> <?php echo $bdsInfo['phonenumber'] ?></a>
                         </button>
 
-                        <a href="mailto:<?= $user['email'] ?>" class="mt-2 w-100">
+                        <a href="mailto:<?= $bdsInfo['email'] ?>" class="mt-2 w-100">
                             <button class="btn btn-outline-secondary w-100">Gửi email</button>
                         </a>
 

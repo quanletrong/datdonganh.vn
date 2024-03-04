@@ -165,9 +165,11 @@
                                             <div style="width: calc(3/6*100%)">
                                                 <img src="<?= $bds['list_img'][2] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;padding-right: 3px;">
                                             </div>
+                                            <?php if(isset($bds['list_img'][3])) {?>
                                             <div style="width: calc(3/6*100%)">
                                                 <img src="<?= $bds['list_img'][3] ?>" class="w-100 ratio ratio-1x1 object-fit-cover" alt="" style="aspect-ratio: 1;object-fit: cover;">
                                             </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <div class="position-absolute bg-danger text-white px-3 fs-5 rounded-end <?= $bds['is_vip'] ? '' : 'd-none' ?>" style="left: 0; top: 1rem">Tin VIP</div>
@@ -218,17 +220,17 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center" style="gap:10px">
                                     <div class="text-danger" style="height: 30px;width: 30px;background-color: #bbb;border-radius: 50%;display: inline-block; text-align: center; font-weight: bold; line-height: 2.0;">
-                                        <?= $bds['contactname'][0] ?? null ?>
+                                        <?= $bds['fullname'][0] ?? null ?>
 
                                     </div>
                                     <div>
-                                        <div class="fw-semibold" style="font-size: 0.9rem;"><?= $bds['contactname'] ?></div>
+                                        <div class="fw-semibold" style="font-size: 0.9rem;"><?= $bds['fullname'] ?></div>
                                         <div class="text-muted" style="font-size: 0.8rem;">Đăng <?php echo timeSince($bds['create_time_set']) ?> trước</div>
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="tel:<?= $bds['contactphone'] ?>">
-                                        <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
+                                    <a href="tel:<?= $bds['phonenumber'] ?>">
+                                        <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83);"><i class="fa-solid fa-phone-volume"></i> <?= $bds['phonenumber'] ?></button>
                                     </a>
                                     <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
 

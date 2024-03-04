@@ -89,8 +89,8 @@
                                                 </button>
                                             </a>
 
-                                            <a href="tel:<?= $bds['contactphone'] ?>">
-                                                <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83); font-size: 0.85rem; padding: 3px;"><i class="fa-solid fa-phone-volume"></i> <?= $bds['contactphone'] ?></button>
+                                            <a href="tel:<?= $bds['phonenumber'] ?>">
+                                                <button class="btn btn-sm text-light" style="background-color: rgb(7 152 83); font-size: 0.85rem; padding: 3px;"><i class="fa-solid fa-phone-volume"></i> <?= $bds['phonenumber'] ?></button>
                                             </a>
 
                                             <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>" style=" font-size: 0.85rem; padding: 3px 5px"><i class="fa-regular fa-heart"></i></button>
