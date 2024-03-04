@@ -221,7 +221,7 @@
             </div>
 
             <!--  -->
-            <hr class="text-muted mt-5">
+            <!-- <hr class="text-muted mt-5"> -->
             <div class="mt-2 d-none">
                 Quý vị đang xem nội dung tin rao "<strong style="font-weight: bold"><?php echo $bdsInfo['title']; ?>. LH: <?php echo $bdsInfo['contactphone'] ?></strong> - <strong style="font-weight: bold">Mã tin #bds<?php echo $bdsInfo['id_bds']; ?></strong>.
                 Mọi thông tin, nội dung liên quan tới tin rao này là do người đăng tin đăng tải và chịu trách nhiệm.
