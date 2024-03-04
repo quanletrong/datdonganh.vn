@@ -139,6 +139,7 @@ a {
 /* ribbon-vip */
 .ribbon-vip {
   position: relative;
+  
 }
 .ribbon-vip::before {
   position: absolute;
@@ -156,14 +157,14 @@ a {
   content: 'VIP';
   top: 6.5px;
   left: -11px;
-  padding: 0.3rem;
+  /* padding: 0.3rem; */
   width: 5rem;
   background: #dc3545;
-  color: white;
+  font-size: 1.25rem;
+  color: #fdcf00;
   text-align: center;
   font-family: "Roboto", sans-serif;
   box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
-
   border-radius: 3px 5px 5px 0;
 }
 
