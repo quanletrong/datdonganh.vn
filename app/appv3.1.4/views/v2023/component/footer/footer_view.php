@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <div class="container my-5">
-    <img src="images/footer/dat-dong-anh-22.png" class="w-100 img-fluid" alt="Poster">
+    <img src="images/footer/dat-dong-anh.png" class="w-100 img-fluid" alt="Poster">
 </div>
 <!-- FOOTER -->
 <div class="contaier-fluid" style="background: #f2f2f2;">
