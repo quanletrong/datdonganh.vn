@@ -63,7 +63,7 @@
                             </ul>
                         </div>
                     </div>
-                    <input type="hidden" id="data-pills-auction" class="data-json" value='<?php echo json_encode($auctions); ?>' />
+                    <input type="hidden" id="data-pills-auction" class="data-json" value="<?php echo htmlspecialchars(json_encode($auctions)); ?>" />
                 </div>
                 <div class="tab-pane" id="pills-document" role="tabpanel" aria-labelledby="pills-law-land-tab" tabindex="0">
                     <div class="row">
@@ -85,7 +85,7 @@
                             </ul>
                         </div>
                     </div>
-                    <input type="hidden" id="data-pills-document" class="data-json" value='<?php echo json_encode($documents); ?>' />
+                    <input type="hidden" id="data-pills-document" class="data-json" value="<?php echo htmlspecialchars(json_encode($documents)); ?>" />
                 </div>
             </div>
         </div>

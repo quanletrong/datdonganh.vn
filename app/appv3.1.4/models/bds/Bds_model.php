@@ -92,7 +92,7 @@ class Bds_model extends CI_Model
 
                             $year = date('Y', strtotime($row['create_time']));
                             $month = date('m', strtotime($row['create_time']));
-                            $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $img_first;
+                            $row['image_path'] = url_image($img_first, PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
                         }
 
                         // tiền + đơn vị tiền
@@ -149,7 +149,7 @@ class Bds_model extends CI_Model
 
                             $year = date('Y', strtotime($row['create_time']));
                             $month = date('m', strtotime($row['create_time']));
-                            $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $img_first;
+                            $row['image_path'] = url_image($img_first, PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
                         }
 
                         // tiền + đơn vị tiền
@@ -206,7 +206,7 @@ class Bds_model extends CI_Model
 
                             $year = date('Y', strtotime($row['create_time']));
                             $month = date('m', strtotime($row['create_time']));
-                            $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $img_first;
+                            $row['image_path'] = url_image($img_first, PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
                         }
 
                         // tiền + đơn vị tiền
@@ -251,7 +251,7 @@ class Bds_model extends CI_Model
 
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
-                        $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+                        $row['image_path'] = url_image($row['image'], PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
 
                         $data[$row['id_commune_ward']] = $row;
                     }

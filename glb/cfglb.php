@@ -6,12 +6,12 @@ else
 	define('HTTP_PROTOCOL', 'https');
 
 	//safelist db
-    define('DB_MASTER_HOST', '82.180.152.103');
+    define('DB_MASTER_HOST', 'localhost'); // 82.180.152.103
     define('DB_MASTER_USER', 'u966959669_root');
     define('DB_MASTER_PASS', 'Lequan@FJ2002_v1');
     define('DB_MASTER_DBNAME', 'u966959669_datdonganh');
 
-    define('DB_SLAVE_HOST', '82.180.152.103');
+    define('DB_SLAVE_HOST', 'localhost'); // 82.180.152.103
     define('DB_SLAVE_USER', 'u966959669_root');
     define('DB_SLAVE_PASS', 'Lequan@FJ2002_v1');
     define('DB_SLAVE_DBNAME', 'u966959669_datdonganh');

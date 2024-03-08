@@ -55,7 +55,8 @@ class Articles_model extends CI_Model
                         $row['image_path'] = '';
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
-                        $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+                        
+                        $row['image_path'] = url_image($row['image'], PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
 
                         if($row['type'] == NEWS) {
                             $loai = LINK_TIN_TUC;
@@ -101,7 +102,7 @@ class Articles_model extends CI_Model
                         $row['image_path'] = '';
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
-                        $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+                        $row['image_path'] = url_image($row['image'], PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
                         $data[$row['id_articles']] = $row;
                     }
                 }
@@ -133,7 +134,7 @@ class Articles_model extends CI_Model
   
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
-                        $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+                        $row['image_path'] = url_image($row['image'], PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
                         
                         $data[$row['id_commune_ward']] = $row;
                     }
