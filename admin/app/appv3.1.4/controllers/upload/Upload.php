@@ -66,7 +66,8 @@ class Upload extends MY_Controller
             $FILE['type']     = $_FILES['file']['type'];
             $FILE['error']    = $_FILES['file']['error'];
 
-            $WATER_MARK = 0; // TODO: tạm thời ko chèn logo, sau bổ sung nút tích chon
+            $WATER_MARK = $this->input->get('logo');
+            $WATER_MARK = in_array($WATER_MARK, ['1', '0']) ? $WATER_MARK : '0';
 
             $data = $this->_handle_upload($FILE, $WATER_MARK, TMP_UPLOAD_PATH);
 

@@ -333,11 +333,15 @@
         });
 
         function example_image_upload_handler(blobInfo, success, failure, progress) {
+            let logo = 0;
+            if(confirm('Bạn muốn chèn logo vào ảnh này không? Bấm OK để chèn.')) {
+                logo = 1;
+            }
             var xhr, formData;
 
             xhr = new XMLHttpRequest();
             xhr.withCredentials = false;
-            xhr.open('POST', 'upload/tinymce');
+            xhr.open('POST', 'upload/tinymce?logo='+logo);
 
             xhr.upload.onprogress = function(e) {
                 progress(e.loaded / e.total * 100);
