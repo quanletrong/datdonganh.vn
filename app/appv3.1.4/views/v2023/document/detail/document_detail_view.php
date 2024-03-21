@@ -142,7 +142,7 @@
                 for (const [id, val] of Object.entries(res)) {
 
                     //get date
-                    var date = new Date(val.create_time);
+                    var date = new Date(val.create_time_set);
                     var year = date.getFullYear();
                     var month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
                     var day = String(date.getDate()).padStart(2, '0');

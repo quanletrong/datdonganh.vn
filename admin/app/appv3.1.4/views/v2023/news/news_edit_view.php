@@ -85,6 +85,12 @@
                                     </select>
                                     <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-tag-add">Thêm tag</button>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Sửa ngày tạo:</label>
+                                    <input type="text" class="form-control" id="create_time_set" />
+                                    <input type="hidden" name="create_time_set" id="hidden_create_time_set" value="<?= $info['create_time_set'] ?>" />
+                                </div>
                             </div>
                             <div class="col-md-6">
 
@@ -398,6 +404,22 @@
 
             xhr.send(formData);
         };
+
+        $('#create_time_set').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker24Hour": true,
+            "timePicker": true,
+            "showDropdowns": true,
+            "autoApply": true,
+            "startDate": "<?= $info['create_time_set'] ?>",
+            "endDate": "<?= $info['create_time_set'] ?>",
+            "locale": {
+                "format": 'YYYY-MM-DD HH:mm:ss'
+            }
+        }, function(start, end, label) {
+            console.log(start.format('YYYY-MM-D HH:mm:ss'))
+            $('#hidden_create_time_set').val(start.format('YYYY-MM-D HH:mm:ss'));
+        });
     });
     // end jquery
 

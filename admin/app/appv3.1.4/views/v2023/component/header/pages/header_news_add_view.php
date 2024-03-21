@@ -16,3 +16,9 @@
 
 <!-- tinymce -->
 <script src="js/v2023/tinymce-5-8-2/tinymce.min.js"></script>
+
+<!-- daterange picker -->
+<link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>

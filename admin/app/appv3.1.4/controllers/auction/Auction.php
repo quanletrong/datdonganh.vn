@@ -166,7 +166,7 @@ class Auction extends MY_Controller
         //conver json image => arr image
         $year = date('Y', strtotime($info['create_time']));
         $monthe = date('m', strtotime($info['create_time']));
-        $image_path = ROOT_DOMAIN . '/' . PUBLIC_UPLOAD_PATH . '/' . $year . '/' . $monthe . '/' . $info['image'];
+        $image_path = url_image($info['image'], PUBLIC_UPLOAD_PATH . '/' . $year . '/' . $monthe . '/');
         $info['image_path'] = $image_path;
         //end
 
@@ -208,8 +208,11 @@ class Auction extends MY_Controller
         $origin      = $this->input->post('origin');
         $tag         = $this->input->post('tag');                   // check db
         $update_time = date('Y-m-d H:i:s');
+        $create_time_set = $this->input->post('create_time_set'); // check time hợp lệ
 
         // TODO: validate dữ liệu submit
+        # check create_time_set
+        $create_time_set = strtotime($create_time_set) === false ? $info['create_time_set'] : $create_time_set;
         //END validate
 
         # nếu là ảnh mới thì copy ảnh
@@ -258,7 +261,7 @@ class Auction extends MY_Controller
         if ($image != '') {
             $slug       = create_slug($title);
             $content_db = htmlentities(htmlspecialchars($content)); // xss
-            $newid = $this->Articles_model->edit($status, $slug, $title, $image, $sapo, $content_db, $origin, $update_time, $id_article);
+            $newid = $this->Articles_model->edit($status, $slug, $title, $image, $sapo, $content_db, $origin, $update_time, $create_time_set, $id_article);
 
             if ($newid) {
                 # update tag

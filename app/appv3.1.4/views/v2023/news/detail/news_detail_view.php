@@ -176,7 +176,7 @@
                                 </a>
                             </div>
                             <div class="d-flex justify-content-between mt-2">
-                                <span class="text-secondary" style="font-size: 0.8rem;"><?= timeSince($bds['create_time_set']) ?> trước</span>
+                                <span class="text-secondary" style="font-size: 0.8rem;"><?= timeSince($bds['create_time_set_set']) ?> trước</span>
                                 <button data-id="<?php echo $bds['id_bds']; ?>" class="btn btn-heart btn-sm <?php echo in_array($bds['id_bds'], $hearts) ? 'btn-danger' : 'btn-outline-danger' ?>"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
@@ -304,7 +304,7 @@
                 for (const [id, val] of Object.entries(res)) {
 
                     //get date
-                    var date = new Date(val.create_time);
+                    var date = new Date(val.create_time_set);
                     var year = date.getFullYear();
                     var month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
                     var day = String(date.getDate()).padStart(2, '0');

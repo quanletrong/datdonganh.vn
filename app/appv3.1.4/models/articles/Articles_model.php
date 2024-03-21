@@ -43,7 +43,7 @@ class Articles_model extends CI_Model
         $sql = "
             SELECT A.* FROM tbl_articles as A
             $where 
-            ORDER BY A.id_articles DESC 
+            ORDER BY A.create_time_set DESC 
             LIMIT $limit OFFSET $offset";
 
         // var_dump($sql);die;

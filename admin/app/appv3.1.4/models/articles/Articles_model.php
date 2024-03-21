@@ -12,10 +12,10 @@ class Articles_model extends CI_Model
     {
         $new_id = 0;
         $iconn = $this->db->conn_id;
-        $sql = "INSERT INTO tbl_articles (status, type, slug, title, image, sapo, content, origin, is_hot, id_user, create_time, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_articles (status, type, slug, title, image, sapo, content, origin, is_hot, id_user, create_time, update_time, create_time_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $param = [$status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time, $create_time];
+            $param = [$status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time, $create_time, $create_time];
 
             if ($stmt->execute($param)) {
                 $new_id = $iconn->lastInsertId();
@@ -75,7 +75,7 @@ class Articles_model extends CI_Model
                         $row['image_path'] = '';
                         $year = date('Y', strtotime($row['create_time']));
                         $month = date('m', strtotime($row['create_time']));
-                        $row['image_path'] = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/' . $row['image'];
+                        $row['image_path'] = url_image($row['image'], PUBLIC_UPLOAD_PATH . $year . '/' . $month . '/');
                         $data[$row['id_articles']] = $row;
                     }
                 }
@@ -88,14 +88,14 @@ class Articles_model extends CI_Model
         return $data;
     }
 
-    function edit($status, $slug, $title, $image, $sapo, $content, $origin, $update_time, $id_article)
+    function edit($status, $slug, $title, $image, $sapo, $content, $origin, $update_time, $create_time_set, $id_article)
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "UPDATE tbl_articles SET status=?, slug=?, title=?, image=?, sapo=?, content=?, origin=?, update_time=? WHERE id_articles=?";
+        $sql = "UPDATE tbl_articles SET status=?, slug=?, title=?, image=?, sapo=?, content=?, origin=?, update_time=?, create_time_set=? WHERE id_articles=?";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
-            $param = [$status, $slug, $title, $image, $sapo, $content, $origin, $update_time, $id_article];
+            $param = [$status, $slug, $title, $image, $sapo, $content, $origin, $update_time, $create_time_set, $id_article];
 
             if ($stmt->execute($param)) {
                 $execute = true;
@@ -126,7 +126,8 @@ class Articles_model extends CI_Model
         return $execute;
     }
 
-    function update_status($status, $id_articles) {
+    function update_status($status, $id_articles)
+    {
         $execute = false;
         $iconn = $this->db->conn_id;
         $sql = "UPDATE tbl_articles SET status=$status WHERE id_articles = $id_articles ;";
@@ -143,5 +144,5 @@ class Articles_model extends CI_Model
         }
         $stmt->closeCursor();
         return $execute;
-    } 
+    }
 }
