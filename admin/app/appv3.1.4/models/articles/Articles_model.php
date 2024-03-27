@@ -12,7 +12,7 @@ class Articles_model extends CI_Model
     {
         $new_id = 0;
         $iconn = $this->db->conn_id;
-        $sql = "INSERT INTO tbl_articles (status, type, slug, title, image, sapo, content, origin, is_hot, id_user, create_time, update_time, create_time_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tbl_articles (`status`, `type`, slug, `title`, `image`, sapo, content, origin, is_hot, id_user, create_time, update_time, create_time_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             $param = [$status, $type, $slug, $title, $image, $sapo, $content, $origin, $is_hot, $id_user, $create_time, $create_time, $create_time];
@@ -92,7 +92,7 @@ class Articles_model extends CI_Model
     {
         $execute = false;
         $iconn = $this->db->conn_id;
-        $sql = "UPDATE tbl_articles SET status=?, slug=?, title=?, image=?, sapo=?, content=?, origin=?, update_time=?, create_time_set=? WHERE id_articles=?";
+        $sql = "UPDATE tbl_articles SET `status`=?, slug=?, `title`=?, `image`=?, sapo=?, content=?, origin=?, update_time=?, create_time_set=? WHERE id_articles=?";
         $stmt = $iconn->prepare($sql);
         if ($stmt) {
             $param = [$status, $slug, $title, $image, $sapo, $content, $origin, $update_time, $create_time_set, $id_article];
