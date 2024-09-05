@@ -40,7 +40,7 @@
                             <th class="text-center" style="min-width: 90px; width: 90px;">Loại đất</th>
                             <th class="text-center" style="min-width: 90px; width: 90px;">Ảnh</th>
                             <th class="text-right" style="min-width: 90px; width: 90px;">Lượt xem</th>
-                            <th class="text-center" style="width: fit-content;">Thao tác</th>
+                            <th class="text-center" style="min-width: 90px; width: 90px;">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,7 +90,7 @@
                                     <?= $cf_bds['type'][$bds['type']] ?>
                                 </td>
                                 <td class=" text-center  align-middle">
-                                    <img src="<?= $bds['main_img'] ?>" alt="" class="img-fluid">
+                                    <img alt="" class="img-fluid lazy" data-src='<?= $bds['main_img'] ?>'>
                                 </td>
                                 <td class="text-right  align-middle">
                                     <?= number_format($bds['view']) ?>
@@ -160,6 +160,9 @@
 </div>
 <script>
     $(function() {
+
+        $('.lazy').lazy();
+
         $('.select2').select2();
         $('.select2').on('change', function() {
             // if (this.value > 0) {

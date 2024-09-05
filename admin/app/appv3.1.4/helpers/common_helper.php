@@ -976,8 +976,16 @@ function resSuccess($data, $msg = '', $show_status = true)
 function fullPathImage($nameImage, $yearFolder, $monthFolder)
 {
 
-    $path = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $nameImage;
+    $CI = &get_instance();
+    if ($CI->config->item('cf_upload_local') == '') {
 
+        $root_domain = 'https://datdonganh.vn/';
+        $path = $root_domain . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $nameImage;
+
+    } else {
+        $path = ROOT_DOMAIN . PUBLIC_UPLOAD_PATH . $yearFolder . '/' . $monthFolder . '/' . $nameImage;
+    }
+    
     return $path;
 }
 

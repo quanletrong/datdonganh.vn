@@ -23,6 +23,9 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
+<!-- lazy -->
+<script src="js/v2023/jquery.lazy.min.js"></script>
+<script src="js/v2023/jquery.lazy.plugins.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- common js -->
