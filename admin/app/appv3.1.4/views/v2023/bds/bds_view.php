@@ -9,17 +9,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Quản lý bài đăng bất động sản</h1>
-                </div>
-                <div class="col-sm-6 ">
-                    <div class="float-sm-right">
-                        <a href="<?= site_url('bds/add') ?>" type="button" class="btn btn-primary">
-                            Đăng tin
-                        </a>
-                    </div>
-
+            <div style="display: flex; justify-content: space-between;">
+                <h1>Quản lý bất động sản</h1>
+                <div class="float-sm-right">
+                    <a href="<?= site_url('bds/add') ?>" type="button" class="btn btn-primary">
+                        Đăng tin
+                    </a>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -62,16 +57,29 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="dropdown">
-                                        <button class="btn dropdown-toggle" type="button" id="drop_change_vip_<?= $bds['id_bds'] ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <?php if ($bds['is_vip'] == '1') { ?>
+                                        <button class="btn dropdown-toggle" type="button" id="drop_loai_tin_<?= $bds['id_bds'] ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                            <?php if ($bds['status'] == 0) { ?>
+                                                <span class="badge bg-danger">TIN ĐANG HẠ</span>
+                                            <?php } else if ($bds['is_vip'] == '1') { ?>
                                                 <span class="badge bg-warning">TIN VIP</span>
-                                            <?php } else { ?>
+                                            <?php } else if ($bds['is_vip'] == '0') { ?>
                                                 <span class="badge bg-secondary">TIN THƯỜNG</span>
                                             <?php } ?>
+
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="drop_change_vip_<?= $bds['id_bds'] ?>">
-                                            <button class="dropdown-item" type="button" onclick="drop_change_vip(1, <?= $bds['id_bds'] ?>)">TIN VIP</button>
-                                            <button class="dropdown-item" type="button" onclick="drop_change_vip(0, <?= $bds['id_bds'] ?>)">TIN THƯỜNG</button>
+                                        <div class="dropdown-menu" aria-labelledby="drop_loai_tin_<?= $bds['id_bds'] ?>">
+
+                                            <?php if ($bds['status'] == 0) { ?>
+                                                <button class="dropdown-item" type="button" onclick="drop_khoi_phuc_tin(<?= $bds['id_bds'] ?>, <?= $bds['is_vip'] ?>)">KHÔI PHỤC TIN</button>
+                                            <?php } else { ?>
+                                                <button class="dropdown-item" type="button" onclick="drop_change_vip(1, <?= $bds['id_bds'] ?>)">TIN VIP</button>
+                                                <button class="dropdown-item" type="button" onclick="drop_change_vip(0, <?= $bds['id_bds'] ?>)">TIN THƯỜNG</button>
+                                                <button class="dropdown-item" type="button" onclick="drop_ha_tin(<?= $bds['id_bds'] ?>, <?= $bds['is_vip'] ?>)">HẠ TIN</button>
+                                            <?php } ?>
+
+                                            <button class="dropdown-item" type="button" onclick="drop_xoa_vinh_vien(<?= $bds['id_bds'] ?>)">XÓA VĨNH VIỄN</button>
+
                                         </div>
                                     </div>
                                 </td>
@@ -87,27 +95,11 @@
                                 <td class="text-right  align-middle">
                                     <?= number_format($bds['view']) ?>
                                 </td>
-                                <td class="text-center  align-middle">
-                                    <div class="d-flex align-items-center">
+                                <td class="text-center align-middle">
+                                    <div class="d-flex align-items-center justify-content-center">
                                         <a href="<?= site_url('bds/edit/' . $bds['id_bds']) ?>" class="mr-2" title="Sửa bài">
                                             <i class="fas fa-edit text-warning"></i>
                                         </a>
-
-                                        <!-- Nút lưu trữ -->
-                                        <?php if ($bds['status'] == '1') { ?>
-                                            <i class="fas fa-trash text-danger mr-2" style="cursor: pointer;" title="Thùng rác" onclick="on_change_status(this, 0, <?= $bds['id_bds'] ?>)"></i>
-                                        <?php } ?>
-
-
-                                        <!-- Nút khôi phục -->
-                                        <?php if ($bds['status'] == '0') { ?>
-                                            <i class="fas fa-trash-restore text-success mr-2" style="cursor: pointer;" title="Khôi phục" onclick="on_change_status(this, 1, <?= $bds['id_bds'] ?>)"></i>
-                                        <?php } ?>
-
-                                        <!-- Nút Xóa hoàn toàn -->
-                                        <?php if ($bds['status'] == '0') { ?>
-                                            <i class="fas fa-times-circle text-danger mr-2" style="cursor: pointer;" title="Xóa khỏi hệ thống" onclick="on_change_delete(this, <?= $bds['id_bds'] ?>)"></i>
-                                        <?php } ?>
 
                                         <a href="<?= ROOT_DOMAIN . $bds['slug_title'] . '-p' . $bds['id_bds'] ?>" title="Xem bài đăng" target="_blank">
                                             <i class="fas fa-external-link-square-alt"></i>
@@ -200,44 +192,11 @@
         });
     });
 
-    function on_change_status(e, new_status, id_bds) {
-        let text_confirm = "";
-        if (new_status) {
-            text_confirm = "Đưa tin này ra khỏi thùng rác. Người dùng sẽ nhìn thấy tin này"
-        } else {
-            text_confirm = "Chuyển tin này vào thùng rác! Người dùng sẽ không nhìn thấy tin này nữa. Bạn có thể khôi phục tin trong thùng rác.";
-        }
+    function drop_xoa_vinh_vien(id_bds) {
 
-        if (confirm(text_confirm) == true) {
-            $(e).removeClass('fa-trash fa-trash-restore').addClass('fa-sync fa-spin');
-            $.ajax({
-                type: "POST",
-                url: "<?= site_url('bds/ajax_update_status') ?>",
-                data: {
-                    'status': new_status,
-                    'id_bds': id_bds,
-                },
-                success: function(res) {
-                    try {
-                        let resData = JSON.parse(res);
-                        if (resData.status) {
-                            $(`#tr-${id_bds}`).remove();
-                            toasts_success(new_status ? 'Tin này đã được khôi phục' : 'Tin này đã chuyển vào thùng rác!');
-                        } else {
-                            toasts_danger(resData.data);
-                        }
-                    } catch (error) {
-                        toasts_danger();
-                    }
-                }
-            });
-        }
-    }
-
-    function on_change_delete(e, id_bds) {
-
-        if (confirm("Xóa khỏi hệ thống! Bạn không thể khôi phục tin đã xóa khỏi hệ thống.") == true) {
-            $(e).removeClass('fa-times-circle').addClass('fa-sync fa-spin');
+        if (confirm("Tin sẽ bị xóa vĩnh viễn khỏi hệ thống. Vẫn tiếp tục?") == true) {
+            let old_html = $('#drop_loai_tin_' + id_bds).html();
+            $('#drop_loai_tin_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
             $.ajax({
                 type: "POST",
                 url: "<?= site_url('bds/ajax_delete_bds') ?>",
@@ -249,9 +208,10 @@
                         let resData = JSON.parse(res);
                         if (resData.status) {
                             $(`#tr-${id_bds}`).remove();
-                            toasts_success('Tin này đã được xóa khỏi hệ thống.');
+                            toasts_success('Đã xóa vĩnh viễn.');
                         } else {
                             toasts_danger(resData.data);
+                            $('#drop_loai_tin_' + id_bds).html(old_html);
                         }
                     } catch (error) {
                         toasts_danger();
@@ -262,8 +222,8 @@
     }
 
     function drop_change_vip(vip, id_bds) {
-        let old_html = $('#drop_change_vip_' + id_bds).html();
-        $('#drop_change_vip_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
+        let old_html = $('#drop_loai_tin_' + id_bds).html();
+        $('#drop_loai_tin_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
 
         $.ajax({
             type: "POST",
@@ -278,20 +238,99 @@
                     if (resData.status) {
 
                         if (vip) {
-                            $('#drop_change_vip_' + id_bds).html('<span class="badge bg-warning">TIN VIP</span>');
+                            $('#drop_loai_tin_' + id_bds).html('<span class="badge bg-warning">TIN VIP</span>');
                         } else {
-                            $('#drop_change_vip_' + id_bds).html('<span class="badge bg-secondary">TIN THƯỜNG</span>');
+                            $('#drop_loai_tin_' + id_bds).html('<span class="badge bg-secondary">TIN THƯỜNG</span>');
 
                         }
                         toasts_success();
                     } else {
                         toasts_danger(resData.error);
-                        $('#drop_change_vip_' + id_bds).html(old_html);
+                        $('#drop_loai_tin_' + id_bds).html(old_html);
                     }
                 } catch (error) {
                     toasts_danger();
                 }
             }
         });
+    }
+
+    function drop_khoi_phuc_tin(id_bds, vip_thuong) {
+        if (confirm("Người dùng sẽ nhìn thấy tin này. Vẫn tiếp tục?") == true) {
+            let old_html = $('#drop_loai_tin_' + id_bds).html();
+            $('#drop_loai_tin_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
+
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('bds/ajax_update_status') ?>",
+                data: {
+                    'status': 1,
+                    'id_bds': id_bds,
+                },
+                success: function(res) {
+                    try {
+                        let resData = JSON.parse(res);
+                        if (resData.status) {
+
+                            if (vip_thuong) {
+                                $('#drop_loai_tin_' + id_bds).html('<span class="badge bg-warning">TIN VIP</span>');
+                            } else {
+                                $('#drop_loai_tin_' + id_bds).html('<span class="badge bg-secondary">TIN THƯỜNG</span>');
+                            }
+
+                            $(`#tr-${id_bds} .dropdown-menu`).html(`
+                            <button class="dropdown-item" type="button" onclick="drop_change_vip(1, ${id_bds})">TIN VIP</button>
+                            <button class="dropdown-item" type="button" onclick="drop_change_vip(0, ${id_bds})">TIN THƯỜNG</button>
+                            <button class="dropdown-item" type="button" onclick="drop_ha_tin(${id_bds}, ${vip_thuong})">HẠ TIN</button>
+                            <button class="dropdown-item" type="button" onclick="drop_xoa_vinh_vien(${id_bds})">XÓA VĨNH VIỄN</button>
+                        `);
+
+                        } else {
+                            toasts_danger(resData.error);
+                            $('#drop_loai_tin_' + id_bds).html(old_html);
+                        }
+                    } catch (error) {
+                        toasts_danger();
+                    }
+                }
+            });
+        }
+    }
+
+    function drop_ha_tin(id_bds, vip_thuong) {
+        if (confirm("Người dùng sẽ không nhìn thấy tin này nữa. Vẫn tiếp tục?") == true) {
+            let old_html = $('#drop_loai_tin_' + id_bds).html();
+            $('#drop_loai_tin_' + id_bds).html('<i class="fas fa-sync fa-spin "></i>');
+
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('bds/ajax_update_status') ?>",
+                data: {
+                    'status': 0,
+                    'id_bds': id_bds,
+                },
+                success: function(res) {
+                    try {
+                        let resData = JSON.parse(res);
+                        if (resData.status) {
+
+                            $('#drop_loai_tin_' + id_bds).html('<span class="badge bg-danger">TIN ĐANG HẠ</span>');
+
+                            $(`#tr-${id_bds} .dropdown-menu`).html(`
+                            <button class="dropdown-item" type="button" onclick="drop_khoi_phuc_tin(${id_bds}, ${vip_thuong})">KHÔI PHỤC TIN</button>
+                            <button class="dropdown-item" type="button" onclick="drop_xoa_vinh_vien(${id_bds})">XÓA VĨNH VIỄN</button>
+                        `);
+
+                        } else {
+                            toasts_danger(resData.error);
+                            $('#drop_loai_tin_' + id_bds).html(old_html);
+                        }
+                    } catch (error) {
+                        toasts_danger();
+                    }
+                }
+            });
+        }
+
     }
 </script>

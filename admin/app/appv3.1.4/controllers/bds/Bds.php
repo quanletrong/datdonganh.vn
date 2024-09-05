@@ -80,7 +80,8 @@ class Bds extends MY_Controller
         }
 
         // mặc định là trạng thái công khai
-        $status = $status == '' ? '1' : $status;
+        // $status = $status == '' ? '1' : $status;
+
 
         // neu la super admin thi cho xem all
         if ($this->_session_role() === SUPERADMIN) {
@@ -346,6 +347,7 @@ class Bds extends MY_Controller
         $contactemail    = $this->input->post('contactemail');    // check cf
         $tag             = $this->input->post('tag');             // check db
         $create_time_set = $this->input->post('create_time_set'); // check time hợp lệ
+        $ha_tin          = $this->input->post('ha_tin'); // check hạ tin hợp lệ
 
         // TODO: validate dữ liệu submit
         $price = floatval(str_replace(',', '', $price));
@@ -358,6 +360,7 @@ class Bds extends MY_Controller
             $price_m2 = $price;
         }
 
+        $status = $ha_tin == 'on' ? '0' : '1';
 
         # check create_time_set
         $create_time_set = strtotime($create_time_set) === false ? $info['create_time_set'] : $create_time_set;
@@ -391,7 +394,6 @@ class Bds extends MY_Controller
         if (!empty($image_db)) {
 
             // dữ liệu bổ sung
-            $status      = $info['status'];
             $id_user     = $info['id_user'];
             $slug_title  = create_slug($title);
             $maps        = '';

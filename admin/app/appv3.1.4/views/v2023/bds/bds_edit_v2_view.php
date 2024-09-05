@@ -517,6 +517,15 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between flex-wrap">
+                                        <div class="me-2 w-50" style="text-align: end;">
+                                            <label class="m-0 p-0 pr-1" for="ha_tin" >Hạ tin</label>
+                                        </div>
+                                        <input type="checkbox" id="ha_tin" name="ha_tin" <?=$info['status'] == '0' ? 'checked' : ''?>>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
