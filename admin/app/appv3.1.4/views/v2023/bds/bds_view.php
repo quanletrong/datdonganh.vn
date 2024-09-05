@@ -174,7 +174,7 @@
 
         $("#example1").DataTable({
             "paging": true,
-            "pageLength": 100,
+            "pageLength": 500,
             "lengthChange": false,
             "searching": false,
             "ordering": false,
