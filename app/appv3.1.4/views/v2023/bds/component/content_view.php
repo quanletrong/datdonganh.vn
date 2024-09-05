@@ -345,9 +345,8 @@
             // neu localStorage BDS_WATCHED == null thì set binh thuong
             let bds = {};
             bds[<?php echo $bdsInfo['id_bds'] ?>] = {
-                'title': '<?php echo $bdsInfo['title'] ?>',
+                'title': `<?php echo $bdsInfo['title'] ?>`,
                 'image_path': '<?php echo !empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
-                'title': '<?php echo $bdsInfo['title'] ?>',
                 'price_view': '<?php echo $bdsInfo['price_view'] ?>',
                 'price_unit': '<?php echo $bdsInfo['price_unit'] ?>',
                 'price_total': '<?php echo $bdsInfo['price_total']; ?>',
@@ -371,7 +370,7 @@
                 delete obj_bds_watched[id_bds_watched];
                 let bds = {
                     'image_path': '<?php echo !empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
-                    'title': '<?php echo $bdsInfo['title'] ?>',
+                    'title': `<?php echo $bdsInfo['title'] ?>`,
                     'price_view': '<?php echo $bdsInfo['price_view'] ?>',
                     'price_unit': '<?php echo $bdsInfo['price_unit'] ?>',
                     'price_total': '<?php echo $bdsInfo['price_total']; ?>',
@@ -395,7 +394,7 @@
 
                 let bds = {
                     'image_path': '<?php echo !empty($imgs) ? get_path_image($bdsInfo['create_time'], $imgs[1]) : "" ?>',
-                    'title': '<?php echo $bdsInfo['title'] ?>',
+                    'title': `<?php echo $bdsInfo['title'] ?>`,
                     'price_view': '<?php echo $bdsInfo['price_view'] ?>',
                     'price_unit': '<?php echo $bdsInfo['price_unit'] ?>',
                     'price_total': '<?php echo $bdsInfo['price_total']; ?>',
