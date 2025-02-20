@@ -185,7 +185,7 @@ class Bds_model extends CI_Model
         FROM tbl_bds 
         WHERE 
             id_user in (SELECT id_user FROM tbl_user WHERE role = $ADMIN) 
-            AND is_vip = 1 
+            AND is_vip = 1 AND status = 1
             ORDER BY create_time_set DESC 
             LIMIT $limit OFFSET $offset";
 
