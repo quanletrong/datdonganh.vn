@@ -361,6 +361,7 @@ class Bds extends MY_Controller
         }
 
         $status = $ha_tin == 'on' ? '0' : '1';
+        $is_vip = $ha_tin == 'on' ? '0' : $info['is_vip'];
 
         # check create_time_set
         $create_time_set = strtotime($create_time_set) === false ? $info['create_time_set'] : $create_time_set;
@@ -401,7 +402,7 @@ class Bds extends MY_Controller
             $images      = json_encode($image_db);
             $update_time = date('Y-m-d H:i:s');
 
-            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $info['is_vip'], $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time_set, $update_time);
+            $exc = $this->Bds_model->edit($id_bds, $id_commune_ward, $id_street, $id_project, $id_user, $category, $status, $type, $title, $slug_title, $address, $maps, $sapo, $content, $images, $videos, $price_total, $price_m2, $price_type, $acreage, $facades, $direction, $floor, $toilet, $bedroom, $noithat, $road_surface, $juridical, $is_vip, $contacttype, $contactname, $contactaddress, $contactphone, $contactemail, $create_time_set, $update_time);
 
             if ($exc) {
                 # update tag
@@ -478,9 +479,9 @@ class Bds extends MY_Controller
             }
         }
 
-        if($vip == BDS_VIP) {
+        if ($vip == BDS_VIP) {
             $total_vip = $this->Bds_model->get_total_vip_by_user(BDS_VIP, $info['id_user']);
-            if($total_vip >= 2) {
+            if ($total_vip >= 2) {
                 resError('Bạn chỉ được đặt tối đa 2 tin VIP');
             }
         }
